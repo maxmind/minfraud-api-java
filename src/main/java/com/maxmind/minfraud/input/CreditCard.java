@@ -1,7 +1,6 @@
 package com.maxmind.minfraud.input;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maxmind.minfraud.MinFraudRequest;
 import com.maxmind.minfraud.exception.InvalidInputException;
 
 /**
@@ -42,12 +41,12 @@ public class CreditCard {
 
     public final static class Builder {
         String issuerIdNumber;
-         String last4Digits;
-         String bankName;
-         String bankPhoneCountryCode;
-         String bankPhoneNumber;
-         char avsResult;
-         char cvvResult;
+        String last4Digits;
+        String bankName;
+        String bankPhoneCountryCode;
+        String bankPhoneNumber;
+        char avsResult;
+        char cvvResult;
 
         public Builder issuerIdNumber(String number) {
             if (!number.matches("[0-9]{6}")) {

@@ -1,6 +1,6 @@
 package com.maxmind.minfraud.exception;
 
-   import java.io.IOException;
+import java.io.IOException;
 import java.net.URL;
 
 /**

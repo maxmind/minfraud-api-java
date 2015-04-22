@@ -1,14 +1,13 @@
 package com.maxmind.minfraud.input;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maxmind.minfraud.MinFraudRequest;
 
 import java.net.InetAddress;
 
 /**
  * The device information for the transaction.
  */
-public class Device  {
+public class Device {
     @JsonProperty("ip_address")
     private InetAddress ipAddress;
 
@@ -26,7 +25,7 @@ public class Device  {
 
     public final static class Builder {
         InetAddress ipAddress;
-         String userAgent;
+        String userAgent;
         String acceptLanguage;
 
         public Builder ipAddress(InetAddress ip) {

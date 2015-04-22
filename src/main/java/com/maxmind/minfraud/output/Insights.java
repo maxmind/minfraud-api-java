@@ -1,12 +1,9 @@
 package com.maxmind.minfraud.output;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Arrays;
 
-// Temp
-@JsonIgnoreProperties({ "ip_location" })
 public class Insights extends Score {
     //  protected IpLocation ipLocation;
     @JsonProperty("credit_card")

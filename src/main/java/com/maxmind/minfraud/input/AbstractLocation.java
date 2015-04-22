@@ -1,7 +1,6 @@
 package com.maxmind.minfraud.input;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maxmind.minfraud.MinFraudRequest;
 
 /**
  * Shared behavior between Shipping and Billing
@@ -13,19 +12,25 @@ abstract class AbstractLocation {
     @JsonProperty("last_name")
     protected String lastName;
 
+    @JsonProperty
     protected String company;
 
+    @JsonProperty
     protected String address;
 
     @JsonProperty("address_2")
     protected String address2;
 
+    @JsonProperty
     protected String city;
 
+    @JsonProperty
     protected String region;
 
+    @JsonProperty
     protected String country;
 
+    @JsonProperty
     protected String postal;
 
     @JsonProperty("phone_number")
@@ -48,7 +53,7 @@ abstract class AbstractLocation {
         this.phoneCountryCode = builder.phoneCountryCode;
     }
 
-    public static class Builder<T extends Builder>  {
+    public static class Builder<T extends Builder> {
         String firstName;
         String lastName;
         String company;

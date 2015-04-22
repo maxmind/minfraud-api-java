@@ -1,7 +1,6 @@
 package com.maxmind.minfraud.input;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maxmind.minfraud.MinFraudRequest;
 
 /**
  * The payment information for the transaction.
@@ -18,32 +17,6 @@ public class Payment {
         this.processor = builder.processor;
         this.wasAuthorized = builder.wasAuthorized;
         this.declineCode = builder.declineCode;
-    }
-
-    public final static class Builder {
-         Processor processor;
-         boolean wasAuthorized;
-         String declineCode;
-
-        public Builder processor(Processor processor) {
-            this.processor = processor;
-            return this;
-        }
-
-        public Builder wasAuthorized(boolean wasAuthorized) {
-            this.wasAuthorized = wasAuthorized;
-            return this;
-        }
-
-        public Builder declineCode(String declineCode) {
-            this.declineCode = declineCode;
-            return this;
-        }
-
-
-        public Payment build() {
-            return new Payment(this);
-        }
     }
 
     public enum Processor {
@@ -114,8 +87,34 @@ public class Payment {
         VME,
         WORLDPAY;
 
-        public String toString(){
+        public String toString() {
             return name().toLowerCase();
+        }
+    }
+
+    public final static class Builder {
+        Processor processor;
+        boolean wasAuthorized;
+        String declineCode;
+
+        public Builder processor(Processor processor) {
+            this.processor = processor;
+            return this;
+        }
+
+        public Builder wasAuthorized(boolean wasAuthorized) {
+            this.wasAuthorized = wasAuthorized;
+            return this;
+        }
+
+        public Builder declineCode(String declineCode) {
+            this.declineCode = declineCode;
+            return this;
+        }
+
+
+        public Payment build() {
+            return new Payment(this);
         }
     }
 }

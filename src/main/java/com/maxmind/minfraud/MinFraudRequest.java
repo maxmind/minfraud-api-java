@@ -1,23 +1,8 @@
 package com.maxmind.minfraud;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.maxmind.minfraud.input.*;
-import com.maxmind.minfraud.output.Insights;
-import org.apache.http.HttpEntity;
-import org.apache.http.auth.AuthenticationException;
-import org.apache.http.auth.Credentials;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.auth.BasicScheme;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,16 +54,16 @@ public class MinFraudRequest {
     }
 
     public final static class Builder {
-         Account account;
-         Billing billing;
-         CreditCard creditCard;
-         Device device;
-         Email email;
-         Event event;
-         Order order;
-         Payment payment;
-         Shipping shipping;
-         List<ShoppingCartItem> shoppingCart = new ArrayList<>();
+        Account account;
+        Billing billing;
+        CreditCard creditCard;
+        Device device;
+        Email email;
+        Event event;
+        Order order;
+        Payment payment;
+        Shipping shipping;
+        List<ShoppingCartItem> shoppingCart = new ArrayList<>();
 
         public Builder() {
         }

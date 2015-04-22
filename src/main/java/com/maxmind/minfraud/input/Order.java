@@ -1,7 +1,6 @@
 package com.maxmind.minfraud.input;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maxmind.minfraud.MinFraudRequest;
 import com.maxmind.minfraud.exception.InvalidInputException;
 import org.apache.commons.validator.routines.UrlValidator;
 
@@ -13,6 +12,7 @@ import java.math.BigDecimal;
 public class Order {
     @JsonProperty("amount")
     private BigDecimal amount;
+    @JsonProperty
     private String currency;
     @JsonProperty("discount_code")
     private String discountCode;
@@ -54,12 +54,12 @@ public class Order {
             if (!code.matches("[A-Z]{3}")) {
                 throw new InvalidInputException("The currency code " + code + " is invalid.");
             }
-            this.currency = currency;
+            this.currency = code;
             return this;
         }
 
         public Builder discountCode(String code) {
-            this.discountCode = discountCode;
+            this.discountCode = code;
             return this;
         }
 

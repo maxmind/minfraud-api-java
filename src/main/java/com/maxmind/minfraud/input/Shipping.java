@@ -1,7 +1,6 @@
 package com.maxmind.minfraud.input;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maxmind.minfraud.MinFraudRequest;
 
 /**
  * The shipping information for the transaction.
@@ -15,6 +14,17 @@ public class Shipping extends AbstractLocation {
         this.deliverySpeed = builder.deliverySpeed;
     }
 
+    public enum DeliverySpeed {
+        SAME_DAY,
+        OVERNIGHT,
+        EXPEDITED,
+        STANDARD;
+
+        public String toString() {
+            return name().toLowerCase();
+        }
+    }
+
     public final static class Builder extends AbstractLocation.Builder<Builder> {
         DeliverySpeed deliverySpeed;
 
@@ -25,17 +35,6 @@ public class Shipping extends AbstractLocation {
 
         public Shipping build() {
             return new Shipping(this);
-        }
-    }
-
-    public enum DeliverySpeed {
-        SAME_DAY,
-        OVERNIGHT,
-        EXPEDITED,
-        STANDARD;
-
-        public String toString(){
-            return name().toLowerCase();
         }
     }
 }

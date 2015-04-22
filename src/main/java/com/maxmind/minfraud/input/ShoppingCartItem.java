@@ -1,7 +1,6 @@
 package com.maxmind.minfraud.input;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maxmind.minfraud.MinFraudRequest;
 import com.maxmind.minfraud.exception.InvalidInputException;
 
 import java.math.BigDecimal;

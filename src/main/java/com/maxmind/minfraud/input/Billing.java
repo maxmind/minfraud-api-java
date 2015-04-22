@@ -1,7 +1,5 @@
 package com.maxmind.minfraud.input;
 
-import com.maxmind.minfraud.MinFraudRequest;
-
 /**
  * The billing information for the transaction.
  */
@@ -11,8 +9,8 @@ public class Billing extends AbstractLocation {
     }
 
     public final static class Builder extends AbstractLocation.Builder<Builder> {
-       public Billing build() {
-           return new Billing(this);
-       }
+        public Billing build() {
+            return new Billing(this);
+        }
     }
 }
