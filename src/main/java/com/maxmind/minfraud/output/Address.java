@@ -1,5 +1,6 @@
 package com.maxmind.minfraud.output;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 abstract class Address {
@@ -14,6 +15,7 @@ abstract class Address {
     @JsonProperty("is_in_ip_country")
     protected Boolean isInIpCountry;
 
+    @JsonIgnore
     public Boolean isInIpCountry() {
         return this.isInIpCountry;
     }
@@ -26,6 +28,7 @@ abstract class Address {
         return this.distanceToIpLocation;
     }
 
+    @JsonIgnore
     public Boolean isPostalInCity() {
         return this.isPostalInCity;
     }
@@ -36,7 +39,7 @@ abstract class Address {
 
     @Override
     public String toString() {
-        return "Address{" +
+        return "AbstractAddress{" +
                 "isPostalInCity=" + isPostalInCity +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +

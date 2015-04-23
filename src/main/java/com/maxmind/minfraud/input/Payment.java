@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Payment {
     @JsonProperty("processor")
-    private final Processor processor;
+    private final Payment.Processor processor;
     @JsonProperty("was_authorized")
     private final boolean wasAuthorized;
     @JsonProperty("decline_code")
@@ -92,12 +92,24 @@ public class Payment {
         }
     }
 
+    public Payment.Processor getProcessor() {
+        return this.processor;
+    }
+
+    public boolean isWasAuthorized() {
+        return this.wasAuthorized;
+    }
+
+    public String getDeclineCode() {
+        return this.declineCode;
+    }
+
     public final static class Builder {
-        Processor processor;
+        Payment.Processor processor;
         boolean wasAuthorized;
         String declineCode;
 
-        public Builder processor(Processor processor) {
+        public Builder processor(Payment.Processor processor) {
             this.processor = processor;
             return this;
         }

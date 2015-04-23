@@ -1,6 +1,7 @@
 package com.maxmind.minfraud.input;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.minfraud.exception.InvalidInputException;
 
 /**
  * Shared behavior between Shipping and Billing
@@ -14,6 +15,50 @@ abstract class AbstractLocation {
 
     @JsonProperty
     protected String company;
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public String getCompany() {
+        return this.company;
+    }
+
+    public String getAddress() {
+        return this.address;
+    }
+
+    public String getAddress2() {
+        return this.address2;
+    }
+
+    public String getCity() {
+        return this.city;
+    }
+
+    public String getRegion() {
+        return this.region;
+    }
+
+    public String getCountry() {
+        return this.country;
+    }
+
+    public String getPostal() {
+        return this.postal;
+    }
+
+    public String getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    public String getPhoneCountryCode() {
+        return this.phoneCountryCode;
+    }
 
     @JsonProperty
     protected String address;
@@ -53,7 +98,7 @@ abstract class AbstractLocation {
         this.phoneCountryCode = builder.phoneCountryCode;
     }
 
-    public static class Builder<T extends Builder> {
+    public abstract static class Builder<T extends Builder> {
         String firstName;
         String lastName;
         String company;
@@ -102,6 +147,9 @@ abstract class AbstractLocation {
         }
 
         public T country(String code) {
+            if (!code.matches("[A-Z]{2}")) {
+                throw new InvalidInputException("Expected two-letter country code in the ISO 3166-1 alpha-2 format");
+            }
             this.country = code;
             return (T) this;
         }
@@ -120,5 +168,7 @@ abstract class AbstractLocation {
             this.phoneCountryCode = code;
             return (T) this;
         }
+
+        public abstract AbstractLocation build();
     }
 }

@@ -5,6 +5,7 @@ import com.maxmind.minfraud.exception.InvalidInputException;
 import org.apache.commons.validator.routines.UrlValidator;
 
 import java.math.BigDecimal;
+import java.net.URI;
 
 /**
  * The order information for the transaction.
@@ -21,7 +22,31 @@ public class Order {
     @JsonProperty("subaffiliate_id")
     private String subaffiliateId;
     @JsonProperty("referrer_uri")
-    private String referrerUri;
+    private URI referrerUri;
+
+    public URI getReferrerUri() {
+        return this.referrerUri;
+    }
+
+    public BigDecimal getAmount() {
+        return this.amount;
+    }
+
+    public String getCurrency() {
+        return this.currency;
+    }
+
+    public String getDiscountCode() {
+        return this.discountCode;
+    }
+
+    public String getAffiliateId() {
+        return this.affiliateId;
+    }
+
+    public String getSubaffiliateId() {
+        return this.subaffiliateId;
+    }
 
     public Order(Builder builder) {
         this.amount = builder.amount;
@@ -38,7 +63,7 @@ public class Order {
         String discountCode;
         String affiliateId;
         String subaffiliateId;
-        String referrerUri;
+        URI referrerUri;
 
         public Builder amount(BigDecimal amount) {
             this.amount = amount;
@@ -58,6 +83,10 @@ public class Order {
             return this;
         }
 
+        public BigDecimal getAmount() {
+            return this.amount;
+        }
+
         public Builder discountCode(String code) {
             this.discountCode = code;
             return this;
@@ -73,10 +102,7 @@ public class Order {
             return this;
         }
 
-        public Builder referrerUri(String uri) {
-            if (!UrlValidator.getInstance().isValid(uri)) {
-                throw new InvalidInputException("The referrer URI " + uri + " is invalid.");
-            }
+        public Builder referrerUri(URI uri) {
             this.referrerUri = uri;
             return this;
         }

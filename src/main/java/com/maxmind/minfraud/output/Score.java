@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Score {
     @JsonProperty("credits_remaining")
@@ -16,7 +18,7 @@ public class Score {
     @JsonProperty("risk_score")
     protected Double riskScore;
 
-    protected Warning[] warnings = new Warning[0];
+    protected List<Warning> warnings = new ArrayList<>();
 
     public Integer getCreditsRemaining() {
         return this.creditsRemaining;
@@ -30,8 +32,8 @@ public class Score {
         return this.riskScore;
     }
 
-    public Warning[] getWarnings() {
-        return this.warnings;
+    public List<Warning> getWarnings() {
+        return new ArrayList<>(this.warnings);
     }
 
     @Override
@@ -40,7 +42,7 @@ public class Score {
                 "creditsRemaining=" + creditsRemaining +
                 ", id='" + id + '\'' +
                 ", riskScore=" + riskScore +
-                ", warnings=" + Arrays.toString(warnings) +
+                ", warnings=" + warnings +
                 '}';
     }
 
@@ -53,6 +55,7 @@ public class Score {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+
         return mapper.writeValueAsString(this);
     }
 

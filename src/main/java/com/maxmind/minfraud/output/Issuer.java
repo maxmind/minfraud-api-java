@@ -18,7 +18,7 @@ public class Issuer {
         return this.name;
     }
 
-    public Boolean isMatchesProvidedName() {
+    public Boolean matchesProvidedName() {
         return this.matchesProvidedName;
     }
 
@@ -26,7 +26,7 @@ public class Issuer {
         return this.phoneNumber;
     }
 
-    public Boolean isMatchesProvidedPhoneNumber() {
+    public Boolean matchesProvidedPhoneNumber() {
         return this.matchesProvidedPhoneNumber;
     }
 

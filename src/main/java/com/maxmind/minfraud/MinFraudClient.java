@@ -3,6 +3,7 @@ package com.maxmind.minfraud;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.maxmind.minfraud.exception.*;
@@ -177,10 +178,12 @@ public class MinFraudClient {
                         + " but there was no message body.", 200, url);
             }
 
-            mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+             mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+            InjectableValues inject = new InjectableValues.Std().addValue(
+                    "locales", this.locales);
 
             try {
-                return mapper.readValue(response.getEntity().getContent(), cls);
+                return mapper.reader(cls).with(inject).readValue(response.getEntity().getContent());
             } catch (IOException e) {
                 throw new MinFraudException(
                         "Received a 200 response but not decode it as JSON", e);

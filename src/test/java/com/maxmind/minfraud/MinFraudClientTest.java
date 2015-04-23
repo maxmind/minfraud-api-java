@@ -1,10 +1,9 @@
-package com.maxmind.com.maxmind.minfraud;
+package com.maxmind.minfraud;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import com.maxmind.minfraud.MinFraudClient;
-import com.maxmind.minfraud.MinFraudRequest;
 import com.maxmind.minfraud.exception.MinFraudException;
 import com.maxmind.minfraud.input.*;
+import com.maxmind.minfraud.output.Insights;
 import com.maxmind.minfraud.output.Score;
 import org.json.JSONException;
 import org.junit.Rule;
@@ -12,10 +11,7 @@ import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -32,18 +28,26 @@ public class MinFraudClientTest {
     @Test
     public void fullScoreRequest() throws IOException, MinFraudException, ParseException, JSONException, URISyntaxException {
         String responseContent = readJsonFile("score-response");
-
-
         MinFraudClient client = createClient("score", responseContent);
-
         Score response = client.score(createFullRequest());
 
-
         JSONAssert.assertEquals(responseContent, response.toJson(), true);
-
         verifyRequestFor("score");
     }
 
+    @Test
+    public void fullInsightsRequest() throws IOException, MinFraudException, ParseException, JSONException, URISyntaxException {
+        String responseContent = readJsonFile("insights-response");
+        MinFraudClient client = createClient("insights", responseContent);
+        Insights response = client.insights(createFullRequest());
+
+        System.out.println(response.toJson());
+        // We use non-strict checking as there is some extra stuff in the serialized
+        // object, most notably the "name" field in the GeoIP2 Insights subobjects.
+        // We cannot change this as it would be a breaking change to the GeoIP2 API.
+        JSONAssert.assertEquals(responseContent, response.toJson(), false);
+        verifyRequestFor("insights");
+    }
 
     public MinFraudClient createClient(String service, String responseContent) throws IOException, MinFraudException {
 
@@ -63,7 +67,7 @@ public class MinFraudClientTest {
                 .build();
     }
 
-    public MinFraudRequest createFullRequest() throws UnknownHostException, ParseException {
+    public MinFraudRequest createFullRequest() throws UnknownHostException, ParseException, URISyntaxException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
         return new MinFraudRequest.Builder()
                 .event(
@@ -137,7 +141,7 @@ public class MinFraudClientTest {
                                 .discountCode("FIRST")
                                 .affiliateId("af12")
                                 .subaffiliateId("saf42")
-                                .referrerUri("http://www.amazon.com/")
+                                .referrerUri(new URI("http://www.amazon.com/"))
                                 .build()
                 ).addShoppingCartItem(
                         new ShoppingCartItem.Builder()

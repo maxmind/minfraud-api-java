@@ -18,6 +18,14 @@ public class Account {
         this.usernameMd5 = builder.usernameMd5;
     }
 
+    public String getUserId() {
+        return this.userId;
+    }
+
+    public String getUsernameMd5() {
+        return this.usernameMd5;
+    }
+
     public final static class Builder {
         String userId;
         String usernameMd5;

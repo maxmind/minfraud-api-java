@@ -1,15 +1,16 @@
 package com.maxmind.minfraud.output;
 
-public class GeoIp2Location //extends Location
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.geoip2.record.Location;
+
+public class GeoIp2Location extends Location
 {
-//    protected $validAttributes = array(
-//        'accuracyRadius',
-//        'latitude',
-//        'localTime',
-//        'longitude',
-//        'metroCode',
-//        'postalCode',
-//        'postalConfidence',
-//        'timeZone'
-//    );
+    @JsonProperty("local_time")
+    private String localTime;
+
+    // XXX - possibly switch to Joda DateTime. We can't
+    // return a j.u.Date object as that doesn't have the tz info
+    public String getLocalTime() {
+        return localTime;
+    }
 }

@@ -1,5 +1,6 @@
 package com.maxmind.minfraud.output;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ShippingAddress extends Address {
@@ -9,6 +10,7 @@ public class ShippingAddress extends Address {
     @JsonProperty("distance_to_billing_address")
     protected Integer distanceToBillingAddress;
 
+    @JsonIgnore
     public Boolean isHighRisk() {
         return this.isHighRisk;
     }

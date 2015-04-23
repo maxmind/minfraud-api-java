@@ -1,14 +1,30 @@
 package com.maxmind.minfraud.output;
 
-public class IpLocation {
-//    /**
-//     * @param array $response
-//     * @param array $locales
-//     */
-//    public function __construct($response, $locales = array('en'))
-//    {
-//        parent::__construct($response, $locales);
-//        $this->country = new GeoIp2Country($this->get('country'), $locales);
-//        $this->location = new GeoIp2Location($this->get('location'));
-//    }
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.geoip2.model.InsightsResponse;
+import com.maxmind.geoip2.record.City;
+import com.maxmind.geoip2.record.Location;
+
+public class IpLocation extends InsightsResponse {
+    @JsonProperty("country")
+    private final GeoIp2Country country = new GeoIp2Country();
+    @JsonProperty("location")
+    private final GeoIp2Location location = new GeoIp2Location();
+
+    /**
+     * @return Country record for the requested IP address. This object
+     * represents the country where MaxMind believes the end user is
+     * located.
+     */
+    public GeoIp2Country getCountry() {
+        return this.country;
+    }
+
+    /**
+     * @return Location record for the requested IP address.
+     */
+    public GeoIp2Location getLocation() {
+        return this.location;
+    }
+
 }

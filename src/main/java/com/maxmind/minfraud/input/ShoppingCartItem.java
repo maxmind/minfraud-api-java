@@ -65,5 +65,21 @@ public class ShoppingCartItem {
             return new ShoppingCartItem(this);
         }
     }
+
+    public String getCategory() {
+        return this.category;
+    }
+
+    public String getItemId() {
+        return this.itemId;
+    }
+
+    public int getQuantity() {
+        return this.quantity;
+    }
+
+    public BigDecimal getPrice() {
+        return this.price;
+    }
 }
 

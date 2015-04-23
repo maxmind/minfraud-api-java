@@ -17,6 +17,19 @@ public class Device {
     @JsonProperty("accept_language")
     private String acceptLanguage;
 
+    public String getUserAgent() {
+        return this.userAgent;
+    }
+
+    public String getAcceptLanguage() {
+        return this.acceptLanguage;
+    }
+
+    public InetAddress getIpAddress() {
+
+        return this.ipAddress;
+    }
+
     private Device(Builder builder) {
         this.ipAddress = builder.ipAddress;
         this.userAgent = builder.userAgent;

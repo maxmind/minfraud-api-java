@@ -1,5 +1,6 @@
 package com.maxmind.minfraud.output;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreditCard {
@@ -20,10 +21,12 @@ public class CreditCard {
         return this.country;
     }
 
+    @JsonIgnore
     public Boolean isIssuedInBillingAddressCountry() {
         return this.isIssuedInBillingAddressCountry;
     }
 
+    @JsonIgnore
     public Boolean isPrepaid() {
         return this.isPrepaid;
     }

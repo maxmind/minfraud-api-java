@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Arrays;
 
 public class Insights extends Score {
-    //  protected IpLocation ipLocation;
+    @JsonProperty("ip_location")
+    protected IpLocation ipLocation;
+
     @JsonProperty("credit_card")
     protected CreditCard creditCard = new CreditCard();
 
@@ -15,9 +17,9 @@ public class Insights extends Score {
     @JsonProperty("billing_address")
     protected BillingAddress billingAddress = new BillingAddress();
 
-//    public IpLocation getIpLocation() {
-//        return this.ipLocation;
-//    }
+    public IpLocation getIpLocation() {
+        return this.ipLocation;
+    }
 
 
     public CreditCard getCreditCard() {
@@ -42,7 +44,7 @@ public class Insights extends Score {
                 ", creditsRemaining=" + creditsRemaining +
                 ", id='" + id + '\'' +
                 ", riskScore=" + riskScore +
-                ", warnings=" + Arrays.toString(warnings) +
+                ", warnings=" + warnings +
                 '}';
     }
 }

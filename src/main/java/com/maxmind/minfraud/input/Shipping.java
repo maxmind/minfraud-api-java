@@ -7,11 +7,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Shipping extends AbstractLocation {
     @JsonProperty("delivery_speed")
-    private DeliverySpeed deliverySpeed;
+    private Shipping.DeliverySpeed deliverySpeed;
 
     private Shipping(Builder builder) {
         super(builder);
         this.deliverySpeed = builder.deliverySpeed;
+    }
+
+    public Shipping.DeliverySpeed getDeliverySpeed() {
+        return this.deliverySpeed;
     }
 
     public enum DeliverySpeed {
@@ -26,9 +30,9 @@ public class Shipping extends AbstractLocation {
     }
 
     public final static class Builder extends AbstractLocation.Builder<Builder> {
-        DeliverySpeed deliverySpeed;
+        Shipping.DeliverySpeed deliverySpeed;
 
-        public Builder deliverySpeed(DeliverySpeed speed) {
+        public Builder deliverySpeed(Shipping.DeliverySpeed speed) {
             this.deliverySpeed = speed;
             return this;
         }

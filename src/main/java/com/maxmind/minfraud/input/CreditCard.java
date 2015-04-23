@@ -23,11 +23,39 @@ public class CreditCard {
     @JsonProperty("bank_phone_number")
     private final String bankPhoneNumber;
 
+    public String getIssuerIdNumber() {
+        return this.issuerIdNumber;
+    }
+
+    public String getLast4Digits() {
+        return this.last4Digits;
+    }
+
+    public String getBankName() {
+        return this.bankName;
+    }
+
+    public String getBankPhoneCountryCode() {
+        return this.bankPhoneCountryCode;
+    }
+
+    public String getBankPhoneNumber() {
+        return this.bankPhoneNumber;
+    }
+
+    public Character getAvsResult() {
+        return this.avsResult;
+    }
+
+    public Character getCvvResult() {
+        return this.cvvResult;
+    }
+
     @JsonProperty("avs_result")
-    private final char avsResult;
+    private final Character avsResult;
 
     @JsonProperty("cvv_result")
-    private final char cvvResult;
+    private final Character cvvResult;
 
     private CreditCard(Builder builder) {
         this.issuerIdNumber = builder.issuerIdNumber;
@@ -45,8 +73,8 @@ public class CreditCard {
         String bankName;
         String bankPhoneCountryCode;
         String bankPhoneNumber;
-        char avsResult;
-        char cvvResult;
+        Character avsResult;
+        Character cvvResult;
 
         public Builder issuerIdNumber(String number) {
             if (!number.matches("[0-9]{6}")) {
@@ -79,12 +107,12 @@ public class CreditCard {
             return this;
         }
 
-        public Builder avsResult(char code) {
+        public Builder avsResult(Character code) {
             this.avsResult = code;
             return this;
         }
 
-        public Builder cvvResult(char code) {
+        public Builder cvvResult(Character code) {
             this.cvvResult = code;
             return this;
         }

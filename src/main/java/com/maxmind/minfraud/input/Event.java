@@ -1,14 +1,13 @@
 package com.maxmind.minfraud.input;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-/**
- * Created by greg on 4/20/15.
- */
 public class Event {
 
     @JsonProperty("transaction_id")
@@ -18,13 +17,18 @@ public class Event {
     @JsonProperty("time")
     private String time;
     @JsonProperty("type")
-    private Type type;
+    private Event.Type type;
+
+    @JsonIgnore
+    private SimpleDateFormat dateFormat;
+
 
     public Event(Builder builder) {
         this.transactionId = builder.transactionId;
         this.shopId = builder.shopId;
         this.time = builder.time;
         this.type = builder.type;
+        this.dateFormat = builder.dateFormat;
     }
 
     public enum Type {
@@ -40,11 +44,35 @@ public class Event {
         }
     }
 
+    public String getTransactionId() {
+        return this.transactionId;
+    }
+
+    public String getShopId() {
+        return this.shopId;
+    }
+
+    @JsonIgnore
+    public Date getTime() throws ParseException {
+        return dateFormat.parse(this.time);
+    }
+
+    public Event.Type getType() {
+        return this.type;
+    }
+
     public final static class Builder {
         String transactionId;
         String shopId;
         String time;
-        Type type;
+        Event.Type type;
+        SimpleDateFormat dateFormat;
+
+        public Builder() {
+            TimeZone tz = TimeZone.getTimeZone("UTC");
+            dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SS'Z'");
+            dateFormat.setTimeZone(tz);
+        }
 
         public Builder transactionId(String id) {
             transactionId = id;
@@ -57,14 +85,11 @@ public class Event {
         }
 
         public Builder time(Date date) {
-            TimeZone tz = TimeZone.getTimeZone("UTC");
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSXXX");
-            df.setTimeZone(tz);
-            this.time = df.format(date);
+            this.time = dateFormat.format(date);
             return this;
         }
 
-        public Builder type(Type type) {
+        public Builder type(Event.Type type) {
             this.type = type;
             return this;
         }

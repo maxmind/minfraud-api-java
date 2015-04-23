@@ -21,6 +21,14 @@ public class Email {
         this.domain = builder.domain;
     }
 
+    public String getAddress() {
+        return this.address;
+    }
+
+    public String getDomain() {
+        return this.domain;
+    }
+
     public final static class Builder {
         private String address;
         private String domain;

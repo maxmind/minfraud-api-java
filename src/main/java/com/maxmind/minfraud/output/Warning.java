@@ -1,22 +1,24 @@
 package com.maxmind.minfraud.output;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Warning {
     protected String code;
     protected String warning;
-    protected String[] input;
+    protected List<String> input;
 
     public String getCode() {
-        return this.code;
+        return code;
     }
 
     public String getWarning() {
-        return this.warning;
+        return warning;
     }
 
-    public String[] getInput() {
-        return this.input;
+    public List<String> getInput() {
+        return new ArrayList<>(input);
     }
 
     @Override
@@ -24,7 +26,7 @@ public class Warning {
         return "Warning{" +
                 "code='" + code + '\'' +
                 ", warning='" + warning + '\'' +
-                ", input=" + Arrays.toString(input) +
+                ", input=" + input +
                 '}';
     }
 }
