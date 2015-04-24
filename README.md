@@ -7,7 +7,7 @@ This is an early pre-release version. Don't use it.
 
 ```java
 
-MinFraudRequest mf = new MinFraudRequest.Builder()
+InsightsRequest request = new InsightsRequest.Builder()
         .device(new Device.Builder()
                 .ipAddress(InetAddress.getByName("1.1.1.1"))
                 .acceptLanguage("en-US")
@@ -98,8 +98,8 @@ MinFraudRequest mf = new MinFraudRequest.Builder()
                         .build()
         ).build();
 
-MinFraudClient client = new MinFraudClient.Builder(6, "1234567890").build();
+WebServiceClient client = new WebServiceClient.Builder(6, "1234567890").build();
 
 
-System.out.println(client.insights(mf));
+System.out.println(client.insights(request));
 ```
