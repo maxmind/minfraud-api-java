@@ -7,16 +7,64 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Payment {
     @JsonProperty("processor")
-    private final Payment.Processor processor;
+    private final Processor processor;
     @JsonProperty("was_authorized")
     private final boolean wasAuthorized;
     @JsonProperty("decline_code")
     private final String declineCode;
 
-    public Payment(Builder builder) {
-        this.processor = builder.processor;
-        this.wasAuthorized = builder.wasAuthorized;
-        this.declineCode = builder.declineCode;
+    public Payment(Payment.Builder builder) {
+        processor = builder.processor;
+        wasAuthorized = builder.wasAuthorized;
+        declineCode = builder.declineCode;
+    }
+
+    public static final class Builder {
+        Processor processor;
+        boolean wasAuthorized;
+        String declineCode;
+
+        public Payment.Builder processor(Processor processor) {
+            this.processor = processor;
+            return this;
+        }
+
+        public Payment.Builder wasAuthorized(boolean wasAuthorized) {
+            this.wasAuthorized = wasAuthorized;
+            return this;
+        }
+
+        public Payment.Builder declineCode(String declineCode) {
+            this.declineCode = declineCode;
+            return this;
+        }
+
+
+        public Payment build() {
+            return new Payment(this);
+        }
+    }
+
+    public final Processor getProcessor() {
+        return processor;
+    }
+
+    public final boolean wasAuthorized() {
+        return wasAuthorized;
+    }
+
+    public final String getDeclineCode() {
+        return declineCode;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Payment{");
+        sb.append("processor=").append(this.processor);
+        sb.append(", wasAuthorized=").append(this.wasAuthorized);
+        sb.append(", declineCode='").append(this.declineCode).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 
     public enum Processor {
@@ -88,45 +136,7 @@ public class Payment {
         WORLDPAY;
 
         public String toString() {
-            return name().toLowerCase();
-        }
-    }
-
-    public Payment.Processor getProcessor() {
-        return this.processor;
-    }
-
-    public boolean isWasAuthorized() {
-        return this.wasAuthorized;
-    }
-
-    public String getDeclineCode() {
-        return this.declineCode;
-    }
-
-    public final static class Builder {
-        Payment.Processor processor;
-        boolean wasAuthorized;
-        String declineCode;
-
-        public Builder processor(Payment.Processor processor) {
-            this.processor = processor;
-            return this;
-        }
-
-        public Builder wasAuthorized(boolean wasAuthorized) {
-            this.wasAuthorized = wasAuthorized;
-            return this;
-        }
-
-        public Builder declineCode(String declineCode) {
-            this.declineCode = declineCode;
-            return this;
-        }
-
-
-        public Payment build() {
-            return new Payment(this);
+            return this.name().toLowerCase();
         }
     }
 }

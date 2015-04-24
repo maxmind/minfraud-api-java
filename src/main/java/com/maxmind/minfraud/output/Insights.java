@@ -2,8 +2,6 @@ package com.maxmind.minfraud.output;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Arrays;
-
 public class Insights extends Score {
     @JsonProperty("ip_location")
     protected IpLocation ipLocation;
@@ -17,34 +15,31 @@ public class Insights extends Score {
     @JsonProperty("billing_address")
     protected BillingAddress billingAddress = new BillingAddress();
 
-    public IpLocation getIpLocation() {
-        return this.ipLocation;
+    public final IpLocation getIpLocation() {
+        return ipLocation;
     }
 
 
-    public CreditCard getCreditCard() {
-        return this.creditCard;
+    public final CreditCard getCreditCard() {
+        return creditCard;
     }
 
-    public ShippingAddress getShippingAddress() {
-        return this.shippingAddress;
+    public final ShippingAddress getShippingAddress() {
+        return shippingAddress;
     }
 
-    public BillingAddress getBillingAddress() {
-        return this.billingAddress;
+    public final BillingAddress getBillingAddress() {
+        return billingAddress;
     }
 
     @Override
     public String toString() {
-        return "Insights{" +
-//                "ipLocation=" + ipLocation +
-                ", creditCard=" + creditCard +
-                ", shippingAddress=" + shippingAddress +
-                ", billingAddress=" + billingAddress +
-                ", creditsRemaining=" + creditsRemaining +
-                ", id='" + id + '\'' +
-                ", riskScore=" + riskScore +
-                ", warnings=" + warnings +
-                '}';
+        StringBuilder sb = new StringBuilder("Insights{");
+        sb.append("ipLocation=").append(this.ipLocation);
+        sb.append(", creditCard=").append(this.creditCard);
+        sb.append(", shippingAddress=").append(this.shippingAddress);
+        sb.append(", billingAddress=").append(this.billingAddress);
+        sb.append('}');
+        return sb.toString();
     }
 }

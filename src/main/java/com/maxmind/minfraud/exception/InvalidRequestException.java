@@ -39,14 +39,14 @@ public class InvalidRequestException extends MinFraudException {
     /**
      * @return The error code returned by the MaxMind web service.
      */
-    public String getCode() {
-        return this.code;
+    public final String getCode() {
+        return code;
     }
 
     /**
      * @return the URL queried.
      */
-    public URL getUrl() {
-        return this.url;
+    public final URL getUrl() {
+        return url;
     }
 }

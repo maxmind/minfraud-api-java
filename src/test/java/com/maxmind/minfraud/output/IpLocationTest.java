@@ -11,7 +11,7 @@ public class IpLocationTest extends AbstractOutputTest {
     public void testIpLocation() throws Exception {
         String time = "2015-04-19T12:59:23-01:00";
 
-        IpLocation loc = deserialize(
+        IpLocation loc = this.deserialize(
                 IpLocation.class,
                 JSON.std
                         .composeString()
@@ -26,8 +26,8 @@ public class IpLocationTest extends AbstractOutputTest {
                         .finish()
         );
 
-        assertEquals(time, loc.getLocation().getLocalTime());
-        assertTrue(loc.getCountry().isHighRisk());
+        assertEquals("correct local time", time, loc.getLocation().getLocalTime());
+        assertTrue("isHighRisk", loc.getCountry().isHighRisk());
     }
 
 }

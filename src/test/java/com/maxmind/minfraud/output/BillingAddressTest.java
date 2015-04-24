@@ -3,13 +3,11 @@ package com.maxmind.minfraud.output;
 import com.fasterxml.jackson.jr.ob.JSON;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class BillingAddressTest extends AbstractAddressTest {
 
     @Test
     public void testBillingAddress() throws Exception {
-        BillingAddress address = deserialize(BillingAddress.class,
+        BillingAddress address = this.deserialize(BillingAddress.class,
                 JSON.std
                         .composeString()
                         .startObject()
@@ -22,6 +20,6 @@ public class BillingAddressTest extends AbstractAddressTest {
                         .finish()
         );
 
-        testAddress(address);
+        this.testAddress(address);
     }
 }

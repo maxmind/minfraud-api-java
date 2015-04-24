@@ -11,24 +11,90 @@ import java.util.TimeZone;
 public class Event {
 
     @JsonProperty("transaction_id")
-    private String transactionId;
+    private final String transactionId;
     @JsonProperty("shop_id")
-    private String shopId;
+    private final String shopId;
     @JsonProperty("time")
-    private String time;
+    private final String time;
     @JsonProperty("type")
-    private Event.Type type;
+    private final Type type;
 
     @JsonIgnore
-    private SimpleDateFormat dateFormat;
+    private final SimpleDateFormat dateFormat;
 
 
-    public Event(Builder builder) {
-        this.transactionId = builder.transactionId;
-        this.shopId = builder.shopId;
-        this.time = builder.time;
-        this.type = builder.type;
-        this.dateFormat = builder.dateFormat;
+    public Event(Event.Builder builder) {
+        transactionId = builder.transactionId;
+        shopId = builder.shopId;
+        time = builder.time;
+        type = builder.type;
+        dateFormat = builder.dateFormat;
+    }
+
+    public static final class Builder {
+        String transactionId;
+        String shopId;
+        String time;
+        Type type;
+        SimpleDateFormat dateFormat;
+
+        public Builder() {
+            TimeZone tz = TimeZone.getTimeZone("UTC");
+            this.dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SS'Z'");
+            this.dateFormat.setTimeZone(tz);
+        }
+
+        public Event.Builder transactionId(String id) {
+            this.transactionId = id;
+            return this;
+        }
+
+        public Event.Builder shopId(String id) {
+            this.shopId = id;
+            return this;
+        }
+
+        public Event.Builder time(Date date) {
+            time = this.dateFormat.format(date);
+            return this;
+        }
+
+        public Event.Builder type(Type type) {
+            this.type = type;
+            return this;
+        }
+
+        public Event build() {
+            return new Event(this);
+        }
+    }
+
+    public final String getTransactionId() {
+        return transactionId;
+    }
+
+    public final String getShopId() {
+        return shopId;
+    }
+
+    @JsonIgnore
+    public final Date getTime() throws ParseException {
+        return this.dateFormat.parse(time);
+    }
+
+    public final Type getType() {
+        return type;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Event{");
+        sb.append("transactionId='").append(this.transactionId).append('\'');
+        sb.append(", shopId='").append(this.shopId).append('\'');
+        sb.append(", time='").append(this.time).append('\'');
+        sb.append(", type=").append(this.type);
+        sb.append('}');
+        return sb.toString();
     }
 
     public enum Type {
@@ -40,62 +106,7 @@ public class Event {
         SURVEY;
 
         public String toString() {
-            return name().toLowerCase();
-        }
-    }
-
-    public String getTransactionId() {
-        return this.transactionId;
-    }
-
-    public String getShopId() {
-        return this.shopId;
-    }
-
-    @JsonIgnore
-    public Date getTime() throws ParseException {
-        return dateFormat.parse(this.time);
-    }
-
-    public Event.Type getType() {
-        return this.type;
-    }
-
-    public final static class Builder {
-        String transactionId;
-        String shopId;
-        String time;
-        Event.Type type;
-        SimpleDateFormat dateFormat;
-
-        public Builder() {
-            TimeZone tz = TimeZone.getTimeZone("UTC");
-            dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SS'Z'");
-            dateFormat.setTimeZone(tz);
-        }
-
-        public Builder transactionId(String id) {
-            transactionId = id;
-            return this;
-        }
-
-        public Builder shopId(String id) {
-            shopId = id;
-            return this;
-        }
-
-        public Builder time(Date date) {
-            this.time = dateFormat.format(date);
-            return this;
-        }
-
-        public Builder type(Event.Type type) {
-            this.type = type;
-            return this;
-        }
-
-        public Event build() {
-            return new Event(this);
+            return this.name().toLowerCase();
         }
     }
 }

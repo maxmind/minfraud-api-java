@@ -15,90 +15,38 @@ abstract class AbstractLocation {
 
     @JsonProperty
     protected String company;
-
-    public String getFirstName() {
-        return this.firstName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    public String getCompany() {
-        return this.company;
-    }
-
-    public String getAddress() {
-        return this.address;
-    }
-
-    public String getAddress2() {
-        return this.address2;
-    }
-
-    public String getCity() {
-        return this.city;
-    }
-
-    public String getRegion() {
-        return this.region;
-    }
-
-    public String getCountry() {
-        return this.country;
-    }
-
-    public String getPostal() {
-        return this.postal;
-    }
-
-    public String getPhoneNumber() {
-        return this.phoneNumber;
-    }
-
-    public String getPhoneCountryCode() {
-        return this.phoneCountryCode;
-    }
-
     @JsonProperty
     protected String address;
-
     @JsonProperty("address_2")
     protected String address2;
-
     @JsonProperty
     protected String city;
-
     @JsonProperty
     protected String region;
-
     @JsonProperty
     protected String country;
-
     @JsonProperty
     protected String postal;
-
     @JsonProperty("phone_number")
     protected String phoneNumber;
-
     @JsonProperty("phone_country_code")
     protected String phoneCountryCode;
 
-    public AbstractLocation(Builder builder) {
-        this.firstName = builder.firstName;
-        this.lastName = builder.lastName;
-        this.company = builder.company;
-        this.address = builder.address;
-        this.address2 = builder.address2;
-        this.city = builder.city;
-        this.region = builder.region;
-        this.country = builder.country;
-        this.postal = builder.postal;
-        this.phoneNumber = builder.phoneNumber;
-        this.phoneCountryCode = builder.phoneCountryCode;
+    public AbstractLocation(AbstractLocation.Builder builder) {
+        firstName = builder.firstName;
+        lastName = builder.lastName;
+        company = builder.company;
+        address = builder.address;
+        address2 = builder.address2;
+        city = builder.city;
+        region = builder.region;
+        country = builder.country;
+        postal = builder.postal;
+        phoneNumber = builder.phoneNumber;
+        phoneCountryCode = builder.phoneCountryCode;
     }
 
-    public abstract static class Builder<T extends Builder> {
+    public abstract static class Builder<T extends AbstractLocation.Builder> {
         String firstName;
         String lastName;
         String company;
@@ -111,64 +59,126 @@ abstract class AbstractLocation {
         String phoneNumber;
         String phoneCountryCode;
 
-        public T firstName(String name) {
-            this.firstName = name;
+        public final T firstName(String name) {
+            firstName = name;
             return (T) this;
         }
 
-        public T lastName(String name) {
-            this.lastName = name;
+        public final T lastName(String name) {
+            lastName = name;
             return (T) this;
         }
 
-        public T company(String name) {
-            this.company = name;
+        public final T company(String name) {
+            company = name;
             return (T) this;
         }
 
-        public T address(String address) {
+        public final T address(String address) {
             this.address = address;
             return (T) this;
         }
 
-        public T address2(String address2) {
+        public final T address2(String address2) {
             this.address2 = address2;
             return (T) this;
         }
 
-        public T city(String name) {
-            this.city = name;
+        public final T city(String name) {
+            city = name;
             return (T) this;
         }
 
-        public T region(String code) {
-            this.region = code;
+        public final T region(String code) {
+            region = code;
             return (T) this;
         }
 
-        public T country(String code) {
+        public final T country(String code) {
             if (!code.matches("[A-Z]{2}")) {
                 throw new InvalidInputException("Expected two-letter country code in the ISO 3166-1 alpha-2 format");
             }
-            this.country = code;
+            country = code;
             return (T) this;
         }
 
-        public T postal(String code) {
-            this.postal = code;
+        public final T postal(String code) {
+            postal = code;
             return (T) this;
         }
 
-        public T phoneNumber(String number) {
-            this.phoneNumber = number;
+        public final T phoneNumber(String number) {
+            phoneNumber = number;
             return (T) this;
         }
 
-        public T phoneCountryCode(String code) {
-            this.phoneCountryCode = code;
+        public final T phoneCountryCode(String code) {
+            phoneCountryCode = code;
             return (T) this;
         }
 
         public abstract AbstractLocation build();
+    }
+
+    public final String getFirstName() {
+        return firstName;
+    }
+
+    public final String getLastName() {
+        return lastName;
+    }
+
+    public final String getCompany() {
+        return company;
+    }
+
+    public final String getAddress() {
+        return address;
+    }
+
+    public final String getAddress2() {
+        return address2;
+    }
+
+    public final String getCity() {
+        return city;
+    }
+
+    public final String getRegion() {
+        return region;
+    }
+
+    public final String getCountry() {
+        return country;
+    }
+
+    public final String getPostal() {
+        return postal;
+    }
+
+    public final String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public final String getPhoneCountryCode() {
+        return phoneCountryCode;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("AbstractLocation{");
+        sb.append("firstName='").append(this.firstName).append('\'');
+        sb.append(", lastName='").append(this.lastName).append('\'');
+        sb.append(", company='").append(this.company).append('\'');
+        sb.append(", address='").append(this.address).append('\'');
+        sb.append(", address2='").append(this.address2).append('\'');
+        sb.append(", city='").append(this.city).append('\'');
+        sb.append(", region='").append(this.region).append('\'');
+        sb.append(", country='").append(this.country).append('\'');
+        sb.append(", postal='").append(this.postal).append('\'');
+        sb.append(", phoneNumber='").append(this.phoneNumber).append('\'');
+        sb.append(", phoneCountryCode='").append(this.phoneCountryCode).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -11,7 +11,7 @@ public class IssuerTest extends AbstractOutputTest {
     public void testIpLocation() throws Exception {
         String phone = "132-342-2131";
 
-           Issuer issuer = deserialize(
+           Issuer issuer = this.deserialize(
                 Issuer.class,
                 JSON.std
                         .composeString()
@@ -24,9 +24,9 @@ public class IssuerTest extends AbstractOutputTest {
                         .finish()
         );
 
-        assertEquals("Bank", issuer.getName());
-        assertTrue(issuer.matchesProvidedName());
-        assertEquals(phone, issuer.getPhoneNumber());
-        assertTrue(issuer.matchesProvidedPhoneNumber());
+        assertEquals("bank name", "Bank", issuer.getName());
+        assertTrue("provided name matches", issuer.matchesProvidedName());
+        assertEquals("phone", phone, issuer.getPhoneNumber());
+        assertTrue("provided phone matches", issuer.matchesProvidedPhoneNumber());
     }
 }

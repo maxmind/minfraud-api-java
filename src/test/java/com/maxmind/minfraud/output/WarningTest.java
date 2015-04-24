@@ -15,7 +15,7 @@ public class WarningTest extends AbstractOutputTest {
         String code = "INVALID_INPUT";
         String msg = "Input invalid";
 
-        Warning warning = deserialize(
+        Warning warning = this.deserialize(
                 Warning.class,
                 JSON.std
                         .composeString()
@@ -30,9 +30,10 @@ public class WarningTest extends AbstractOutputTest {
                         .finish()
         );
 
-        assertEquals(code, warning.getCode());
-        assertEquals(msg, warning.getWarning());
+        assertEquals("code", code, warning.getCode());
+        assertEquals("warning message", msg, warning.getWarning());
         assertEquals(
+                "input list",
                 new ArrayList<>(Arrays.asList("first", "second")),
                 warning.getInput()
         );

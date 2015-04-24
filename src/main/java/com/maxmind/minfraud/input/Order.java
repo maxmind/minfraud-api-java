@@ -2,7 +2,6 @@ package com.maxmind.minfraud.input;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.exception.InvalidInputException;
-import org.apache.commons.validator.routines.UrlValidator;
 
 import java.math.BigDecimal;
 import java.net.URI;
@@ -12,52 +11,28 @@ import java.net.URI;
  */
 public class Order {
     @JsonProperty("amount")
-    private BigDecimal amount;
+    private final BigDecimal amount;
     @JsonProperty
-    private String currency;
+    private final String currency;
     @JsonProperty("discount_code")
-    private String discountCode;
+    private final String discountCode;
     @JsonProperty("affiliate_id")
-    private String affiliateId;
+    private final String affiliateId;
     @JsonProperty("subaffiliate_id")
-    private String subaffiliateId;
+    private final String subaffiliateId;
     @JsonProperty("referrer_uri")
-    private URI referrerUri;
+    private final URI referrerUri;
 
-    public URI getReferrerUri() {
-        return this.referrerUri;
+    public Order(Order.Builder builder) {
+        amount = builder.amount;
+        currency = builder.currency;
+        discountCode = builder.discountCode;
+        affiliateId = builder.affiliateId;
+        subaffiliateId = builder.subaffiliateId;
+        referrerUri = builder.referrerUri;
     }
 
-    public BigDecimal getAmount() {
-        return this.amount;
-    }
-
-    public String getCurrency() {
-        return this.currency;
-    }
-
-    public String getDiscountCode() {
-        return this.discountCode;
-    }
-
-    public String getAffiliateId() {
-        return this.affiliateId;
-    }
-
-    public String getSubaffiliateId() {
-        return this.subaffiliateId;
-    }
-
-    public Order(Builder builder) {
-        this.amount = builder.amount;
-        this.currency = builder.currency;
-        this.discountCode = builder.discountCode;
-        this.affiliateId = builder.affiliateId;
-        this.subaffiliateId = builder.subaffiliateId;
-        this.referrerUri = builder.referrerUri;
-    }
-
-    public final static class Builder {
+    public static final class Builder {
         BigDecimal amount;
         String currency;
         String discountCode;
@@ -65,50 +40,87 @@ public class Order {
         String subaffiliateId;
         URI referrerUri;
 
-        public Builder amount(BigDecimal amount) {
+        public Order.Builder amount(BigDecimal amount) {
             this.amount = amount;
             return this;
         }
 
-        public Builder amount(Double amount) {
-            this.amount = BigDecimal.valueOf(amount);
+        public Order.Builder amount(Double amount) {
+            this.amount = BigDecimal.valueOf(amount.doubleValue());
             return this;
         }
 
-        public Builder currency(String code) {
+        public Order.Builder currency(String code) {
             if (!code.matches("[A-Z]{3}")) {
                 throw new InvalidInputException("The currency code " + code + " is invalid.");
             }
-            this.currency = code;
+            currency = code;
             return this;
         }
 
         public BigDecimal getAmount() {
-            return this.amount;
+            return amount;
         }
 
-        public Builder discountCode(String code) {
-            this.discountCode = code;
+        public Order.Builder discountCode(String code) {
+            discountCode = code;
             return this;
         }
 
-        public Builder affiliateId(String id) {
-            this.affiliateId = id;
+        public Order.Builder affiliateId(String id) {
+            affiliateId = id;
             return this;
         }
 
-        public Builder subaffiliateId(String id) {
-            this.subaffiliateId = id;
+        public Order.Builder subaffiliateId(String id) {
+            subaffiliateId = id;
             return this;
         }
 
-        public Builder referrerUri(URI uri) {
-            this.referrerUri = uri;
+        public Order.Builder referrerUri(URI uri) {
+            referrerUri = uri;
             return this;
         }
 
         public Order build() {
             return new Order(this);
         }
+    }
+
+    public final URI getReferrerUri() {
+        return referrerUri;
+    }
+
+    public final BigDecimal getAmount() {
+        return amount;
+    }
+
+    public final String getCurrency() {
+        return currency;
+    }
+
+    public final String getDiscountCode() {
+        return discountCode;
+    }
+
+    public final String getAffiliateId() {
+        return affiliateId;
+    }
+
+    public final String getSubaffiliateId() {
+        return subaffiliateId;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Order{");
+        sb.append("amount=").append(this.amount);
+        sb.append(", currency='").append(this.currency).append('\'');
+        sb.append(", discountCode='").append(this.discountCode).append('\'');
+        sb.append(", affiliateId='").append(this.affiliateId).append('\'');
+        sb.append(", subaffiliateId='").append(this.subaffiliateId).append('\'');
+        sb.append(", referrerUri=").append(this.referrerUri);
+        sb.append('}');
+        return sb.toString();
     }
 }

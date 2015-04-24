@@ -10,7 +10,7 @@ public class ScoreTest extends AbstractOutputTest {
     @Test
     public void testScore() throws Exception {
         String id = "b643d445-18b2-4b9d-bad4-c9c4366e402a";
-        Score score = deserialize(
+        Score score = this.deserialize(
                 Insights.class,
                 JSON.std
                         .composeString()
@@ -27,9 +27,9 @@ public class ScoreTest extends AbstractOutputTest {
                         .finish()
         );
 
-        assertEquals(id, score.getId());
-        assertEquals(Integer.valueOf(123), score.getCreditsRemaining());
-        assertEquals(Double.valueOf(0.01), score.getRiskScore());
-        assertEquals("INVALID_INPUT", score.getWarnings().get(0).getCode());
+        assertEquals("id", id, score.getId());
+        assertEquals("credits remaining", Integer.valueOf(123), score.getCreditsRemaining());
+        assertEquals("risk score", Double.valueOf(0.01), score.getRiskScore());
+        assertEquals("warning code", "INVALID_INPUT", score.getWarnings().get(0).getCode());
     }
 }

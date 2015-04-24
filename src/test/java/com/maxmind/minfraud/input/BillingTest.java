@@ -1,13 +1,11 @@
 package com.maxmind.minfraud.input;
 
-import org.junit.Test;
 
-import static org.junit.Assert.*;
-
+import com.maxmind.minfraud.input.Billing.Builder;
 
 public class BillingTest extends AbstractLocationTest {
 
-    Billing.Builder builder() {
-        return new Billing.Builder();
+    Builder builder() {
+        return new Builder();
     }
 }

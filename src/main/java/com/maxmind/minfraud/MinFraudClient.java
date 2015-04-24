@@ -1,9 +1,11 @@
 package com.maxmind.minfraud;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.InjectableValues;
+import com.fasterxml.jackson.databind.InjectableValues.Std;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.maxmind.minfraud.exception.*;
@@ -27,16 +29,13 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Client for MaxMind minFraud Score and Insights
  */
 public class MinFraudClient {
-    private final String pathBase = "/minfraud/v2.0/";
+    private static final String pathBase = "/minfraud/v2.0/";
 
     private final String host;
     private final int port;
@@ -47,16 +46,126 @@ public class MinFraudClient {
     private final int readTimeout;
     private final int userId;
 
-    // REFACTOR ALL OF THIS. Builder?
-    private MinFraudClient(Builder builder) {
-        this.host = builder.host;
-        this.port = builder.port;
-        this.useHttps = builder.useHttps;
-        this.locales = builder.locales;
-        this.licenseKey = builder.licenseKey;
-        this.connectTimeout = builder.connectTimeout;
-        this.readTimeout = builder.readTimeout;
-        this.userId = builder.userId;
+    private MinFraudClient(MinFraudClient.Builder builder) {
+        host = builder.host;
+        port = builder.port;
+        useHttps = builder.useHttps;
+        locales = builder.locales;
+        licenseKey = builder.licenseKey;
+        connectTimeout = builder.connectTimeout;
+        readTimeout = builder.readTimeout;
+        userId = builder.userId;
+    }
+
+    /**
+     * <p>
+     * {@code Builder} creates instances of {@code MinFraudClient}
+     * from values set by the methods.
+     * </p>
+     * <p>
+     * This example shows how to create a {@code MinFraudClient} object
+     * with the {@code Builder}:
+     * </p>
+     * <p>
+     * MinFraudClient client = new
+     * MinFraudClient.Builder(12,"licensekey").host
+     * ("geoip.maxmind.com").build();
+     * </p>
+     * <p>
+     * Only the values set in the {@code Builder} constructor are required.
+     * </p>
+     */
+    public static final class Builder {
+        final int userId;
+        final String licenseKey;
+
+        String host = "minfraud.maxmind.com";
+        int port = 443;
+        boolean useHttps = true;
+
+        int connectTimeout = 3000;
+        int readTimeout = 20000;
+
+        List<String> locales = Collections.singletonList("en");
+
+        /**
+         * @param userId     Your MaxMind user ID.
+         * @param licenseKey Your MaxMind license key.
+         */
+        public Builder(int userId, String licenseKey) {
+            this.userId = userId;
+            this.licenseKey = licenseKey;
+        }
+
+        /**
+         * @param val Timeout in milliseconds to establish a connection to the
+         *            web service. The default is 3000 (3 seconds).
+         * @return Builder object
+         */
+        public MinFraudClient.Builder connectTimeout(int val) {
+            connectTimeout = val;
+            return this;
+        }
+
+        /**
+         * Disables HTTPS to connect to a test server or proxy. The minFraud Score and Insights web services require
+         * HTTPS.
+         *
+         * @return Builder object
+         */
+        public MinFraudClient.Builder disableHttps() {
+            useHttps = false;
+            return this;
+        }
+
+
+        /**
+         * @param val The host to use.
+         * @return Builder object
+         */
+        public MinFraudClient.Builder host(String val) {
+            host = val;
+            return this;
+        }
+
+        /**
+         * @param val The port to use.
+         * @return Builder object
+         */
+        public MinFraudClient.Builder port(int val) {
+            port = val;
+            return this;
+        }
+
+
+        /**
+         * @param val List of locale codes to use in name property from most
+         *            preferred to least preferred.
+         * @return Builder object
+         */
+        public MinFraudClient.Builder locales(List<String> val) {
+            locales = new ArrayList<>(val);
+            return this;
+        }
+
+        /**
+         * @param val readTimeout in milliseconds to read data from an
+         *            established connection to the web service. The default is
+         *            20000 (20 seconds).
+         * @return Builder object
+         */
+        public MinFraudClient.Builder readTimeout(int val) {
+            readTimeout = val;
+            return this;
+        }
+
+        /**
+         * @return an instance of {@code MinFraudClient} created from the
+         * fields set on this builder.
+         */
+        public MinFraudClient build() {
+            return new MinFraudClient(this);
+        }
     }
 
     private static void handle4xxStatus(HttpResponse response, URL url)
@@ -65,7 +174,7 @@ public class MinFraudClient {
         HttpEntity entity = response.getEntity();
         int status = response.getStatusLine().getStatusCode();
 
-        if (entity.getContentLength() <= 0) {
+        if (entity.getContentLength() <= 0L) {
             throw new HttpException("Received a " + status + " error for "
                     + url + " with no body", status, url);
         }
@@ -78,7 +187,7 @@ public class MinFraudClient {
             content = mapper.readValue(body,
                     new TypeReference<HashMap<String, String>>() {
                     });
-            handleErrorWithJsonBody(content, body, status, url);
+            MinFraudClient.handleErrorWithJsonBody(content, body, status, url);
         } catch (HttpException e) {
             throw e;
         } catch (IOException e) {
@@ -112,26 +221,24 @@ public class MinFraudClient {
         }
     }
 
-    public Insights insights(MinFraudRequest request) throws IOException, MinFraudException {
-        return responseFor("insights", request, Insights.class);
+    public final Insights insights(MinFraudRequest request) throws IOException, MinFraudException {
+        return this.responseFor("insights", request, Insights.class);
     }
 
-    public Score score(MinFraudRequest request) throws IOException, MinFraudException {
-        return responseFor("score", request, Score.class);
+    public final Score score(MinFraudRequest request) throws IOException, MinFraudException {
+        return this.responseFor("score", request, Score.class);
     }
 
     private <T> T responseFor(String service, MinFraudRequest mfRequest, Class<T> cls)
             throws IOException, MinFraudException {
-        URL url = this.createUrl(pathBase + service);
+        URL url = createUrl(MinFraudClient.pathBase + service);
 
         RequestConfig config = RequestConfig.custom()
-                .setConnectTimeout(connectTimeout)
-                .setSocketTimeout(readTimeout)
+                .setConnectTimeout(this.connectTimeout)
+                .setSocketTimeout(this.readTimeout)
                 .build();
 
-        CloseableHttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
-
-        Credentials credentials = new UsernamePasswordCredentials(Integer.toString(this.userId), this.licenseKey);
+        Credentials credentials = new UsernamePasswordCredentials(Integer.toString(userId), licenseKey);
 
         HttpPost request;
         try {
@@ -145,11 +252,11 @@ public class MinFraudClient {
             throw new AuthenticationException("Error setting up request authentication", e);
         }
         request.addHeader("Accept", "application/json");
-        request.addHeader("User-Agent", userAgent());
+        request.addHeader("User-Agent", this.userAgent());
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+        mapper.setSerializationInclusion(Include.NON_NULL);
+        mapper.setSerializationInclusion(Include.NON_EMPTY);
         mapper.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
 
         String requestBody = mapper.writeValueAsString(mfRequest);
@@ -159,11 +266,13 @@ public class MinFraudClient {
 
         request.setEntity(input);
 
-        try (CloseableHttpResponse response = httpClient.execute(request)) {
+        try (
+                CloseableHttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+                CloseableHttpResponse response = httpClient.execute(request)) {
             int status = response.getStatusLine().getStatusCode();
-            if ((status >= 400) && (status < 500)) {
-                handle4xxStatus(response, url);
-            } else if ((status >= 500) && (status < 600)) {
+            if (status >= 400 && status < 500) {
+                MinFraudClient.handle4xxStatus(response, url);
+            } else if (status >= 500 && status < 600) {
                 throw new HttpException("Received a server error (" + status
                         + ") for " + url, status, url);
             } else if (status != 200) {
@@ -173,14 +282,14 @@ public class MinFraudClient {
 
             HttpEntity entity = response.getEntity();
 
-            if (entity.getContentLength() <= 0) {
+            if (entity.getContentLength() <= 0L) {
                 throw new HttpException("Received a 200 response for " + url
                         + " but there was no message body.", 200, url);
             }
 
-             mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-            InjectableValues inject = new InjectableValues.Std().addValue(
-                    "locales", this.locales);
+            mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+            InjectableValues inject = new Std().addValue(
+                    "locales", locales);
 
             try {
                 return mapper.reader(cls).with(inject).readValue(response.getEntity().getContent());
@@ -196,9 +305,9 @@ public class MinFraudClient {
     private URL createUrl(String path) throws MinFraudException {
         try {
             return new URIBuilder()
-                    .setScheme(useHttps ? "https" : "http")
-                    .setHost(host)
-                    .setPort(port)
+                    .setScheme(this.useHttps ? "https" : "http")
+                    .setHost(this.host)
+                    .setPort(this.port)
                     .setPath(path)
                     .build().toURL();
         } catch (MalformedURLException | URISyntaxException e) {
@@ -208,117 +317,21 @@ public class MinFraudClient {
 
     private String userAgent() {
         return "MaxMind minFraud Client v"
-                + this.getClass().getPackage().getImplementationVersion();
+                + getClass().getPackage().getImplementationVersion();
     }
 
-    /**
-     * <p>
-     * <code>Builder</code> creates instances of <code>MinFraudClient</code>
-     * from values set by the methods.
-     * </p>
-     * <p>
-     * This example shows how to create a <code>MinFraudClient</code> object
-     * with the <code>Builder</code>:
-     * </p>
-     * <p>
-     * MinFraudClient client = new
-     * MinFraudClient.Builder(12,"licensekey").host
-     * ("geoip.maxmind.com").build();
-     * </p>
-     * <p>
-     * Only the values set in the <code>Builder</code> constructor are required.
-     * </p>
-     */
-    public final static class Builder {
-        final int userId;
-        final String licenseKey;
-
-        String host = "minfraud.maxmind.com";
-        int port = 443;
-        boolean useHttps = true;
-
-        int connectTimeout = 3000;
-        int readTimeout = 20000;
-
-        List<String> locales = Arrays.asList("en");
-
-        /**
-         * @param userId     Your MaxMind user ID.
-         * @param licenseKey Your MaxMind license key.
-         */
-        public Builder(int userId, String licenseKey) {
-            this.userId = userId;
-            this.licenseKey = licenseKey;
-        }
-
-        /**
-         * @param val Timeout in milliseconds to establish a connection to the
-         *            web service. The default is 3000 (3 seconds).
-         * @return Builder object
-         */
-        public Builder connectTimeout(int val) {
-            this.connectTimeout = val;
-            return this;
-        }
-
-        /**
-         * Disables HTTPS to connect to a test server or proxy. The minFraud Score and Insights web services require
-         * HTTPS.
-         *
-         * @return Builder object
-         */
-        public Builder disableHttps() {
-            this.useHttps = false;
-            return this;
-        }
-
-
-        /**
-         * @param val The host to use.
-         * @return Builder object
-         */
-        public Builder host(String val) {
-            this.host = val;
-            return this;
-        }
-
-        /**
-         * @param val The port to use.
-         * @return Builder object
-         */
-        public Builder port(int val) {
-            this.port = val;
-            return this;
-        }
-
-
-        /**
-         * @param val List of locale codes to use in name property from most
-         *            preferred to least preferred.
-         * @return Builder object
-         */
-        public Builder locales(List<String> val) {
-            this.locales = val;
-            return this;
-        }
-
-        /**
-         * @param val readTimeout in milliseconds to read data from an
-         *            established connection to the web service. The default is
-         *            20000 (20 seconds).
-         * @return Builder object
-         */
-        public Builder readTimeout(int val) {
-            this.readTimeout = val;
-            return this;
-        }
-
-        /**
-         * @return an instance of <code>MinFraudClient</code> created from the
-         * fields set on this builder.
-         */
-        public MinFraudClient build() {
-            return new MinFraudClient(this);
-        }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("MinFraudClient{");
+        sb.append("host='").append(this.host).append('\'');
+        sb.append(", port=").append(this.port);
+        sb.append(", useHttps=").append(this.useHttps);
+        sb.append(", locales=").append(this.locales);
+        sb.append(", licenseKey='").append(this.licenseKey).append('\'');
+        sb.append(", connectTimeout=").append(this.connectTimeout);
+        sb.append(", readTimeout=").append(this.readTimeout);
+        sb.append(", userId=").append(this.userId);
+        sb.append('}');
+        return sb.toString();
     }
 }

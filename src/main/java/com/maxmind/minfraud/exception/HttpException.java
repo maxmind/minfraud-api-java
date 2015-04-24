@@ -8,7 +8,7 @@ import java.net.URL;
  * by the web service itself. As such, it is a IOException instead of a
  * MinFraudException.
  */
-final public class HttpException extends IOException {
+public final class HttpException extends IOException {
     private final int httpStatus;
     private final URL url;
 
@@ -40,13 +40,13 @@ final public class HttpException extends IOException {
      * @return the HTTP status of the query that caused the exception.
      */
     public int getHttpStatus() {
-        return this.httpStatus;
+        return httpStatus;
     }
 
     /**
      * @return the URL queried.
      */
     public URL getUrl() {
-        return this.url;
+        return url;
     }
 }

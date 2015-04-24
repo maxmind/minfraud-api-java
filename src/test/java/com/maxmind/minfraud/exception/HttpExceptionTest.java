@@ -2,22 +2,17 @@ package com.maxmind.minfraud.exception;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.net.URL;
+
+import static org.junit.Assert.assertEquals;
 
 public class HttpExceptionTest {
 
     @Test
-    public void testGetHttpStatus() throws Exception {
-
-    }
-
-    @Test
-    public void testGetUrl() throws Exception {
-
-    }
-
-    @Test
-    public void testGetMessage() throws Exception {
-
+    public void testHttpException() throws Exception {
+        URL url = new URL("https://www.maxmind.com/");
+        HttpException e = new HttpException("message", 200, url);
+        assertEquals("correct status", 200, e.getHttpStatus());
+        assertEquals("correct URL", url, e.getUrl());
     }
 }

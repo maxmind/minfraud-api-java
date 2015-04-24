@@ -7,15 +7,36 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Shipping extends AbstractLocation {
     @JsonProperty("delivery_speed")
-    private Shipping.DeliverySpeed deliverySpeed;
+    private final DeliverySpeed deliverySpeed;
 
-    private Shipping(Builder builder) {
+    private Shipping(Shipping.Builder builder) {
         super(builder);
-        this.deliverySpeed = builder.deliverySpeed;
+        deliverySpeed = builder.deliverySpeed;
     }
 
-    public Shipping.DeliverySpeed getDeliverySpeed() {
-        return this.deliverySpeed;
+    public static final class Builder extends AbstractLocation.Builder<Shipping.Builder> {
+        DeliverySpeed deliverySpeed;
+
+        public Shipping.Builder deliverySpeed(DeliverySpeed speed) {
+            deliverySpeed = speed;
+            return this;
+        }
+
+        public Shipping build() {
+            return new Shipping(this);
+        }
+    }
+
+    public final DeliverySpeed getDeliverySpeed() {
+        return deliverySpeed;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Shipping{");
+        sb.append("deliverySpeed=").append(this.deliverySpeed);
+        sb.append('}');
+        return sb.toString();
     }
 
     public enum DeliverySpeed {
@@ -25,20 +46,7 @@ public class Shipping extends AbstractLocation {
         STANDARD;
 
         public String toString() {
-            return name().toLowerCase();
-        }
-    }
-
-    public final static class Builder extends AbstractLocation.Builder<Builder> {
-        Shipping.DeliverySpeed deliverySpeed;
-
-        public Builder deliverySpeed(Shipping.DeliverySpeed speed) {
-            this.deliverySpeed = speed;
-            return this;
-        }
-
-        public Shipping build() {
-            return new Shipping(this);
+            return this.name().toLowerCase();
         }
     }
 }

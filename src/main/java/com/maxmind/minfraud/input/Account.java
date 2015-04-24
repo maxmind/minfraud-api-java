@@ -13,35 +13,44 @@ public class Account {
     @JsonProperty("username_md5")
     private final String usernameMd5;
 
-    private Account(Builder builder) {
-        this.userId = builder.userId;
-        this.usernameMd5 = builder.usernameMd5;
+    private Account(Account.Builder builder) {
+        userId = builder.userId;
+        usernameMd5 = builder.usernameMd5;
     }
 
-    public String getUserId() {
-        return this.userId;
-    }
-
-    public String getUsernameMd5() {
-        return this.usernameMd5;
-    }
-
-    public final static class Builder {
+    public static final class Builder {
         String userId;
         String usernameMd5;
 
-        public Builder userId(String id) {
-            userId = id;
+        public Account.Builder userId(String id) {
+            this.userId = id;
             return this;
         }
 
-        public Builder username(String username) {
-            usernameMd5 = DigestUtils.md5Hex(username);
+        public Account.Builder username(String username) {
+            this.usernameMd5 = DigestUtils.md5Hex(username);
             return this;
         }
 
         public Account build() {
             return new Account(this);
         }
+    }
+
+    public final String getUserId() {
+        return userId;
+    }
+
+    public final String getUsernameMd5() {
+        return usernameMd5;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Account{");
+        sb.append("userId='").append(this.userId).append('\'');
+        sb.append(", usernameMd5='").append(this.usernameMd5).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

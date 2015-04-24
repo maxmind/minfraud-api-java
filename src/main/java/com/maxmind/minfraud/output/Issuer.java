@@ -14,29 +14,32 @@ public class Issuer {
     @JsonProperty("matches_provided_phone_number")
     protected Boolean matchesProvidedPhoneNumber;
 
-    public String getName() {
-        return this.name;
+    public final String getName() {
+        return name;
     }
 
-    public Boolean matchesProvidedName() {
-        return this.matchesProvidedName;
+    public final Boolean matchesProvidedName() {
+        return matchesProvidedName;
     }
 
-    public String getPhoneNumber() {
-        return this.phoneNumber;
+    public final String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public Boolean matchesProvidedPhoneNumber() {
-        return this.matchesProvidedPhoneNumber;
+    public final Boolean matchesProvidedPhoneNumber() {
+        return matchesProvidedPhoneNumber;
     }
 
     @Override
     public String toString() {
-        return "Issuer{" +
-                "name='" + name + '\'' +
-                ", matchesProvidedName=" + matchesProvidedName +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", matchesProvidedPhoneNumber=" + matchesProvidedPhoneNumber +
-                '}';
+        StringBuilder sb = new StringBuilder("Issuer{");
+        sb.append("name='").append(this.name).append('\'');
+        sb.append(", matchesProvidedName=").append(this.matchesProvidedName);
+        sb.append(", phoneNumber='").append(this.phoneNumber).append('\'');
+        sb.append(", matchesProvidedPhoneNumber=").append(this.matchesProvidedPhoneNumber);
+        sb.append(", tchesProvidedName=").append(this.matchesProvidedName());
+        sb.append(", tchesProvidedPhoneNumber=").append(this.matchesProvidedPhoneNumber());
+        sb.append('}');
+        return sb.toString();
     }
 }

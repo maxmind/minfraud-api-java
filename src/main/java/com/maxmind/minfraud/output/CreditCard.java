@@ -13,31 +13,34 @@ public class CreditCard {
     @JsonProperty("is_prepaid")
     protected Boolean isPrepaid;
 
-    public Issuer getIssuer() {
-        return this.issuer;
+    public final Issuer getIssuer() {
+        return issuer;
     }
 
-    public String getCountry() {
-        return this.country;
-    }
-
-    @JsonIgnore
-    public Boolean isIssuedInBillingAddressCountry() {
-        return this.isIssuedInBillingAddressCountry;
+    public final String getCountry() {
+        return country;
     }
 
     @JsonIgnore
-    public Boolean isPrepaid() {
-        return this.isPrepaid;
+    public final Boolean isIssuedInBillingAddressCountry() {
+        return isIssuedInBillingAddressCountry;
+    }
+
+    @JsonIgnore
+    public final Boolean isPrepaid() {
+        return isPrepaid;
     }
 
     @Override
     public String toString() {
-        return "CreditCard{" +
-                "issuer=" + issuer +
-                ", country='" + country + '\'' +
-                ", isIssuedInBillingAddressCountry=" + isIssuedInBillingAddressCountry +
-                ", isPrepaid=" + isPrepaid +
-                '}';
+        StringBuilder sb = new StringBuilder("CreditCard{");
+        sb.append("issuer=").append(this.issuer);
+        sb.append(", country='").append(this.country).append('\'');
+        sb.append(", isIssuedInBillingAddressCountry=").append(this.isIssuedInBillingAddressCountry);
+        sb.append(", isPrepaid=").append(this.isPrepaid);
+        sb.append(", issuedInBillingAddressCountry=").append(this.isIssuedInBillingAddressCountry());
+        sb.append(", prepaid=").append(this.isPrepaid());
+        sb.append('}');
+        return sb.toString();
     }
 }

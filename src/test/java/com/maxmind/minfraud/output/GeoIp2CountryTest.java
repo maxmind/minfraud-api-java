@@ -10,7 +10,7 @@ public class GeoIp2CountryTest extends AbstractOutputTest {
 
     @Test
     public void testIsHighRisk() throws Exception {
-        GeoIp2Country country = deserialize(
+        GeoIp2Country country = this.deserialize(
                 GeoIp2Country.class,
                 JSON.std
                         .composeString()

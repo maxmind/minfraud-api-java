@@ -9,7 +9,7 @@ public class CreditCardTest extends AbstractOutputTest {
 
     @Test
     public void testCreditCard() throws Exception {
-        CreditCard cc = deserialize(
+        CreditCard cc = this.deserialize(
                 CreditCard.class,
                 JSON.std
                         .composeString()

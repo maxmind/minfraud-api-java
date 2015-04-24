@@ -22,52 +22,22 @@ public class CreditCard {
 
     @JsonProperty("bank_phone_number")
     private final String bankPhoneNumber;
-
-    public String getIssuerIdNumber() {
-        return this.issuerIdNumber;
-    }
-
-    public String getLast4Digits() {
-        return this.last4Digits;
-    }
-
-    public String getBankName() {
-        return this.bankName;
-    }
-
-    public String getBankPhoneCountryCode() {
-        return this.bankPhoneCountryCode;
-    }
-
-    public String getBankPhoneNumber() {
-        return this.bankPhoneNumber;
-    }
-
-    public Character getAvsResult() {
-        return this.avsResult;
-    }
-
-    public Character getCvvResult() {
-        return this.cvvResult;
-    }
-
     @JsonProperty("avs_result")
     private final Character avsResult;
-
     @JsonProperty("cvv_result")
     private final Character cvvResult;
 
-    private CreditCard(Builder builder) {
-        this.issuerIdNumber = builder.issuerIdNumber;
-        this.last4Digits = builder.last4Digits;
-        this.bankName = builder.bankName;
-        this.bankPhoneCountryCode = builder.bankPhoneCountryCode;
-        this.bankPhoneNumber = builder.bankPhoneNumber;
-        this.avsResult = builder.avsResult;
-        this.cvvResult = builder.cvvResult;
+    private CreditCard(CreditCard.Builder builder) {
+        issuerIdNumber = builder.issuerIdNumber;
+        last4Digits = builder.last4Digits;
+        bankName = builder.bankName;
+        bankPhoneCountryCode = builder.bankPhoneCountryCode;
+        bankPhoneNumber = builder.bankPhoneNumber;
+        avsResult = builder.avsResult;
+        cvvResult = builder.cvvResult;
     }
 
-    public final static class Builder {
+    public static final class Builder {
         String issuerIdNumber;
         String last4Digits;
         String bankName;
@@ -76,49 +46,91 @@ public class CreditCard {
         Character avsResult;
         Character cvvResult;
 
-        public Builder issuerIdNumber(String number) {
+        public CreditCard.Builder issuerIdNumber(String number) {
             if (!number.matches("[0-9]{6}")) {
                 throw new InvalidInputException("The issuer ID number " + number + " is of the wrong format.");
             }
-            this.issuerIdNumber = number;
+            issuerIdNumber = number;
             return this;
         }
 
-        public Builder last4Digits(String digits) {
+        public CreditCard.Builder last4Digits(String digits) {
             if (!digits.matches("[0-9]{4}")) {
                 throw new InvalidInputException("The last 4 credit card digits " + digits + " are of the wrong format.");
             }
-            this.last4Digits = digits;
+            last4Digits = digits;
             return this;
         }
 
-        public Builder bankName(String name) {
-            this.bankName = name;
+        public CreditCard.Builder bankName(String name) {
+            bankName = name;
             return this;
         }
 
-        public Builder bankPhoneCountryCode(String code) {
-            this.bankPhoneCountryCode = code;
+        public CreditCard.Builder bankPhoneCountryCode(String code) {
+            bankPhoneCountryCode = code;
             return this;
         }
 
-        public Builder bankPhoneNumber(String number) {
-            this.bankPhoneNumber = number;
+        public CreditCard.Builder bankPhoneNumber(String number) {
+            bankPhoneNumber = number;
             return this;
         }
 
-        public Builder avsResult(Character code) {
-            this.avsResult = code;
+        public CreditCard.Builder avsResult(Character code) {
+            avsResult = code;
             return this;
         }
 
-        public Builder cvvResult(Character code) {
-            this.cvvResult = code;
+        public CreditCard.Builder cvvResult(Character code) {
+            cvvResult = code;
             return this;
         }
 
         public CreditCard build() {
             return new CreditCard(this);
         }
+    }
+
+    public final String getIssuerIdNumber() {
+        return issuerIdNumber;
+    }
+
+    public final String getLast4Digits() {
+        return last4Digits;
+    }
+
+    public final String getBankName() {
+        return bankName;
+    }
+
+    public final String getBankPhoneCountryCode() {
+        return bankPhoneCountryCode;
+    }
+
+    public final String getBankPhoneNumber() {
+        return bankPhoneNumber;
+    }
+
+    public final Character getAvsResult() {
+        return avsResult;
+    }
+
+    public final Character getCvvResult() {
+        return cvvResult;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("CreditCard{");
+        sb.append("issuerIdNumber='").append(this.issuerIdNumber).append('\'');
+        sb.append(", last4Digits='").append(this.last4Digits).append('\'');
+        sb.append(", bankName='").append(this.bankName).append('\'');
+        sb.append(", bankPhoneCountryCode='").append(this.bankPhoneCountryCode).append('\'');
+        sb.append(", bankPhoneNumber='").append(this.bankPhoneNumber).append('\'');
+        sb.append(", avsResult=").append(this.avsResult);
+        sb.append(", cvvResult=").append(this.cvvResult);
+        sb.append('}');
+        return sb.toString();
     }
 }

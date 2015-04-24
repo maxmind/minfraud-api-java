@@ -3,7 +3,7 @@ package com.maxmind.minfraud.exception;
 /**
  * This exception is thrown when there is an authentication error.
  */
-final public class AuthenticationException extends MinFraudException {
+public final class AuthenticationException extends MinFraudException {
     /**
      * @param message A message explaining the cause of the error.
      */

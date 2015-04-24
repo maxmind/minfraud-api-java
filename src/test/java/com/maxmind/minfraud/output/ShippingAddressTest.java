@@ -1,7 +1,6 @@
 package com.maxmind.minfraud.output;
 
 import com.fasterxml.jackson.jr.ob.JSON;
-import com.maxmind.minfraud.input.Shipping;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -10,7 +9,7 @@ public class ShippingAddressTest extends AbstractAddressTest {
 
     @Test
     public void testShippingAddress() throws Exception {
-        ShippingAddress address = deserialize(
+        ShippingAddress address = this.deserialize(
                 ShippingAddress.class,
                 JSON.std
                         .composeString()
@@ -26,9 +25,9 @@ public class ShippingAddressTest extends AbstractAddressTest {
                         .finish()
         );
 
-        testAddress(address);
+        this.testAddress(address);
 
-        assertFalse(address.isHighRisk());
-        assertEquals(Integer.valueOf(200), address.getDistanceToBillingAddress());
+        assertFalse("is high risk", address.isHighRisk());
+        assertEquals("distance to billing address", Integer.valueOf(200), address.getDistanceToBillingAddress());
     }
 }

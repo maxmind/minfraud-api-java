@@ -20,30 +20,30 @@ public class ShoppingCartItem {
     @JsonProperty
     private final BigDecimal price;
 
-    public ShoppingCartItem(Builder builder) {
-        this.category = builder.category;
-        this.itemId = builder.itemId;
-        this.quantity = builder.quantity;
-        this.price = builder.price;
+    public ShoppingCartItem(ShoppingCartItem.Builder builder) {
+        category = builder.category;
+        itemId = builder.itemId;
+        quantity = builder.quantity;
+        price = builder.price;
     }
 
-    public final static class Builder {
+    public static final class Builder {
         String category;
         String itemId;
         int quantity;
         BigDecimal price;
 
-        public Builder category(String category) {
+        public ShoppingCartItem.Builder category(String category) {
             this.category = category;
             return this;
         }
 
-        public Builder itemId(String id) {
-            this.itemId = id;
+        public ShoppingCartItem.Builder itemId(String id) {
+            itemId = id;
             return this;
         }
 
-        public Builder quantity(int quantity) {
+        public ShoppingCartItem.Builder quantity(int quantity) {
             if (quantity <= 0) {
                 throw new InvalidInputException("Expected positive quantity but received: " + Integer.toString(quantity));
             }
@@ -51,13 +51,13 @@ public class ShoppingCartItem {
             return this;
         }
 
-        public Builder price(BigDecimal price) {
+        public ShoppingCartItem.Builder price(BigDecimal price) {
             this.price = price;
             return this;
         }
 
-        public Builder price(Double price) {
-            this.price = BigDecimal.valueOf(price);
+        public ShoppingCartItem.Builder price(Double price) {
+            this.price = BigDecimal.valueOf(price.doubleValue());
             return this;
         }
 
@@ -66,20 +66,31 @@ public class ShoppingCartItem {
         }
     }
 
-    public String getCategory() {
-        return this.category;
+    public final String getCategory() {
+        return category;
     }
 
-    public String getItemId() {
-        return this.itemId;
+    public final String getItemId() {
+        return itemId;
     }
 
-    public int getQuantity() {
-        return this.quantity;
+    public final int getQuantity() {
+        return quantity;
     }
 
-    public BigDecimal getPrice() {
-        return this.price;
+    public final BigDecimal getPrice() {
+        return price;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("ShoppingCartItem{");
+        sb.append("category='").append(this.category).append('\'');
+        sb.append(", itemId='").append(this.itemId).append('\'');
+        sb.append(", quantity=").append(this.quantity);
+        sb.append(", price=").append(this.price);
+        sb.append('}');
+        return sb.toString();
     }
 }
 

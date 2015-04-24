@@ -16,36 +16,28 @@ public class Email {
     @JsonProperty
     private final String domain;
 
-    public Email(Builder builder) {
-        this.address = builder.address;
-        this.domain = builder.domain;
+    public Email(Email.Builder builder) {
+        address = builder.address;
+        domain = builder.domain;
     }
 
-    public String getAddress() {
-        return this.address;
-    }
-
-    public String getDomain() {
-        return this.domain;
-    }
-
-    public final static class Builder {
+    public static final class Builder {
         private String address;
         private String domain;
 
-        public Builder address(String address) {
+        public Email.Builder address(String address) {
             if (!EmailValidator.getInstance().isValid(address)) {
                 throw new InvalidInputException("The email address " + address + " is not valid.");
             }
 
-            if (domain == null) {
-                domain = address.substring(address.indexOf('@') + 1);
+            if (this.domain == null) {
+                this.domain = address.substring(address.indexOf('@') + 1);
             }
             this.address = DigestUtils.md5Hex(address);
             return this;
         }
 
-        public Builder domain(String domain) {
+        public Email.Builder domain(String domain) {
             if (!DomainValidator.getInstance().isValid(domain)) {
                 throw new InvalidInputException("The email domain " + domain + " is not valid.");
             }
@@ -56,5 +48,22 @@ public class Email {
         public Email build() {
             return new Email(this);
         }
+    }
+
+    public final String getAddress() {
+        return address;
+    }
+
+    public final String getDomain() {
+        return domain;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Email{");
+        sb.append("address='").append(this.address).append('\'');
+        sb.append(", domain='").append(this.domain).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

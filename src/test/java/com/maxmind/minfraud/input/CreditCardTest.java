@@ -1,6 +1,7 @@
 package com.maxmind.minfraud.input;
 
 import com.maxmind.minfraud.exception.InvalidInputException;
+import com.maxmind.minfraud.input.CreditCard.Builder;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -9,74 +10,74 @@ public class CreditCardTest {
 
     @Test
     public void testIssuerIdNumber() throws Exception {
-        CreditCard cc = new CreditCard.Builder().issuerIdNumber("123456").build();
+        CreditCard cc = new Builder().issuerIdNumber("123456").build();
         assertEquals("123456", cc.getIssuerIdNumber());
     }
 
     @Test( expected = InvalidInputException.class )
     public void testIssuerIdNumberThatIsTooLong() throws Exception {
-        CreditCard cc = new CreditCard.Builder().issuerIdNumber("1234567").build();
+        new Builder().issuerIdNumber("1234567").build();
     }
 
     @Test( expected = InvalidInputException.class )
     public void testIssuerIdNumberThatIsTooShort() throws Exception {
-        CreditCard cc = new CreditCard.Builder().issuerIdNumber("12345").build();
+         new Builder().issuerIdNumber("12345").build();
     }
 
     @Test( expected = InvalidInputException.class )
     public void testIssuerIdNumberThatHasLetters() throws Exception {
-        CreditCard cc = new CreditCard.Builder().issuerIdNumber("12345a").build();
+         new Builder().issuerIdNumber("12345a").build();
     }
 
     @Test
     public void testLast4Digits() throws Exception {
-        CreditCard cc = new CreditCard.Builder().last4Digits("1234").build();
+        CreditCard cc = new Builder().last4Digits("1234").build();
         assertEquals("1234", cc.getLast4Digits());
     }
 
     @Test( expected = InvalidInputException.class )
     public void testLast4DigitsThatIsTooLong() throws Exception {
-        CreditCard cc = new CreditCard.Builder().last4Digits("12345").build();
+         new Builder().last4Digits("12345").build();
     }
 
     @Test( expected = InvalidInputException.class )
     public void testLast4DigitsThatIsTooShort() throws Exception {
-        CreditCard cc = new CreditCard.Builder().last4Digits("123").build();
+        new Builder().last4Digits("123").build();
     }
 
     @Test( expected = InvalidInputException.class )
     public void testLast4DigitsThatHasLetters() throws Exception {
-        CreditCard cc = new CreditCard.Builder().last4Digits("123a").build();
+         new Builder().last4Digits("123a").build();
     }
 
     @Test
     public void testBankName() throws Exception {
-        CreditCard cc = new CreditCard.Builder().bankName("Bank").build();
+        CreditCard cc = new Builder().bankName("Bank").build();
         assertEquals("Bank", cc.getBankName());
     }
 
     @Test
     public void testBankPhoneCountryCode() throws Exception {
-        CreditCard cc = new CreditCard.Builder().bankPhoneCountryCode("1").build();
+        CreditCard cc = new Builder().bankPhoneCountryCode("1").build();
         assertEquals("1", cc.getBankPhoneCountryCode());
     }
 
     @Test
     public void testBankPhoneNumber() throws Exception {
         String phone = "231-323-3123";
-        CreditCard cc = new CreditCard.Builder().bankPhoneNumber(phone).build();
+        CreditCard cc = new Builder().bankPhoneNumber(phone).build();
         assertEquals(phone, cc.getBankPhoneNumber());
     }
 
     @Test
     public void testAvsResult() throws Exception {
-        CreditCard cc = new CreditCard.Builder().avsResult('Y').build();
+        CreditCard cc = new Builder().avsResult('Y').build();
         assertEquals(Character.valueOf('Y'), cc.getAvsResult());
     }
 
     @Test
     public void testCvvResult() throws Exception {
-        CreditCard cc = new CreditCard.Builder().cvvResult('N').build();
+        CreditCard cc = new Builder().cvvResult('N').build();
         assertEquals(Character.valueOf('N'), cc.getCvvResult());
     }
 }

@@ -10,7 +10,7 @@ public class InsightsTest extends AbstractOutputTest {
     @Test
     public void testInsights() throws Exception {
         String id = "b643d445-18b2-4b9d-bad4-c9c4366e402a";
-        Insights insights = deserialize(
+        Insights insights = this.deserialize(
                 Insights.class,
                 JSON.std
                         .composeString()
@@ -41,13 +41,13 @@ public class InsightsTest extends AbstractOutputTest {
                         .finish()
         );
 
-        assertEquals( "US", insights.getIpLocation().getCountry().getIsoCode());
-        assertTrue(insights.getCreditCard().isPrepaid());
-        assertTrue(insights.getShippingAddress().isInIpCountry());
-        assertTrue(insights.getBillingAddress().isInIpCountry());
-        assertEquals(id, insights.getId());
-        assertEquals(Integer.valueOf(123), insights.getCreditsRemaining());
-        assertEquals(Double.valueOf(0.01), insights.getRiskScore());
-        assertEquals("INVALID_INPUT", insights.getWarnings().get(0).getCode());
+        assertEquals("correct country ISO", "US", insights.getIpLocation().getCountry().getIsoCode());
+        assertTrue("correct credit card prepaid", insights.getCreditCard().isPrepaid());
+        assertTrue("correct shipping address is in IP country", insights.getShippingAddress().isInIpCountry());
+        assertTrue("correct billing address is in IP country", insights.getBillingAddress().isInIpCountry());
+        assertEquals("correct ID", id, insights.getId());
+        assertEquals("correct credits remaining", Integer.valueOf(123), insights.getCreditsRemaining());
+        assertEquals("correct risk score", Double.valueOf(0.01), insights.getRiskScore());
+        assertEquals("correct warning code", "INVALID_INPUT", insights.getWarnings().get(0).getCode());
     }
 }

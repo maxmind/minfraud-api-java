@@ -40,20 +40,20 @@ public class MinFraudRequest {
     @JsonProperty("shopping_cart")
     private final List<ShoppingCartItem> shoppingCart;
 
-    public MinFraudRequest(Builder builder) {
-        this.account = builder.account;
-        this.billing = builder.billing;
-        this.creditCard = builder.creditCard;
-        this.device = builder.device;
-        this.email = builder.email;
-        this.event = builder.event;
-        this.order = builder.order;
-        this.payment = builder.payment;
-        this.shipping = builder.shipping;
-        this.shoppingCart = builder.shoppingCart;
+    public MinFraudRequest(MinFraudRequest.Builder builder) {
+        account = builder.account;
+        billing = builder.billing;
+        creditCard = builder.creditCard;
+        device = builder.device;
+        email = builder.email;
+        event = builder.event;
+        order = builder.order;
+        payment = builder.payment;
+        shipping = builder.shipping;
+        shoppingCart = builder.shoppingCart;
     }
 
-    public final static class Builder {
+    public static final class Builder {
         Account account;
         Billing billing;
         CreditCard creditCard;
@@ -68,53 +68,53 @@ public class MinFraudRequest {
         public Builder() {
         }
 
-        public Builder account(Account val) {
-            this.account = val;
+        public MinFraudRequest.Builder account(Account val) {
+            account = val;
             return this;
         }
 
-        public Builder billing(Billing val) {
-            this.billing = val;
+        public MinFraudRequest.Builder billing(Billing val) {
+            billing = val;
             return this;
         }
 
-        public Builder creditCard(CreditCard val) {
-            this.creditCard = val;
+        public MinFraudRequest.Builder creditCard(CreditCard val) {
+            creditCard = val;
             return this;
         }
 
-        public Builder device(Device val) {
-            this.device = val;
+        public MinFraudRequest.Builder device(Device val) {
+            device = val;
             return this;
         }
 
-        public Builder email(Email val) {
-            this.email = val;
+        public MinFraudRequest.Builder email(Email val) {
+            email = val;
             return this;
         }
 
-        public Builder event(Event val) {
-            this.event = val;
+        public MinFraudRequest.Builder event(Event val) {
+            event = val;
             return this;
         }
 
-        public Builder order(Order val) {
-            this.order = val;
+        public MinFraudRequest.Builder order(Order val) {
+            order = val;
             return this;
         }
 
-        public Builder payment(Payment val) {
-            this.payment = val;
+        public MinFraudRequest.Builder payment(Payment val) {
+            payment = val;
             return this;
         }
 
-        public Builder shipping(Shipping val) {
-            this.shipping = val;
+        public MinFraudRequest.Builder shipping(Shipping val) {
+            shipping = val;
             return this;
         }
 
-        public Builder addShoppingCartItem(ShoppingCartItem val) {
-            this.shoppingCart.add(val);
+        public MinFraudRequest.Builder addShoppingCartItem(ShoppingCartItem val) {
+            shoppingCart.add(val);
             return this;
         }
 
@@ -122,5 +122,39 @@ public class MinFraudRequest {
             return new MinFraudRequest(this);
         }
 
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder("Builder{");
+            sb.append("account=").append(this.account);
+            sb.append(", billing=").append(this.billing);
+            sb.append(", creditCard=").append(this.creditCard);
+            sb.append(", device=").append(this.device);
+            sb.append(", email=").append(this.email);
+            sb.append(", event=").append(this.event);
+            sb.append(", order=").append(this.order);
+            sb.append(", payment=").append(this.payment);
+            sb.append(", shipping=").append(this.shipping);
+            sb.append(", shoppingCart=").append(this.shoppingCart);
+            sb.append(", ild=").append(this.build());
+            sb.append('}');
+            return sb.toString();
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("MinFraudRequest{");
+        sb.append("account=").append(this.account);
+        sb.append(", billing=").append(this.billing);
+        sb.append(", creditCard=").append(this.creditCard);
+        sb.append(", device=").append(this.device);
+        sb.append(", email=").append(this.email);
+        sb.append(", event=").append(this.event);
+        sb.append(", order=").append(this.order);
+        sb.append(", payment=").append(this.payment);
+        sb.append(", shipping=").append(this.shipping);
+        sb.append(", shoppingCart=").append(this.shoppingCart);
+        sb.append('}');
+        return sb.toString();
     }
 }

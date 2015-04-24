@@ -2,8 +2,6 @@ package com.maxmind.minfraud.output;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.geoip2.model.InsightsResponse;
-import com.maxmind.geoip2.record.City;
-import com.maxmind.geoip2.record.Location;
 
 public class IpLocation extends InsightsResponse {
     @JsonProperty("country")
@@ -16,15 +14,23 @@ public class IpLocation extends InsightsResponse {
      * represents the country where MaxMind believes the end user is
      * located.
      */
-    public GeoIp2Country getCountry() {
-        return this.country;
+    public final GeoIp2Country getCountry() {
+        return country;
     }
 
     /**
      * @return Location record for the requested IP address.
      */
-    public GeoIp2Location getLocation() {
-        return this.location;
+    public final GeoIp2Location getLocation() {
+        return location;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("IpLocation{");
+        sb.append("country=").append(this.country);
+        sb.append(", location=").append(this.location);
+        sb.append('}');
+        return sb.toString();
+    }
 }

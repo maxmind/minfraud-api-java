@@ -3,6 +3,10 @@ package com.maxmind.minfraud;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.maxmind.minfraud.exception.MinFraudException;
 import com.maxmind.minfraud.input.*;
+import com.maxmind.minfraud.input.Device.Builder;
+import com.maxmind.minfraud.input.Event.Type;
+import com.maxmind.minfraud.input.Payment.Processor;
+import com.maxmind.minfraud.input.Shipping.DeliverySpeed;
 import com.maxmind.minfraud.output.Insights;
 import com.maxmind.minfraud.output.Score;
 import org.json.JSONException;
@@ -26,27 +30,26 @@ public class MinFraudClientTest {
     public WireMockRule wireMockRule = new WireMockRule(0); // 0 picks random port
 
     @Test
-    public void fullScoreRequest() throws IOException, MinFraudException, ParseException, JSONException, URISyntaxException {
-        String responseContent = readJsonFile("score-response");
-        MinFraudClient client = createClient("score", responseContent);
-        Score response = client.score(createFullRequest());
+    public void fullScoreRequest() throws Exception {
+        String responseContent = this.readJsonFile("score-response");
+        MinFraudClient client = this.createClient("score", responseContent);
+        Score response = client.score(this.createFullRequest());
 
         JSONAssert.assertEquals(responseContent, response.toJson(), true);
-        verifyRequestFor("score");
+        this.verifyRequestFor("score");
     }
 
     @Test
-    public void fullInsightsRequest() throws IOException, MinFraudException, ParseException, JSONException, URISyntaxException {
-        String responseContent = readJsonFile("insights-response");
-        MinFraudClient client = createClient("insights", responseContent);
-        Insights response = client.insights(createFullRequest());
+    public void fullInsightsRequest() throws Exception {
+        String responseContent = this.readJsonFile("insights-response");
+        MinFraudClient client = this.createClient("insights", responseContent);
+        Insights response = client.insights(this.createFullRequest());
 
-        System.out.println(response.toJson());
         // We use non-strict checking as there is some extra stuff in the serialized
         // object, most notably the "name" field in the GeoIP2 Insights subobjects.
         // We cannot change this as it would be a breaking change to the GeoIP2 API.
         JSONAssert.assertEquals(responseContent, response.toJson(), false);
-        verifyRequestFor("insights");
+        this.verifyRequestFor("insights");
     }
 
     public MinFraudClient createClient(String service, String responseContent) throws IOException, MinFraudException {
@@ -62,7 +65,7 @@ public class MinFraudClientTest {
 
         return new MinFraudClient.Builder(6, "0123456789")
                 .host("localhost")
-                .port(wireMockRule.port())
+                .port(this.wireMockRule.port())
                 .disableHttps()
                 .build();
     }
@@ -76,7 +79,7 @@ public class MinFraudClientTest {
                                 .transactionId("txn3134133")
                                 .shopId("s2123")
                                 .time(dateFormat.parse("2012-04-12T23:20:50.52Z"))
-                                .type(Event.Type.PURCHASE)
+                                .type(Type.PURCHASE)
                                 .build()
                 )
                 .account(
@@ -116,11 +119,11 @@ public class MinFraudClientTest {
                                 .postal("73003")
                                 .phoneNumber("403-321-2323")
                                 .phoneCountryCode("1")
-                                .deliverySpeed(Shipping.DeliverySpeed.SAME_DAY)
+                                .deliverySpeed(DeliverySpeed.SAME_DAY)
                                 .build()
                 ).payment(
                         new Payment.Builder()
-                                .processor(Payment.Processor.STRIPE)
+                                .processor(Processor.STRIPE)
                                 .wasAuthorized(false)
                                 .declineCode("invalid number")
                                 .build()
@@ -158,7 +161,7 @@ public class MinFraudClientTest {
                                 .price(100.)
                                 .build()
                 ).device(
-                        new Device.Builder()
+                        new Builder()
                                 .ipAddress(InetAddress.getByName("81.2.69.160"))
                                 .userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36")
                                 .acceptLanguage("en-US,en;q=0.8")
@@ -174,10 +177,7 @@ public class MinFraudClientTest {
     }
 
     public void verifyRequestFor(String service) throws IOException, URISyntaxException {
-        URL resource = MinFraudClientTest.class
-                .getResource("/test-dataest.mmdb");
-
-        String requestBody = readJsonFile("full-request");
+        String requestBody = this.readJsonFile("full-request");
 
         verify(postRequestedFor(urlMatching("/minfraud/v2.0/" + service))
                 .withRequestBody(equalToJson(requestBody))
