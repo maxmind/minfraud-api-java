@@ -1,7 +1,11 @@
 package com.maxmind.minfraud.request;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +15,7 @@ import java.util.List;
  * The request classes are separated as in the future, we may wish to offer inputs
  * that are only useful on one service.
  */
-abstract class AbstractRequest {
+abstract class AbstractRequest implements RequestInterface {
     @JsonProperty
     private final Account account;
 
@@ -163,6 +167,15 @@ abstract class AbstractRequest {
 
     public List<ShoppingCartItem> getShoppingCart() {
         return new ArrayList<>(shoppingCart);
+    }
+
+    public String toJson() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+        mapper.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
+
+        return mapper.writeValueAsString(this);
     }
 
     @Override

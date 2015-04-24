@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.maxmind.minfraud.exception.*;
 import com.maxmind.minfraud.request.InsightsRequest;
+import com.maxmind.minfraud.request.RequestInterface;
 import com.maxmind.minfraud.request.ScoreRequest;
 import com.maxmind.minfraud.response.InsightsResponse;
 import com.maxmind.minfraud.response.ScoreResponse;
@@ -230,15 +231,26 @@ public class WebServiceClient {
         return this.responseFor("score", request, ScoreResponse.class);
     }
 
-    private <T> T responseFor(String service, Object mfRequest, Class<T> cls)
+    private <T> T responseFor(String service, RequestInterface mfRequestModel, Class<T> cls)
             throws IOException, MinFraudException {
         URL url = createUrl(WebServiceClient.pathBase + service);
+        HttpPost request = requestFor(mfRequestModel, url);
 
         RequestConfig config = RequestConfig.custom()
                 .setConnectTimeout(this.connectTimeout)
                 .setSocketTimeout(this.readTimeout)
                 .build();
 
+        try (
+                CloseableHttpClient httpClient =
+                        HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+                CloseableHttpResponse response = httpClient.execute(request)
+        ) {
+            return handleResponse(response, url, cls);
+        }
+    }
+
+    private HttpPost requestFor(RequestInterface mfRequestModel, URL url) throws MinFraudException, IOException {
         Credentials credentials = new UsernamePasswordCredentials(Integer.toString(userId), licenseKey);
 
         HttpPost request;
@@ -255,51 +267,46 @@ public class WebServiceClient {
         request.addHeader("Accept", "application/json");
         request.addHeader("User-Agent", this.userAgent());
 
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(Include.NON_NULL);
-        mapper.setSerializationInclusion(Include.NON_EMPTY);
-        mapper.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
-
-        String requestBody = mapper.writeValueAsString(mfRequest);
+        String requestBody = mfRequestModel.toJson();
 
         StringEntity input = new StringEntity(requestBody);
         input.setContentType("application/json");
 
         request.setEntity(input);
+        return request;
+    }
 
-        try (
-                CloseableHttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
-                CloseableHttpResponse response = httpClient.execute(request)) {
-            int status = response.getStatusLine().getStatusCode();
-            if (status >= 400 && status < 500) {
-                WebServiceClient.handle4xxStatus(response, url);
-            } else if (status >= 500 && status < 600) {
-                throw new HttpException("Received a server error (" + status
-                        + ") for " + url, status, url);
-            } else if (status != 200) {
-                throw new HttpException("Received a very surprising HTTP status ("
-                        + status + ") for " + url, status, url);
-            }
+    private <T> T handleResponse(CloseableHttpResponse response, URL url, Class<T> cls) throws MinFraudException, IOException {
+        int status = response.getStatusLine().getStatusCode();
+        if (status >= 400 && status < 500) {
+            WebServiceClient.handle4xxStatus(response, url);
+        } else if (status >= 500 && status < 600) {
+            throw new HttpException("Received a server error (" + status
+                    + ") for " + url, status, url);
+        } else if (status != 200) {
+            throw new HttpException("Received a very surprising HTTP status ("
+                    + status + ") for " + url, status, url);
+        }
 
-            HttpEntity entity = response.getEntity();
+        HttpEntity entity = response.getEntity();
 
-            if (entity.getContentLength() <= 0L) {
-                throw new HttpException("Received a 200 response for " + url
-                        + " but there was no message body.", 200, url);
-            }
+        if (entity.getContentLength() <= 0L) {
+            throw new HttpException("Received a 200 response for " + url
+                    + " but there was no message body.", 200, url);
+        }
 
-            mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-            InjectableValues inject = new Std().addValue(
-                    "locales", locales);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        InjectableValues inject = new Std().addValue(
+                "locales", locales);
 
-            try {
-                return mapper.reader(cls).with(inject).readValue(response.getEntity().getContent());
-            } catch (IOException e) {
-                throw new MinFraudException(
-                        "Received a 200 response but not decode it as JSON", e);
-            } finally {
-                EntityUtils.consume(entity);
-            }
+        try {
+            return mapper.reader(cls).with(inject).readValue(response.getEntity().getContent());
+        } catch (IOException e) {
+            throw new MinFraudException(
+                    "Received a 200 response but not decode it as JSON", e);
+        } finally {
+            EntityUtils.consume(entity);
         }
     }
 
