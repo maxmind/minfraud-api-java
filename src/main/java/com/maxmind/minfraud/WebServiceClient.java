@@ -207,7 +207,7 @@ public class WebServiceClient {
 
         if (error == null || code == null) {
             throw new HttpException(
-                    "Response contains JSON but it does not specify code or error keys: "
+                    "Error response contains JSON but it does not specify code or error keys: "
                             + body, status, url);
         }
 
@@ -284,7 +284,7 @@ public class WebServiceClient {
             throw new HttpException("Received a server error (" + status
                     + ") for " + url, status, url);
         } else if (status != 200) {
-            throw new HttpException("Received a very surprising HTTP status ("
+            throw new HttpException("Received an unexpected HTTP status ("
                     + status + ") for " + url, status, url);
         }
 
