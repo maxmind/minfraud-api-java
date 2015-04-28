@@ -61,7 +61,7 @@ abstract class AbstractRequest implements RequestInterface {
     }
 
     @SuppressWarnings("unchecked")
-    public abstract static class Builder<T extends AbstractRequest.Builder>  {
+    public abstract static class Builder<T extends AbstractRequest.Builder> {
         Account account;
         Billing billing;
         CreditCard creditCard;
