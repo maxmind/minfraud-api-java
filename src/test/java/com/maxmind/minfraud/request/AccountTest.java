@@ -3,7 +3,7 @@ package com.maxmind.minfraud.request;
 import com.maxmind.minfraud.request.Account.Builder;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class AccountTest {
 

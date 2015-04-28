@@ -28,9 +28,8 @@ public class Device {
         String userAgent;
         String acceptLanguage;
 
-        public Device.Builder ipAddress(InetAddress ip) {
-            ipAddress = ip;
-            return this;
+        public Builder(InetAddress ipAddress) {
+            this.ipAddress = ipAddress;
         }
 
         public Device.Builder userAgent(String ua) {

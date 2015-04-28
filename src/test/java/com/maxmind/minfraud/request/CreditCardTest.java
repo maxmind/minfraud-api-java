@@ -4,7 +4,7 @@ import com.maxmind.minfraud.exception.InvalidInputException;
 import com.maxmind.minfraud.request.CreditCard.Builder;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class CreditCardTest {
 
@@ -14,19 +14,19 @@ public class CreditCardTest {
         assertEquals("123456", cc.getIssuerIdNumber());
     }
 
-    @Test( expected = InvalidInputException.class )
+    @Test(expected = InvalidInputException.class)
     public void testIssuerIdNumberThatIsTooLong() throws Exception {
         new Builder().issuerIdNumber("1234567").build();
     }
 
-    @Test( expected = InvalidInputException.class )
+    @Test(expected = InvalidInputException.class)
     public void testIssuerIdNumberThatIsTooShort() throws Exception {
-         new Builder().issuerIdNumber("12345").build();
+        new Builder().issuerIdNumber("12345").build();
     }
 
-    @Test( expected = InvalidInputException.class )
+    @Test(expected = InvalidInputException.class)
     public void testIssuerIdNumberThatHasLetters() throws Exception {
-         new Builder().issuerIdNumber("12345a").build();
+        new Builder().issuerIdNumber("12345a").build();
     }
 
     @Test
@@ -35,19 +35,19 @@ public class CreditCardTest {
         assertEquals("1234", cc.getLast4Digits());
     }
 
-    @Test( expected = InvalidInputException.class )
+    @Test(expected = InvalidInputException.class)
     public void testLast4DigitsThatIsTooLong() throws Exception {
-         new Builder().last4Digits("12345").build();
+        new Builder().last4Digits("12345").build();
     }
 
-    @Test( expected = InvalidInputException.class )
+    @Test(expected = InvalidInputException.class)
     public void testLast4DigitsThatIsTooShort() throws Exception {
         new Builder().last4Digits("123").build();
     }
 
-    @Test( expected = InvalidInputException.class )
+    @Test(expected = InvalidInputException.class)
     public void testLast4DigitsThatHasLetters() throws Exception {
-         new Builder().last4Digits("123a").build();
+        new Builder().last4Digits("123a").build();
     }
 
     @Test

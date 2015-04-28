@@ -2,10 +2,13 @@ package com.maxmind.minfraud.request;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractRequestTest {
-    abstract AbstractRequest.Builder builder();
+    abstract AbstractRequest.Builder builder() throws UnknownHostException;
 
     @Test
     public void testAccount() throws Exception {
@@ -27,8 +30,8 @@ public abstract class AbstractRequestTest {
 
     @Test
     public void testDevice() throws Exception {
-        AbstractRequest request = this.builder().device(new Device.Builder().acceptLanguage("en-US").build()).build();
-        assertEquals("en-US", request.getDevice().getAcceptLanguage());
+        AbstractRequest request = this.builder().build();
+        assertEquals(InetAddress.getByName("81.2.69.160"), request.getDevice().getIpAddress());
     }
 
     @Test

@@ -6,6 +6,10 @@ public class ScoreRequest extends AbstractRequest {
     }
 
     public static final class Builder extends AbstractRequest.Builder<ScoreRequest.Builder> {
+        public Builder(Device device) {
+            super(device);
+        }
+
         public ScoreRequest build() {
             return new ScoreRequest(this);
         }

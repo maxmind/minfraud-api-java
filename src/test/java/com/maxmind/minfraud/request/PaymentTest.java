@@ -4,14 +4,15 @@ import com.maxmind.minfraud.request.Payment.Builder;
 import com.maxmind.minfraud.request.Payment.Processor;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class PaymentTest {
 
     @Test
     public void testProcessor() throws Exception {
         Payment payment = new Builder().processor(Processor.ADYEN).build();
-        assertEquals(Processor.ADYEN,payment.getProcessor());
+        assertEquals(Processor.ADYEN, payment.getProcessor());
     }
 
     @Test

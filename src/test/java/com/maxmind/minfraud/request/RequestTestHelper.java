@@ -17,16 +17,21 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
  */
 public class RequestTestHelper {
     public static ScoreRequest fullScoreRequest() throws Exception {
-            return  createFullRequest(new ScoreRequest.Builder()).build();
+        return createFullRequest(ScoreRequest.Builder.class).build();
     }
 
     public static InsightsRequest fullInsightsRequest() throws Exception {
-        return  createFullRequest(new InsightsRequest.Builder()).build();
+        return createFullRequest(InsightsRequest.Builder.class).build();
     }
 
-    private static <T extends AbstractRequest.Builder<T>> T createFullRequest(T builder) throws Exception {
+    private static <T extends AbstractRequest.Builder<T>> T createFullRequest(Class<T> builderCls) throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-        return builder
+        return builderCls.getDeclaredConstructor(Device.class).newInstance(
+                new Device.Builder(InetAddress.getByName("81.2.69.160"))
+                        .userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36")
+                        .acceptLanguage("en-US,en;q=0.8")
+                        .build()
+        )
                 .event(
                         new Event
                                 .Builder()
@@ -113,12 +118,6 @@ public class RequestTestHelper {
                                 .itemId("bst112")
                                 .quantity(1)
                                 .price(100.)
-                                .build()
-                ).device(
-                        new Device.Builder()
-                                .ipAddress(InetAddress.getByName("81.2.69.160"))
-                                .userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36")
-                                .acceptLanguage("en-US,en;q=0.8")
                                 .build()
                 );
     }

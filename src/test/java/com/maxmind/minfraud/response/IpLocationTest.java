@@ -3,7 +3,8 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.jr.ob.JSON;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class IpLocationTest extends AbstractOutputTest {
 

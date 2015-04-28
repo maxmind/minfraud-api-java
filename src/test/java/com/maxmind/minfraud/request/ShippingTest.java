@@ -4,7 +4,7 @@ import com.maxmind.minfraud.request.Shipping.Builder;
 import com.maxmind.minfraud.request.Shipping.DeliverySpeed;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ShippingTest extends AbstractLocationTest {
 

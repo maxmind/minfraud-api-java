@@ -58,17 +58,17 @@ public abstract class AbstractLocationTest {
         assertEquals("US", loc.getCountry());
     }
 
-    @Test( expected = InvalidInputException.class )
+    @Test(expected = InvalidInputException.class)
     public void testCountryThatIsTooLong() throws Exception {
         this.builder().country("USA").build();
     }
 
-    @Test( expected = InvalidInputException.class )
+    @Test(expected = InvalidInputException.class)
     public void testCountryWithNumbers() throws Exception {
         this.builder().country("U1").build();
     }
 
-    @Test( expected = InvalidInputException.class )
+    @Test(expected = InvalidInputException.class)
     public void testCountryInWrongCase() throws Exception {
         this.builder().country("us").build();
     }

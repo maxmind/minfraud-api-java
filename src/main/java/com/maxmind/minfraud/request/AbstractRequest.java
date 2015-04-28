@@ -73,7 +73,8 @@ abstract class AbstractRequest implements RequestInterface {
         Shipping shipping;
         List<ShoppingCartItem> shoppingCart = new ArrayList<>();
 
-        public Builder() {
+        public Builder(Device device) {
+            this.device = device;
         }
 
         public T account(Account val) {
@@ -88,11 +89,6 @@ abstract class AbstractRequest implements RequestInterface {
 
         public T creditCard(CreditCard val) {
             creditCard = val;
-            return (T) this;
-        }
-
-        public T device(Device val) {
-            device = val;
             return (T) this;
         }
 

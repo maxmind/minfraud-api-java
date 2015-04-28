@@ -2,7 +2,8 @@ package com.maxmind.minfraud;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.maxmind.minfraud.exception.*;
-import com.maxmind.minfraud.request.*;
+import com.maxmind.minfraud.request.InsightsRequest;
+import com.maxmind.minfraud.request.ScoreRequest;
 import com.maxmind.minfraud.response.InsightsResponse;
 import com.maxmind.minfraud.response.ScoreResponse;
 import junitparams.JUnitParamsRunner;
@@ -56,7 +57,7 @@ public class WebServiceClientTest {
 
     @Test
     public void test200WithNoBody() throws Exception {
-        WebServiceClient client  =  createSuccessClient("insights", "");
+        WebServiceClient client = createSuccessClient("insights", "");
         InsightsRequest request = fullInsightsRequest();
 
         thrown.expect(HttpException.class);
@@ -66,7 +67,7 @@ public class WebServiceClientTest {
 
     @Test
     public void test200WithInvalidJson() throws Exception {
-        WebServiceClient client  =  createSuccessClient("insights", "{");
+        WebServiceClient client = createSuccessClient("insights", "{");
         InsightsRequest request = fullInsightsRequest();
 
         thrown.expect(MinFraudException.class);
@@ -81,7 +82,7 @@ public class WebServiceClientTest {
         createInsightsError(
                 402,
                 "application/json",
-                "{\"code\":\"INSUFFICIENT_CREDITS\",\"error\":\"out of credit\"}"
+                "{\"code\":\"INSUFFICIENT_FUNDS\",\"error\":\"out of credit\"}"
         );
     }
 
@@ -187,7 +188,7 @@ public class WebServiceClientTest {
     }
 
     private void createInsightsError(int status, String contentType, String responseContent) throws Exception {
-        WebServiceClient client  =  createClient(
+        WebServiceClient client = createClient(
                 "insights",
                 status,
                 contentType,

@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.net.URI;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class OrderTest {
 
@@ -29,23 +29,23 @@ public class OrderTest {
         assertEquals("USD", order.getCurrency());
     }
 
-    @Test (expected = InvalidInputException.class)
+    @Test(expected = InvalidInputException.class)
     public void testCurrencyWithDigits() throws Exception {
-         new Builder().currency("US1").build();
+        new Builder().currency("US1").build();
     }
 
-    @Test (expected = InvalidInputException.class)
+    @Test(expected = InvalidInputException.class)
     public void testCurrencyThatIsTooShort() throws Exception {
         new Builder().currency("US").build();
     }
 
 
-    @Test (expected = InvalidInputException.class)
+    @Test(expected = InvalidInputException.class)
     public void testCurrencyThatIsTooLong() throws Exception {
         new Builder().currency("USDE").build();
     }
 
-    @Test (expected = InvalidInputException.class)
+    @Test(expected = InvalidInputException.class)
     public void testCurrencyInWrongCase() throws Exception {
         new Builder().currency("usd").build();
     }

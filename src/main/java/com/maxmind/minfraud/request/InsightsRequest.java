@@ -6,6 +6,10 @@ public class InsightsRequest extends AbstractRequest {
     }
 
     public static final class Builder extends AbstractRequest.Builder<InsightsRequest.Builder> {
+        public Builder(Device device) {
+            super(device);
+        }
+
         public InsightsRequest build() {
             return new InsightsRequest(this);
         }
