@@ -76,7 +76,7 @@ public class WebServiceClientTest {
 
     @Test
     public void testInsufficientCredit() throws Exception {
-        thrown.expect(InsufficientCreditException.class);
+        thrown.expect(InsufficientFundsException.class);
         thrown.expectMessage("out of credit");
         createInsightsError(
                 402,

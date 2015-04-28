@@ -1,12 +1,10 @@
 package com.maxmind.minfraud;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.InjectableValues.Std;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.maxmind.minfraud.exception.*;
 import com.maxmind.minfraud.request.InsightsRequest;
 import com.maxmind.minfraud.request.RequestInterface;
@@ -216,8 +214,8 @@ public class WebServiceClient {
             case "LICENSE_KEY_REQUIRED":
             case "USER_ID_REQUIRED":
                 throw new AuthenticationException(error);
-            case "INSUFFICIENT_CREDITS":
-                throw new InsufficientCreditException(error);
+            case "INSUFFICIENT_FUNDS":
+                throw new InsufficientFundsException(error);
             default:
                 throw new InvalidRequestException(error, code, url);
         }
