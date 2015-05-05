@@ -302,7 +302,7 @@ public class WebServiceClient {
             return mapper.reader(cls).with(inject).readValue(response.getEntity().getContent());
         } catch (IOException e) {
             throw new MinFraudException(
-                    "Received a 200 response but not decode it as JSON", e);
+                    "Received a 200 response but could not decode it as JSON", e);
         } finally {
             EntityUtils.consume(entity);
         }
