@@ -317,7 +317,7 @@ public class WebServiceClient {
                     .setPath(path)
                     .build().toURL();
         } catch (MalformedURLException | URISyntaxException e) {
-            throw new MinFraudException("Error creation service URL", e);
+            throw new MinFraudException("Error creating service URL", e);
         }
     }
 
