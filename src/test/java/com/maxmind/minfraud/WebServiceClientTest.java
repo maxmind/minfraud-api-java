@@ -71,7 +71,7 @@ public class WebServiceClientTest {
         InsightsRequest request = fullInsightsRequest();
 
         thrown.expect(MinFraudException.class);
-        thrown.expectMessage("Received a 200 response but not decode it as JSON");
+        thrown.expectMessage("Received a 200 response but could not decode it as JSON");
         client.insights(request);
     }
 
