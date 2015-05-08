@@ -83,8 +83,8 @@ public class WebServiceClient {
         int port = 443;
         boolean useHttps = true;
 
-        int connectTimeout = 3000;
-        int readTimeout = 20000;
+        int connectTimeout = -1;
+        int readTimeout = -1;
 
         List<String> locales = Collections.singletonList("en");
 
