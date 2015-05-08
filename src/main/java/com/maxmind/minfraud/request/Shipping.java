@@ -35,6 +35,7 @@ public class Shipping extends AbstractLocation {
     public String toString() {
         StringBuilder sb = new StringBuilder("Shipping{");
         sb.append("deliverySpeed=").append(this.deliverySpeed);
+        sb.append(", super:").append(super.toString());
         sb.append('}');
         return sb.toString();
     }

@@ -179,7 +179,7 @@ public class WebServiceClient {
                     + url + " with no body", status, url);
         }
 
-        String body = EntityUtils.toString(response.getEntity(), "UTF-8");
+        String body = EntityUtils.toString(entity, "UTF-8");
 
         Map<String, String> content;
         try {
@@ -299,7 +299,7 @@ public class WebServiceClient {
                 "locales", locales);
 
         try {
-            return mapper.reader(cls).with(inject).readValue(response.getEntity().getContent());
+            return mapper.reader(cls).with(inject).readValue(entity.getContent());
         } catch (IOException e) {
             throw new MinFraudException(
                     "Received a 200 response but could not decode it as JSON", e);

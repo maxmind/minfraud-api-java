@@ -37,8 +37,6 @@ public class Issuer {
         sb.append(", matchesProvidedName=").append(this.matchesProvidedName);
         sb.append(", phoneNumber='").append(this.phoneNumber).append('\'');
         sb.append(", matchesProvidedPhoneNumber=").append(this.matchesProvidedPhoneNumber);
-        sb.append(", tchesProvidedName=").append(this.matchesProvidedName());
-        sb.append(", tchesProvidedPhoneNumber=").append(this.matchesProvidedPhoneNumber());
         sb.append('}');
         return sb.toString();
     }

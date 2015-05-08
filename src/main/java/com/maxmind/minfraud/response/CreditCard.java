@@ -38,8 +38,6 @@ public class CreditCard {
         sb.append(", country='").append(this.country).append('\'');
         sb.append(", isIssuedInBillingAddressCountry=").append(this.isIssuedInBillingAddressCountry);
         sb.append(", isPrepaid=").append(this.isPrepaid);
-        sb.append(", issuedInBillingAddressCountry=").append(this.isIssuedInBillingAddressCountry());
-        sb.append(", prepaid=").append(this.isPrepaid());
         sb.append('}');
         return sb.toString();
     }

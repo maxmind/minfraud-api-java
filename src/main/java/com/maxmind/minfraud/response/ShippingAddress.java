@@ -24,7 +24,7 @@ public class ShippingAddress extends AbstractAddress {
         StringBuilder sb = new StringBuilder("ShippingAddress{");
         sb.append("isHighRisk=").append(this.isHighRisk);
         sb.append(", distanceToBillingAddress=").append(this.distanceToBillingAddress);
-        sb.append(", highRisk=").append(this.isHighRisk());
+        sb.append(", super:").append(super.toString());
         sb.append('}');
         return sb.toString();
     }

@@ -21,11 +21,12 @@ public class Warning {
     }
 
     @Override
-    public final String toString() {
-        return "Warning{" +
-                "code='" + this.code + '\'' +
-                ", warning='" + this.warning + '\'' +
-                ", request=" + this.input +
-                '}';
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Warning{");
+        sb.append("code='").append(code).append('\'');
+        sb.append(", warning='").append(warning).append('\'');
+        sb.append(", input=").append(input);
+        sb.append('}');
+        return sb.toString();
     }
 }
