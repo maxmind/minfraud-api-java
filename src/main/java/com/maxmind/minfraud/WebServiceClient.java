@@ -322,8 +322,9 @@ public class WebServiceClient {
     }
 
     private String userAgent() {
-        return "MaxMind minFraud Client v"
-                + getClass().getPackage().getImplementationVersion();
+        return "minFraud-API/"
+                + getClass().getPackage().getImplementationVersion()
+                + " Java/" + System.getProperty("java.version");
     }
 
     @Override
