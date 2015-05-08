@@ -99,7 +99,7 @@ public class WebServiceClient {
 
         /**
          * @param val Timeout in milliseconds to establish a connection to the
-         *            web service. The default is 3000 (3 seconds).
+         *            web service. There is no timeout by default.
          * @return Builder object
          */
         public WebServiceClient.Builder connectTimeout(int val) {
@@ -150,8 +150,8 @@ public class WebServiceClient {
 
         /**
          * @param val readTimeout in milliseconds to read data from an
-         *            established connection to the web service. The default is
-         *            20000 (20 seconds).
+         *            established connection to the web service. There is no
+         *            timeout by default.
          * @return Builder object
          */
         public WebServiceClient.Builder readTimeout(int val) {
