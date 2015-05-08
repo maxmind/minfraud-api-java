@@ -9,7 +9,7 @@ public class Payment {
     @JsonProperty("processor")
     private final Processor processor;
     @JsonProperty("was_authorized")
-    private final boolean wasAuthorized;
+    private final Boolean wasAuthorized;
     @JsonProperty("decline_code")
     private final String declineCode;
 
@@ -21,7 +21,7 @@ public class Payment {
 
     public static final class Builder {
         Processor processor;
-        boolean wasAuthorized;
+        Boolean wasAuthorized;
         String declineCode;
 
         public Payment.Builder processor(Processor processor) {
@@ -49,7 +49,7 @@ public class Payment {
         return processor;
     }
 
-    public final boolean wasAuthorized() {
+    public final Boolean wasAuthorized() {
         return wasAuthorized;
     }
 

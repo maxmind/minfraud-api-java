@@ -16,7 +16,7 @@ public class ShoppingCartItem {
     private final String itemId;
 
     @JsonProperty
-    private final int quantity;
+    private final Integer quantity;
     @JsonProperty
     private final BigDecimal price;
 
@@ -30,7 +30,7 @@ public class ShoppingCartItem {
     public static final class Builder {
         String category;
         String itemId;
-        int quantity;
+        Integer quantity;
         BigDecimal price;
 
         public ShoppingCartItem.Builder category(String category) {
@@ -74,7 +74,7 @@ public class ShoppingCartItem {
         return itemId;
     }
 
-    public final int getQuantity() {
+    public final Integer getQuantity() {
         return quantity;
     }
 

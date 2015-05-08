@@ -24,7 +24,7 @@ public class ShoppingCartTest {
     @Test
     public void testQuantity() throws Exception {
         ShoppingCartItem item = new Builder().quantity(100).build();
-        assertEquals(100, item.getQuantity());
+        assertEquals(Integer.valueOf(100), item.getQuantity());
     }
 
     @Test
