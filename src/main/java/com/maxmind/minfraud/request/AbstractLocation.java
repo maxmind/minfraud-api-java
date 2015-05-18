@@ -1,7 +1,6 @@
 package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maxmind.minfraud.exception.InvalidInputException;
 
 /**
  * Shared behavior between Shipping and Billing
@@ -97,7 +96,7 @@ abstract class AbstractLocation {
 
         public final T country(String code) {
             if (!code.matches("[A-Z]{2}")) {
-                throw new InvalidInputException("Expected two-letter country code in the ISO 3166-1 alpha-2 format");
+                throw new IllegalArgumentException("Expected two-letter country code in the ISO 3166-1 alpha-2 format");
             }
             country = code;
             return (T) this;

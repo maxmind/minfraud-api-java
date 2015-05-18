@@ -1,7 +1,6 @@
 package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maxmind.minfraud.exception.InvalidInputException;
 
 import java.math.BigDecimal;
 
@@ -45,7 +44,7 @@ public class ShoppingCartItem {
 
         public ShoppingCartItem.Builder quantity(int quantity) {
             if (quantity <= 0) {
-                throw new InvalidInputException("Expected positive quantity but received: " + Integer.toString(quantity));
+                throw new IllegalArgumentException("Expected positive quantity but received: " + Integer.toString(quantity));
             }
             this.quantity = quantity;
             return this;

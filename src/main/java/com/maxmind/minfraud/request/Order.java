@@ -1,7 +1,6 @@
 package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maxmind.minfraud.exception.InvalidInputException;
 
 import java.math.BigDecimal;
 import java.net.URI;
@@ -52,7 +51,7 @@ public class Order {
 
         public Order.Builder currency(String code) {
             if (!code.matches("[A-Z]{3}")) {
-                throw new InvalidInputException("The currency code " + code + " is invalid.");
+                throw new IllegalArgumentException("The currency code " + code + " is invalid.");
             }
             currency = code;
             return this;

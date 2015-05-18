@@ -1,7 +1,6 @@
 package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maxmind.minfraud.exception.InvalidInputException;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.validator.routines.DomainValidator;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -27,7 +26,7 @@ public class Email {
 
         public Email.Builder address(String address) {
             if (!EmailValidator.getInstance().isValid(address)) {
-                throw new InvalidInputException("The email address " + address + " is not valid.");
+                throw new IllegalArgumentException("The email address " + address + " is not valid.");
             }
 
             if (this.domain == null) {
@@ -39,7 +38,7 @@ public class Email {
 
         public Email.Builder domain(String domain) {
             if (!DomainValidator.getInstance().isValid(domain)) {
-                throw new InvalidInputException("The email domain " + domain + " is not valid.");
+                throw new IllegalArgumentException("The email domain " + domain + " is not valid.");
             }
             this.domain = domain;
             return this;

@@ -1,7 +1,6 @@
 package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maxmind.minfraud.exception.InvalidInputException;
 
 /**
  * The credit card information for the transaction.
@@ -48,7 +47,7 @@ public class CreditCard {
 
         public CreditCard.Builder issuerIdNumber(String number) {
             if (!number.matches("[0-9]{6}")) {
-                throw new InvalidInputException("The issuer ID number " + number + " is of the wrong format.");
+                throw new IllegalArgumentException("The issuer ID number " + number + " is of the wrong format.");
             }
             issuerIdNumber = number;
             return this;
@@ -56,7 +55,7 @@ public class CreditCard {
 
         public CreditCard.Builder last4Digits(String digits) {
             if (!digits.matches("[0-9]{4}")) {
-                throw new InvalidInputException("The last 4 credit card digits " + digits + " are of the wrong format.");
+                throw new IllegalArgumentException("The last 4 credit card digits " + digits + " are of the wrong format.");
             }
             last4Digits = digits;
             return this;

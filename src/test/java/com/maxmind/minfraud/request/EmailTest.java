@@ -1,6 +1,5 @@
 package com.maxmind.minfraud.request;
 
-import com.maxmind.minfraud.exception.InvalidInputException;
 import com.maxmind.minfraud.request.Email.Builder;
 import org.junit.Test;
 
@@ -15,7 +14,7 @@ public class EmailTest {
         assertEquals("domain set from email", "test.org", email.getDomain());
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testInvalidAddress() throws Exception {
         new Builder().address("a@test@test.org").build();
     }
@@ -27,7 +26,7 @@ public class EmailTest {
         assertEquals(domain, email.getDomain());
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testInvalidDomain() throws Exception {
         new Builder().domain(" domain.com").build();
     }
