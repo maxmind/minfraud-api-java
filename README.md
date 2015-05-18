@@ -7,7 +7,7 @@ This is an early pre-release version. Don't use it.
 
 ```java
 
-InsightsRequest request = new InsightsRequest.Builder(
+Transaction request = new Transaction.Builder(
         new Device.Builder(InetAddress.getByName("1.1.1.1"))
             .acceptLanguage("en-US")
             .userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36")

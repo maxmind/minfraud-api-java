@@ -14,27 +14,27 @@ public final class Warning {
     /**
      * This provides a machine-readable code identifying the warning. Although
      * more codes may be added in the future, the current codes are:
-     *
+     * <p/>
      * <ul>
-     *     <li>BILLING_CITY_NOT_FOUND – the billing city could not be found in
-     *     our database.</li>
-     *     <li>BILLING_COUNTRY_NOT_FOUND – the billing country could not be
-     *     found in our database.</li>
-     *     <li>BILLING_POSTAL_NOT_FOUND – the billing postal could not be found
-     *     in our database.</li>
-     *     <li>INPUT_INVALID – the value associated with the key does not meet
-     *     the required constraints, e.g., “United States” in a field that
-     *     requires a two-letter country code.</li>
-     *     <li>INPUT_UNKNOWN – an unknown key was encountered in the request
-     *     body.</li>
-     *     <li>IP_ADDRESS_NOT_FOUND – the IP address could not be
-     *     geolocated.</li>
-     *     <li>SHIPPING_CITY_NOT_FOUND – the shipping city could not be found
-     *     in our database.</li>
-     *     <li>SHIPPING_COUNTRY_NOT_FOUND – the shipping country could not be
-     *     found in our database.</li>
-     *     <li>SHIPPING_POSTAL_NOT_FOUND – the shipping postal could not be
-     *     found in our database.</li>
+     * <li>BILLING_CITY_NOT_FOUND – the billing city could not be found in
+     * our database.</li>
+     * <li>BILLING_COUNTRY_NOT_FOUND – the billing country could not be
+     * found in our database.</li>
+     * <li>BILLING_POSTAL_NOT_FOUND – the billing postal could not be found
+     * in our database.</li>
+     * <li>INPUT_INVALID – the value associated with the key does not meet
+     * the required constraints, e.g., “United States” in a field that
+     * requires a two-letter country code.</li>
+     * <li>INPUT_UNKNOWN – an unknown key was encountered in the request
+     * body.</li>
+     * <li>IP_ADDRESS_NOT_FOUND – the IP address could not be
+     * geolocated.</li>
+     * <li>SHIPPING_CITY_NOT_FOUND – the shipping city could not be found
+     * in our database.</li>
+     * <li>SHIPPING_COUNTRY_NOT_FOUND – the shipping country could not be
+     * found in our database.</li>
+     * <li>SHIPPING_POSTAL_NOT_FOUND – the shipping postal could not be
+     * found in our database.</li>
      * </ul>
      *
      * @return The warning code.

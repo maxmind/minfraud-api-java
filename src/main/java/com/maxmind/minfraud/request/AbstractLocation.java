@@ -74,7 +74,6 @@ abstract class AbstractLocation {
         }
 
         /**
-
          * @param name The last name associated with the address
          * @return The builder object.
          */
@@ -84,7 +83,6 @@ abstract class AbstractLocation {
         }
 
         /**
-
          * @param name The company name associated with the address
          * @return The builder object.
          */
@@ -94,7 +92,6 @@ abstract class AbstractLocation {
         }
 
         /**
-
          * @param address The first line of the address
          * @return The builder object.
          */

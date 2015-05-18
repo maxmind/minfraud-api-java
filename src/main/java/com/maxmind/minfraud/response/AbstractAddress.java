@@ -35,9 +35,9 @@ abstract class AbstractAddress {
     }
 
     /**
-    * @return The longitude associated with the address. This will be null if
-    * there is no value in the response.
-    */
+     * @return The longitude associated with the address. This will be null if
+     * there is no value in the response.
+     */
     public final Double getLongitude() {
         return longitude;
     }

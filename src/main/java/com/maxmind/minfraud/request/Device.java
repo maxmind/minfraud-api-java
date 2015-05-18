@@ -34,6 +34,7 @@ public class Device {
 
         /**
          * The constructor for the {@code Device.Builder} class
+         *
          * @param ipAddress The IP address associated with the device used
          *                  by the customer in the transaction.
          */

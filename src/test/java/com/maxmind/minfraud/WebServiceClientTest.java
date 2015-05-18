@@ -2,8 +2,7 @@ package com.maxmind.minfraud;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.maxmind.minfraud.exception.*;
-import com.maxmind.minfraud.request.InsightsRequest;
-import com.maxmind.minfraud.request.ScoreRequest;
+import com.maxmind.minfraud.request.Transaction;
 import com.maxmind.minfraud.response.InsightsResponse;
 import com.maxmind.minfraud.response.ScoreResponse;
 import junitparams.JUnitParamsRunner;
@@ -31,10 +30,10 @@ public class WebServiceClientTest {
     public WireMockRule wireMockRule = new WireMockRule(0); // 0 picks random port
 
     @Test
-    public void testFullScoreRequest() throws Exception {
+    public void testFullScoreTransaction() throws Exception {
         String responseContent = readJsonFile("score-response");
         WebServiceClient client = this.createSuccessClient("score", responseContent);
-        ScoreRequest request = fullScoreRequest();
+        Transaction request = fullTransaction();
         ScoreResponse response = client.score(request);
 
         JSONAssert.assertEquals(responseContent, response.toJson(), true);
@@ -42,10 +41,10 @@ public class WebServiceClientTest {
     }
 
     @Test
-    public void testFullInsightsRequest() throws Exception {
+    public void testFullInsightsTransaction() throws Exception {
         String responseContent = readJsonFile("insights-response");
         WebServiceClient client = this.createSuccessClient("insights", responseContent);
-        InsightsRequest request = fullInsightsRequest();
+        Transaction request = fullTransaction();
         InsightsResponse response = client.insights(request);
 
         // We use non-strict checking as there is some extra stuff in the serialized
@@ -58,7 +57,7 @@ public class WebServiceClientTest {
     @Test
     public void test200WithNoBody() throws Exception {
         WebServiceClient client = createSuccessClient("insights", "");
-        InsightsRequest request = fullInsightsRequest();
+        Transaction request = fullTransaction();
 
         thrown.expect(HttpException.class);
         thrown.expectMessage(matchesPattern("Received a 200 response for .*/minfraud/v2.0/insights but there was no message body\\."));
@@ -68,7 +67,7 @@ public class WebServiceClientTest {
     @Test
     public void test200WithInvalidJson() throws Exception {
         WebServiceClient client = createSuccessClient("insights", "{");
-        InsightsRequest request = fullInsightsRequest();
+        Transaction request = fullTransaction();
 
         thrown.expect(MinFraudException.class);
         thrown.expectMessage("Received a 200 response but could not decode it as JSON");
@@ -194,7 +193,7 @@ public class WebServiceClientTest {
                 contentType,
                 responseContent
         );
-        client.insights(fullInsightsRequest());
+        client.insights(fullTransaction());
     }
 
     private WebServiceClient createClient(String service, int status, String contentType, String responseContent) {

@@ -10,12 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Abstract class representing a minFraud request.
- *
- * The request classes are separated as in the future, we may wish to offer inputs
- * that are only useful on one service.
+ * Class representing the transaction to be sent to minFraud.
  */
-abstract class AbstractRequest implements RequestInterface {
+public final class Transaction {
     @JsonProperty
     private final Account account;
 
@@ -47,7 +44,7 @@ abstract class AbstractRequest implements RequestInterface {
     private final List<ShoppingCartItem> shoppingCart;
 
     @SuppressWarnings("unchecked")
-    protected AbstractRequest(AbstractRequest.Builder builder) {
+    protected Transaction(Transaction.Builder builder) {
         account = builder.account;
         billing = builder.billing;
         creditCard = builder.creditCard;
@@ -65,7 +62,7 @@ abstract class AbstractRequest implements RequestInterface {
      * by the builder's methods.
      */
     @SuppressWarnings("unchecked")
-    public abstract static class Builder<T extends AbstractRequest.Builder> {
+    public static class Builder {
         Account account;
         Billing billing;
         CreditCard creditCard;
@@ -90,72 +87,72 @@ abstract class AbstractRequest implements RequestInterface {
          * @param val The Account object.
          * @return The builder object.
          */
-        public T account(Account val) {
+        public Builder account(Account val) {
             account = val;
-            return (T) this;
+            return this;
         }
 
         /**
          * @param val The Billing object.
          * @return The builder object.
          */
-        public T billing(Billing val) {
+        public Builder billing(Billing val) {
             billing = val;
-            return (T) this;
+            return this;
         }
 
         /**
          * @param val The CreditCard object.
          * @return The builder object.
          */
-        public T creditCard(CreditCard val) {
+        public Builder creditCard(CreditCard val) {
             creditCard = val;
-            return (T) this;
+            return this;
         }
 
         /**
          * @param val The Email object.
          * @return The builder object.
          */
-        public T email(Email val) {
+        public Builder email(Email val) {
             email = val;
-            return (T) this;
+            return this;
         }
 
         /**
          * @param val The Event object.
          * @return The builder object.
          */
-        public T event(Event val) {
+        public Builder event(Event val) {
             event = val;
-            return (T) this;
+            return this;
         }
 
         /**
          * @param val The Order object.
          * @return The builder object.
          */
-        public T order(Order val) {
+        public Builder order(Order val) {
             order = val;
-            return (T) this;
+            return this;
         }
 
         /**
          * @param val The Payment object.
          * @return The builder object.
          */
-        public T payment(Payment val) {
+        public Builder payment(Payment val) {
             payment = val;
-            return (T) this;
+            return this;
         }
 
         /**
          * @param val The Shipping object.
          * @return The builder object.
          */
-        public T shipping(Shipping val) {
+        public Builder shipping(Shipping val) {
             shipping = val;
-            return (T) this;
+            return this;
         }
 
         /**
@@ -164,12 +161,18 @@ abstract class AbstractRequest implements RequestInterface {
          * @param val A ShoppingCartItem object.
          * @return The builder object.
          */
-        public T addShoppingCartItem(ShoppingCartItem val) {
+        public Builder addShoppingCartItem(ShoppingCartItem val) {
             shoppingCart.add(val);
-            return (T) this;
+            return this;
         }
 
-        abstract AbstractRequest build();
+        /**
+         * @return An instance of {@code Transaction} created from the
+         * fields set on this builder.
+         */
+        public Transaction build() {
+            return new Transaction(this);
+        }
     }
 
     /**
@@ -256,7 +259,7 @@ abstract class AbstractRequest implements RequestInterface {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("AbstractRequest{");
+        StringBuilder sb = new StringBuilder("Transaction{");
         sb.append("account=").append(this.account);
         sb.append(", billing=").append(this.billing);
         sb.append(", creditCard=").append(this.creditCard);
