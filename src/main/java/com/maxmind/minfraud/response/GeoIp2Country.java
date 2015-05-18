@@ -4,10 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.geoip2.record.Country;
 
-public class GeoIp2Country extends Country {
+/**
+ * This class contains minFraud response data related to the GeoIP2 Insights
+ * country.
+ */
+public final class GeoIp2Country extends Country {
     @JsonProperty("is_high_risk")
     private boolean isHighRisk;
 
+    /**
+     * @return This value is true if the IP country is high risk.
+     */
     @JsonIgnore
     public final boolean isHighRisk() {
         return this.isHighRisk;

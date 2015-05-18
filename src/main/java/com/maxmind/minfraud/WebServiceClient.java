@@ -34,7 +34,7 @@ import java.util.*;
 /**
  * Client for MaxMind minFraud ScoreResponse and InsightsResponse
  */
-public class WebServiceClient {
+public final class WebServiceClient {
     private static final String pathBase = "/minfraud/v2.0/";
 
     private final String host;
@@ -168,69 +168,55 @@ public class WebServiceClient {
         }
     }
 
-    private static void handle4xxStatus(HttpResponse response, URL url)
-            throws MinFraudException, IOException {
-
-        HttpEntity entity = response.getEntity();
-        int status = response.getStatusLine().getStatusCode();
-
-        if (entity.getContentLength() <= 0L) {
-            throw new HttpException("Received a " + status + " error for "
-                    + url + " with no body", status, url);
-        }
-
-        String body = EntityUtils.toString(entity, "UTF-8");
-
-        Map<String, String> content;
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            content = mapper.readValue(body,
-                    new TypeReference<HashMap<String, String>>() {
-                    });
-            WebServiceClient.handleErrorWithJsonBody(content, body, status, url);
-        } catch (HttpException e) {
-            throw e;
-        } catch (IOException e) {
-            throw new HttpException("Received a " + status + " error for "
-                    + url + " but it did not include the expected JSON body: "
-                    + body, status, url);
-        }
-    }
-
-    private static void handleErrorWithJsonBody(Map<String, String> content,
-                                                String body, int status, URL url) throws MinFraudException,
-            HttpException {
-        String error = content.get("error");
-        String code = content.get("code");
-
-        if (error == null || code == null) {
-            throw new HttpException(
-                    "Error response contains JSON but it does not specify code or error keys: "
-                            + body, status, url);
-        }
-
-        switch (code) {
-            case "AUTHORIZATION_INVALID":
-            case "LICENSE_KEY_REQUIRED":
-            case "USER_ID_REQUIRED":
-                throw new AuthenticationException(error);
-            case "INSUFFICIENT_FUNDS":
-                throw new InsufficientFundsException(error);
-            default:
-                throw new InvalidRequestException(error, code, url);
-        }
-    }
-
-    public final InsightsResponse insights(InsightsRequest request) throws IOException, MinFraudException {
+    /**
+     * Make a minFraud Insights request to the web service using the transaction
+     * request object passed to the method.
+     *
+     * @param request A transaction request object.
+     * @return An Insights model object
+     * @throws InsufficientFundsException when there are insufficient funds on
+     *         the account.
+     * @throws AuthenticationException when there is a problem authenticating.
+     * @throws InvalidRequestException when the request is invalid for some
+     *         other reason.
+     * @throws MinFraudException when the web service returns unexpected
+     *         content.
+     * @throws HttpException when the web service returns an unexpected
+     *         response.
+     * @throws IOException when some other IO error occurs.
+     */
+    public InsightsResponse insights(InsightsRequest request) throws IOException,
+            MinFraudException, InsufficientFundsException, InvalidRequestException,
+            AuthenticationException, HttpException {
         return this.responseFor("insights", request, InsightsResponse.class);
     }
 
-    public final ScoreResponse score(ScoreRequest request) throws IOException, MinFraudException {
+    /**
+     * Make a minFraud Score request to the web service using the transaction
+     * request object passed to the method.
+     *
+     * @param request A transaction request object.
+     * @return An Score model object
+     * @throws InsufficientFundsException when there are insufficient funds on
+     *         the account.
+     * @throws AuthenticationException when there is a problem authenticating.
+     * @throws InvalidRequestException when the request is invalid for some
+     *         other reason.
+     * @throws MinFraudException when the web service returns unexpected
+     *         content.
+     * @throws HttpException when the web service returns an unexpected
+     *         response.
+     * @throws IOException when some other IO error occurs.
+     */
+    public ScoreResponse score(ScoreRequest request) throws IOException,
+            MinFraudException, InsufficientFundsException, InvalidRequestException,
+            AuthenticationException, HttpException {
         return this.responseFor("score", request, ScoreResponse.class);
     }
 
     private <T> T responseFor(String service, RequestInterface mfRequestModel, Class<T> cls)
-            throws IOException, MinFraudException {
+            throws IOException, MinFraudException, AuthenticationException,
+            HttpException, InsufficientFundsException, InvalidRequestException {
         URL url = createUrl(WebServiceClient.pathBase + service);
         HttpPost request = requestFor(mfRequestModel, url);
 
@@ -248,7 +234,8 @@ public class WebServiceClient {
         }
     }
 
-    private HttpPost requestFor(RequestInterface mfRequestModel, URL url) throws MinFraudException, IOException {
+    private HttpPost requestFor(RequestInterface mfRequestModel, URL url)
+            throws MinFraudException, IOException, AuthenticationException {
         Credentials credentials = new UsernamePasswordCredentials(Integer.toString(userId), licenseKey);
 
         HttpPost request;
@@ -274,10 +261,13 @@ public class WebServiceClient {
         return request;
     }
 
-    private <T> T handleResponse(CloseableHttpResponse response, URL url, Class<T> cls) throws MinFraudException, IOException {
+    private <T> T handleResponse(CloseableHttpResponse response, URL url, Class<T> cls)
+            throws MinFraudException, IOException, HttpException,
+            AuthenticationException, InsufficientFundsException,
+            InvalidRequestException {
         int status = response.getStatusLine().getStatusCode();
         if (status >= 400 && status < 500) {
-            WebServiceClient.handle4xxStatus(response, url);
+            this.handle4xxStatus(response, url);
         } else if (status >= 500 && status < 600) {
             throw new HttpException("Received a server error (" + status
                     + ") for " + url, status, url);
@@ -308,10 +298,65 @@ public class WebServiceClient {
         }
     }
 
+
+    private void handle4xxStatus(HttpResponse response, URL url)
+            throws IOException, HttpException, InsufficientFundsException,
+            InvalidRequestException, AuthenticationException {
+        HttpEntity entity = response.getEntity();
+        int status = response.getStatusLine().getStatusCode();
+
+        if (entity.getContentLength() <= 0L) {
+            throw new HttpException("Received a " + status + " error for "
+                    + url + " with no body", status, url);
+        }
+
+        String body = EntityUtils.toString(entity, "UTF-8");
+
+        Map<String, String> content;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            content = mapper.readValue(body,
+                    new TypeReference<HashMap<String, String>>() {
+                    });
+            this.handleErrorWithJsonBody(content, body, status, url);
+        } catch (HttpException e) {
+            throw e;
+        } catch (IOException e) {
+            throw new HttpException("Received a " + status + " error for "
+                    + url + " but it did not include the expected JSON body: "
+                    + body, status, url);
+        }
+    }
+
+    private void handleErrorWithJsonBody(Map<String, String> content,
+                                         String body, int status, URL url)
+            throws HttpException, InsufficientFundsException,
+            InvalidRequestException, AuthenticationException {
+        String error = content.get("error");
+        String code = content.get("code");
+
+        if (error == null || code == null) {
+            throw new HttpException(
+                    "Error response contains JSON but it does not specify code or error keys: "
+                            + body, status, url);
+        }
+
+        switch (code) {
+            case "AUTHORIZATION_INVALID":
+            case "LICENSE_KEY_REQUIRED":
+            case "USER_ID_REQUIRED":
+                throw new AuthenticationException(error);
+            case "INSUFFICIENT_FUNDS":
+                throw new InsufficientFundsException(error);
+            default:
+                throw new InvalidRequestException(error, code, url);
+        }
+    }
+
     private URL createUrl(String path) throws MinFraudException {
         try {
             return new URIBuilder()
-                    .setScheme(this.useHttps ? "https" : "http")
+                    .setScheme(useHttps ? "https" : "http")
                     .setHost(this.host)
                     .setPort(this.port)
                     .setPath(path)

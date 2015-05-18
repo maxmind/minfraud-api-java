@@ -1,14 +1,23 @@
 package com.maxmind.minfraud.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.geoip2.record.Location;
 
-public class GeoIp2Location extends Location {
+/**
+ * This class contains minFraud response data related to the GeoIP2 Insights
+ * location.
+ */
+public final class GeoIp2Location extends Location {
     @JsonProperty("local_time")
     private String localTime;
 
-    // XXX - possibly switch to Joda DateTime. We can't
-    // return a j.u.Date object as that doesn't have the tz info
+    /**
+     * @return The date and time of the transaction in the time zone associated
+     * with the IP address. The value is formated according to RFC 3339. For
+     * instance, the local time in Boston might be returned as
+     * "2015-04-27T19:17:24-04:00".
+     */
     public final String getLocalTime() {
         return this.localTime;
     }

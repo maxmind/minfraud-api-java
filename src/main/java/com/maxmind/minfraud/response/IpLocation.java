@@ -3,7 +3,10 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.geoip2.model.InsightsResponse;
 
-public class IpLocation extends InsightsResponse {
+/**
+ * This class contains minFraud response data related to the IP location
+ */
+public final class IpLocation extends InsightsResponse {
     @JsonProperty("country")
     private final GeoIp2Country country = new GeoIp2Country();
     @JsonProperty("location")

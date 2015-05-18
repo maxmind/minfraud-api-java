@@ -2,7 +2,10 @@ package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class InsightsResponse extends ScoreResponse {
+/**
+ * This class provides a model for the minFraud Insights response.
+ */
+public final class InsightsResponse extends ScoreResponse {
     @JsonProperty("ip_location")
     protected IpLocation ipLocation;
 
@@ -15,19 +18,30 @@ public class InsightsResponse extends ScoreResponse {
     @JsonProperty("billing_address")
     protected BillingAddress billingAddress = new BillingAddress();
 
+    /**
+     * @return The {@code IpLocation} model object.
+     */
     public final IpLocation getIpLocation() {
         return ipLocation;
     }
 
-
+    /**
+     * @return The {@code CreditCard} model object.
+     */
     public final CreditCard getCreditCard() {
         return creditCard;
     }
 
+    /**
+     * @return The {@code ShippingAddress} model object.
+     */
     public final ShippingAddress getShippingAddress() {
         return shippingAddress;
     }
 
+    /**
+     * @return The {@code BillingAddress} model object.
+     */
     public final BillingAddress getBillingAddress() {
         return billingAddress;
     }

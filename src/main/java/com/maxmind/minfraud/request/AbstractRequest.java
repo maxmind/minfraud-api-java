@@ -47,7 +47,7 @@ abstract class AbstractRequest implements RequestInterface {
     private final List<ShoppingCartItem> shoppingCart;
 
     @SuppressWarnings("unchecked")
-    public AbstractRequest(AbstractRequest.Builder builder) {
+    protected AbstractRequest(AbstractRequest.Builder builder) {
         account = builder.account;
         billing = builder.billing;
         creditCard = builder.creditCard;
@@ -60,6 +60,10 @@ abstract class AbstractRequest implements RequestInterface {
         shoppingCart = builder.shoppingCart;
     }
 
+    /**
+     * {@code Builder} creates instances of the parent class from values set
+     * by the builder's methods.
+     */
     @SuppressWarnings("unchecked")
     public abstract static class Builder<T extends AbstractRequest.Builder> {
         Account account;
@@ -73,50 +77,93 @@ abstract class AbstractRequest implements RequestInterface {
         Shipping shipping;
         List<ShoppingCartItem> shoppingCart = new ArrayList<>();
 
+        /**
+         * The constructor for {@code Builder}
+         *
+         * @param device The {@code Device} model for the request
+         */
         public Builder(Device device) {
             this.device = device;
         }
 
+        /**
+         * @param val The Account object.
+         * @return The builder object.
+         */
         public T account(Account val) {
             account = val;
             return (T) this;
         }
 
+        /**
+         * @param val The Billing object.
+         * @return The builder object.
+         */
         public T billing(Billing val) {
             billing = val;
             return (T) this;
         }
 
+        /**
+         * @param val The CreditCard object.
+         * @return The builder object.
+         */
         public T creditCard(CreditCard val) {
             creditCard = val;
             return (T) this;
         }
 
+        /**
+         * @param val The Email object.
+         * @return The builder object.
+         */
         public T email(Email val) {
             email = val;
             return (T) this;
         }
 
+        /**
+         * @param val The Event object.
+         * @return The builder object.
+         */
         public T event(Event val) {
             event = val;
             return (T) this;
         }
 
+        /**
+         * @param val The Order object.
+         * @return The builder object.
+         */
         public T order(Order val) {
             order = val;
             return (T) this;
         }
 
+        /**
+         * @param val The Payment object.
+         * @return The builder object.
+         */
         public T payment(Payment val) {
             payment = val;
             return (T) this;
         }
 
+        /**
+         * @param val The Shipping object.
+         * @return The builder object.
+         */
         public T shipping(Shipping val) {
             shipping = val;
             return (T) this;
         }
 
+        /**
+         * Add a {@code ShoppingCartItem} to the shopping cart.
+         *
+         * @param val A ShoppingCartItem object.
+         * @return The builder object.
+         */
         public T addShoppingCartItem(ShoppingCartItem val) {
             shoppingCart.add(val);
             return (T) this;
@@ -125,46 +172,79 @@ abstract class AbstractRequest implements RequestInterface {
         abstract AbstractRequest build();
     }
 
+    /**
+     * @return The Account object.
+     */
     public Account getAccount() {
         return account;
     }
 
+    /**
+     * @return The Billing object.
+     */
     public Billing getBilling() {
         return billing;
     }
 
+    /**
+     * @return The CreditCard object.
+     */
     public CreditCard getCreditCard() {
         return creditCard;
     }
 
+    /**
+     * @return The Device object.
+     */
     public Device getDevice() {
         return device;
     }
 
+    /**
+     * @return The Email object.
+     */
     public Email getEmail() {
         return email;
     }
 
+    /**
+     * @return The Event object.
+     */
     public Event getEvent() {
         return event;
     }
 
+    /**
+     * @return The Order object.
+     */
     public Order getOrder() {
         return order;
     }
 
+    /**
+     * @return The Payment object.
+     */
     public Payment getPayment() {
         return payment;
     }
 
+    /**
+     * @return The Shipping object.
+     */
     public Shipping getShipping() {
         return shipping;
     }
 
+    /**
+     * @return A list of items in the shopping cart.
+     */
     public List<ShoppingCartItem> getShoppingCart() {
         return new ArrayList<>(shoppingCart);
     }
 
+    /**
+     * @return The transaction as JSON.
+     */
     public String toJson() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);

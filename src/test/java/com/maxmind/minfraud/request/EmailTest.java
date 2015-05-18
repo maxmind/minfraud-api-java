@@ -10,7 +10,7 @@ public class EmailTest {
     @Test
     public void testAddress() throws Exception {
         Email email = new Builder().address("test@test.org").build();
-        assertEquals("MD5 generated from email", "476869598e748d958e819c180af31982", email.getAddress());
+        assertEquals("MD5 generated from email", "476869598e748d958e819c180af31982", email.getAddressMd5());
         assertEquals("domain set from email", "test.org", email.getDomain());
     }
 
