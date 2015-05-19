@@ -37,6 +37,8 @@ public final class Email {
          *
          * @param address The valid email address used in the transaction.
          * @return The builder object.
+         * @throws IllegalArgumentException when address is not a valid email
+         *         address.
          */
         public Email.Builder address(String address) {
             if (!EmailValidator.getInstance().isValid(address)) {
@@ -54,6 +56,7 @@ public final class Email {
          * @param domain The domain of the email address. This only needs
          *               to be set if the email address is not set.
          * @return The builder object.
+         * @throws IllegalArgumentException when domain is not a valid domain.
          */
         public Email.Builder domain(String domain) {
             if (!DomainValidator.getInstance().isValid(domain)) {

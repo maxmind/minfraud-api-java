@@ -54,6 +54,8 @@ public final class CreditCard {
          *               first 6 digits of the credit card number. It
          *               identifies the issuing bank.
          * @return The builder object.
+         * @throws IllegalArgumentException when number is not a six digit
+         *         string.
          */
         public CreditCard.Builder issuerIdNumber(String number) {
             if (!number.matches("[0-9]{6}")) {
@@ -66,6 +68,8 @@ public final class CreditCard {
         /**
          * @param digits The last four digits of the credit card number.
          * @return The builder object.
+         * @throws IllegalArgumentException when number is not a four digit
+         *         string.
          */
         public CreditCard.Builder last4Digits(String digits) {
             if (!digits.matches("[0-9]{4}")) {

@@ -132,6 +132,8 @@ abstract class AbstractLocation {
          * @param code The ISO 3166-1 alpha-2 country code for the country
          *             associated with the address (e.g, "US")
          * @return The builder object.
+         * @throws IllegalArgumentException when code is not a two-letter
+         *         country code.
          */
         public final T country(String code) {
             if (!code.matches("[A-Z]{2}")) {

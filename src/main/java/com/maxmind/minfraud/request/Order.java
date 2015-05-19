@@ -65,6 +65,8 @@ public final class Order {
          * @param code The ISO 4217 currency code for the currency used in the
          *             transaction.
          * @return The builder object.
+         * @throws IllegalArgumentException when currency is not a valid
+         *         three-letter currency code.
          */
         public Order.Builder currency(String code) {
             if (!code.matches("[A-Z]{3}")) {

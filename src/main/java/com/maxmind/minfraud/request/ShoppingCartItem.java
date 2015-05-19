@@ -57,6 +57,7 @@ public class ShoppingCartItem {
         /**
          * @param quantity The quantity of the item in the shopping cart.
          * @return The builder object.
+         * @throws IllegalArgumentException when quantity is not positive.
          */
         public ShoppingCartItem.Builder quantity(int quantity) {
             if (quantity <= 0) {
