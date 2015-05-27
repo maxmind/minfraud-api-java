@@ -14,7 +14,7 @@ public final class Warning {
     /**
      * This provides a machine-readable code identifying the warning. Although
      * more codes may be added in the future, the current codes are:
-     * <p/>
+     *
      * <ul>
      * <li>BILLING_CITY_NOT_FOUND – the billing city could not be found in
      * our database.</li>

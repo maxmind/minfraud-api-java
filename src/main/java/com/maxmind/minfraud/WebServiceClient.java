@@ -170,7 +170,7 @@ public final class WebServiceClient {
      * Make a minFraud Insights request to the web service using the transaction
      * request object passed to the method.
      *
-     * @param request A transaction request object.
+     * @param transaction A transaction request object.
      * @return An Insights model object
      * @throws InsufficientFundsException when there are insufficient funds on
      *                                    the account.
@@ -193,7 +193,7 @@ public final class WebServiceClient {
      * Make a minFraud Score request to the web service using the transaction
      * request object passed to the method.
      *
-     * @param request A transaction request object.
+     * @param transaction A transaction request object.
      * @return An Score model object
      * @throws InsufficientFundsException when there are insufficient funds on
      *                                    the account.

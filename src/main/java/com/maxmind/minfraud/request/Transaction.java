@@ -247,6 +247,7 @@ public final class Transaction {
 
     /**
      * @return The transaction as JSON.
+     * @throws IOException when there is an issue encoding as JSON.
      */
     public String toJson() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
