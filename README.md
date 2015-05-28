@@ -24,18 +24,43 @@ To do this, add the dependency to your pom.xml:
 
 To use this API, first create a new `WebServiceClient` object. The constructor
 takes your MaxMind user ID, license key, and an optional options array as
-arguments.
+arguments. For example:
+
+```java
+WebServiceClient client = new WebServiceClient.Builder(6, "ABCD567890").build();
+```
 
 Then create a new `Transaction` object. This represents the transaction that
 you are sending to minFraud. The class is instantiated using an inner builder
 class, `Transaction.Builder`. Each builder method takes a corresponding
-request object. Each of these objects is similarly built up with corresponding
-builder classes.
+request model object. Each of these objects is similarly built up with
+corresponding builder classes. For example:
 
-After creating the request object, send a Score request by calling the `score`
-method or an Insights request by calling `insights` method with the
-transaction as a parameter. If the request succeeds, a model object will be
-returned for the endpoint. If the request fails, an exception will be thrown.
+```java
+Transaction transaction = new Transaction.Builder(
+        new Device.Builder(InetAddress.getByName("1.1.1.1")).build()
+    ).email(
+        new Email.Builder()
+            .address("fraud@ster.com")
+            .build()
+    ).build();
+```
+
+After creating the transaction object, send a Score request by calling the
+`score` method:
+
+```java
+Score score = client.score(transaction);
+```
+
+or an Insights request by calling `insights` method:
+
+```java
+Insights score = client.insights(transaction);
+```
+
+If the request succeeds, a model object will be returned for the endpoint.
+If the request fails, an exception will be thrown.
 
 See the API documentation for more details.
 
