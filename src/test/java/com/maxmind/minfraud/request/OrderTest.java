@@ -1,6 +1,5 @@
 package com.maxmind.minfraud.request;
 
-import com.maxmind.minfraud.exception.InvalidInputException;
 import com.maxmind.minfraud.request.Order.Builder;
 import org.junit.Test;
 
@@ -29,23 +28,23 @@ public class OrderTest {
         assertEquals("USD", order.getCurrency());
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testCurrencyWithDigits() throws Exception {
         new Builder().currency("US1").build();
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testCurrencyThatIsTooShort() throws Exception {
         new Builder().currency("US").build();
     }
 
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testCurrencyThatIsTooLong() throws Exception {
         new Builder().currency("USDE").build();
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testCurrencyInWrongCase() throws Exception {
         new Builder().currency("usd").build();
     }

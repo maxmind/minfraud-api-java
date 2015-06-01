@@ -15,26 +15,51 @@ abstract class AbstractAddress {
     @JsonProperty("is_in_ip_country")
     protected Boolean isInIpCountry;
 
+    /**
+     * @return This returns true if the address is in the IP country. It is
+     * false when the address is not in the IP country. If the address
+     * could not be parsed or was not provided or the IP address could not
+     * be geo-located, then null will be returned.
+     */
     @JsonIgnore
     public final Boolean isInIpCountry() {
         return isInIpCountry;
     }
 
+    /**
+     * @return The latitude associated with the address. This will be null if
+     * there is no value in the response.
+     */
+    public final Double getLatitude() {
+        return latitude;
+    }
+
+    /**
+     * @return The longitude associated with the address. This will be null if
+     * there is no value in the response.
+     */
     public final Double getLongitude() {
         return longitude;
     }
 
+    /**
+     * @return The distance in kilometers from the address to the IP location
+     * in kilometers. This will be null if there is no value in the
+     * response.
+     */
     public final Integer getDistanceToIpLocation() {
         return distanceToIpLocation;
     }
 
+    /**
+     * @return This will return true if the postal code provided with the
+     * address is in the city for the address. It will return false when the
+     * postal code is not in the city. If the address could not be parsed or
+     * was not provided, the null will be returned.
+     */
     @JsonIgnore
     public final Boolean isPostalInCity() {
         return isPostalInCity;
-    }
-
-    public final Double getLatitude() {
-        return latitude;
     }
 
     @Override

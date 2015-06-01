@@ -10,12 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Abstract class representing a minFraud request.
- *
- * The request classes are separated as in the future, we may wish to offer inputs
- * that are only useful on one service.
+ * Class representing the transaction to be sent to minFraud.
  */
-abstract class AbstractRequest implements RequestInterface {
+public final class Transaction {
     @JsonProperty
     private final Account account;
 
@@ -47,7 +44,7 @@ abstract class AbstractRequest implements RequestInterface {
     private final List<ShoppingCartItem> shoppingCart;
 
     @SuppressWarnings("unchecked")
-    public AbstractRequest(AbstractRequest.Builder builder) {
+    protected Transaction(Transaction.Builder builder) {
         account = builder.account;
         billing = builder.billing;
         creditCard = builder.creditCard;
@@ -60,8 +57,12 @@ abstract class AbstractRequest implements RequestInterface {
         shoppingCart = builder.shoppingCart;
     }
 
+    /**
+     * {@code Builder} creates instances of the parent class from values set
+     * by the builder's methods.
+     */
     @SuppressWarnings("unchecked")
-    public abstract static class Builder<T extends AbstractRequest.Builder> {
+    public static class Builder {
         Account account;
         Billing billing;
         CreditCard creditCard;
@@ -73,98 +74,181 @@ abstract class AbstractRequest implements RequestInterface {
         Shipping shipping;
         List<ShoppingCartItem> shoppingCart = new ArrayList<>();
 
+        /**
+         * The constructor for {@code Builder}
+         *
+         * @param device The {@code Device} model for the request
+         */
         public Builder(Device device) {
             this.device = device;
         }
 
-        public T account(Account val) {
+        /**
+         * @param val The Account object.
+         * @return The builder object.
+         */
+        public Builder account(Account val) {
             account = val;
-            return (T) this;
+            return this;
         }
 
-        public T billing(Billing val) {
+        /**
+         * @param val The Billing object.
+         * @return The builder object.
+         */
+        public Builder billing(Billing val) {
             billing = val;
-            return (T) this;
+            return this;
         }
 
-        public T creditCard(CreditCard val) {
+        /**
+         * @param val The CreditCard object.
+         * @return The builder object.
+         */
+        public Builder creditCard(CreditCard val) {
             creditCard = val;
-            return (T) this;
+            return this;
         }
 
-        public T email(Email val) {
+        /**
+         * @param val The Email object.
+         * @return The builder object.
+         */
+        public Builder email(Email val) {
             email = val;
-            return (T) this;
+            return this;
         }
 
-        public T event(Event val) {
+        /**
+         * @param val The Event object.
+         * @return The builder object.
+         */
+        public Builder event(Event val) {
             event = val;
-            return (T) this;
+            return this;
         }
 
-        public T order(Order val) {
+        /**
+         * @param val The Order object.
+         * @return The builder object.
+         */
+        public Builder order(Order val) {
             order = val;
-            return (T) this;
+            return this;
         }
 
-        public T payment(Payment val) {
+        /**
+         * @param val The Payment object.
+         * @return The builder object.
+         */
+        public Builder payment(Payment val) {
             payment = val;
-            return (T) this;
+            return this;
         }
 
-        public T shipping(Shipping val) {
+        /**
+         * @param val The Shipping object.
+         * @return The builder object.
+         */
+        public Builder shipping(Shipping val) {
             shipping = val;
-            return (T) this;
+            return this;
         }
 
-        public T addShoppingCartItem(ShoppingCartItem val) {
+        /**
+         * Add a {@code ShoppingCartItem} to the shopping cart.
+         *
+         * @param val A ShoppingCartItem object.
+         * @return The builder object.
+         */
+        public Builder addShoppingCartItem(ShoppingCartItem val) {
             shoppingCart.add(val);
-            return (T) this;
+            return this;
         }
 
-        abstract AbstractRequest build();
+        /**
+         * @return An instance of {@code Transaction} created from the
+         * fields set on this builder.
+         */
+        public Transaction build() {
+            return new Transaction(this);
+        }
     }
 
+    /**
+     * @return The Account object.
+     */
     public Account getAccount() {
         return account;
     }
 
+    /**
+     * @return The Billing object.
+     */
     public Billing getBilling() {
         return billing;
     }
 
+    /**
+     * @return The CreditCard object.
+     */
     public CreditCard getCreditCard() {
         return creditCard;
     }
 
+    /**
+     * @return The Device object.
+     */
     public Device getDevice() {
         return device;
     }
 
+    /**
+     * @return The Email object.
+     */
     public Email getEmail() {
         return email;
     }
 
+    /**
+     * @return The Event object.
+     */
     public Event getEvent() {
         return event;
     }
 
+    /**
+     * @return The Order object.
+     */
     public Order getOrder() {
         return order;
     }
 
+    /**
+     * @return The Payment object.
+     */
     public Payment getPayment() {
         return payment;
     }
 
+    /**
+     * @return The Shipping object.
+     */
     public Shipping getShipping() {
         return shipping;
     }
 
+    /**
+     * @return A list of items in the shopping cart.
+     */
     public List<ShoppingCartItem> getShoppingCart() {
         return new ArrayList<>(shoppingCart);
     }
 
+    /**
+     * @return The transaction as JSON.
+     * @throws IOException when there is an issue encoding as JSON.
+     */
     public String toJson() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -176,7 +260,7 @@ abstract class AbstractRequest implements RequestInterface {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("AbstractRequest{");
+        StringBuilder sb = new StringBuilder("Transaction{");
         sb.append("account=").append(this.account);
         sb.append(", billing=").append(this.billing);
         sb.append(", creditCard=").append(this.creditCard);

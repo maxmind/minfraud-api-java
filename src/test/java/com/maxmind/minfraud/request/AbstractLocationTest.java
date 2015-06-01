@@ -1,6 +1,5 @@
 package com.maxmind.minfraud.request;
 
-import com.maxmind.minfraud.exception.InvalidInputException;
 import com.maxmind.minfraud.request.AbstractLocation.Builder;
 import org.junit.Test;
 
@@ -58,17 +57,17 @@ public abstract class AbstractLocationTest {
         assertEquals("US", loc.getCountry());
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testCountryThatIsTooLong() throws Exception {
         this.builder().country("USA").build();
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testCountryWithNumbers() throws Exception {
         this.builder().country("U1").build();
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testCountryInWrongCase() throws Exception {
         this.builder().country("us").build();
     }

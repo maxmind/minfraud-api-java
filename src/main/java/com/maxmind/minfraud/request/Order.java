@@ -1,7 +1,6 @@
 package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maxmind.minfraud.exception.InvalidInputException;
 
 import java.math.BigDecimal;
 import java.net.URI;
@@ -9,7 +8,7 @@ import java.net.URI;
 /**
  * The order information for the transaction.
  */
-public class Order {
+public final class Order {
     @JsonProperty("amount")
     private final BigDecimal amount;
     @JsonProperty
@@ -23,7 +22,7 @@ public class Order {
     @JsonProperty("referrer_uri")
     private final URI referrerUri;
 
-    public Order(Order.Builder builder) {
+    private Order(Order.Builder builder) {
         amount = builder.amount;
         currency = builder.currency;
         discountCode = builder.discountCode;
@@ -32,6 +31,10 @@ public class Order {
         referrerUri = builder.referrerUri;
     }
 
+    /**
+     * {@code Builder} creates instances of {@code Order}
+     * from values set by the builder's methods.
+     */
     public static final class Builder {
         BigDecimal amount;
         String currency;
@@ -40,75 +43,127 @@ public class Order {
         String subaffiliateId;
         URI referrerUri;
 
+        /**
+         * @param amount The total order amount for the transaction.
+         * @return The builder object.
+         */
         public Order.Builder amount(BigDecimal amount) {
             this.amount = amount;
             return this;
         }
 
+        /**
+         * @param amount The total order amount for the transaction.
+         * @return The builder object.
+         */
         public Order.Builder amount(Double amount) {
             this.amount = BigDecimal.valueOf(amount.doubleValue());
             return this;
         }
 
+        /**
+         * @param code The ISO 4217 currency code for the currency used in the
+         *             transaction.
+         * @return The builder object.
+         * @throws IllegalArgumentException when currency is not a valid
+         *         three-letter currency code.
+         */
         public Order.Builder currency(String code) {
             if (!code.matches("[A-Z]{3}")) {
-                throw new InvalidInputException("The currency code " + code + " is invalid.");
+                throw new IllegalArgumentException("The currency code " + code + " is invalid.");
             }
             currency = code;
             return this;
         }
 
-        public BigDecimal getAmount() {
-            return amount;
-        }
-
+        /**
+         * @param code The discount code applied to the transaction. If
+         *             multiple discount codes were used, please
+         *             separate them with a comma.
+         * @return The builder object.
+         */
         public Order.Builder discountCode(String code) {
             discountCode = code;
             return this;
         }
 
+        /**
+         * @param id The ID of the affiliate where the order is coming from.
+         * @return The builder object.
+         */
         public Order.Builder affiliateId(String id) {
             affiliateId = id;
             return this;
         }
 
+        /**
+         * @param id The ID of the sub-affiliate where the order is coming
+         *           from.
+         * @return The builder object.
+         */
         public Order.Builder subaffiliateId(String id) {
             subaffiliateId = id;
             return this;
         }
 
+        /**
+         * @param uri The URI of the referring site for this order.
+         * @return The builder object.
+         */
         public Order.Builder referrerUri(URI uri) {
             referrerUri = uri;
             return this;
         }
 
+        /**
+         * @return An instance of {@code Order} created from the
+         * fields set on this builder.
+         */
         public Order build() {
             return new Order(this);
         }
     }
 
-    public final URI getReferrerUri() {
-        return referrerUri;
-    }
-
+    /**
+     * @return The total order amount.
+     */
     public final BigDecimal getAmount() {
         return amount;
     }
 
+    /**
+     * @return The currency code.
+     */
     public final String getCurrency() {
         return currency;
     }
 
+    /**
+     * @return The discount codes.
+     */
     public final String getDiscountCode() {
         return discountCode;
     }
 
+    /**
+     * @return The affiliate ID.
+     */
     public final String getAffiliateId() {
         return affiliateId;
     }
 
+    /**
+     * @return The sub-affiliate ID.
+     */
     public final String getSubaffiliateId() {
         return subaffiliateId;
+    }
+
+    /**
+     * @return The referrer URI.
+     */
+    public final URI getReferrerUri() {
+        return referrerUri;
     }
 
     @Override

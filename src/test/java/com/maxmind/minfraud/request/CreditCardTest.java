@@ -1,6 +1,5 @@
 package com.maxmind.minfraud.request;
 
-import com.maxmind.minfraud.exception.InvalidInputException;
 import com.maxmind.minfraud.request.CreditCard.Builder;
 import org.junit.Test;
 
@@ -14,17 +13,17 @@ public class CreditCardTest {
         assertEquals("123456", cc.getIssuerIdNumber());
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testIssuerIdNumberThatIsTooLong() throws Exception {
         new Builder().issuerIdNumber("1234567").build();
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testIssuerIdNumberThatIsTooShort() throws Exception {
         new Builder().issuerIdNumber("12345").build();
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testIssuerIdNumberThatHasLetters() throws Exception {
         new Builder().issuerIdNumber("12345a").build();
     }
@@ -35,17 +34,17 @@ public class CreditCardTest {
         assertEquals("1234", cc.getLast4Digits());
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testLast4DigitsThatIsTooLong() throws Exception {
         new Builder().last4Digits("12345").build();
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testLast4DigitsThatIsTooShort() throws Exception {
         new Builder().last4Digits("123").build();
     }
 
-    @Test(expected = InvalidInputException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testLast4DigitsThatHasLetters() throws Exception {
         new Builder().last4Digits("123a").build();
     }

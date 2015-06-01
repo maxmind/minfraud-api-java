@@ -19,40 +19,72 @@ public class Payment {
         declineCode = builder.declineCode;
     }
 
+    /**
+     * {@code Builder} creates instances of {@code Payment}
+     * from values set by the builder's methods.
+     */
     public static final class Builder {
         Processor processor;
         Boolean wasAuthorized;
         String declineCode;
 
+        /**
+         * @param processor The payment processor used for the transaction.
+         * @return The builder object.
+         */
         public Payment.Builder processor(Processor processor) {
             this.processor = processor;
             return this;
         }
 
+        /**
+         * @param wasAuthorized The authorization outcome from the payment
+         *                      processor. If the transaction has not yet been
+         *                      approved or denied, do not include this field.
+         * @return The builder object.
+         */
         public Payment.Builder wasAuthorized(boolean wasAuthorized) {
             this.wasAuthorized = wasAuthorized;
             return this;
         }
 
+        /**
+         * @param declineCode The decline code as provided by your payment
+         *                    processor. If the transaction was not declined,
+         *                    do not include this field.
+         * @return The builder object.
+         */
         public Payment.Builder declineCode(String declineCode) {
             this.declineCode = declineCode;
             return this;
         }
 
-
+        /**
+         * @return an instance of {@code Payment} created from the
+         * fields set on this builder.
+         */
         public Payment build() {
             return new Payment(this);
         }
     }
 
+    /**
+     * @return The payment processor.
+     */
     public final Processor getProcessor() {
         return processor;
     }
 
+    /**
+     * @return The authorization outcome.
+     */
     public final Boolean wasAuthorized() {
         return wasAuthorized;
     }
 
+    /**
+     * @return The decline code.
+     */
     public final String getDeclineCode() {
         return declineCode;
     }
@@ -67,6 +99,9 @@ public class Payment {
         return sb.toString();
     }
 
+    /**
+     * Enumeration of payment processors
+     */
     public enum Processor {
         ADYEN,
         ALTAPAY,
