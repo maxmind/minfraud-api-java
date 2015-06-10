@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class Event {
+public final class Event {
 
     @JsonProperty("transaction_id")
     private final String transactionId;
@@ -119,7 +119,7 @@ public class Event {
      */
     @JsonIgnore
     public final Date getTime() throws ParseException {
-        return time == null ? null : this.dateFormat.parse(time);
+        return (time == null) ? null : this.dateFormat.parse(time);
     }
 
     /**

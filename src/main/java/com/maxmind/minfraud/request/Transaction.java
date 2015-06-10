@@ -43,7 +43,6 @@ public final class Transaction {
     @JsonProperty("shopping_cart")
     private final List<ShoppingCartItem> shoppingCart;
 
-    @SuppressWarnings("unchecked")
     protected Transaction(Transaction.Builder builder) {
         account = builder.account;
         billing = builder.billing;
@@ -61,7 +60,6 @@ public final class Transaction {
      * {@code Builder} creates instances of the parent class from values set
      * by the builder's methods.
      */
-    @SuppressWarnings("unchecked")
     public static class Builder {
         Account account;
         Billing billing;

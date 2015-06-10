@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 public class IssuerTest extends AbstractOutputTest {
 
     @Test
-    public void testIpLocation() throws Exception {
+    public void testIssuer() throws Exception {
         String phone = "132-342-2131";
 
         Issuer issuer = this.deserialize(

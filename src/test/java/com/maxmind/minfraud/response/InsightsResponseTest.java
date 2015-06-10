@@ -16,7 +16,7 @@ public class InsightsResponseTest extends AbstractOutputTest {
                 JSON.std
                         .composeString()
                         .startObject()
-                        .startObjectField("ip_location")
+                        .startObjectField("ip_address")
                         .startObjectField("country")
                         .put("iso_code", "US")
                         .end()
@@ -42,7 +42,7 @@ public class InsightsResponseTest extends AbstractOutputTest {
                         .finish()
         );
 
-        assertEquals("correct country ISO", "US", insights.getIpLocation().getCountry().getIsoCode());
+        assertEquals("correct country ISO", "US", insights.getIpAddress().getCountry().getIsoCode());
         assertTrue("correct credit card prepaid", insights.getCreditCard().isPrepaid());
         assertTrue("correct shipping address is in IP country", insights.getShippingAddress().isInIpCountry());
         assertTrue("correct billing address is in IP country", insights.getBillingAddress().isInIpCountry());

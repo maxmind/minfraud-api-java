@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 /**
  * An item in the shopping cart.
  */
-public class ShoppingCartItem {
+public final class ShoppingCartItem {
     @JsonProperty
     private final String category;
 

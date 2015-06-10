@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * This class provides a model for the minFraud Insights response.
  */
 public final class InsightsResponse extends ScoreResponse {
-    @JsonProperty("ip_location")
-    protected IpLocation ipLocation;
+    @JsonProperty("ip_address")
+    protected IpAddress ipAddress;
 
     @JsonProperty("credit_card")
     protected CreditCard creditCard = new CreditCard();
@@ -19,10 +19,10 @@ public final class InsightsResponse extends ScoreResponse {
     protected BillingAddress billingAddress = new BillingAddress();
 
     /**
-     * @return The {@code IpLocation} model object.
+     * @return The {@code IpAddress} model object.
      */
-    public final IpLocation getIpLocation() {
-        return ipLocation;
+    public final IpAddress getIpAddress() {
+        return ipAddress;
     }
 
     /**
@@ -53,7 +53,7 @@ public final class InsightsResponse extends ScoreResponse {
         sb.append(", id='").append(this.id).append('\'');
         sb.append(", riskScore=").append(this.riskScore);
         sb.append(", warnings=").append(this.warnings);
-        sb.append(", ipLocation=").append(this.ipLocation);
+        sb.append(", ipAddress=").append(this.ipAddress);
         sb.append(", creditCard=").append(this.creditCard);
         sb.append(", shippingAddress=").append(this.shippingAddress);
         sb.append(", billingAddress=").append(this.billingAddress);

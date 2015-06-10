@@ -6,17 +6,18 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class IpLocationTest extends AbstractOutputTest {
+public class IpAddressTest extends AbstractOutputTest {
 
     @Test
-    public void testIpLocation() throws Exception {
+    public void testIpAddress() throws Exception {
         String time = "2015-04-19T12:59:23-01:00";
 
-        IpLocation loc = this.deserialize(
-                IpLocation.class,
+        IpAddress address = this.deserialize(
+                IpAddress.class,
                 JSON.std
                         .composeString()
                         .startObject()
+                        .put("risk", 99)
                         .startObjectField("country")
                         .put("is_high_risk", true)
                         .end()
@@ -27,8 +28,8 @@ public class IpLocationTest extends AbstractOutputTest {
                         .finish()
         );
 
-        assertEquals("correct local time", time, loc.getLocation().getLocalTime());
-        assertTrue("isHighRisk", loc.getCountry().isHighRisk());
+        assertEquals("IP risk", new Double(99), address.getRisk());
+        assertEquals("correct local time", time, address.getLocation().getLocalTime());
+        assertTrue("isHighRisk", address.getCountry().isHighRisk());
     }
-
 }
