@@ -3,7 +3,7 @@ package com.maxmind.minfraud.request;
 /**
  * The billing information for the transaction.
  */
-public class Billing extends AbstractLocation {
+public final class Billing extends AbstractLocation {
     private Billing(Billing.Builder builder) {
         super(builder);
     }

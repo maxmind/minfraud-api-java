@@ -7,7 +7,7 @@ import java.net.InetAddress;
 /**
  * The device information for the transaction.
  */
-public class Device {
+public final class Device {
     @JsonProperty("ip_address")
     private final InetAddress ipAddress;
 

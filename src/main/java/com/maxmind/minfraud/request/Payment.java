@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * The payment information for the transaction.
  */
-public class Payment {
+public final class Payment {
     @JsonProperty("processor")
     private final Processor processor;
     @JsonProperty("was_authorized")
