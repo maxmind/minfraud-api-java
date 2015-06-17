@@ -21,6 +21,22 @@
         <name>MaxMind, Inc.</name>
         <url>http://www.maxmind.com/</url>
     </organization>
+    <scm>
+        <url>https://github.com/maxmind/minfraud-api-java</url>
+        <connection>scm:git:git://github.com:maxmind/minfraud-api-java.git</connection>
+        <developerConnection>scm:git:git@github.com:maxmind/minfraud-api-java.git</developerConnection>
+    </scm>
+    <issueManagement>
+        <url>https://github.com/maxmind/minfraud-api-java/issues</url>
+        <system>GitHub</system>
+    </issueManagement>
+    <developers>
+        <developer>
+            <id>oschwald</id>
+            <name>Gregory J. Oschwald</name>
+            <email>goschwald@maxmind.com</email>
+        </developer>
+    </developers>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -28,17 +44,17 @@
         <dependency>
             <groupId>com.maxmind.geoip2</groupId>
             <artifactId>geoip2</artifactId>
-            <version>2.1.1-SNAPSHOT</version>
+            <version>2.2.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.4.1</version>
+            <version>4.5</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.5.2</version>
+            <version>2.5.4</version>
         </dependency>
         <dependency>
             <groupId>commons-validator</groupId>
@@ -54,7 +70,7 @@
         <dependency>
             <groupId>com.github.tomakehurst</groupId>
             <artifactId>wiremock</artifactId>
-            <version>1.55</version>
+            <version>1.56</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -72,7 +88,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.jr</groupId>
             <artifactId>jackson-jr-objects</artifactId>
-            <version>2.5.0</version>
+            <version>2.5.4</version>
             <scope>test</scope>
         </dependency>
         <dependency>

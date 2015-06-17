@@ -20,7 +20,7 @@ fi
 
 if [ ! -d .gh-pages ]; then
     echo "Checking out gh-pages in .gh-pages"
-    git clone -b gh-pages git@git.maxmind.com:GeoIP2-java .gh-pages
+    git clone -b gh-pages git@github.com:maxmind/minfraud-api-java.git .gh-pages
     pushd .gh-pages
 else
     echo "Updating .gh-pages"
