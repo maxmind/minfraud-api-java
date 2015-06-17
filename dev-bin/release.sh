@@ -44,6 +44,8 @@ if [ "$SHOULD_CONTINUE" != "y" ]; then
     exit 1
 fi
 
+perl -pi -e "s{(?<=<version>).+?(?=</version>)}{$VERSION}g" README.md
+
 PAGE=.gh-pages/index.md
 cat <<EOF > $PAGE
 ---
