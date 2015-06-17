@@ -1,8 +1,8 @@
 ---
 layout: default
-title: MaxMind Score and Insights Java API
+title: MaxMind minFraud Score and Insights Java API
 language: java
-version: v2.2.0
+version: v0.0.2
 ---
 
 # MaxMind minFraud v2.0 Java API
