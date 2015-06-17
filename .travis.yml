@@ -13,3 +13,17 @@ notifications:
       - dev@maxmind.com
     on_success: change
     on_failure: always
+
+env:
+  global:
+   - secure: "VFolyZRJ3qLDvR0Ui/RUMrmdwftqyRafDhRHNb+9nDtQzqTUIhad6Dy8oFCFjx153bbmt7dzMjGh7PLMs61yogJbbmBaMifeXcVEe8XS7Q93E+TsigYfDevcKy5BWToEg6KFasv/i3uMLPcbuajs7tKxw11TKjDZS3Bai10Eh1l/ac1d+glcLfqQLtYnGEHzLawjcuPcAbsA4RHbg/4B/nRAdStOzlHziTsDgnjQeo8cw1pAfieOqtSiBi7jo3Ymg9eEFodf0bE58nFLapifHablh8aBNY+UXo/Vg/oZNNLZ++IyZu2/taMZJsVGyAeBYAQDzuiMMAKBhBitAqU+Gao661izmercFczZm8U10OCrkQohnuAcGhpMrEpX6Whwg1AquiDP1vJI4O1semBKYjEJUWpkLdd9oPIVS0XIMkPkAU/bkZwWscovugScA1UD8jl3/BJkldLolhT35gvfRjgpw8MsYoaM08cGy4H7bDVh2WpO5RD9QFqEMC4P1jYMgFTWbVTIi52k7QMhic+zg3RrKiTB6ze+IDvmKk3OAKY/6Tq20wd7CvmqEe9Y7XqwwcYKW2lvQHS9mFf64bsb0KPIe61wifuiPxf1V4edXZPqc/Rw2XC5wwYtV5mDqTXPN84bDozSJQEdxRBiGjc7vuD4aMhXq/cRb6Qs3G7qanQ="
+
+addons:
+  coverity_scan:
+    project:
+      name: "maxmind/minfraud-api-java"
+      description: "<Your project description here>"
+    notification_email: dev@maxmind.com
+    build_command_prepend: "mvn clean"
+    build_command:   "mvn -DskipTests=true compile"
+    branch_pattern: .*coverity.*
