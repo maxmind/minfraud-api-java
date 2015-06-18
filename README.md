@@ -1,4 +1,4 @@
-# MaxMind minFraud v2.0 Java API
+# MaxMind minFraud Score and Insights Java API
 
 This is an early pre-release version. Don't use it.
 
