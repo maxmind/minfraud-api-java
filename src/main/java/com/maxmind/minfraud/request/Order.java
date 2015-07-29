@@ -1,5 +1,6 @@
 package com.maxmind.minfraud.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
@@ -21,6 +22,10 @@ public final class Order {
     private final String subaffiliateId;
     @JsonProperty("referrer_uri")
     private final URI referrerUri;
+    @JsonProperty("is_gift")
+    private Boolean isGift;
+    @JsonProperty("has_gift_message")
+    private Boolean hasGiftMessage;
 
     private Order(Order.Builder builder) {
         amount = builder.amount;
@@ -29,6 +34,8 @@ public final class Order {
         affiliateId = builder.affiliateId;
         subaffiliateId = builder.subaffiliateId;
         referrerUri = builder.referrerUri;
+        isGift = builder.isGift;
+        hasGiftMessage = builder.hasGiftMessage;
     }
 
     /**
@@ -42,6 +49,8 @@ public final class Order {
         String affiliateId;
         String subaffiliateId;
         URI referrerUri;
+        private Boolean isGift;
+        private Boolean hasGiftMessage;
 
         /**
          * @param amount The total order amount for the transaction.
@@ -66,7 +75,7 @@ public final class Order {
          *             transaction.
          * @return The builder object.
          * @throws IllegalArgumentException when currency is not a valid
-         *         three-letter currency code.
+         *                                  three-letter currency code.
          */
         public Order.Builder currency(String code) {
             if (!code.matches("[A-Z]{3}")) {
@@ -93,6 +102,24 @@ public final class Order {
          */
         public Order.Builder affiliateId(String id) {
             affiliateId = id;
+            return this;
+        }
+
+        /**
+         * @param isGift Whether order was marked as a gift by the purchaser.
+         * @return The builder object.
+         */
+        public Order.Builder isGift(boolean isGift) {
+            this.isGift = isGift;
+            return this;
+        }
+
+        /**
+         * @param hasGiftMessage Whether the purchaser included a gift message.
+         * @return The builder object.
+         */
+        public Order.Builder hasGiftMessage(boolean hasGiftMessage) {
+            this.hasGiftMessage = hasGiftMessage;
             return this;
         }
 
@@ -166,15 +193,33 @@ public final class Order {
         return referrerUri;
     }
 
+    /**
+     * @return The order is a gift.
+     */
+    @JsonIgnore
+    public final Boolean hasGiftMessage() {
+        return hasGiftMessage;
+    }
+
+    /**
+     * @return The order is a gift.
+     */
+    @JsonIgnore
+    public final Boolean isGift() {
+        return isGift;
+    }
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Order{");
-        sb.append("amount=").append(this.amount);
-        sb.append(", currency='").append(this.currency).append('\'');
-        sb.append(", discountCode='").append(this.discountCode).append('\'');
-        sb.append(", affiliateId='").append(this.affiliateId).append('\'');
-        sb.append(", subaffiliateId='").append(this.subaffiliateId).append('\'');
-        sb.append(", referrerUri=").append(this.referrerUri);
+        final StringBuilder sb = new StringBuilder("Order{");
+        sb.append("amount=").append(amount);
+        sb.append(", currency='").append(currency).append('\'');
+        sb.append(", discountCode='").append(discountCode).append('\'');
+        sb.append(", affiliateId='").append(affiliateId).append('\'');
+        sb.append(", subaffiliateId='").append(subaffiliateId).append('\'');
+        sb.append(", referrerUri=").append(referrerUri);
+        sb.append(", isGift=").append(isGift);
+        sb.append(", hasGiftMessage=").append(hasGiftMessage);
         sb.append('}');
         return sb.toString();
     }

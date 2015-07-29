@@ -96,6 +96,8 @@ public class RequestTestHelper {
                                 .affiliateId("af12")
                                 .subaffiliateId("saf42")
                                 .referrerUri(new URI("http://www.amazon.com/"))
+                                .isGift(true)
+                                .hasGiftMessage(false)
                                 .build()
                 ).addShoppingCartItem(
                         new ShoppingCartItem.Builder()
