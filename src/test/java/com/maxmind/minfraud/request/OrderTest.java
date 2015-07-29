@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.net.URI;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class OrderTest {
 
@@ -72,5 +73,17 @@ public class OrderTest {
         URI uri = new URI("http://www.mm.com/");
         Order order = new Builder().referrerUri(uri).build();
         assertEquals(uri, order.getReferrerUri());
+    }
+
+    @Test
+    public void testIsGift() throws Exception {
+        Order order = new Builder().isGift(true).build();
+        assertTrue(order.isGift());
+    }
+
+    @Test
+    public void testHasGiftMessage() throws Exception {
+        Order order = new Builder().hasGiftMessage(true).build();
+        assertTrue(order.hasGiftMessage());
     }
 }
