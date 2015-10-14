@@ -24,19 +24,22 @@ public final class CreditCard {
     }
 
     /**
-     * @return This field contains an ISO 3166-1 alpha-2 country code
-     * representing the country that the card was issued in. This will be null
-     * if there is no value in the response.
+     * @return The two letter <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">
+     * ISO 3166-1 alpha-2</a> country code associated with the location
+     * of the majority of customers using this credit card as determined
+     * by their billing address. In cases where the location of customers
+     * is highly mixed, this defaults to the country of the bank issuing
+     * the card.
      */
     public final String getCountry() {
         return country;
     }
 
     /**
-     * @return This will return true if the country of the billing address
-     * matches the country that the credit card was issued in. It will return
-     * false if they do not match. If the billing country was not provided or
-     * the issuer country could not be determined, null will be returned.
+     * @return True if the country of the billing address matches the country
+     * of the majority of customers using that IIN. In cases where the
+     * location of customers is highly mixed, the match is to the country of
+     * the bank issuing the card.
      */
     @JsonIgnore
     public final Boolean isIssuedInBillingAddressCountry() {
