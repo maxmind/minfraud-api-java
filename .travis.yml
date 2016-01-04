@@ -10,7 +10,7 @@ install: mvn install -DskipTests=true -Dgpg.skip=true
 notifications:
   email:
     recipients:
-      - dev@maxmind.com
+      - dev-ci@maxmind.com
     on_success: change
     on_failure: always
 
@@ -23,7 +23,7 @@ addons:
     project:
       name: "maxmind/minfraud-api-java"
       description: "Build submitted via Travis CI"
-    notification_email: dev@maxmind.com
+    notification_email: dev-ci@maxmind.com
     build_command_prepend: "mvn clean"
     build_command:   "mvn -DskipTests=true compile"
     branch_pattern: .*coverity.*
