@@ -140,21 +140,21 @@ public final class CreditCard {
     /**
      * @return The issuer ID number.
      */
-    public final String getIssuerIdNumber() {
+    public String getIssuerIdNumber() {
         return issuerIdNumber;
     }
 
     /**
      * @return The last 4 digits of the credit card number.
      */
-    public final String getLast4Digits() {
+    public String getLast4Digits() {
         return last4Digits;
     }
 
     /**
      * @return The name of the issuing bank as provided by the end user.
      */
-    public final String getBankName() {
+    public String getBankName() {
         return bankName;
     }
 
@@ -162,7 +162,7 @@ public final class CreditCard {
      * @return The phone country code for the issuing bank as provided by
      * the end user.
      */
-    public final String getBankPhoneCountryCode() {
+    public String getBankPhoneCountryCode() {
         return bankPhoneCountryCode;
     }
 
@@ -170,7 +170,7 @@ public final class CreditCard {
      * @return The phone number, without the country code, for the issuing
      * bank as provided by the end user.
      */
-    public final String getBankPhoneNumber() {
+    public String getBankPhoneNumber() {
         return bankPhoneNumber;
     }
 
@@ -179,7 +179,7 @@ public final class CreditCard {
      * returned to you by the credit card processor. The minFraud service
      * supports the standard AVS codes.
      */
-    public final Character getAvsResult() {
+    public Character getAvsResult() {
         return avsResult;
     }
 
@@ -187,7 +187,7 @@ public final class CreditCard {
      * @return The card verification value (CVV) code as provided by the
      * payment processor.
      */
-    public final Character getCvvResult() {
+    public Character getCvvResult() {
         return cvvResult;
     }
 

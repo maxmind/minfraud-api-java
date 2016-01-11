@@ -23,9 +23,9 @@ public final class Order {
     @JsonProperty("referrer_uri")
     private final URI referrerUri;
     @JsonProperty("is_gift")
-    private Boolean isGift;
+    private final Boolean isGift;
     @JsonProperty("has_gift_message")
-    private Boolean hasGiftMessage;
+    private final Boolean hasGiftMessage;
 
     private Order(Order.Builder builder) {
         amount = builder.amount;
@@ -154,42 +154,42 @@ public final class Order {
     /**
      * @return The total order amount.
      */
-    public final BigDecimal getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
     /**
      * @return The currency code.
      */
-    public final String getCurrency() {
+    public String getCurrency() {
         return currency;
     }
 
     /**
      * @return The discount codes.
      */
-    public final String getDiscountCode() {
+    public String getDiscountCode() {
         return discountCode;
     }
 
     /**
      * @return The affiliate ID.
      */
-    public final String getAffiliateId() {
+    public String getAffiliateId() {
         return affiliateId;
     }
 
     /**
      * @return The sub-affiliate ID.
      */
-    public final String getSubaffiliateId() {
+    public String getSubaffiliateId() {
         return subaffiliateId;
     }
 
     /**
      * @return The referrer URI.
      */
-    public final URI getReferrerUri() {
+    public URI getReferrerUri() {
         return referrerUri;
     }
 
@@ -197,7 +197,7 @@ public final class Order {
      * @return The order is a gift.
      */
     @JsonIgnore
-    public final Boolean hasGiftMessage() {
+    public Boolean hasGiftMessage() {
         return hasGiftMessage;
     }
 
@@ -205,7 +205,7 @@ public final class Order {
      * @return The order is a gift.
      */
     @JsonIgnore
-    public final Boolean isGift() {
+    public Boolean isGift() {
         return isGift;
     }
 

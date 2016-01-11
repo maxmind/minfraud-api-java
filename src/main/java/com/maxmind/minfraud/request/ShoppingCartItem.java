@@ -99,28 +99,28 @@ public final class ShoppingCartItem {
     /**
      * @return The category of the item.
      */
-    public final String getCategory() {
+    public String getCategory() {
         return category;
     }
 
     /**
      * @return The ID of the item.
      */
-    public final String getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
     /**
      * @return The quantity of the item.
      */
-    public final Integer getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
     /**
      * @return The price of the item.
      */
-    public final BigDecimal getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 

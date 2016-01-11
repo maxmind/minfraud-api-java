@@ -3,17 +3,20 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-abstract class AbstractAddress {
-    @JsonProperty("is_postal_in_city")
-    protected Boolean isPostalInCity;
-    protected Double latitude;
-    protected Double longitude;
+public abstract class AbstractAddress {
+    private final Boolean isPostalInCity;
+    private final Double latitude;
+    private final Double longitude;
+    private final Integer distanceToIpLocation;
+    private final Boolean isInIpCountry;
 
-    @JsonProperty("distance_to_ip_location")
-    protected Integer distanceToIpLocation;
-
-    @JsonProperty("is_in_ip_country")
-    protected Boolean isInIpCountry;
+    protected AbstractAddress(Integer distanceToIpLocation, Boolean isInIpCountry, Boolean isPostalInCity, Double latitude, Double longitude) {
+        this.distanceToIpLocation = distanceToIpLocation;
+        this.isInIpCountry = isInIpCountry;
+        this.isPostalInCity = isPostalInCity;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 
     /**
      * @return This returns true if the address is in the IP country. It is
@@ -21,7 +24,7 @@ abstract class AbstractAddress {
      * could not be parsed or was not provided or the IP address could not
      * be geo-located, then null will be returned.
      */
-    @JsonIgnore
+    @JsonProperty("is_in_ip_country")
     public final Boolean isInIpCountry() {
         return isInIpCountry;
     }
@@ -47,6 +50,7 @@ abstract class AbstractAddress {
      * in kilometers. This will be null if there is no value in the
      * response.
      */
+    @JsonProperty("distance_to_ip_location")
     public final Integer getDistanceToIpLocation() {
         return distanceToIpLocation;
     }
@@ -57,7 +61,7 @@ abstract class AbstractAddress {
      * postal code is not in the city. If the address could not be parsed or
      * was not provided, the null will be returned.
      */
-    @JsonIgnore
+    @JsonProperty("is_postal_in_city")
     public final Boolean isPostalInCity() {
         return isPostalInCity;
     }

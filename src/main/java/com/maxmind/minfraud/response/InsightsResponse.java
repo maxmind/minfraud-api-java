@@ -2,47 +2,64 @@ package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 /**
  * This class provides a model for the minFraud Insights response.
  */
 public final class InsightsResponse extends ScoreResponse {
-    @JsonProperty("ip_address")
-    protected IpAddress ipAddress;
+    private final IpAddress ipAddress;
+    private final CreditCard creditCard;
+    private final ShippingAddress shippingAddress;
+    private final BillingAddress billingAddress;
 
-    @JsonProperty("credit_card")
-    protected CreditCard creditCard = new CreditCard();
-
-    @JsonProperty("shipping_address")
-    protected ShippingAddress shippingAddress = new ShippingAddress();
-
-    @JsonProperty("billing_address")
-    protected BillingAddress billingAddress = new BillingAddress();
+    public InsightsResponse(
+            @JsonProperty("billing_address") BillingAddress billingAddress,
+            @JsonProperty("credit_card")  CreditCard creditCard,
+            @JsonProperty("credits_remaining") Integer creditsRemaining,
+            @JsonProperty("id") String id,
+            @JsonProperty("ip_address") IpAddress ipAddress,
+            @JsonProperty("risk_score") Double riskScore,
+            @JsonProperty("shipping_address") ShippingAddress shippingAddress,
+            @JsonProperty("warnings") List<Warning> warnings
+    )
+    {
+        super(creditsRemaining, id, riskScore, warnings);
+        this.billingAddress = billingAddress == null ? new BillingAddress() : billingAddress;
+        this.creditCard = creditCard == null ? new CreditCard() : creditCard;
+        this.ipAddress = ipAddress == null ? new IpAddress() : ipAddress;
+        this.shippingAddress = shippingAddress == null ? new ShippingAddress() : shippingAddress;
+    }
 
     /**
      * @return The {@code IpAddress} model object.
      */
-    public final IpAddress getIpAddress() {
+    @JsonProperty("ip_address")
+    public IpAddress getIpAddress() {
         return ipAddress;
     }
 
     /**
      * @return The {@code CreditCard} model object.
      */
-    public final CreditCard getCreditCard() {
+    @JsonProperty("credit_card")
+    public CreditCard getCreditCard() {
         return creditCard;
     }
 
     /**
      * @return The {@code ShippingAddress} model object.
      */
-    public final ShippingAddress getShippingAddress() {
+    @JsonProperty("shipping_address")
+    public ShippingAddress getShippingAddress() {
         return shippingAddress;
     }
 
     /**
      * @return The {@code BillingAddress} model object.
      */
-    public final BillingAddress getBillingAddress() {
+    @JsonProperty("billing_address")
+    public BillingAddress getBillingAddress() {
         return billingAddress;
     }
 

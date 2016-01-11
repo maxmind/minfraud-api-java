@@ -74,21 +74,21 @@ public final class Device {
     /**
      * @return The "User-Agent" header.
      */
-    public final String getUserAgent() {
+    public String getUserAgent() {
         return userAgent;
     }
 
     /**
      * @return The "Accept-Language" header.
      */
-    public final String getAcceptLanguage() {
+    public String getAcceptLanguage() {
         return acceptLanguage;
     }
 
     /**
      * @return The IP address used in the transaction.
      */
-    public final InetAddress getIpAddress() {
+    public InetAddress getIpAddress() {
 
         return ipAddress;
     }

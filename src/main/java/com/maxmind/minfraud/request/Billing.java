@@ -17,6 +17,7 @@ public final class Billing extends AbstractLocation {
          * @return An instance of {@code Billing} created from the
          * fields set on this builder.
          */
+        @Override
         public Billing build() {
             return new Billing(this);
         }

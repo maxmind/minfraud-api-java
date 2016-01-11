@@ -1,15 +1,29 @@
 package com.maxmind.minfraud.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * This class represents a warning returned by the web service.
  */
 public final class Warning {
-    protected String code;
-    protected String warning;
-    protected List<String> input;
+    private final String code;
+    private final String warning;
+    private final List<String> input;
+
+    public Warning(
+            @JsonProperty("code") String code,
+            @JsonProperty("input") List<String> input,
+            @JsonProperty("warning") String warning
+    ) {
+        this.code = code;
+        this.input = Collections.unmodifiableList(input == null ? new ArrayList<String>() : input);
+        this.warning = warning;
+    }
 
     /**
      * This provides a machine-readable code identifying the warning. Although
@@ -39,7 +53,7 @@ public final class Warning {
      *
      * @return The warning code.
      */
-    public final String getCode() {
+    public String getCode() {
         return this.code;
     }
 
@@ -47,7 +61,7 @@ public final class Warning {
      * @return This field provides a human-readable explanation of the warning.
      * The description may change at any time and should not be matched against.
      */
-    public final String getWarning() {
+    public String getWarning() {
         return this.warning;
     }
 
@@ -57,7 +71,7 @@ public final class Warning {
      * the billing city, the list would contain "billing" followed by "city".
      * The key is used for object and the index number for an array.
      */
-    public final List<String> getInput() {
+    public List<String> getInput() {
         return new ArrayList<>(this.input);
     }
 

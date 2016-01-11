@@ -1,11 +1,16 @@
 CHANGELOG
 =========
 
-0.2.0 (2015-XX-XX)
+0.2.0 (2016-XX-XX)
 ------------------
 
 * Added support for `is_gift` and `has_gift_message` to the order input
   object.
+* Jackson now uses the constructors to deserialize to the response model
+  classes rather than overriding the access modifiers on them.
+* A null pointer bug was fixed in `getInput()` of the `Warning` model when
+  the `input` array is not present in the JSON object.
+* Update GeoIP2 and other dependencies.
 
 0.1.0 (2015-06-29)
 ------------------

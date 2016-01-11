@@ -7,21 +7,31 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * This class contains minFraud response data related to the credit card issuer.
  */
 public final class Issuer {
-    protected String name;
+    private final String name;
+    private final Boolean matchesProvidedName;
+    private final String phoneNumber;
+    private final Boolean matchesProvidedPhoneNumber;
 
-    @JsonProperty("matches_provided_name")
-    protected Boolean matchesProvidedName;
+    public Issuer(
+            @JsonProperty("matches_provided_name") Boolean matchesProvidedName,
+            @JsonProperty("matches_provided_phone_number") Boolean matchesProvidedPhoneNumber,
+            @JsonProperty("name") String name,
+            @JsonProperty("phone_number") String phoneNumber
+    ) {
+        this.matchesProvidedName = matchesProvidedName;
+        this.matchesProvidedPhoneNumber = matchesProvidedPhoneNumber;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
 
-    @JsonProperty("phone_number")
-    protected String phoneNumber;
-
-    @JsonProperty("matches_provided_phone_number")
-    protected Boolean matchesProvidedPhoneNumber;
+    public Issuer() {
+        this(null, null, null, null);
+    }
 
     /**
      * @return The name of the bank which issued the credit card.
      */
-    public final String getName() {
+    public String getName() {
         return name;
     }
 
@@ -32,8 +42,8 @@ public final class Issuer {
      * in the request or if MaxMind does not have a name associated with the
      * IIN.
      */
-    @JsonIgnore
-    public final Boolean matchesProvidedName() {
+    @JsonProperty("matches_provided_name")
+    public Boolean matchesProvidedName() {
         return matchesProvidedName;
     }
 
@@ -41,7 +51,8 @@ public final class Issuer {
      * @return The phone number of the bank which issued the credit card. In
      * some cases the phone number we return may be out of date.
      */
-    public final String getPhoneNumber() {
+    @JsonProperty("phone_number")
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -52,7 +63,8 @@ public final class Issuer {
      * (IIN) was provided in the request or if MaxMind does not have a phone
      * number associated with the IIN.
      */
-    public final Boolean matchesProvidedPhoneNumber() {
+    @JsonProperty("matches_provided_phone_number")
+    public Boolean matchesProvidedPhoneNumber() {
         return matchesProvidedPhoneNumber;
     }
 
