@@ -71,21 +71,21 @@ public final class Payment {
     /**
      * @return The payment processor.
      */
-    public final Processor getProcessor() {
+    public Processor getProcessor() {
         return processor;
     }
 
     /**
      * @return The authorization outcome.
      */
-    public final Boolean wasAuthorized() {
+    public Boolean wasAuthorized() {
         return wasAuthorized;
     }
 
     /**
      * @return The decline code.
      */
-    public final String getDeclineCode() {
+    public String getDeclineCode() {
         return declineCode;
     }
 

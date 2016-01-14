@@ -9,6 +9,7 @@ import java.net.URL;
  */
 public class InvalidRequestException extends MinFraudException {
     private final String code;
+    private final int httpStatus;
     private final URL url;
 
     /**
@@ -20,6 +21,7 @@ public class InvalidRequestException extends MinFraudException {
         super(message);
         this.url = url;
         this.code = code;
+        this.httpStatus = 0;
     }
 
     /**
@@ -34,6 +36,7 @@ public class InvalidRequestException extends MinFraudException {
         super(message, e);
         this.code = code;
         this.url = url;
+        this.httpStatus = httpStatus;
     }
 
     /**
@@ -44,6 +47,14 @@ public class InvalidRequestException extends MinFraudException {
     }
 
     /**
+     * @return The integer HTTP status returned by the MaxMind web service. Will be 0 if
+     *         it was not set at throw time.
+     */
+    public final int getHttpStatus() {
+        return httpStatus;
+    }
+
+ /**
      * @return the URL queried.
      */
     public final URL getUrl() {

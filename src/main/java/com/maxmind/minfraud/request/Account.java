@@ -64,14 +64,14 @@ public final class Account {
     /**
      * @return The user ID.
      */
-    public final String getUserId() {
+    public String getUserId() {
         return userId;
     }
 
     /**
      * @return The MD5 of the username passed to the builder.
      */
-    public final String getUsernameMd5() {
+    public String getUsernameMd5() {
         return usernameMd5;
     }
 

@@ -7,19 +7,31 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * This class contains minFraud response data related to the credit card.
  */
 public final class CreditCard {
-    protected Issuer issuer = new Issuer();
-    protected String country;
+    private final Issuer issuer;
+    private final String country;
+    private final Boolean isIssuedInBillingAddressCountry;
+    private final Boolean isPrepaid;
 
-    @JsonProperty("is_issued_in_billing_address_country")
-    protected Boolean isIssuedInBillingAddressCountry;
+    public CreditCard(
+            @JsonProperty("country") String country,
+            @JsonProperty("is_issued_in_billing_address_country") Boolean isIssuedInBillingAddressCountry,
+            @JsonProperty("is_prepaid") Boolean isPrepaid,
+            @JsonProperty("issuer") Issuer issuer
+    ) {
+        this.country = country;
+        this.isIssuedInBillingAddressCountry = isIssuedInBillingAddressCountry;
+        this.isPrepaid = isPrepaid;
+        this.issuer = issuer == null ? new Issuer() : issuer;
+    }
 
-    @JsonProperty("is_prepaid")
-    protected Boolean isPrepaid;
+    public CreditCard() {
+        this(null, null, null, null);
+    }
 
     /**
      * @return The {@code Issuer} model object.
      */
-    public final Issuer getIssuer() {
+    public Issuer getIssuer() {
         return issuer;
     }
 
@@ -31,7 +43,7 @@ public final class CreditCard {
      * is highly mixed, this defaults to the country of the bank issuing
      * the card.
      */
-    public final String getCountry() {
+    public String getCountry() {
         return country;
     }
 
@@ -41,8 +53,8 @@ public final class CreditCard {
      * location of customers is highly mixed, the match is to the country of
      * the bank issuing the card.
      */
-    @JsonIgnore
-    public final Boolean isIssuedInBillingAddressCountry() {
+    @JsonProperty("is_issued_in_billing_address_country")
+    public Boolean isIssuedInBillingAddressCountry() {
         return isIssuedInBillingAddressCountry;
     }
 
@@ -50,8 +62,8 @@ public final class CreditCard {
      * @return True if the card is a prepaid card. False if not prepaid. If
      * the IIN was not provided or is unknown, null will be returned.
      */
-    @JsonIgnore
-    public final Boolean isPrepaid() {
+    @JsonProperty("is_prepaid")
+    public Boolean isPrepaid() {
         return isPrepaid;
     }
 

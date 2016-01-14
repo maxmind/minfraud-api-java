@@ -78,14 +78,14 @@ public final class Email {
     /**
      * @return The MD5 of the email address used in the transaction.
      */
-    public final String getAddressMd5() {
+    public String getAddressMd5() {
         return addressMd5;
     }
 
     /**
      * @return The domain of the email address used in the transaction.
      */
-    public final String getDomain() {
+    public String getDomain() {
         return domain;
     }
 

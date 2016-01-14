@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 /**
- * Created by greg on 4/24/15.
+ * Helper for creating test requests.
  */
 public class RequestTestHelper {
     public static Transaction fullTransaction() throws Exception {

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.InjectableValues.Std;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.maxmind.minfraud.exception.*;
 import com.maxmind.minfraud.request.Transaction;
@@ -282,6 +283,7 @@ public final class WebServiceClient {
         }
 
         ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS);
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         InjectableValues inject = new Std().addValue(
                 "locales", locales);
@@ -313,6 +315,7 @@ public final class WebServiceClient {
         Map<String, String> content;
         try {
             ObjectMapper mapper = new ObjectMapper();
+            mapper.disable(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS);
             content = mapper.readValue(body,
                     new TypeReference<HashMap<String, String>>() {
                     });
@@ -322,7 +325,7 @@ public final class WebServiceClient {
         } catch (IOException e) {
             throw new HttpException("Received a " + status + " error for "
                     + url + " but it did not include the expected JSON body: "
-                    + body, status, url);
+                    + body, status, url, e);
         }
     }
 
@@ -347,7 +350,7 @@ public final class WebServiceClient {
             case "INSUFFICIENT_FUNDS":
                 throw new InsufficientFundsException(error);
             default:
-                throw new InvalidRequestException(error, code, url);
+                throw new InvalidRequestException(error, code, status, url, null);
         }
     }
 

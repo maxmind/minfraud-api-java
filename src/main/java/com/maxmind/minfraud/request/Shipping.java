@@ -34,12 +34,13 @@ public final class Shipping extends AbstractLocation {
          * @return An instance of {@code Shipping} created from the
          * fields set on this builder.
          */
+        @Override
         public Shipping build() {
             return new Shipping(this);
         }
     }
 
-    public final DeliverySpeed getDeliverySpeed() {
+    public DeliverySpeed getDeliverySpeed() {
         return deliverySpeed;
     }
 

@@ -102,14 +102,14 @@ public final class Event {
     /**
      * @return The transaction ID.
      */
-    public final String getTransactionId() {
+    public String getTransactionId() {
         return transactionId;
     }
 
     /**
      * @return The shop ID.
      */
-    public final String getShopId() {
+    public String getShopId() {
         return shopId;
     }
 
@@ -118,14 +118,14 @@ public final class Event {
      * @throws ParseException if the time cannot be parsed.
      */
     @JsonIgnore
-    public final Date getTime() throws ParseException {
+    public Date getTime() throws ParseException {
         return (time == null) ? null : this.dateFormat.parse(time);
     }
 
     /**
      * @return The type of the event.
      */
-    public final Type getType() {
+    public Type getType() {
         return type;
     }
 
