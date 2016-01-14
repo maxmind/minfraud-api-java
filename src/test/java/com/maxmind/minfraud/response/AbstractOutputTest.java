@@ -9,7 +9,7 @@ import java.util.Collections;
 
 public abstract class AbstractOutputTest {
 
-    protected <T> T deserialize(Class<T> cls, String json) throws IOException {
+    <T> T deserialize(Class<T> cls, String json) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         InjectableValues inject = new Std().addValue(
                 "locales", Collections.singletonList("en"));

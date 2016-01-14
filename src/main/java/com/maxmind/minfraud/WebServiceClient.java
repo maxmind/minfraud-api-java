@@ -350,7 +350,7 @@ public final class WebServiceClient {
             case "INSUFFICIENT_FUNDS":
                 throw new InsufficientFundsException(error);
             default:
-                throw new InvalidRequestException(error, code, url);
+                throw new InvalidRequestException(error, code, status, url, null);
         }
     }
 

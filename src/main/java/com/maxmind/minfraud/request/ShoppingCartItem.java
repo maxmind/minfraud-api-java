@@ -83,7 +83,7 @@ public final class ShoppingCartItem {
          * @return The builder object.
          */
         public ShoppingCartItem.Builder price(Double price) {
-            this.price = BigDecimal.valueOf(price.doubleValue());
+            this.price = BigDecimal.valueOf(price);
             return this;
         }
 

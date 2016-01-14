@@ -66,7 +66,7 @@ public final class Order {
          * @return The builder object.
          */
         public Order.Builder amount(Double amount) {
-            this.amount = BigDecimal.valueOf(amount.doubleValue());
+            this.amount = BigDecimal.valueOf(amount);
             return this;
         }
 

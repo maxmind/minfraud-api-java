@@ -176,7 +176,7 @@ public class WebServiceClientTest {
         );
     }
 
-    private WebServiceClient createSuccessClient(String service, String responseContent) throws IOException, MinFraudException {
+    private WebServiceClient createSuccessClient(String service, String responseContent) {
 
         return createClient(
                 service,

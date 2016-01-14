@@ -8,7 +8,7 @@ import java.net.UnknownHostException;
 import static org.junit.Assert.assertEquals;
 
 public class TransactionTest {
-    Transaction.Builder builder() throws UnknownHostException {
+    private Transaction.Builder builder() throws UnknownHostException {
         return new Transaction.Builder(new Device.Builder(InetAddress.getByName("81.2.69.160")).build());
     }
 
