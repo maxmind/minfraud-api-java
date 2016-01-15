@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-0.2.0 (2016-XX-XX)
+0.2.0 (2016-01-15)
 ------------------
 
 * Added support for `is_gift` and `has_gift_message` to the order input
