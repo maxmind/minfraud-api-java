@@ -1,5 +1,6 @@
 package com.maxmind.minfraud.response;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -8,24 +9,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public final class CreditCard {
     private final Issuer issuer;
+    private final String brand;
     private final String country;
     private final Boolean isIssuedInBillingAddressCountry;
     private final Boolean isPrepaid;
+    private final Type type;
 
     public CreditCard(
+            @JsonProperty("brand") String brand,
             @JsonProperty("country") String country,
             @JsonProperty("is_issued_in_billing_address_country") Boolean isIssuedInBillingAddressCountry,
             @JsonProperty("is_prepaid") Boolean isPrepaid,
-            @JsonProperty("issuer") Issuer issuer
+            @JsonProperty("issuer") Issuer issuer,
+            @JsonProperty("type") Type type
     ) {
+        this.brand = brand;
         this.country = country;
         this.isIssuedInBillingAddressCountry = isIssuedInBillingAddressCountry;
         this.isPrepaid = isPrepaid;
         this.issuer = issuer == null ? new Issuer() : issuer;
+        this.type = type == null ? Type.BLANK : type;
     }
 
     public CreditCard() {
-        this(null, null, null, null);
+        this(null, null, null, null, null, null);
     }
 
     /**
@@ -33,6 +40,14 @@ public final class CreditCard {
      */
     public Issuer getIssuer() {
         return issuer;
+    }
+
+    /**
+     * @return The credit card brand.
+     */
+    @JsonProperty("brand")
+    public String getBrand() {
+        return brand;
     }
 
     /**
@@ -67,14 +82,49 @@ public final class CreditCard {
         return isPrepaid;
     }
 
+    /**
+     * @return The credit card type.
+     */
+    @JsonProperty("type")
+    public Type getType() {
+        return type;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("CreditCard{");
         sb.append("issuer=").append(this.issuer);
+        sb.append(", brand='").append(this.brand).append('\'');
         sb.append(", country='").append(this.country).append('\'');
         sb.append(", isIssuedInBillingAddressCountry=").append(this.isIssuedInBillingAddressCountry);
         sb.append(", isPrepaid=").append(this.isPrepaid);
+        sb.append(", type='").append(this.type).append('\'');
         sb.append('}');
         return sb.toString();
+    }
+
+    /**
+     * The enumerated credit card types
+     */
+    public enum Type {
+        BLANK,
+        CHARGE,
+        CREDIT,
+        DEBIT;
+
+        @JsonCreator
+        public static Type forValue(String value) {
+            /* We don't handle BLANK here because we expect minFraud to leave
+             * fields out entirely, not set it to an empty string. */
+            return Type.valueOf(value.toUpperCase());
+        }
+
+        public String toString() {
+            if (this == BLANK) {
+                return "";
+            }
+
+            return this.name().toLowerCase();
+        }
     }
 }
