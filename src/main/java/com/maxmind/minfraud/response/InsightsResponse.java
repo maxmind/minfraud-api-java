@@ -10,6 +10,7 @@ import java.util.List;
 public final class InsightsResponse extends ScoreResponse {
     private final IpAddress ipAddress;
     private final CreditCard creditCard;
+    private final Device device;
     private final Email email;
     private final ShippingAddress shippingAddress;
     private final BillingAddress billingAddress;
@@ -17,6 +18,7 @@ public final class InsightsResponse extends ScoreResponse {
     public InsightsResponse(
             @JsonProperty("billing_address") BillingAddress billingAddress,
             @JsonProperty("credit_card")  CreditCard creditCard,
+            @JsonProperty("device")  Device device,
             @JsonProperty("email")  Email email,
             @JsonProperty("credits_remaining") Integer creditsRemaining,
             @JsonProperty("id") String id,
@@ -29,6 +31,7 @@ public final class InsightsResponse extends ScoreResponse {
         super(creditsRemaining, id, riskScore, warnings);
         this.billingAddress = billingAddress == null ? new BillingAddress() : billingAddress;
         this.creditCard = creditCard == null ? new CreditCard() : creditCard;
+        this.device = device == null ? new Device() : device;
         this.email = email == null ? new Email() : email;
         this.ipAddress = ipAddress == null ? new IpAddress() : ipAddress;
         this.shippingAddress = shippingAddress == null ? new ShippingAddress() : shippingAddress;
@@ -48,6 +51,14 @@ public final class InsightsResponse extends ScoreResponse {
     @JsonProperty("credit_card")
     public CreditCard getCreditCard() {
         return creditCard;
+    }
+
+    /**
+     * @return The {@code Device} model object.
+     */
+    @JsonProperty("device")
+    public Device getDevice() {
+        return device;
     }
 
     /**
