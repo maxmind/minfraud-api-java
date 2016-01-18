@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+0.3.0 ()
+
+* Added support for new minFraud Insights outputs. These are:
+    * `/credit_card/brand`
+    * `/credit_card/type`
+    * `/device/id`
+    * `/email/is_free`
+    * `/emai/is_high_risk`
+
 0.2.0 (2016-01-15)
 ------------------
 
