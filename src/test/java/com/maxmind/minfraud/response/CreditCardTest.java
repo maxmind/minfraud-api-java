@@ -36,7 +36,7 @@ public class CreditCardTest extends AbstractOutputTest {
     }
 
     @Test
-    public void testCreditCardToString() throws Exception {
+    public void testCreditCardTypeToString() throws Exception {
         assertEquals("credit", CreditCard.Type.CREDIT.toString());
         assertEquals("", CreditCard.Type.BLANK.toString());
     }
