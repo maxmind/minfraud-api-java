@@ -94,6 +94,7 @@ public final class InsightsResponse extends ScoreResponse {
         sb.append(", warnings=").append(this.warnings);
         sb.append(", ipAddress=").append(this.ipAddress);
         sb.append(", creditCard=").append(this.creditCard);
+        sb.append(", device=").append(this.device);
         sb.append(", email=").append(this.email);
         sb.append(", shippingAddress=").append(this.shippingAddress);
         sb.append(", billingAddress=").append(this.billingAddress);
