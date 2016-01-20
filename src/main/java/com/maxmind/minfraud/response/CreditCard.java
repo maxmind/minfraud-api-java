@@ -2,6 +2,7 @@ package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * This class contains minFraud response data related to the credit card.
@@ -27,7 +28,7 @@ public final class CreditCard {
         this.isIssuedInBillingAddressCountry = isIssuedInBillingAddressCountry;
         this.isPrepaid = isPrepaid;
         this.issuer = issuer == null ? new Issuer() : issuer;
-        this.type = type == null ? Type.BLANK : type;
+        this.type = type;
     }
 
     public CreditCard() {
@@ -104,7 +105,6 @@ public final class CreditCard {
      * The enumerated credit card types
      */
     public enum Type {
-        BLANK,
         CHARGE,
         CREDIT,
         DEBIT;
@@ -116,11 +116,8 @@ public final class CreditCard {
             return Type.valueOf(value.toUpperCase());
         }
 
+        @JsonValue
         public String toString() {
-            if (this == BLANK) {
-                return "";
-            }
-
             return this.name().toLowerCase();
         }
     }

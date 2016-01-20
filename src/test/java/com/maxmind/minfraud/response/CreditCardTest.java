@@ -38,7 +38,6 @@ public class CreditCardTest extends AbstractOutputTest {
     @Test
     public void testCreditCardTypeToString() throws Exception {
         assertEquals("credit", CreditCard.Type.CREDIT.toString());
-        assertEquals("", CreditCard.Type.BLANK.toString());
     }
 
     @Test
@@ -53,6 +52,6 @@ public class CreditCardTest extends AbstractOutputTest {
                         .finish()
         );
 
-        assertEquals(CreditCard.Type.BLANK, cc.getType());
+        assertEquals(null, cc.getType());
     }
 }
