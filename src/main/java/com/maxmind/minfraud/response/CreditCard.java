@@ -44,7 +44,6 @@ public final class CreditCard {
     /**
      * @return The credit card brand.
      */
-    @JsonProperty("brand")
     public String getBrand() {
         return brand;
     }
@@ -84,7 +83,6 @@ public final class CreditCard {
     /**
      * @return The credit card type.
      */
-    @JsonProperty("type")
     public Type getType() {
         return type;
     }
