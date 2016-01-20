@@ -103,9 +103,18 @@
       "phone_number": "8003421232",
       "matches_provided_phone_number": true
     },
+    "brand": "Visa",
     "country": "US",
     "is_issued_in_billing_address_country": true,
-    "is_prepaid": true
+    "is_prepaid": true,
+    "type": "charge"
+  },
+  "device": {
+    "id": "C8D3BE1A-BE26-11E5-8C50-1B575C37265F"
+  },
+  "email": {
+    "is_free": false,
+    "is_high_risk": true
   },
   "shipping_address": {
     "distance_to_billing_address": 2227,
