@@ -56,7 +56,6 @@ public final class InsightsResponse extends ScoreResponse {
     /**
      * @return The {@code Device} model object.
      */
-    @JsonProperty("device")
     public Device getDevice() {
         return device;
     }
@@ -64,7 +63,6 @@ public final class InsightsResponse extends ScoreResponse {
     /**
      * @return The {@code Email} model object.
      */
-    @JsonProperty("email")
     public Email getEmail() {
         return email;
     }
