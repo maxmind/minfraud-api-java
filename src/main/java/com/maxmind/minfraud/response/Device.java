@@ -2,16 +2,18 @@ package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.UUID;
+
 /**
  * This class contains minFraud response data related to the device.
  */
 public final class Device {
-    private final String id;
+    private final UUID id;
 
     public Device(
             @JsonProperty("id") String id
     ) {
-        this.id = id;
+        this.id = id == null ? null : UUID.fromString(id);
     }
 
     public Device() {
@@ -21,7 +23,7 @@ public final class Device {
     /**
      * @return The device id.
      */
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 

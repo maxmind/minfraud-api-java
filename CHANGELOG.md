@@ -9,6 +9,8 @@ CHANGELOG
     * `/device/id`
     * `/email/is_free`
     * `/emai/is_high_risk`
+* The `ScoreResponse.id` and `InsightsResponse.id` attributes are now `UUID`
+  objects instead of strings.
 
 0.2.0 (2016-01-15)
 ------------------

@@ -9,13 +9,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * This class represents the minFraud Score response.
  */
 public class ScoreResponse {
     protected final Integer creditsRemaining;
-    protected final String id;
+    protected final UUID id;
     protected final Double riskScore;
     protected final List<Warning> warnings;
 
@@ -26,7 +27,7 @@ public class ScoreResponse {
             @JsonProperty("warnings") List<Warning> warnings
     ) {
         this.creditsRemaining = creditsRemaining;
-        this.id = id;
+        this.id = id == null ? null : UUID.fromString(id);
         this.riskScore = riskScore;
         this.warnings = Collections.unmodifiableList(warnings == null ? new ArrayList<Warning>() : warnings);
     }
@@ -43,7 +44,7 @@ public class ScoreResponse {
     /**
      * @return This is a UUID that identifies the minFraud request.
      */
-    public final String getId() {
+    public final UUID getId() {
         return id;
     }
 
