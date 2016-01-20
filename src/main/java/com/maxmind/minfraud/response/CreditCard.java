@@ -13,7 +13,7 @@ public final class CreditCard {
     private final String country;
     private final Boolean isIssuedInBillingAddressCountry;
     private final Boolean isPrepaid;
-    private final Type type;
+    private final String type;
 
     public CreditCard(
             @JsonProperty("brand") String brand,
@@ -21,7 +21,7 @@ public final class CreditCard {
             @JsonProperty("is_issued_in_billing_address_country") Boolean isIssuedInBillingAddressCountry,
             @JsonProperty("is_prepaid") Boolean isPrepaid,
             @JsonProperty("issuer") Issuer issuer,
-            @JsonProperty("type") Type type
+            @JsonProperty("type") String type
     ) {
         this.brand = brand;
         this.country = country;
@@ -84,7 +84,7 @@ public final class CreditCard {
     /**
      * @return The credit card type.
      */
-    public Type getType() {
+    public String getType() {
         return type;
     }
 
@@ -99,26 +99,5 @@ public final class CreditCard {
         sb.append(", type='").append(this.type).append('\'');
         sb.append('}');
         return sb.toString();
-    }
-
-    /**
-     * The enumerated credit card types
-     */
-    public enum Type {
-        CHARGE,
-        CREDIT,
-        DEBIT;
-
-        @JsonCreator
-        public static Type forValue(String value) {
-            /* We don't handle BLANK here because we expect minFraud to leave
-             * fields out entirely, not set it to an empty string. */
-            return Type.valueOf(value.toUpperCase());
-        }
-
-        @JsonValue
-        public String toString() {
-            return this.name().toLowerCase();
-        }
     }
 }

@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * This class contains minFraud response data related to the email address.
  */
 public final class Email {
+    @JsonProperty("is_free")
     private final Boolean isFree;
+    @JsonProperty("is_high_risk")
     private final Boolean isHighRisk;
 
     public Email(

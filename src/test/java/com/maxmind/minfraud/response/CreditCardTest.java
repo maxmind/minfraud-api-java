@@ -30,28 +30,9 @@ public class CreditCardTest extends AbstractOutputTest {
         assertEquals("Bank", cc.getIssuer().getName());
         assertEquals("US", cc.getCountry());
         assertEquals("Visa", cc.getBrand());
-        assertEquals(CreditCard.Type.CREDIT, cc.getType());
+        assertEquals("credit", cc.getType());
         assertTrue(cc.isPrepaid());
         assertTrue(cc.isIssuedInBillingAddressCountry());
     }
 
-    @Test
-    public void testCreditCardTypeToString() throws Exception {
-        assertEquals("credit", CreditCard.Type.CREDIT.toString());
-    }
-
-    @Test
-    public void testCreditCardBlankType() throws Exception {
-        CreditCard cc = this.deserialize(
-                CreditCard.class,
-                JSON.std
-                        .composeString()
-                        .startObject()
-                        .put("country", "US")
-                        .end()
-                        .finish()
-        );
-
-        assertEquals(null, cc.getType());
-    }
 }
