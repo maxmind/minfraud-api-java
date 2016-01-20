@@ -13,16 +13,16 @@ import java.util.List;
 public final class Warning {
     private final String code;
     private final String warning;
-    private final List<String> input;
+    private final String inputPointer;
 
     public Warning(
             @JsonProperty("code") String code,
-            @JsonProperty("input") List<String> input,
-            @JsonProperty("warning") String warning
+            @JsonProperty("warning") String warning,
+            @JsonProperty("input_pointer") String inputPointer
     ) {
         this.code = code;
-        this.input = Collections.unmodifiableList(input == null ? new ArrayList<String>() : input);
         this.warning = warning;
+        this.inputPointer = inputPointer;
     }
 
     /**
@@ -66,13 +66,14 @@ public final class Warning {
     }
 
     /**
-     * @return This is a list of keys representing the path to the input that
-     * the warning is associated with. For instance, if the warning was about
-     * the billing city, the list would contain "billing" followed by "city".
-     * The key is used for object and the index number for an array.
+     * @return This is a JSON Pointer to the input that the warning is
+     * associated with. For instance, if the warning was about the billing
+     * city, the value would be "/billing/city". See
+     * https://tools.ietf.org/html/rfc6901 for the JSON Pointer spec.
      */
-    public List<String> getInput() {
-        return new ArrayList<>(this.input);
+    @JsonProperty("input_pointer")
+    public String getInputPointer() {
+        return this.inputPointer;
     }
 
     @Override
@@ -80,7 +81,7 @@ public final class Warning {
         final StringBuilder sb = new StringBuilder("Warning{");
         sb.append("code='").append(code).append('\'');
         sb.append(", warning='").append(warning).append('\'');
-        sb.append(", input=").append(input);
+        sb.append(", inputPointer=").append(inputPointer);
         sb.append('}');
         return sb.toString();
     }
