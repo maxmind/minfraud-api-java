@@ -3,6 +3,7 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * This class provides a model for the minFraud Insights response.
@@ -21,7 +22,7 @@ public final class InsightsResponse extends ScoreResponse {
             @JsonProperty("device")  Device device,
             @JsonProperty("email")  Email email,
             @JsonProperty("credits_remaining") Integer creditsRemaining,
-            @JsonProperty("id") String id,
+            @JsonProperty("id") UUID id,
             @JsonProperty("ip_address") IpAddress ipAddress,
             @JsonProperty("risk_score") Double riskScore,
             @JsonProperty("shipping_address") ShippingAddress shippingAddress,

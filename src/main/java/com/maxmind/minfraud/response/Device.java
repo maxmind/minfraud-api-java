@@ -11,9 +11,9 @@ public final class Device {
     private final UUID id;
 
     public Device(
-            @JsonProperty("id") String id
+            @JsonProperty("id") UUID id
     ) {
-        this.id = id == null ? null : UUID.fromString(id);
+        this.id = id;
     }
 
     public Device() {

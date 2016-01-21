@@ -22,12 +22,12 @@ public class ScoreResponse {
 
     public ScoreResponse(
             @JsonProperty("credits_remaining") Integer creditsRemaining,
-            @JsonProperty("id") String id,
+            @JsonProperty("id") UUID id,
             @JsonProperty("risk_score") Double riskScore,
             @JsonProperty("warnings") List<Warning> warnings
     ) {
         this.creditsRemaining = creditsRemaining;
-        this.id = id == null ? null : UUID.fromString(id);
+        this.id = id;
         this.riskScore = riskScore;
         this.warnings = Collections.unmodifiableList(warnings == null ? new ArrayList<Warning>() : warnings);
     }
