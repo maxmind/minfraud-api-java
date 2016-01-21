@@ -3,6 +3,8 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.jr.ob.JSON;
 import org.junit.Test;
 
+import java.util.UUID;
+
 import static org.junit.Assert.assertEquals;
 
 public class ScoreResponseTest extends AbstractOutputTest {
@@ -27,7 +29,7 @@ public class ScoreResponseTest extends AbstractOutputTest {
                         .finish()
         );
 
-        assertEquals("id", id, score.getId());
+        assertEquals("correct ID", UUID.fromString(id), score.getId());
         assertEquals("credits remaining", Integer.valueOf(123), score.getCreditsRemaining());
         assertEquals("risk score", Double.valueOf(0.01), score.getRiskScore());
         assertEquals("warning code", "INVALID_INPUT", score.getWarnings().get(0).getCode());

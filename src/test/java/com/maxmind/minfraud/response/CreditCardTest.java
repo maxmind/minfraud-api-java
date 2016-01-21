@@ -18,16 +18,21 @@ public class CreditCardTest extends AbstractOutputTest {
                         .startObjectField("issuer")
                         .put("name", "Bank")
                         .end()
+                        .put("brand", "Visa")
                         .put("country", "US")
                         .put("is_issued_in_billing_address_country", true)
                         .put("is_prepaid", true)
+                        .put("type", "credit")
                         .end()
                         .finish()
         );
 
         assertEquals("Bank", cc.getIssuer().getName());
         assertEquals("US", cc.getCountry());
+        assertEquals("Visa", cc.getBrand());
+        assertEquals("credit", cc.getType());
         assertTrue(cc.isPrepaid());
         assertTrue(cc.isIssuedInBillingAddressCountry());
     }
+
 }

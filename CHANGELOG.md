@@ -1,6 +1,19 @@
 CHANGELOG
 =========
 
+0.3.0 ()
+
+* Added support for new minFraud Insights outputs. These are:
+    * `/credit_card/brand`
+    * `/credit_card/type`
+    * `/device/id`
+    * `/email/is_free`
+    * `/emai/is_high_risk`
+* The `Warning.getInput` getter has been replaced by
+  `Warning.getInputPointer`, which returns a JSON Pointer rather than array.
+* The `ScoreResponse.getId` and `InsightsResponse.getId` getters now return
+  `UUID` objects instead of strings.
+
 0.2.0 (2016-01-15)
 ------------------
 

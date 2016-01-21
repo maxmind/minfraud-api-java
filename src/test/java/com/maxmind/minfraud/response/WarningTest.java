@@ -14,6 +14,7 @@ public class WarningTest extends AbstractOutputTest {
     public void testWarningn() throws Exception {
         String code = "INVALID_INPUT";
         String msg = "Input invalid";
+        String pointer = "/first/second";
 
         Warning warning = this.deserialize(
                 Warning.class,
@@ -22,21 +23,14 @@ public class WarningTest extends AbstractOutputTest {
                         .startObject()
                         .put("code", code)
                         .put("warning", msg)
-                        .startArrayField("input")
-                        .add("first")
-                        .add("second")
-                        .end()
+                        .put("input_pointer", pointer)
                         .end()
                         .finish()
         );
 
         assertEquals("code", code, warning.getCode());
         assertEquals("warning message", msg, warning.getWarning());
-        assertEquals(
-                "request list",
-                new ArrayList<>(Arrays.asList("first", "second")),
-                warning.getInput()
-        );
+        assertEquals("input_pointer", pointer, warning.getInputPointer());
     }
 
 }

@@ -3,6 +3,8 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.jr.ob.JSON;
 import org.junit.Test;
 
+import java.util.UUID;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -46,7 +48,7 @@ public class InsightsResponseTest extends AbstractOutputTest {
         assertTrue("correct credit card prepaid", insights.getCreditCard().isPrepaid());
         assertTrue("correct shipping address is in IP country", insights.getShippingAddress().isInIpCountry());
         assertTrue("correct billing address is in IP country", insights.getBillingAddress().isInIpCountry());
-        assertEquals("correct ID", id, insights.getId());
+        assertEquals("correct ID", UUID.fromString(id), insights.getId());
         assertEquals("correct credits remaining", Integer.valueOf(123), insights.getCreditsRemaining());
         assertEquals("correct risk score", Double.valueOf(0.01), insights.getRiskScore());
         assertEquals("correct warning code", "INVALID_INPUT", insights.getWarnings().get(0).getCode());

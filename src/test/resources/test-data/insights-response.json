@@ -1,5 +1,5 @@
 {
-  "id": "27D26476-E2BC-11E4-92B8-962E705B4AF5",
+  "id": "27d26476-e2bc-11e4-92b8-962e705b4af5",
   "risk_score": 0.01,
   "credits_remaining": 1000,
   "ip_address": {
@@ -103,9 +103,18 @@
       "phone_number": "8003421232",
       "matches_provided_phone_number": true
     },
+    "brand": "Visa",
     "country": "US",
     "is_issued_in_billing_address_country": true,
-    "is_prepaid": true
+    "is_prepaid": true,
+    "type": "charge"
+  },
+  "device": {
+    "id": "c8d3be1a-be26-11e5-8c50-1b575c37265f"
+  },
+  "email": {
+    "is_free": false,
+    "is_high_risk": true
   },
   "shipping_address": {
     "distance_to_billing_address": 2227,
@@ -119,19 +128,13 @@
   "warnings": [
     {
       "code": "INPUT_INVALID",
-      "input": [
-        "account",
-        "user_id"
-      ],
-      "warning": "Encountered value at \/account\/user_id that does meet the required constraints"
+      "warning": "Encountered value at \/account\/user_id that does meet the required constraints",
+      "input_pointer": "/account/user_id"
     },
     {
       "code": "INPUT_INVALID",
-      "input": [
-        "account",
-        "username_md5"
-      ],
-      "warning": "Encountered value at \/account\/username_md5 that does meet the required constraints"
+      "warning": "Encountered value at \/account\/username_md5 that does meet the required constraints",
+      "input_pointer": "/account/username_md5"
     }
   ]
 }
