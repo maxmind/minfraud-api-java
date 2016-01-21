@@ -9,10 +9,10 @@ CHANGELOG
     * `/device/id`
     * `/email/is_free`
     * `/emai/is_high_risk`
-* The `Warning.input` attribute has been replaced by `Warning.inputPointer`,
-  which is a JSON Pointer rather than array.
-* The `ScoreResponse.id` and `InsightsResponse.id` attributes are now `UUID`
-  objects instead of strings.
+* The `Warning.getInput` getter has been replaced by
+  `Warning.getInputPointer`, which returns a JSON Pointer rather than array.
+* The `ScoreResponse.getId` and `InsightsResponse.getId` getters now return
+  `UUID` objects instead of strings.
 
 0.2.0 (2016-01-15)
 ------------------
