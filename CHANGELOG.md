@@ -1,7 +1,8 @@
 CHANGELOG
 =========
 
-0.3.0 ()
+0.3.0 (2016-01-22)
+------------------
 
 * Added support for new minFraud Insights outputs. These are:
     * `/credit_card/brand`
