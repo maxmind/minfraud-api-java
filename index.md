@@ -2,7 +2,7 @@
 layout: default
 title: MaxMind minFraud Score and Insights Java API
 language: java
-version: v0.2.0
+version: v0.3.0
 ---
 
 # MaxMind minFraud Score and Insights Java API
@@ -30,7 +30,7 @@ To do this, add the dependency to your pom.xml:
     <dependency>
         <groupId>com.maxmind.minfraud</groupId>
         <artifactId>minfraud</artifactId>
-        <version>0.2.0</version>
+        <version>0.3.0</version>
     </dependency>
 ```
 
@@ -227,6 +227,6 @@ This API uses [Semantic Versioning](http://semver.org/).
 
 ## Copyright and License ##
 
-This software is Copyright (c) 2015 by MaxMind, Inc.
+This software is Copyright (c) 2016 by MaxMind, Inc.
 
 This is free software, licensed under the Apache License, Version 2.0.
