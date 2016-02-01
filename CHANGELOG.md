@@ -9,7 +9,7 @@ CHANGELOG
     * `/credit_card/type`
     * `/device/id`
     * `/email/is_free`
-    * `/emai/is_high_risk`
+    * `/email/is_high_risk`
 * The `Warning.getInput()` method has been replaced by
   `Warning.getInputPointer()`, which returns a JSON Pointer rather than array.
 * The `ScoreResponse.getId()` and `InsightsResponse.getId()` methods now
