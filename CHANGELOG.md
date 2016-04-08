@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+0.3.1 (2016-XX-XX)
+------------------
+
+* Added the following new values to the `Payment.Processor` enum:
+  `CCNOW`, `DALPAY`, `EPAY` (repaces `EPAYEU`), `PAYPLUS`, `PINPAYMENTS`,
+  `QUICKPAY`, and `VERAPAY
+
 0.3.0 (2016-01-22)
 ------------------
 
