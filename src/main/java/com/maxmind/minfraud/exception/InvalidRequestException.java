@@ -48,13 +48,13 @@ public class InvalidRequestException extends MinFraudException {
 
     /**
      * @return The integer HTTP status returned by the MaxMind web service. Will be 0 if
-     *         it was not set at throw time.
+     * it was not set at throw time.
      */
     public final int getHttpStatus() {
         return httpStatus;
     }
 
- /**
+    /**
      * @return the URL queried.
      */
     public final URL getUrl() {

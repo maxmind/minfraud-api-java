@@ -1,13 +1,14 @@
 package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.minfraud.AbstractModel;
 
 import java.util.UUID;
 
 /**
  * This class contains minFraud response data related to the device.
  */
-public final class Device {
+public final class Device extends AbstractModel {
     private final UUID id;
 
     public Device(
@@ -25,13 +26,5 @@ public final class Device {
      */
     public UUID getId() {
         return id;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("Device{");
-        sb.append("id=").append(this.id);
-        sb.append('}');
-        return sb.toString();
     }
 }

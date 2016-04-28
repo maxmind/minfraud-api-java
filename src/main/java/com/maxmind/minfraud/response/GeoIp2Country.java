@@ -1,7 +1,6 @@
 package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.geoip2.record.Country;
 
@@ -37,14 +36,5 @@ public final class GeoIp2Country extends Country {
     @JsonProperty("is_high_risk")
     public boolean isHighRisk() {
         return this.isHighRisk;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("GeoIp2Country{");
-        sb.append("isHighRisk=").append(this.isHighRisk);
-        sb.append(", super:").append(super.toString());
-        sb.append('}');
-        return sb.toString();
     }
 }

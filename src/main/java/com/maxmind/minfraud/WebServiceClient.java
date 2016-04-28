@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.maxmind.minfraud.exception.*;
 import com.maxmind.minfraud.request.Transaction;
+import com.maxmind.minfraud.response.FactorsResponse;
 import com.maxmind.minfraud.response.InsightsResponse;
 import com.maxmind.minfraud.response.ScoreResponse;
 import org.apache.http.HttpEntity;
@@ -31,7 +32,7 @@ import java.net.URL;
 import java.util.*;
 
 /**
- * Client for MaxMind minFraud ScoreResponse and InsightsResponse
+ * Client for MaxMind minFraud Score, Insights, and Factors
  */
 public final class WebServiceClient {
     private static final String pathBase = "/minfraud/v2.0/";
@@ -168,26 +169,53 @@ public final class WebServiceClient {
     }
 
     /**
+     * Make a minFraud Factors request to the web service using the transaction
+     * request object passed to the method.
+     *
+     * @param transaction A transaction request object.
+     * @return An Factors model object
+     * @throws InsufficientFundsException  when there are insufficient funds on
+     *                                     the account.
+     * @throws AuthenticationException     when there is a problem authenticating.
+     * @throws InvalidRequestException     when the request is invalid for some
+     *                                     other reason.
+     * @throws PermissionRequiredException when permission is required to use th
+     *                                     service.
+     * @throws MinFraudException           when the web service returns unexpected
+     *                                     content.
+     * @throws HttpException               when the web service returns an unexpected
+     *                                     response.
+     * @throws IOException                 when some other IO error occurs.
+     */
+    public FactorsResponse factors(Transaction transaction) throws IOException,
+            MinFraudException, InsufficientFundsException, InvalidRequestException,
+            AuthenticationException, PermissionRequiredException, HttpException {
+        return responseFor("factors", transaction, FactorsResponse.class);
+    }
+
+    /**
      * Make a minFraud Insights request to the web service using the transaction
      * request object passed to the method.
      *
      * @param transaction A transaction request object.
      * @return An Insights model object
-     * @throws InsufficientFundsException when there are insufficient funds on
-     *                                    the account.
-     * @throws AuthenticationException    when there is a problem authenticating.
-     * @throws InvalidRequestException    when the request is invalid for some
-     *                                    other reason.
-     * @throws MinFraudException          when the web service returns unexpected
-     *                                    content.
-     * @throws HttpException              when the web service returns an unexpected
-     *                                    response.
-     * @throws IOException                when some other IO error occurs.
+     * @throws InsufficientFundsException  when there are insufficient funds on
+     *                                     the account.
+     * @throws AuthenticationException     when there is a problem authenticating.
+     * @throws InvalidRequestException     when the request is invalid for some
+     *                                     other reason.
+     * @throws PermissionRequiredException when permission is required to use th
+     *                                     service.
+     * @throws MinFraudException           when the web service returns unexpected
+     *                                     content.
+     * @throws HttpException               when the web service returns an unexpected
+     *                                     response.
+     * @throws IOException                 when some other IO error occurs.
      */
     public InsightsResponse insights(Transaction transaction) throws IOException,
             MinFraudException, InsufficientFundsException, InvalidRequestException,
-            AuthenticationException, HttpException {
-        return this.responseFor("insights", transaction, InsightsResponse.class);
+            AuthenticationException, PermissionRequiredException, HttpException {
+        return responseFor("insights", transaction, InsightsResponse.class);
     }
 
     /**
@@ -196,26 +224,27 @@ public final class WebServiceClient {
      *
      * @param transaction A transaction request object.
      * @return An Score model object
-     * @throws InsufficientFundsException when there are insufficient funds on
-     *                                    the account.
-     * @throws AuthenticationException    when there is a problem authenticating.
-     * @throws InvalidRequestException    when the request is invalid for some
-     *                                    other reason.
-     * @throws MinFraudException          when the web service returns unexpected
-     *                                    content.
-     * @throws HttpException              when the web service returns an unexpected
-     *                                    response.
-     * @throws IOException                when some other IO error occurs.
+     * @throws InsufficientFundsException  when there are insufficient funds on
+     *                                     the account.
+     * @throws AuthenticationException     when there is a problem authenticating.
+     * @throws InvalidRequestException     when the request is invalid for some
+     *                                     other reason.
+     * @throws PermissionRequiredException when permission is required to use th
+     *                                     service.
+     * @throws MinFraudException           when the web service returns unexpected
+     *                                     content.
+     * @throws HttpException               when the web service returns an unexpected
+     *                                     response.
+     * @throws IOException                 when some other IO error occurs.
      */
     public ScoreResponse score(Transaction transaction) throws IOException,
             MinFraudException, InsufficientFundsException, InvalidRequestException,
-            AuthenticationException, HttpException {
-        return this.responseFor("score", transaction, ScoreResponse.class);
+            AuthenticationException, PermissionRequiredException, HttpException {
+        return responseFor("score", transaction, ScoreResponse.class);
     }
 
     private <T> T responseFor(String service, Transaction transaction, Class<T> cls)
-            throws IOException, MinFraudException, AuthenticationException,
-            HttpException, InsufficientFundsException, InvalidRequestException {
+            throws IOException, MinFraudException {
         URL url = createUrl(WebServiceClient.pathBase + service);
         HttpPost request = requestFor(transaction, url);
 
@@ -234,7 +263,7 @@ public final class WebServiceClient {
     }
 
     private HttpPost requestFor(Transaction transaction, URL url)
-            throws MinFraudException, IOException, AuthenticationException {
+            throws MinFraudException, IOException {
         Credentials credentials = new UsernamePasswordCredentials(Integer.toString(userId), licenseKey);
 
         HttpPost request;
@@ -261,9 +290,7 @@ public final class WebServiceClient {
     }
 
     private <T> T handleResponse(CloseableHttpResponse response, URL url, Class<T> cls)
-            throws MinFraudException, IOException, HttpException,
-            AuthenticationException, InsufficientFundsException,
-            InvalidRequestException {
+            throws MinFraudException, IOException {
         int status = response.getStatusLine().getStatusCode();
         if (status >= 400 && status < 500) {
             this.handle4xxStatus(response, url);
@@ -289,7 +316,7 @@ public final class WebServiceClient {
                 "locales", locales);
 
         try {
-            return mapper.reader(cls).with(inject).readValue(entity.getContent());
+            return mapper.readerFor(cls).with(inject).readValue(entity.getContent());
         } catch (IOException e) {
             throw new MinFraudException(
                     "Received a 200 response but could not decode it as JSON", e);
@@ -300,8 +327,9 @@ public final class WebServiceClient {
 
 
     private void handle4xxStatus(HttpResponse response, URL url)
-            throws IOException, HttpException, InsufficientFundsException,
-            InvalidRequestException, AuthenticationException {
+            throws IOException, InsufficientFundsException,
+            InvalidRequestException, AuthenticationException,
+            PermissionRequiredException {
         HttpEntity entity = response.getEntity();
         int status = response.getStatusLine().getStatusCode();
 
@@ -332,7 +360,8 @@ public final class WebServiceClient {
     private void handleErrorWithJsonBody(Map<String, String> content,
                                          String body, int status, URL url)
             throws HttpException, InsufficientFundsException,
-            InvalidRequestException, AuthenticationException {
+            InvalidRequestException, AuthenticationException,
+            PermissionRequiredException {
         String error = content.get("error");
         String code = content.get("code");
 
@@ -349,6 +378,8 @@ public final class WebServiceClient {
                 throw new AuthenticationException(error);
             case "INSUFFICIENT_FUNDS":
                 throw new InsufficientFundsException(error);
+            case "PERMISSION_REQUIRED":
+                throw new PermissionRequiredException(error);
             default:
                 throw new InvalidRequestException(error, code, status, url, null);
         }
@@ -375,16 +406,14 @@ public final class WebServiceClient {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("WebServiceClient{");
-        sb.append("host='").append(this.host).append('\'');
-        sb.append(", port=").append(this.port);
-        sb.append(", useHttps=").append(this.useHttps);
-        sb.append(", locales=").append(this.locales);
-        sb.append(", licenseKey='").append(this.licenseKey).append('\'');
-        sb.append(", connectTimeout=").append(this.connectTimeout);
-        sb.append(", readTimeout=").append(this.readTimeout);
-        sb.append(", userId=").append(this.userId);
-        sb.append('}');
-        return sb.toString();
+        return "WebServiceClient{" + "host='" + this.host + '\'' +
+                ", port=" + this.port +
+                ", useHttps=" + this.useHttps +
+                ", locales=" + this.locales +
+                ", licenseKey='" + this.licenseKey + '\'' +
+                ", connectTimeout=" + this.connectTimeout +
+                ", readTimeout=" + this.readTimeout +
+                ", userId=" + this.userId +
+                '}';
     }
 }

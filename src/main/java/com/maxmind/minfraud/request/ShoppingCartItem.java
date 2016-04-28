@@ -1,22 +1,17 @@
 package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.minfraud.AbstractModel;
 
 import java.math.BigDecimal;
 
 /**
  * An item in the shopping cart.
  */
-public final class ShoppingCartItem {
-    @JsonProperty
+public final class ShoppingCartItem extends AbstractModel {
     private final String category;
-
-    @JsonProperty("item_id")
     private final String itemId;
-
-    @JsonProperty
     private final Integer quantity;
-    @JsonProperty
     private final BigDecimal price;
 
     private ShoppingCartItem(ShoppingCartItem.Builder builder) {
@@ -99,6 +94,7 @@ public final class ShoppingCartItem {
     /**
      * @return The category of the item.
      */
+    @JsonProperty("category")
     public String getCategory() {
         return category;
     }
@@ -106,6 +102,7 @@ public final class ShoppingCartItem {
     /**
      * @return The ID of the item.
      */
+    @JsonProperty("item_id")
     public String getItemId() {
         return itemId;
     }
@@ -113,6 +110,7 @@ public final class ShoppingCartItem {
     /**
      * @return The quantity of the item.
      */
+    @JsonProperty("quantity")
     public Integer getQuantity() {
         return quantity;
     }
@@ -120,19 +118,9 @@ public final class ShoppingCartItem {
     /**
      * @return The price of the item.
      */
+    @JsonProperty("price")
     public BigDecimal getPrice() {
         return price;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("ShoppingCartItem{");
-        sb.append("category='").append(this.category).append('\'');
-        sb.append(", itemId='").append(this.itemId).append('\'');
-        sb.append(", quantity=").append(this.quantity);
-        sb.append(", price=").append(this.price);
-        sb.append('}');
-        return sb.toString();
     }
 }
 

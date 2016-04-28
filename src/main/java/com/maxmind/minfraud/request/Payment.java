@@ -1,16 +1,14 @@
 package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.minfraud.AbstractModel;
 
 /**
  * The payment information for the transaction.
  */
-public final class Payment {
-    @JsonProperty("processor")
+public final class Payment extends AbstractModel {
     private final Processor processor;
-    @JsonProperty("was_authorized")
     private final Boolean wasAuthorized;
-    @JsonProperty("decline_code")
     private final String declineCode;
 
     public Payment(Payment.Builder builder) {
@@ -71,6 +69,7 @@ public final class Payment {
     /**
      * @return The payment processor.
      */
+    @JsonProperty("processor")
     public Processor getProcessor() {
         return processor;
     }
@@ -78,6 +77,7 @@ public final class Payment {
     /**
      * @return The authorization outcome.
      */
+    @JsonProperty("was_authorized")
     public Boolean wasAuthorized() {
         return wasAuthorized;
     }
@@ -85,18 +85,9 @@ public final class Payment {
     /**
      * @return The decline code.
      */
+    @JsonProperty("decline_code")
     public String getDeclineCode() {
         return declineCode;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("Payment{");
-        sb.append("processor=").append(this.processor);
-        sb.append(", wasAuthorized=").append(this.wasAuthorized);
-        sb.append(", declineCode='").append(this.declineCode).append('\'');
-        sb.append('}');
-        return sb.toString();
     }
 
     /**

@@ -1,6 +1,5 @@
 package com.maxmind.minfraud.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -11,7 +10,7 @@ public final class ShippingAddress extends AbstractAddress {
     private final Integer distanceToBillingAddress;
 
     public ShippingAddress(
-            @JsonProperty("distance_to_billing_address")Integer distanceToBillingAddress,
+            @JsonProperty("distance_to_billing_address") Integer distanceToBillingAddress,
             @JsonProperty("distance_to_ip_location") Integer distanceToIpLocation,
             @JsonProperty("is_high_risk") Boolean isHighRisk,
             @JsonProperty("is_in_ip_country") Boolean isInIpCountry,
@@ -46,16 +45,6 @@ public final class ShippingAddress extends AbstractAddress {
     @JsonProperty("distance_to_billing_address")
     public Integer getDistanceToBillingAddress() {
         return distanceToBillingAddress;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("ShippingAddress{");
-        sb.append("isHighRisk=").append(this.isHighRisk);
-        sb.append(", distanceToBillingAddress=").append(this.distanceToBillingAddress);
-        sb.append(", super:").append(super.toString());
-        sb.append('}');
-        return sb.toString();
     }
 }
 

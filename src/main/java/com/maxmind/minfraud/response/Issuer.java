@@ -1,12 +1,12 @@
 package com.maxmind.minfraud.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.minfraud.AbstractModel;
 
 /**
  * This class contains minFraud response data related to the credit card issuer.
  */
-public final class Issuer {
+public final class Issuer extends AbstractModel {
     private final String name;
     private final Boolean matchesProvidedName;
     private final String phoneNumber;
@@ -66,16 +66,5 @@ public final class Issuer {
     @JsonProperty("matches_provided_phone_number")
     public Boolean matchesProvidedPhoneNumber() {
         return matchesProvidedPhoneNumber;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("Issuer{");
-        sb.append("name='").append(this.name).append('\'');
-        sb.append(", matchesProvidedName=").append(this.matchesProvidedName);
-        sb.append(", phoneNumber='").append(this.phoneNumber).append('\'');
-        sb.append(", matchesProvidedPhoneNumber=").append(this.matchesProvidedPhoneNumber);
-        sb.append('}');
-        return sb.toString();
     }
 }

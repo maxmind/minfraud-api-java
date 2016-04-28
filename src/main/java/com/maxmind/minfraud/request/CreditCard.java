@@ -1,29 +1,18 @@
 package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.minfraud.AbstractModel;
 
 /**
  * The credit card information for the transaction.
  */
-public final class CreditCard {
-
-    @JsonProperty("issuer_id_number")
+public final class CreditCard extends AbstractModel {
     private final String issuerIdNumber;
-
-    @JsonProperty("last_4_digits")
     private final String last4Digits;
-
-    @JsonProperty("bank_name")
     private final String bankName;
-
-    @JsonProperty("bank_phone_country_code")
     private final String bankPhoneCountryCode;
-
-    @JsonProperty("bank_phone_number")
     private final String bankPhoneNumber;
-    @JsonProperty("avs_result")
     private final Character avsResult;
-    @JsonProperty("cvv_result")
     private final Character cvvResult;
 
     private CreditCard(CreditCard.Builder builder) {
@@ -55,7 +44,7 @@ public final class CreditCard {
          *               identifies the issuing bank.
          * @return The builder object.
          * @throws IllegalArgumentException when number is not a six digit
-         *         string.
+         *                                  string.
          */
         public CreditCard.Builder issuerIdNumber(String number) {
             if (!number.matches("[0-9]{6}")) {
@@ -69,7 +58,7 @@ public final class CreditCard {
          * @param digits The last four digits of the credit card number.
          * @return The builder object.
          * @throws IllegalArgumentException when number is not a four digit
-         *         string.
+         *                                  string.
          */
         public CreditCard.Builder last4Digits(String digits) {
             if (!digits.matches("[0-9]{4}")) {
@@ -140,6 +129,7 @@ public final class CreditCard {
     /**
      * @return The issuer ID number.
      */
+    @JsonProperty("issuer_id_number")
     public String getIssuerIdNumber() {
         return issuerIdNumber;
     }
@@ -147,6 +137,7 @@ public final class CreditCard {
     /**
      * @return The last 4 digits of the credit card number.
      */
+    @JsonProperty("last_4_digits")
     public String getLast4Digits() {
         return last4Digits;
     }
@@ -154,6 +145,7 @@ public final class CreditCard {
     /**
      * @return The name of the issuing bank as provided by the end user.
      */
+    @JsonProperty("bank_name")
     public String getBankName() {
         return bankName;
     }
@@ -162,6 +154,7 @@ public final class CreditCard {
      * @return The phone country code for the issuing bank as provided by
      * the end user.
      */
+    @JsonProperty("bank_phone_country_code")
     public String getBankPhoneCountryCode() {
         return bankPhoneCountryCode;
     }
@@ -170,6 +163,7 @@ public final class CreditCard {
      * @return The phone number, without the country code, for the issuing
      * bank as provided by the end user.
      */
+    @JsonProperty("bank_phone_number")
     public String getBankPhoneNumber() {
         return bankPhoneNumber;
     }
@@ -179,6 +173,7 @@ public final class CreditCard {
      * returned to you by the credit card processor. The minFraud service
      * supports the standard AVS codes.
      */
+    @JsonProperty("avs_result")
     public Character getAvsResult() {
         return avsResult;
     }
@@ -187,21 +182,8 @@ public final class CreditCard {
      * @return The card verification value (CVV) code as provided by the
      * payment processor.
      */
+    @JsonProperty("cvv_result")
     public Character getCvvResult() {
         return cvvResult;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("CreditCard{");
-        sb.append("issuerIdNumber='").append(this.issuerIdNumber).append('\'');
-        sb.append(", last4Digits='").append(this.last4Digits).append('\'');
-        sb.append(", bankName='").append(this.bankName).append('\'');
-        sb.append(", bankPhoneCountryCode='").append(this.bankPhoneCountryCode).append('\'');
-        sb.append(", bankPhoneNumber='").append(this.bankPhoneNumber).append('\'');
-        sb.append(", avsResult=").append(this.avsResult);
-        sb.append(", cvvResult=").append(this.cvvResult);
-        sb.append('}');
-        return sb.toString();
     }
 }

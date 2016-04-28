@@ -1,7 +1,7 @@
 package com.maxmind.minfraud.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.minfraud.AbstractModel;
 
 import java.math.BigDecimal;
 import java.net.URI;
@@ -9,22 +9,14 @@ import java.net.URI;
 /**
  * The order information for the transaction.
  */
-public final class Order {
-    @JsonProperty("amount")
+public final class Order extends AbstractModel {
     private final BigDecimal amount;
-    @JsonProperty
     private final String currency;
-    @JsonProperty("discount_code")
     private final String discountCode;
-    @JsonProperty("affiliate_id")
     private final String affiliateId;
-    @JsonProperty("subaffiliate_id")
     private final String subaffiliateId;
-    @JsonProperty("referrer_uri")
     private final URI referrerUri;
-    @JsonProperty("is_gift")
     private final Boolean isGift;
-    @JsonProperty("has_gift_message")
     private final Boolean hasGiftMessage;
 
     private Order(Order.Builder builder) {
@@ -154,6 +146,7 @@ public final class Order {
     /**
      * @return The total order amount.
      */
+    @JsonProperty("amount")
     public BigDecimal getAmount() {
         return amount;
     }
@@ -161,6 +154,7 @@ public final class Order {
     /**
      * @return The currency code.
      */
+    @JsonProperty("currency")
     public String getCurrency() {
         return currency;
     }
@@ -168,6 +162,7 @@ public final class Order {
     /**
      * @return The discount codes.
      */
+    @JsonProperty("discount_code")
     public String getDiscountCode() {
         return discountCode;
     }
@@ -175,6 +170,7 @@ public final class Order {
     /**
      * @return The affiliate ID.
      */
+    @JsonProperty("affiliate_id")
     public String getAffiliateId() {
         return affiliateId;
     }
@@ -182,6 +178,7 @@ public final class Order {
     /**
      * @return The sub-affiliate ID.
      */
+    @JsonProperty("subaffiliate_id")
     public String getSubaffiliateId() {
         return subaffiliateId;
     }
@@ -189,6 +186,7 @@ public final class Order {
     /**
      * @return The referrer URI.
      */
+    @JsonProperty("referrer_uri")
     public URI getReferrerUri() {
         return referrerUri;
     }
@@ -196,7 +194,7 @@ public final class Order {
     /**
      * @return The order is a gift.
      */
-    @JsonIgnore
+    @JsonProperty("has_gift_message")
     public Boolean hasGiftMessage() {
         return hasGiftMessage;
     }
@@ -204,23 +202,8 @@ public final class Order {
     /**
      * @return The order is a gift.
      */
-    @JsonIgnore
+    @JsonProperty("is_gift")
     public Boolean isGift() {
         return isGift;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Order{");
-        sb.append("amount=").append(amount);
-        sb.append(", currency='").append(currency).append('\'');
-        sb.append(", discountCode='").append(discountCode).append('\'');
-        sb.append(", affiliateId='").append(affiliateId).append('\'');
-        sb.append(", subaffiliateId='").append(subaffiliateId).append('\'');
-        sb.append(", referrerUri=").append(referrerUri);
-        sb.append(", isGift=").append(isGift);
-        sb.append(", hasGiftMessage=").append(hasGiftMessage);
-        sb.append('}');
-        return sb.toString();
     }
 }

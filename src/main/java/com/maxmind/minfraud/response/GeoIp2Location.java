@@ -30,21 +30,12 @@ public final class GeoIp2Location extends Location {
 
     /**
      * @return The date and time of the transaction in the time zone associated
-     * with the IP address. The value is formated according to RFC 3339. For
+     * with the IP address. The value is formatted according to RFC 3339. For
      * instance, the local time in Boston might be returned as
      * "2015-04-27T19:17:24-04:00".
      */
     @JsonProperty("local_time")
     public String getLocalTime() {
         return this.localTime;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("GeoIp2Location{");
-        sb.append("localTime='").append(this.localTime).append('\'');
-        sb.append(", super:").append(super.toString());
-        sb.append('}');
-        return sb.toString();
     }
 }

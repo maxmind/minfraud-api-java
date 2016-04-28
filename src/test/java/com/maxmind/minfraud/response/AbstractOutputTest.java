@@ -13,7 +13,7 @@ public abstract class AbstractOutputTest {
         ObjectMapper mapper = new ObjectMapper();
         InjectableValues inject = new Std().addValue(
                 "locales", Collections.singletonList("en"));
-        return mapper.reader(cls).with(inject).readValue(json);
+        return mapper.readerFor(cls).with(inject).readValue(json);
     }
 
 }

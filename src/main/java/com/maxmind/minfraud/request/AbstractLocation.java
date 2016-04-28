@@ -1,35 +1,23 @@
 package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.minfraud.AbstractModel;
 
 /**
  * This class represents the shared location behavior between
  * Billing and Shipping.
  */
-abstract class AbstractLocation {
-    @JsonProperty("first_name")
+public abstract class AbstractLocation extends AbstractModel {
     protected String firstName;
-
-    @JsonProperty("last_name")
     protected String lastName;
-
-    @JsonProperty
     protected String company;
-    @JsonProperty
     protected String address;
-    @JsonProperty("address_2")
     protected String address2;
-    @JsonProperty
     protected String city;
-    @JsonProperty
     protected String region;
-    @JsonProperty
     protected String country;
-    @JsonProperty
     protected String postal;
-    @JsonProperty("phone_number")
     protected String phoneNumber;
-    @JsonProperty("phone_country_code")
     protected String phoneCountryCode;
 
     protected AbstractLocation(AbstractLocation.Builder builder) {
@@ -133,7 +121,7 @@ abstract class AbstractLocation {
          *             associated with the address (e.g, "US")
          * @return The builder object.
          * @throws IllegalArgumentException when code is not a two-letter
-         *         country code.
+         *                                  country code.
          */
         public final T country(String code) {
             if (!code.matches("[A-Z]{2}")) {
@@ -176,6 +164,7 @@ abstract class AbstractLocation {
     /**
      * @return The first name associated with the address
      */
+    @JsonProperty("first_name")
     public final String getFirstName() {
         return firstName;
     }
@@ -183,6 +172,7 @@ abstract class AbstractLocation {
     /**
      * @return The last name associated with the address
      */
+    @JsonProperty("last_name")
     public final String getLastName() {
         return lastName;
     }
@@ -190,6 +180,7 @@ abstract class AbstractLocation {
     /**
      * @return The company name associated with the address
      */
+    @JsonProperty("company")
     public final String getCompany() {
         return company;
     }
@@ -198,6 +189,7 @@ abstract class AbstractLocation {
     /**
      * @return The first line of the address
      */
+    @JsonProperty("address")
     public final String getAddress() {
         return address;
     }
@@ -206,6 +198,7 @@ abstract class AbstractLocation {
     /**
      * @return The second line of the address
      */
+    @JsonProperty("address_2")
     public final String getAddress2() {
         return address2;
     }
@@ -214,6 +207,7 @@ abstract class AbstractLocation {
     /**
      * @return The city associated with the address
      */
+    @JsonProperty("city")
     public final String getCity() {
         return city;
     }
@@ -222,6 +216,7 @@ abstract class AbstractLocation {
     /**
      * @return The region code associated with the address
      */
+    @JsonProperty("region")
     public final String getRegion() {
         return region;
     }
@@ -230,6 +225,7 @@ abstract class AbstractLocation {
     /**
      * @return The country associated with the address
      */
+    @JsonProperty("country")
     public final String getCountry() {
         return country;
     }
@@ -237,6 +233,7 @@ abstract class AbstractLocation {
     /**
      * @return The postal code associated with the address
      */
+    @JsonProperty("postal")
     public final String getPostal() {
         return postal;
     }
@@ -244,6 +241,7 @@ abstract class AbstractLocation {
     /**
      * @return The phone number associated with the address
      */
+    @JsonProperty("phone_number")
     public final String getPhoneNumber() {
         return phoneNumber;
     }
@@ -252,25 +250,8 @@ abstract class AbstractLocation {
      * @return The phone number country code associated with the
      * address
      */
+    @JsonProperty("phone_country_code")
     public final String getPhoneCountryCode() {
         return phoneCountryCode;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("AbstractLocation{");
-        sb.append("firstName='").append(this.firstName).append('\'');
-        sb.append(", lastName='").append(this.lastName).append('\'');
-        sb.append(", company='").append(this.company).append('\'');
-        sb.append(", address='").append(this.address).append('\'');
-        sb.append(", address2='").append(this.address2).append('\'');
-        sb.append(", city='").append(this.city).append('\'');
-        sb.append(", region='").append(this.region).append('\'');
-        sb.append(", country='").append(this.country).append('\'');
-        sb.append(", postal='").append(this.postal).append('\'');
-        sb.append(", phoneNumber='").append(this.phoneNumber).append('\'');
-        sb.append(", phoneCountryCode='").append(this.phoneCountryCode).append('\'');
-        sb.append('}');
-        return sb.toString();
     }
 }

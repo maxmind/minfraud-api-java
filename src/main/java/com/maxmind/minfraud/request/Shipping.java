@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * The shipping information for the transaction.
  */
 public final class Shipping extends AbstractLocation {
-    @JsonProperty("delivery_speed")
     private final DeliverySpeed deliverySpeed;
 
     private Shipping(Shipping.Builder builder) {
@@ -40,18 +39,11 @@ public final class Shipping extends AbstractLocation {
         }
     }
 
+    @JsonProperty("delivery_speed")
     public DeliverySpeed getDeliverySpeed() {
         return deliverySpeed;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("Shipping{");
-        sb.append("deliverySpeed=").append(this.deliverySpeed);
-        sb.append(", super:").append(super.toString());
-        sb.append('}');
-        return sb.toString();
-    }
 
     /**
      * Enumerated delivery speeds.

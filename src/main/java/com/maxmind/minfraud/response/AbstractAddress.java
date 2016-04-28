@@ -1,9 +1,9 @@
 package com.maxmind.minfraud.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.minfraud.AbstractModel;
 
-public abstract class AbstractAddress {
+public abstract class AbstractAddress extends AbstractModel {
     private final Boolean isPostalInCity;
     private final Double latitude;
     private final Double longitude;
@@ -64,19 +64,5 @@ public abstract class AbstractAddress {
     @JsonProperty("is_postal_in_city")
     public final Boolean isPostalInCity() {
         return isPostalInCity;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("AbstractAddress{");
-        sb.append("isPostalInCity=").append(this.isPostalInCity);
-        sb.append(", latitude=").append(this.latitude);
-        sb.append(", longitude=").append(this.longitude);
-        sb.append(", distanceToIpLocation=").append(this.distanceToIpLocation);
-        sb.append(", isInIpCountry=").append(this.isInIpCountry);
-        sb.append(", inIpCountry=").append(this.isInIpCountry());
-        sb.append(", postalInCity=").append(this.isPostalInCity());
-        sb.append('}');
-        return sb.toString();
     }
 }

@@ -1,34 +1,24 @@
 package com.maxmind.minfraud.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.minfraud.AbstractModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
-public final class Event {
+public final class Event extends AbstractModel {
 
-    @JsonProperty("transaction_id")
     private final String transactionId;
-    @JsonProperty("shop_id")
     private final String shopId;
-    @JsonProperty("time")
-    private final String time;
-    @JsonProperty("type")
+    private final Date time;
     private final Type type;
-
-    @JsonIgnore
-    private final SimpleDateFormat dateFormat;
-
 
     private Event(Event.Builder builder) {
         transactionId = builder.transactionId;
         shopId = builder.shopId;
         time = builder.time;
         type = builder.type;
-        dateFormat = builder.dateFormat;
     }
 
     /**
@@ -38,15 +28,9 @@ public final class Event {
     public static final class Builder {
         String transactionId;
         String shopId;
-        String time;
+        Date time;
         Type type;
         SimpleDateFormat dateFormat;
-
-        public Builder() {
-            TimeZone tz = TimeZone.getTimeZone("UTC");
-            this.dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SS'Z'");
-            this.dateFormat.setTimeZone(tz);
-        }
 
         /**
          * @param id Your internal ID for the transaction. We can use this to
@@ -77,7 +61,7 @@ public final class Event {
          * @return The builder object.
          */
         public Event.Builder time(Date date) {
-            time = this.dateFormat.format(date);
+            time = new Date(date.getTime());
             return this;
         }
 
@@ -102,6 +86,7 @@ public final class Event {
     /**
      * @return The transaction ID.
      */
+    @JsonProperty("transaction_id")
     public String getTransactionId() {
         return transactionId;
     }
@@ -109,35 +94,25 @@ public final class Event {
     /**
      * @return The shop ID.
      */
+    @JsonProperty("shop_id")
     public String getShopId() {
         return shopId;
     }
 
     /**
      * @return The date and time of the event.
-     * @throws ParseException if the time cannot be parsed.
      */
-    @JsonIgnore
-    public Date getTime() throws ParseException {
-        return (time == null) ? null : this.dateFormat.parse(time);
+    @JsonProperty("time")
+    public Date getTime() {
+        return time;
     }
 
     /**
      * @return The type of the event.
      */
+    @JsonProperty("type")
     public Type getType() {
         return type;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("Event{");
-        sb.append("transactionId='").append(this.transactionId).append('\'');
-        sb.append(", shopId='").append(this.shopId).append('\'');
-        sb.append(", time='").append(this.time).append('\'');
-        sb.append(", type=").append(this.type);
-        sb.append('}');
-        return sb.toString();
     }
 
     /**

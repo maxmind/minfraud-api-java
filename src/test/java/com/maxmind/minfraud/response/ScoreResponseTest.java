@@ -20,6 +20,9 @@ public class ScoreResponseTest extends AbstractOutputTest {
                         .put("credits_remaining", 123)
                         .put("id", id)
                         .put("risk_score", 0.01)
+                        .startObjectField("ip_address")
+                        .put("risk", 0.02)
+                        .end()
                         .startArrayField("warnings")
                         .startObject()
                         .put("code", "INVALID_INPUT")
@@ -32,6 +35,7 @@ public class ScoreResponseTest extends AbstractOutputTest {
         assertEquals("correct ID", UUID.fromString(id), score.getId());
         assertEquals("credits remaining", Integer.valueOf(123), score.getCreditsRemaining());
         assertEquals("risk score", Double.valueOf(0.01), score.getRiskScore());
+        assertEquals("IP ris", Double.valueOf(0.02), score.getIpAddress().getRisk());
         assertEquals("warning code", "INVALID_INPUT", score.getWarnings().get(0).getCode());
     }
 }

@@ -4,7 +4,7 @@ package com.maxmind.minfraud.exception;
  * This class represents a non-specific error with the web service.
  * Generally this will be thrown if the web service responds with an
  * expected status but unexpected content.
- *
+ * <p>
  * It also serves as the base class for {@code AuthenticationException},
  * {@code InsufficientFundsException}, and {@code InvalidRequestException}.
  */
