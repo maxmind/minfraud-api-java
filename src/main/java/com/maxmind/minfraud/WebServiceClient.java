@@ -179,7 +179,7 @@ public final class WebServiceClient {
      * @throws AuthenticationException     when there is a problem authenticating.
      * @throws InvalidRequestException     when the request is invalid for some
      *                                     other reason.
-     * @throws PermissionRequiredException when permission is required to use th
+     * @throws PermissionRequiredException when permission is required to use the
      *                                     service.
      * @throws MinFraudException           when the web service returns unexpected
      *                                     content.
@@ -204,7 +204,7 @@ public final class WebServiceClient {
      * @throws AuthenticationException     when there is a problem authenticating.
      * @throws InvalidRequestException     when the request is invalid for some
      *                                     other reason.
-     * @throws PermissionRequiredException when permission is required to use th
+     * @throws PermissionRequiredException when permission is required to use the
      *                                     service.
      * @throws MinFraudException           when the web service returns unexpected
      *                                     content.
@@ -229,7 +229,7 @@ public final class WebServiceClient {
      * @throws AuthenticationException     when there is a problem authenticating.
      * @throws InvalidRequestException     when the request is invalid for some
      *                                     other reason.
-     * @throws PermissionRequiredException when permission is required to use th
+     * @throws PermissionRequiredException when permission is required to use the
      *                                     service.
      * @throws MinFraudException           when the web service returns unexpected
      *                                     content.
