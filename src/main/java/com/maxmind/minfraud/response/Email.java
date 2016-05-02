@@ -1,11 +1,12 @@
 package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.minfraud.AbstractModel;
 
 /**
  * This class contains minFraud response data related to the email address.
  */
-public final class Email {
+public final class Email extends AbstractModel {
     private final Boolean isFree;
     private final Boolean isHighRisk;
 
@@ -35,14 +36,5 @@ public final class Email {
     @JsonProperty("is_high_risk")
     public Boolean isHighRisk() {
         return isHighRisk;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("Email{");
-        sb.append("is_free=").append(this.isFree);
-        sb.append(", is_high_risk=").append(this.isHighRisk);
-        sb.append('}');
-        return sb.toString();
     }
 }

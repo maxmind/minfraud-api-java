@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * This class contains minFraud response data related to the IP location
  */
-public final class IpAddress extends InsightsResponse {
+public final class IpAddress extends InsightsResponse implements IpAddressInterface {
     private final GeoIp2Country country;
     private final GeoIp2Location location;
     private final Double risk;
@@ -62,17 +62,5 @@ public final class IpAddress extends InsightsResponse {
      */
     public Double getRisk() {
         return risk;
-    }
-
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("IpAddress{");
-        sb.append("risk=").append(this.risk);
-        sb.append(", country=").append(this.country);
-        sb.append(", location=").append(this.location);
-        sb.append(", super:").append(super.toString());
-        sb.append('}');
-        return sb.toString();
     }
 }

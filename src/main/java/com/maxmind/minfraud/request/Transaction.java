@@ -1,46 +1,24 @@
 package com.maxmind.minfraud.request;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.maxmind.minfraud.AbstractModel;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Class representing the transaction to be sent to minFraud.
  */
-public final class Transaction {
-    @JsonProperty
+public final class Transaction extends AbstractModel {
     private final Account account;
-
-    @JsonProperty
     private final Billing billing;
-
-    @JsonProperty("credit_card")
     private final CreditCard creditCard;
-
-    @JsonProperty
     private final Device device;
-
-    @JsonProperty
     private final Email email;
-
-    @JsonProperty
     private final Event event;
-
-    @JsonProperty
     private final Order order;
-
-    @JsonProperty
     private final Payment payment;
-
-    @JsonProperty
     private final Shipping shipping;
-
-    @JsonProperty("shopping_cart")
     private final List<ShoppingCartItem> shoppingCart;
 
     protected Transaction(Transaction.Builder builder) {
@@ -176,6 +154,7 @@ public final class Transaction {
     /**
      * @return The Account object.
      */
+    @JsonProperty("account")
     public Account getAccount() {
         return account;
     }
@@ -183,6 +162,7 @@ public final class Transaction {
     /**
      * @return The Billing object.
      */
+    @JsonProperty("billing")
     public Billing getBilling() {
         return billing;
     }
@@ -190,6 +170,7 @@ public final class Transaction {
     /**
      * @return The CreditCard object.
      */
+    @JsonProperty("credit_card")
     public CreditCard getCreditCard() {
         return creditCard;
     }
@@ -197,6 +178,7 @@ public final class Transaction {
     /**
      * @return The Device object.
      */
+    @JsonProperty("device")
     public Device getDevice() {
         return device;
     }
@@ -204,6 +186,7 @@ public final class Transaction {
     /**
      * @return The Email object.
      */
+    @JsonProperty("email")
     public Email getEmail() {
         return email;
     }
@@ -211,6 +194,7 @@ public final class Transaction {
     /**
      * @return The Event object.
      */
+    @JsonProperty("event")
     public Event getEvent() {
         return event;
     }
@@ -218,6 +202,7 @@ public final class Transaction {
     /**
      * @return The Order object.
      */
+    @JsonProperty("order")
     public Order getOrder() {
         return order;
     }
@@ -225,6 +210,7 @@ public final class Transaction {
     /**
      * @return The Payment object.
      */
+    @JsonProperty("payment")
     public Payment getPayment() {
         return payment;
     }
@@ -232,6 +218,7 @@ public final class Transaction {
     /**
      * @return The Shipping object.
      */
+    @JsonProperty("shipping")
     public Shipping getShipping() {
         return shipping;
     }
@@ -239,37 +226,8 @@ public final class Transaction {
     /**
      * @return A list of items in the shopping cart.
      */
+    @JsonProperty("shopping_cart")
     public List<ShoppingCartItem> getShoppingCart() {
         return new ArrayList<>(shoppingCart);
-    }
-
-    /**
-     * @return The transaction as JSON.
-     * @throws IOException when there is an issue encoding as JSON.
-     */
-    public String toJson() throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-        mapper.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
-
-        return mapper.writeValueAsString(this);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("Transaction{");
-        sb.append("account=").append(this.account);
-        sb.append(", billing=").append(this.billing);
-        sb.append(", creditCard=").append(this.creditCard);
-        sb.append(", device=").append(this.device);
-        sb.append(", email=").append(this.email);
-        sb.append(", event=").append(this.event);
-        sb.append(", order=").append(this.order);
-        sb.append(", payment=").append(this.payment);
-        sb.append(", shipping=").append(this.shipping);
-        sb.append(", shoppingCart=").append(this.shoppingCart);
-        sb.append('}');
-        return sb.toString();
     }
 }

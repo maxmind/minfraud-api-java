@@ -3,9 +3,6 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.jr.ob.JSON;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import static org.junit.Assert.assertEquals;
 
 public class WarningTest extends AbstractOutputTest {

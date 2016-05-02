@@ -1,16 +1,12 @@
 package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import com.maxmind.minfraud.AbstractModel;
 
 /**
  * This class represents a warning returned by the web service.
  */
-public final class Warning {
+public final class Warning extends AbstractModel {
     private final String code;
     private final String warning;
     private final String inputPointer;
@@ -28,7 +24,7 @@ public final class Warning {
     /**
      * This provides a machine-readable code identifying the warning. Although
      * more codes may be added in the future, the current codes are:
-     *
+     * <p>
      * <ul>
      * <li>BILLING_CITY_NOT_FOUND – the billing city could not be found in
      * our database.</li>
@@ -74,15 +70,5 @@ public final class Warning {
     @JsonProperty("input_pointer")
     public String getInputPointer() {
         return this.inputPointer;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Warning{");
-        sb.append("code='").append(code).append('\'');
-        sb.append(", warning='").append(warning).append('\'');
-        sb.append(", inputPointer=").append(inputPointer);
-        sb.append('}');
-        return sb.toString();
     }
 }

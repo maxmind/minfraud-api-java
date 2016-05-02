@@ -3,6 +3,7 @@ package com.maxmind.minfraud;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.maxmind.minfraud.exception.*;
 import com.maxmind.minfraud.request.Transaction;
+import com.maxmind.minfraud.response.FactorsResponse;
 import com.maxmind.minfraud.response.InsightsResponse;
 import com.maxmind.minfraud.response.ScoreResponse;
 import junitparams.JUnitParamsRunner;
@@ -12,8 +13,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
-
-import java.io.IOException;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.jcabi.matchers.RegexMatchers.matchesPattern;
@@ -32,7 +31,7 @@ public class WebServiceClientTest {
     @Test
     public void testFullScoreTransaction() throws Exception {
         String responseContent = readJsonFile("score-response");
-        WebServiceClient client = this.createSuccessClient("score", responseContent);
+        WebServiceClient client = createSuccessClient("score", responseContent);
         Transaction request = fullTransaction();
         ScoreResponse response = client.score(request);
 
@@ -43,7 +42,7 @@ public class WebServiceClientTest {
     @Test
     public void testFullInsightsTransaction() throws Exception {
         String responseContent = readJsonFile("insights-response");
-        WebServiceClient client = this.createSuccessClient("insights", responseContent);
+        WebServiceClient client = createSuccessClient("insights", responseContent);
         Transaction request = fullTransaction();
         InsightsResponse response = client.insights(request);
 
@@ -52,6 +51,20 @@ public class WebServiceClientTest {
         // We cannot change this as it would be a breaking change to the GeoIP2 API.
         JSONAssert.assertEquals(responseContent, response.toJson(), false);
         verifyRequestFor("insights");
+    }
+
+    @Test
+    public void testFullFactorsTransaction() throws Exception {
+        String responseContent = readJsonFile("factors-response");
+        WebServiceClient client = createSuccessClient("factors", responseContent);
+        Transaction request = fullTransaction();
+        FactorsResponse response = client.factors(request);
+
+        // We use non-strict checking as there is some extra stuff in the serialized
+        // object, most notably the "name" field in the GeoIP2 InsightsResponse subobjects.
+        // We cannot change this as it would be a breaking change to the GeoIP2 API.
+        JSONAssert.assertEquals(responseContent, response.toJson(), false);
+        verifyRequestFor("factors");
     }
 
     @Test
@@ -96,6 +109,17 @@ public class WebServiceClientTest {
                 401,
                 "application/json",
                 "{\"code\":\"" + code + "\",\"error\":\"Invalid auth\"}"
+        );
+    }
+
+    @Test
+    public void testPermissionRequired() throws Exception {
+        thrown.expect(PermissionRequiredException.class);
+        thrown.expectMessage("Permission required");
+        createInsightsError(
+                403,
+                "application/json",
+                "{\"code\":\"PERMISSION_REQUIRED\",\"error\":\"Permission required\"}"
         );
     }
 
@@ -202,7 +226,7 @@ public class WebServiceClientTest {
                 .willReturn(aResponse()
                         .withStatus(status)
                         .withHeader("Content-Type", contentType)
-                                // This is wrong if we use non-ASCII characters, but we don't currently
+                        // This is wrong if we use non-ASCII characters, but we don't currently
                         .withHeader("Content-Length", Integer.toString(responseContent.length()))
                         .withBody(responseContent)));
 

@@ -1,16 +1,14 @@
 package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.minfraud.AbstractModel;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * Account related data for the minFraud request
  */
-public final class Account {
-    @JsonProperty("user_id")
+public final class Account extends AbstractModel {
     private final String userId;
-
-    @JsonProperty("username_md5")
     private final String usernameMd5;
 
     private Account(Account.Builder builder) {
@@ -64,6 +62,7 @@ public final class Account {
     /**
      * @return The user ID.
      */
+    @JsonProperty("user_id")
     public String getUserId() {
         return userId;
     }
@@ -71,16 +70,8 @@ public final class Account {
     /**
      * @return The MD5 of the username passed to the builder.
      */
+    @JsonProperty("username_md5")
     public String getUsernameMd5() {
         return usernameMd5;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("Account{");
-        sb.append("userId='").append(this.userId).append('\'');
-        sb.append(", usernameMd5='").append(this.usernameMd5).append('\'');
-        sb.append('}');
-        return sb.toString();
     }
 }

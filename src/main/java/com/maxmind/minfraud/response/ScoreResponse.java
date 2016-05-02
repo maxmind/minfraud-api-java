@@ -1,11 +1,8 @@
 package com.maxmind.minfraud.response;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.maxmind.minfraud.AbstractModel;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,20 +11,23 @@ import java.util.UUID;
 /**
  * This class represents the minFraud Score response.
  */
-public class ScoreResponse {
+public class ScoreResponse extends AbstractModel {
     protected final Integer creditsRemaining;
     protected final UUID id;
     protected final Double riskScore;
     protected final List<Warning> warnings;
+    private final ScoreIpAddress ipAddress;
 
     public ScoreResponse(
             @JsonProperty("credits_remaining") Integer creditsRemaining,
             @JsonProperty("id") UUID id,
+            @JsonProperty("ip_address") ScoreIpAddress ipAddress,
             @JsonProperty("risk_score") Double riskScore,
             @JsonProperty("warnings") List<Warning> warnings
     ) {
         this.creditsRemaining = creditsRemaining;
         this.id = id;
+        this.ipAddress = ipAddress == null ? new ScoreIpAddress() : ipAddress;
         this.riskScore = riskScore;
         this.warnings = Collections.unmodifiableList(warnings == null ? new ArrayList<Warning>() : warnings);
     }
@@ -46,6 +46,14 @@ public class ScoreResponse {
      */
     public final UUID getId() {
         return id;
+    }
+
+    /**
+     * @return The {@code IpAddress} model object.
+     */
+    @JsonProperty("ip_address")
+    public IpAddressInterface getIpAddress() {
+        return ipAddress;
     }
 
     /**
@@ -68,30 +76,5 @@ public class ScoreResponse {
      */
     public final List<Warning> getWarnings() {
         return warnings;
-    }
-
-    /**
-     * @return JSON representation of this object. The structure is the same as
-     * the JSON provided by the GeoIP2 web service.
-     * @throws IOException if there is an error serializing the object to JSON.
-     */
-    public final String toJson() throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(Include.NON_NULL);
-        mapper.setSerializationInclusion(Include.NON_EMPTY);
-        mapper.disable(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS);
-
-        return mapper.writeValueAsString(this);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("ScoreResponse{");
-        sb.append("creditsRemaining=").append(this.creditsRemaining);
-        sb.append(", id='").append(this.id).append('\'');
-        sb.append(", riskScore=").append(this.riskScore);
-        sb.append(", warnings=").append(this.warnings);
-        sb.append('}');
-        return sb.toString();
     }
 }

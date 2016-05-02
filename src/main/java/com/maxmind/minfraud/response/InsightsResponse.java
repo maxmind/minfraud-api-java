@@ -8,7 +8,7 @@ import java.util.UUID;
 /**
  * This class provides a model for the minFraud Insights response.
  */
-public final class InsightsResponse extends ScoreResponse {
+public class InsightsResponse extends ScoreResponse {
     private final IpAddress ipAddress;
     private final CreditCard creditCard;
     private final Device device;
@@ -18,18 +18,17 @@ public final class InsightsResponse extends ScoreResponse {
 
     public InsightsResponse(
             @JsonProperty("billing_address") BillingAddress billingAddress,
-            @JsonProperty("credit_card")  CreditCard creditCard,
-            @JsonProperty("device")  Device device,
-            @JsonProperty("email")  Email email,
+            @JsonProperty("credit_card") CreditCard creditCard,
             @JsonProperty("credits_remaining") Integer creditsRemaining,
+            @JsonProperty("device") Device device,
+            @JsonProperty("email") Email email,
             @JsonProperty("id") UUID id,
             @JsonProperty("ip_address") IpAddress ipAddress,
             @JsonProperty("risk_score") Double riskScore,
             @JsonProperty("shipping_address") ShippingAddress shippingAddress,
             @JsonProperty("warnings") List<Warning> warnings
-    )
-    {
-        super(creditsRemaining, id, riskScore, warnings);
+    ) {
+        super(creditsRemaining, id, null, riskScore, warnings);
         this.billingAddress = billingAddress == null ? new BillingAddress() : billingAddress;
         this.creditCard = creditCard == null ? new CreditCard() : creditCard;
         this.device = device == null ? new Device() : device;
@@ -82,22 +81,5 @@ public final class InsightsResponse extends ScoreResponse {
     @JsonProperty("billing_address")
     public BillingAddress getBillingAddress() {
         return billingAddress;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("InsightsResponse{");
-        sb.append("creditsRemaining=").append(this.creditsRemaining);
-        sb.append(", id='").append(this.id).append('\'');
-        sb.append(", riskScore=").append(this.riskScore);
-        sb.append(", warnings=").append(this.warnings);
-        sb.append(", ipAddress=").append(this.ipAddress);
-        sb.append(", creditCard=").append(this.creditCard);
-        sb.append(", device=").append(this.device);
-        sb.append(", email=").append(this.email);
-        sb.append(", shippingAddress=").append(this.shippingAddress);
-        sb.append(", billingAddress=").append(this.billingAddress);
-        sb.append('}');
-        return sb.toString();
     }
 }

@@ -1,6 +1,7 @@
 package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.minfraud.AbstractModel;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.validator.routines.DomainValidator;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -8,11 +9,8 @@ import org.apache.commons.validator.routines.EmailValidator;
 /**
  * The email information for the transaction.
  */
-public final class Email {
-    @JsonProperty("address")
+public final class Email extends AbstractModel {
     private final String addressMd5;
-
-    @JsonProperty
     private final String domain;
 
     private Email(Email.Builder builder) {
@@ -38,7 +36,7 @@ public final class Email {
          * @param address The valid email address used in the transaction.
          * @return The builder object.
          * @throws IllegalArgumentException when address is not a valid email
-         *         address.
+         *                                  address.
          */
         public Email.Builder address(String address) {
             if (!EmailValidator.getInstance().isValid(address)) {
@@ -78,6 +76,7 @@ public final class Email {
     /**
      * @return The MD5 of the email address used in the transaction.
      */
+    @JsonProperty("address")
     public String getAddressMd5() {
         return addressMd5;
     }
@@ -85,16 +84,8 @@ public final class Email {
     /**
      * @return The domain of the email address used in the transaction.
      */
+    @JsonProperty("domain")
     public String getDomain() {
         return domain;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("Email{");
-        sb.append("addressMd5='").append(this.addressMd5).append('\'');
-        sb.append(", domain='").append(this.domain).append('\'');
-        sb.append('}');
-        return sb.toString();
     }
 }

@@ -1,20 +1,16 @@
 package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.minfraud.AbstractModel;
 
 import java.net.InetAddress;
 
 /**
  * The device information for the transaction.
  */
-public final class Device {
-    @JsonProperty("ip_address")
+public final class Device extends AbstractModel {
     private final InetAddress ipAddress;
-
-    @JsonProperty("user_agent")
     private final String userAgent;
-
-    @JsonProperty("accept_language")
     private final String acceptLanguage;
 
     private Device(Device.Builder builder) {
@@ -74,6 +70,7 @@ public final class Device {
     /**
      * @return The "User-Agent" header.
      */
+    @JsonProperty("user_agent")
     public String getUserAgent() {
         return userAgent;
     }
@@ -81,6 +78,7 @@ public final class Device {
     /**
      * @return The "Accept-Language" header.
      */
+    @JsonProperty("accept_language")
     public String getAcceptLanguage() {
         return acceptLanguage;
     }
@@ -88,18 +86,9 @@ public final class Device {
     /**
      * @return The IP address used in the transaction.
      */
+    @JsonProperty("ip_address")
     public InetAddress getIpAddress() {
 
         return ipAddress;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("Device{");
-        sb.append("ipAddress=").append(this.ipAddress);
-        sb.append(", userAgent='").append(this.userAgent).append('\'');
-        sb.append(", acceptLanguage='").append(this.acceptLanguage).append('\'');
-        sb.append('}');
-        return sb.toString();
     }
 }

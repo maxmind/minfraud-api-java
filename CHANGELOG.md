@@ -1,11 +1,16 @@
 CHANGELOG
 =========
 
-0.3.1 (2016-XX-XX)
+0.4.0 (2016-XX-XX)
 ------------------
 
+* Added support for the minFraud Factors.
+* Added IP address risk to the minFraud Score model.
+* Handle `PERMISSION_REQUIRED` errors by throwing a
+  `PermissionRequiredException`.
+* Updated dependency.
 * Added the following new values to the `Payment.Processor` enum:
-  `CCNOW`, `DALPAY`, `EPAY` (repaces `EPAYEU`), `PAYPLUS`, `PINPAYMENTS`,
+  `CCNOW`, `DALPAY`, `EPAY` (replaces `EPAYEU`), `PAYPLUS`, `PINPAYMENTS`,
   `QUICKPAY`, and `VERAPAY
 
 0.3.0 (2016-01-22)

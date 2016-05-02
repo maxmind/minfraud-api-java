@@ -1,13 +1,12 @@
 package com.maxmind.minfraud.response;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.maxmind.minfraud.AbstractModel;
 
 /**
  * This class contains minFraud response data related to the credit card.
  */
-public final class CreditCard {
+public final class CreditCard extends AbstractModel {
     private final Issuer issuer;
     private final String brand;
     private final String country;
@@ -86,18 +85,5 @@ public final class CreditCard {
      */
     public String getType() {
         return type;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("CreditCard{");
-        sb.append("issuer=").append(this.issuer);
-        sb.append(", brand='").append(this.brand).append('\'');
-        sb.append(", country='").append(this.country).append('\'');
-        sb.append(", isIssuedInBillingAddressCountry=").append(this.isIssuedInBillingAddressCountry);
-        sb.append(", isPrepaid=").append(this.isPrepaid);
-        sb.append(", type='").append(this.type).append('\'');
-        sb.append('}');
-        return sb.toString();
     }
 }
