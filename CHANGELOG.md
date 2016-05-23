@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-0.4.0 (2016-XX-XX)
+0.4.0 (2016-05-23)
 ------------------
 
 * Added support for the minFraud Factors.

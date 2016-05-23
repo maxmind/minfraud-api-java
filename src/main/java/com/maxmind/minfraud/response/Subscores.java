@@ -88,8 +88,8 @@ public final class Subscores {
 
     /**
      * @return The risk associated with the distance between the billing address
-     * and the IP location for the given IP address.  If present, this is a
-     * value in the range 0.01 to 99.
+     * and the location for the given IP address. If present, this is a value in
+     * the range 0.01 to 99.
      */
     @JsonProperty("billing_address_distance_to_ip_location")
     public Double getBillingAddressDistanceToIpLocation() {
@@ -98,8 +98,8 @@ public final class Subscores {
 
     /**
      * @return The risk associated with the browser attributes such as the
-     * User-Agent and Accept-Language AVS result. If present, this is a value in
-     * the range 0.01 to 99.
+     * User-Agent and Accept-Language. If present, this is a value in the range
+     * 0.01 to 99.
      */
     @JsonProperty("browser")
     public Double getBrowser() {
@@ -119,7 +119,7 @@ public final class Subscores {
 
     /**
      * @return The risk associated with the country the transaction originated
-     * from. If present, this is a value in the  range 0.01 to 99.
+     * from. If present, this is a value in the range 0.01 to 99.
      */
     @JsonProperty("country")
     public Double getCountry() {
@@ -128,7 +128,7 @@ public final class Subscores {
 
     /**
      * @return The risk associated with the combination of IP country, card
-     * issuer country, billing country, and shipping country.  If present, this
+     * issuer country, billing country, and shipping country. If present, this
      * is a value in the  range 0.01 to 99.
      */
     @JsonProperty("country_mismatch")
@@ -210,9 +210,9 @@ public final class Subscores {
     }
 
     /**
-     * @return The risk associated with the distance between the billing address
-     * and the IP location for the given IP address.  If present, this is a
-     * value in the range 0.01 to 99.
+     * @return The risk associated with the distance between the shipping
+     * address and the IP location for the given IP address. If present, this is
+     * a value in the range 0.01 to 99.
      */
     @JsonProperty("shipping_address_distance_to_ip_location")
     public Double getShippingAddressDistanceToIpLocation() {
