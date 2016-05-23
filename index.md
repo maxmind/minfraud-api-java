@@ -2,24 +2,24 @@
 layout: default
 title: MaxMind minFraud Score and Insights Java API
 language: java
-version: v0.3.0
+version: v0.4.0
 ---
 
-# MaxMind minFraud Score and Insights Java API
+# MaxMind minFraud Score, Insights, and Factors Java API
 
 ## Beta Note ##
 
 This is a beta release. The API may change before the first production
 release.
 
-You may find information on the changes in minFraud Score and minFraud
-Insights in our [What's New
+You may find information on the changes in minFraud Score, Insights, and Factors
+in our [What's New
 documentation](https://dev.maxmind.com/minfraud/whats-new-in-minfraud-score-and-minfraud-insights/).
 
 ## Description ##
 
-This package provides an API for the [MaxMind minFraud Score and Insights
-web services](http://dev.maxmind.com/minfraud-score-and-insights-api-documentation).
+This package provides an API for the [MaxMind minFraud Score, Insights, and
+Factors web services](http://dev.maxmind.com/minfraud-score-and-insights-api-documentation).
 
 ## Installation ##
 
@@ -30,7 +30,7 @@ To do this, add the dependency to your pom.xml:
     <dependency>
         <groupId>com.maxmind.minfraud</groupId>
         <artifactId>minfraud</artifactId>
-        <version>0.3.0</version>
+        <version>0.4.0</version>
     </dependency>
 ```
 
@@ -64,13 +64,19 @@ After creating the transaction object, send a Score request by calling the
 `score` method:
 
 ```java
-Score score = client.score(transaction);
+ScoreResponse score = client.score(transaction);
 ```
 
-or an Insights request by calling `insights` method:
+an Insights request by calling `insights` method:
 
 ```java
-Insights score = client.insights(transaction);
+InsightsResponse insights = client.insights(transaction);
+```
+
+an Factors request by calling `factors` method:
+
+```java
+FactorsResponse factors = client.factors(transaction);
 ```
 
 If the request succeeds, a model object will be returned for the endpoint.
@@ -88,20 +94,18 @@ Runtime exceptions:
 
 Checked exceptions:
 
-* `AuthenticationException` - This will be thrown by `score(transaction)` or
-  `insights(transaction)` on `WebServiceClient` when the server is unable to
+* `AuthenticationException` - This will be thrown when the server is unable to
   authenticate the request, e.g., if the license key or user ID is invalid.
-* `InsufficientFundsException` - This will be thrown by `score(transaction)` or
-  `insights(transaction)` on `WebServiceClient` when your account is out of funds.
-* `InvalidRequestException` - This will be thrown by `score(transaction)` or
-  `insights(transaction)` on `WebServiceClient` when the server rejects the
+* `InsufficientFundsException` - This will be thrown when your account is out of
+  funds.
+* `InvalidRequestException` - This will be thrown when the server rejects the
   request for another reason such as invalid JSON in the POST.
-* `MinFraudException` - This will be thrown by `score(transaction)` or
-  `insights(transaction)` on `WebServiceClient` when the server returns an
+* `PermissionRequiredException` - This will be thrown when permission is
+  required to use the service.
+* `MinFraudException` - This will be thrown when the server returns an
   unexpected response. This also serves as the base class for the above
   checked exceptions.
-* `HttpException` -This will be thrown by `score(transaction)` or
-  `insights(transaction)` on `WebServiceClient` when an unexpected HTTP error
+* `HttpException` -This will be thrown when an unexpected HTTP error
   occurs such as an internal server error or other unexpected status code.
 
 ## Example
@@ -227,6 +231,6 @@ This API uses [Semantic Versioning](http://semver.org/).
 
 ## Copyright and License ##
 
-This software is Copyright (c) 2016 by MaxMind, Inc.
+This software is Copyright (c) 2015-2016 by MaxMind, Inc.
 
 This is free software, licensed under the Apache License, Version 2.0.
