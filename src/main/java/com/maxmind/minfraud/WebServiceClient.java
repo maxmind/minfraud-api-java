@@ -144,6 +144,9 @@ public final class WebServiceClient {
          * @return Builder object
          */
         public WebServiceClient.Builder locales(List<String> val) {
+            if (locales == null) {
+                throw new IllegalArgumentException("locales must not be null");
+            }
             locales = new ArrayList<>(val);
             return this;
         }
@@ -245,6 +248,9 @@ public final class WebServiceClient {
 
     private <T> T responseFor(String service, Transaction transaction, Class<T> cls)
             throws IOException, MinFraudException {
+        if (transaction == null) {
+            throw new IllegalArgumentException("transaction must not be null");
+        }
         URL url = createUrl(WebServiceClient.pathBase + service);
         HttpPost request = requestFor(transaction, url);
 

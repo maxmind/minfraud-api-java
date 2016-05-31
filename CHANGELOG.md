@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+0.5.0 (2016-XX-XX)
+------------------
+
+* This API now throws an `IllegalArgumentException` when `null` values are
+  passed to constructors or methods that require non-null values.
+
 0.4.0 (2016-05-23)
 ------------------
 

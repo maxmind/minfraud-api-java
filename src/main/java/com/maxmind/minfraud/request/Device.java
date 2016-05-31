@@ -35,6 +35,10 @@ public final class Device extends AbstractModel {
          *                  by the customer in the transaction.
          */
         public Builder(InetAddress ipAddress) {
+            if (ipAddress == null) {
+                throw new IllegalArgumentException("ipAddress must not be null");
+            }
+
             this.ipAddress = ipAddress;
         }
 

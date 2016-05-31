@@ -56,6 +56,9 @@ public final class Transaction extends AbstractModel {
          * @param device The {@code Device} model for the request
          */
         public Builder(Device device) {
+            if (device == null) {
+                throw new IllegalArgumentException("device must not be null");
+            }
             this.device = device;
         }
 
