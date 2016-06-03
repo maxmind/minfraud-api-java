@@ -17,8 +17,9 @@ public class ScoreResponseTest extends AbstractOutputTest {
                 JSON.std
                         .composeString()
                         .startObject()
-                        .put("credits_remaining", 123)
+                        .put("funds_remaining", 1.20)
                         .put("id", id)
+                        .put("queries_remaining", 123)
                         .put("risk_score", 0.01)
                         .startObjectField("ip_address")
                         .put("risk", 0.02)
@@ -33,9 +34,10 @@ public class ScoreResponseTest extends AbstractOutputTest {
         );
 
         assertEquals("correct ID", UUID.fromString(id), score.getId());
-        assertEquals("credits remaining", Integer.valueOf(123), score.getCreditsRemaining());
+        assertEquals("correct funds remaining", Double.valueOf(1.20), score.getFundsRemaining());
+        assertEquals("queries remaining", Integer.valueOf(123), score.getQueriesRemaining());
         assertEquals("risk score", Double.valueOf(0.01), score.getRiskScore());
-        assertEquals("IP ris", Double.valueOf(0.02), score.getIpAddress().getRisk());
+        assertEquals("IP risk", Double.valueOf(0.02), score.getIpAddress().getRisk());
         assertEquals("warning code", "INVALID_INPUT", score.getWarnings().get(0).getCode());
     }
 }
