@@ -36,7 +36,8 @@ public class FactorsResponseTest extends AbstractOutputTest {
                         .put("shipping_address_distance_to_ip_location", 0.16)
                         .put("time_of_day", 0.17)
                         .end()
-                        .put("credits_remaining", 123)
+                        .put("funds_remaining", 1.20)
+                        .put("queries_remaining", 123)
                         .put("id", id)
                         .put("risk_score", 0.01)
                         .end()
@@ -60,8 +61,9 @@ public class FactorsResponseTest extends AbstractOutputTest {
         assertEquals("phone_number", Double.valueOf(0.15), factors.getSubscores().getPhoneNumber());
         assertEquals("shipping_address_distance_to_ip_location", Double.valueOf(0.16), factors.getSubscores().getShippingAddressDistanceToIpLocation());
         assertEquals("time_of_day", Double.valueOf(0.17), factors.getSubscores().getTimeOfDay());
+        assertEquals("correct funnds remaining", Double.valueOf(1.20), factors.getFundsRemaining());
         assertEquals("correct ID", UUID.fromString(id), factors.getId());
-        assertEquals("correct credits remaining", Integer.valueOf(123), factors.getCreditsRemaining());
+        assertEquals("correct queries remaining", Integer.valueOf(123), factors.getQueriesRemaining());
         assertEquals("correct risk score", Double.valueOf(0.01), factors.getRiskScore());
     }
 }

@@ -4,6 +4,11 @@ CHANGELOG
 0.5.0 (2016-XX-XX)
 ------------------
 
+* BREAKING CHANGE: `getCreditsRemaining()` has been removed from the web
+  service models and has been replaced by `getQueriesRemaining()`.
+* Added `getQueriesRemaining()` and `getFundsRemaining()`. Note that
+  `getFundsRemaining()` will not be returned by the web service until our new
+  credit system is in place.
 * This API now throws an `IllegalArgumentException` when `null` values are
   passed to constructors or methods that require non-null values.
 

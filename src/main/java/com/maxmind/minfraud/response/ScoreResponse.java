@@ -12,33 +12,36 @@ import java.util.UUID;
  * This class represents the minFraud Score response.
  */
 public class ScoreResponse extends AbstractModel {
-    protected final Integer creditsRemaining;
+    protected final Double fundsRemaining;
     protected final UUID id;
+    protected final Integer queriesRemaining;
     protected final Double riskScore;
     protected final List<Warning> warnings;
     private final ScoreIpAddress ipAddress;
 
     public ScoreResponse(
-            @JsonProperty("credits_remaining") Integer creditsRemaining,
+            @JsonProperty("funds_remaining") Double fundsRemaining,
             @JsonProperty("id") UUID id,
             @JsonProperty("ip_address") ScoreIpAddress ipAddress,
+            @JsonProperty("queries_remaining") Integer queriesRemaining,
             @JsonProperty("risk_score") Double riskScore,
             @JsonProperty("warnings") List<Warning> warnings
     ) {
-        this.creditsRemaining = creditsRemaining;
+        this.fundsRemaining = fundsRemaining;
         this.id = id;
         this.ipAddress = ipAddress == null ? new ScoreIpAddress() : ipAddress;
+        this.queriesRemaining = queriesRemaining;
         this.riskScore = riskScore;
         this.warnings = Collections.unmodifiableList(warnings == null ? new ArrayList<Warning>() : warnings);
     }
 
     /**
-     * @return The approximate number of service credits remaining on your
-     * account.
+     * @return The approximate US dollar value of the funds remaining on your
+     * MaxMind account.
      */
-    @JsonProperty("credits_remaining")
-    public final Integer getCreditsRemaining() {
-        return creditsRemaining;
+    @JsonProperty("funds_remaining")
+    public final Double getFundsRemaining() {
+        return fundsRemaining;
     }
 
     /**
@@ -54,6 +57,15 @@ public class ScoreResponse extends AbstractModel {
     @JsonProperty("ip_address")
     public IpAddressInterface getIpAddress() {
         return ipAddress;
+    }
+
+    /**
+     * @return The approximate number of queries remaining for this service
+     * before your account runs out of funds.
+     */
+    @JsonProperty("queries_remaining")
+    public final Integer getQueriesRemaining() {
+        return queriesRemaining;
     }
 
     /**

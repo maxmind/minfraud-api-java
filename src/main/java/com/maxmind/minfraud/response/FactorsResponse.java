@@ -16,18 +16,20 @@ public final class FactorsResponse extends InsightsResponse {
     public FactorsResponse(
             @JsonProperty("billing_address") BillingAddress billingAddress,
             @JsonProperty("credit_card") CreditCard creditCard,
-            @JsonProperty("credits_remaining") Integer creditsRemaining,
             @JsonProperty("device") Device device,
             @JsonProperty("email") Email email,
+            @JsonProperty("funds_remaining") Double fundsRemaining,
             @JsonProperty("id") UUID id,
             @JsonProperty("ip_address") IpAddress ipAddress,
+            @JsonProperty("queries_remaining") Integer queriesRemaining,
             @JsonProperty("risk_score") Double riskScore,
             @JsonProperty("shipping_address") ShippingAddress shippingAddress,
             @JsonProperty("subscores") Subscores subscores,
             @JsonProperty("warnings") List<Warning> warnings
     ) {
-        super(billingAddress, creditCard, creditsRemaining, device, email,
-                id, ipAddress, riskScore, shippingAddress, warnings);
+        super(billingAddress, creditCard, device, email, fundsRemaining,
+                id, ipAddress, queriesRemaining, riskScore, shippingAddress,
+                warnings);
         this.subscores = subscores;
     }
 
@@ -38,5 +40,4 @@ public final class FactorsResponse extends InsightsResponse {
     public Subscores getSubscores() {
         return subscores;
     }
-
 }
