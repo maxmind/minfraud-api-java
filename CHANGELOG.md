@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-0.5.0 (2016-XX-XX)
+0.5.0 (2016-06-08)
 ------------------
 
 * BREAKING CHANGE: `getCreditsRemaining()` has been removed from the web
