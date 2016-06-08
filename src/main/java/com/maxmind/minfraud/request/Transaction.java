@@ -21,7 +21,7 @@ public final class Transaction extends AbstractModel {
     private final Shipping shipping;
     private final List<ShoppingCartItem> shoppingCart;
 
-    protected Transaction(Transaction.Builder builder) {
+    private Transaction(Transaction.Builder builder) {
         account = builder.account;
         billing = builder.billing;
         creditCard = builder.creditCard;
