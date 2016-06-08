@@ -3,7 +3,6 @@ package com.maxmind.minfraud.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -30,7 +29,6 @@ public final class Event extends AbstractModel {
         String shopId;
         Date time;
         Type type;
-        SimpleDateFormat dateFormat;
 
         /**
          * @param id Your internal ID for the transaction. We can use this to

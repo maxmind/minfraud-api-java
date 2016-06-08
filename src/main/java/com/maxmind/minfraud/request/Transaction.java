@@ -48,7 +48,7 @@ public final class Transaction extends AbstractModel {
         Order order;
         Payment payment;
         Shipping shipping;
-        List<ShoppingCartItem> shoppingCart = new ArrayList<>();
+        final List<ShoppingCartItem> shoppingCart = new ArrayList<>();
 
         /**
          * The constructor for {@code Builder}
