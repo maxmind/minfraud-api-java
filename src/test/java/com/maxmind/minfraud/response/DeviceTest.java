@@ -16,11 +16,15 @@ public class DeviceTest extends AbstractOutputTest {
                 JSON.std
                         .composeString()
                         .startObject()
+                        .put("confidence", 99)
                         .put("id", "C8D3BE1A-BE26-11E5-8C50-1B575C37265F")
+                        .put("last_seen", "2016-06-08T14:16:38Z")
                         .end()
                         .finish()
         );
 
+        assertEquals(99.0, device.getConfidence(), 1e-15);
         assertEquals(UUID.fromString("C8D3BE1A-BE26-11E5-8C50-1B575C37265F"), device.getId());
+        assertEquals("2016-06-08T14:16:38Z", device.getLastSeen());
     }
 }

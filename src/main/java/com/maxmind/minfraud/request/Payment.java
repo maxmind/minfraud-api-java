@@ -11,7 +11,7 @@ public final class Payment extends AbstractModel {
     private final Boolean wasAuthorized;
     private final String declineCode;
 
-    public Payment(Payment.Builder builder) {
+    private Payment(Payment.Builder builder) {
         processor = builder.processor;
         wasAuthorized = builder.wasAuthorized;
         declineCode = builder.declineCode;

@@ -9,8 +9,6 @@ public class SubscoresTest extends AbstractOutputTest {
 
     @Test
     public void testSubscores() throws Exception {
-        String phone = "132-342-2131";
-
         Subscores subscores = this.deserialize(
                 Subscores.class,
                 JSON.std

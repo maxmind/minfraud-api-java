@@ -9,6 +9,7 @@ CHANGELOG
 * Added `getQueriesRemaining()` and `getFundsRemaining()`. Note that
   `getFundsRemaining()` will not be returned by the web service until our new
   credit system is in place.
+* Added `getLastSeen()` and `getConfidence()` to the `Device` response model.
 * This API now throws an `IllegalArgumentException` when `null` values are
   passed to constructors or methods that require non-null values.
 

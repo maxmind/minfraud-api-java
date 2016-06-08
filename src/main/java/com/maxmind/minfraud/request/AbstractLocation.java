@@ -8,17 +8,17 @@ import com.maxmind.minfraud.AbstractModel;
  * Billing and Shipping.
  */
 public abstract class AbstractLocation extends AbstractModel {
-    protected String firstName;
-    protected String lastName;
-    protected String company;
-    protected String address;
-    protected String address2;
-    protected String city;
-    protected String region;
-    protected String country;
-    protected String postal;
-    protected String phoneNumber;
-    protected String phoneCountryCode;
+    private final String firstName;
+    private final String lastName;
+    private final String company;
+    private final String address;
+    private final String address2;
+    private final String city;
+    private final String region;
+    private final String country;
+    private final String postal;
+    private final String phoneNumber;
+    private final String phoneCountryCode;
 
     protected AbstractLocation(AbstractLocation.Builder builder) {
         firstName = builder.firstName;

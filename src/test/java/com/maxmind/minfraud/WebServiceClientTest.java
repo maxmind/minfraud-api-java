@@ -23,10 +23,10 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
 public class WebServiceClientTest {
 
     @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    public final ExpectedException thrown = ExpectedException.none();
 
     @Rule
-    public WireMockRule wireMockRule = new WireMockRule(0); // 0 picks random port
+    public final WireMockRule wireMockRule = new WireMockRule(0); // 0 picks random port
 
     @Test
     public void testFullScoreTransaction() throws Exception {
