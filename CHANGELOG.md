@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+0.5.1
+------------------
+
+* Added the following new values to the `Payment.Processor` enum:
+  `CONCEPT_PAYMENTS`, `ECOMM365`, `ORANGEPAY`, and `PACNET_SERVICES`.
+
 0.5.0 (2016-06-08)
 ------------------
 
