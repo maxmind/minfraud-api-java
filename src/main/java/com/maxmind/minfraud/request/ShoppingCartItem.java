@@ -63,8 +63,8 @@ public final class ShoppingCartItem extends AbstractModel {
         }
 
         /**
-         * @param price The price of the item in the shopping cart. This
-         *              should be the same currency as the order currency.
+         * @param price The per-unit price of the item in the shopping cart. This
+         *              should use the same currency as the order currency.
          * @return The builder object.
          */
         public ShoppingCartItem.Builder price(BigDecimal price) {
