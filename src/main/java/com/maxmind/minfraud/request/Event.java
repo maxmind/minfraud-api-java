@@ -3,7 +3,6 @@ package com.maxmind.minfraud.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public final class Event extends AbstractModel {
