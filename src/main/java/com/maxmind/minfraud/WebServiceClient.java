@@ -12,6 +12,7 @@ import com.maxmind.minfraud.response.FactorsResponse;
 import com.maxmind.minfraud.response.InsightsResponse;
 import com.maxmind.minfraud.response.ScoreResponse;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -25,16 +26,15 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
+import java.io.Closeable;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.net.*;
 import java.util.*;
 
 /**
  * Client for MaxMind minFraud Score, Insights, and Factors
  */
-public final class WebServiceClient {
+public final class WebServiceClient implements Closeable {
     private static final String pathBase = "/minfraud/v2.0/";
 
     private final String host;
@@ -42,9 +42,11 @@ public final class WebServiceClient {
     private final boolean useHttps;
     private final List<String> locales;
     private final String licenseKey;
-    private final int connectTimeout;
-    private final int readTimeout;
     private final int userId;
+
+
+    private final ObjectMapper mapper;
+    private final CloseableHttpClient httpClient;
 
     private WebServiceClient(WebServiceClient.Builder builder) {
         host = builder.host;
@@ -52,9 +54,27 @@ public final class WebServiceClient {
         useHttps = builder.useHttps;
         locales = builder.locales;
         licenseKey = builder.licenseKey;
-        connectTimeout = builder.connectTimeout;
-        readTimeout = builder.readTimeout;
         userId = builder.userId;
+
+        mapper = new ObjectMapper();
+        mapper.disable(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS);
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
+        RequestConfig.Builder configBuilder = RequestConfig.custom()
+                .setConnectTimeout(builder.connectTimeout)
+                .setSocketTimeout(builder.readTimeout);
+
+        if (builder.proxy != null) {
+            InetSocketAddress address = (InetSocketAddress) builder.proxy.address();
+            HttpHost proxyHost = new HttpHost(address.getHostName(), address.getPort());
+            configBuilder.setProxy(proxyHost);
+        }
+
+        RequestConfig config = configBuilder.build();
+        httpClient =
+                HttpClientBuilder.create()
+                        .setUserAgent(userAgent())
+                        .setDefaultRequestConfig(config).build();
     }
 
     /**
@@ -87,6 +107,7 @@ public final class WebServiceClient {
         int readTimeout = -1;
 
         List<String> locales = Collections.singletonList("en");
+        private Proxy proxy;
 
         /**
          * @param userId     Your MaxMind user ID.
@@ -159,6 +180,15 @@ public final class WebServiceClient {
          */
         public WebServiceClient.Builder readTimeout(int val) {
             readTimeout = val;
+            return this;
+        }
+
+        /**
+         * @param val the proxy to use when making this request.
+         * @return Builder object
+         */
+        public Builder proxy(Proxy val) {
+            this.proxy = val;
             return this;
         }
 
@@ -254,16 +284,7 @@ public final class WebServiceClient {
         URL url = createUrl(WebServiceClient.pathBase + service);
         HttpPost request = requestFor(transaction, url);
 
-        RequestConfig config = RequestConfig.custom()
-                .setConnectTimeout(this.connectTimeout)
-                .setSocketTimeout(this.readTimeout)
-                .build();
-
-        try (
-                CloseableHttpClient httpClient =
-                        HttpClientBuilder.create().setDefaultRequestConfig(config).build();
-                CloseableHttpResponse response = httpClient.execute(request)
-        ) {
+        try (CloseableHttpResponse response = httpClient.execute(request)) {
             return handleResponse(response, url, cls);
         }
     }
@@ -315,9 +336,6 @@ public final class WebServiceClient {
                     + " but there was no message body.", 200, url);
         }
 
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.disable(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS);
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         InjectableValues inject = new Std().addValue(
                 "locales", locales);
 
@@ -348,8 +366,6 @@ public final class WebServiceClient {
 
         Map<String, String> content;
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.disable(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS);
             content = mapper.readValue(body,
                     new TypeReference<HashMap<String, String>>() {
                     });
@@ -410,16 +426,26 @@ public final class WebServiceClient {
                 + " Java/" + System.getProperty("java.version");
     }
 
+
+    /**
+     * Close any open connections and return resources to the system.
+     */
+    @Override
+    public void close() throws IOException {
+        httpClient.close();
+    }
+
     @Override
     public String toString() {
-        return "WebServiceClient{" + "host='" + this.host + '\'' +
-                ", port=" + this.port +
-                ", useHttps=" + this.useHttps +
-                ", locales=" + this.locales +
-                ", licenseKey='" + this.licenseKey + '\'' +
-                ", connectTimeout=" + this.connectTimeout +
-                ", readTimeout=" + this.readTimeout +
-                ", userId=" + this.userId +
+        return "WebServiceClient{" +
+                "host='" + host + '\'' +
+                ", port=" + port +
+                ", useHttps=" + useHttps +
+                ", locales=" + locales +
+                ", licenseKey='" + licenseKey + '\'' +
+                ", userId=" + userId +
+                ", mapper=" + mapper +
+                ", httpClient=" + httpClient +
                 '}';
     }
 }

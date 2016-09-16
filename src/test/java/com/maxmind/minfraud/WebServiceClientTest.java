@@ -31,60 +31,65 @@ public class WebServiceClientTest {
     @Test
     public void testFullScoreTransaction() throws Exception {
         String responseContent = readJsonFile("score-response");
-        WebServiceClient client = createSuccessClient("score", responseContent);
-        Transaction request = fullTransaction();
-        ScoreResponse response = client.score(request);
+        try (WebServiceClient client = createSuccessClient("score", responseContent)) {
+            Transaction request = fullTransaction();
+            ScoreResponse response = client.score(request);
 
-        JSONAssert.assertEquals(responseContent, response.toJson(), true);
-        verifyRequestFor("score");
+            JSONAssert.assertEquals(responseContent, response.toJson(), true);
+            verifyRequestFor("score");
+        }
     }
 
     @Test
     public void testFullInsightsTransaction() throws Exception {
         String responseContent = readJsonFile("insights-response");
-        WebServiceClient client = createSuccessClient("insights", responseContent);
-        Transaction request = fullTransaction();
-        InsightsResponse response = client.insights(request);
+        try (WebServiceClient client = createSuccessClient("insights", responseContent)) {
+            Transaction request = fullTransaction();
+            InsightsResponse response = client.insights(request);
 
-        // We use non-strict checking as there is some extra stuff in the serialized
-        // object, most notably the "name" field in the GeoIP2 InsightsResponse subobjects.
-        // We cannot change this as it would be a breaking change to the GeoIP2 API.
-        JSONAssert.assertEquals(responseContent, response.toJson(), false);
-        verifyRequestFor("insights");
+            // We use non-strict checking as there is some extra stuff in the serialized
+            // object, most notably the "name" field in the GeoIP2 InsightsResponse subobjects.
+            // We cannot change this as it would be a breaking change to the GeoIP2 API.
+            JSONAssert.assertEquals(responseContent, response.toJson(), false);
+            verifyRequestFor("insights");
+        }
     }
 
     @Test
     public void testFullFactorsTransaction() throws Exception {
         String responseContent = readJsonFile("factors-response");
-        WebServiceClient client = createSuccessClient("factors", responseContent);
-        Transaction request = fullTransaction();
-        FactorsResponse response = client.factors(request);
+        try (WebServiceClient client = createSuccessClient("factors", responseContent)) {
+            Transaction request = fullTransaction();
+            FactorsResponse response = client.factors(request);
 
-        // We use non-strict checking as there is some extra stuff in the serialized
-        // object, most notably the "name" field in the GeoIP2 InsightsResponse subobjects.
-        // We cannot change this as it would be a breaking change to the GeoIP2 API.
-        JSONAssert.assertEquals(responseContent, response.toJson(), false);
-        verifyRequestFor("factors");
+            // We use non-strict checking as there is some extra stuff in the serialized
+            // object, most notably the "name" field in the GeoIP2 InsightsResponse subobjects.
+            // We cannot change this as it would be a breaking change to the GeoIP2 API.
+            JSONAssert.assertEquals(responseContent, response.toJson(), false);
+            verifyRequestFor("factors");
+        }
     }
 
     @Test
     public void test200WithNoBody() throws Exception {
-        WebServiceClient client = createSuccessClient("insights", "");
-        Transaction request = fullTransaction();
+        try (WebServiceClient client = createSuccessClient("insights", "")) {
+            Transaction request = fullTransaction();
 
-        thrown.expect(HttpException.class);
-        thrown.expectMessage(matchesPattern("Received a 200 response for .*/minfraud/v2.0/insights but there was no message body\\."));
-        client.insights(request);
+            thrown.expect(HttpException.class);
+            thrown.expectMessage(matchesPattern("Received a 200 response for .*/minfraud/v2.0/insights but there was no message body\\."));
+            client.insights(request);
+        }
     }
 
     @Test
     public void test200WithInvalidJson() throws Exception {
-        WebServiceClient client = createSuccessClient("insights", "{");
-        Transaction request = fullTransaction();
+        try (WebServiceClient client = createSuccessClient("insights", "{")) {
+            Transaction request = fullTransaction();
 
-        thrown.expect(MinFraudException.class);
-        thrown.expectMessage("Received a 200 response but could not decode it as JSON");
-        client.insights(request);
+            thrown.expect(MinFraudException.class);
+            thrown.expectMessage("Received a 200 response but could not decode it as JSON");
+            client.insights(request);
+        }
     }
 
     @Test
@@ -201,7 +206,6 @@ public class WebServiceClientTest {
     }
 
     private WebServiceClient createSuccessClient(String service, String responseContent) {
-
         return createClient(
                 service,
                 200,
@@ -211,13 +215,14 @@ public class WebServiceClientTest {
     }
 
     private void createInsightsError(int status, String contentType, String responseContent) throws Exception {
-        WebServiceClient client = createClient(
+        try (WebServiceClient client = createClient(
                 "insights",
                 status,
                 contentType,
                 responseContent
-        );
-        client.insights(fullTransaction());
+        )) {
+            client.insights(fullTransaction());
+        }
     }
 
     private WebServiceClient createClient(String service, int status, String contentType, String responseContent) {

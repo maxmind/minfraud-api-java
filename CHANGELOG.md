@@ -5,6 +5,11 @@ CHANGELOG
 ------------------
 
 * First production release.
+* Connections will now be reused between requests made with the same 
+  `WebServiceClient` object.
+* `WebServiceClient` now implements `Closeable`.
+* You are now able to set a proxy to use via the `WebServiceClient.Builder`
+  `proxy(Proxy)` method.
 * Updated dependencies.
 * Added the following new values to the `Payment.Processor` enum:
   `CONCEPT_PAYMENTS`, `ECOMM365`, `ORANGEPAY`, and `PACNET_SERVICES`.
