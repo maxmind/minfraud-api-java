@@ -59,7 +59,7 @@ public abstract class AbstractAddress extends AbstractModel {
      * @return This will return true if the postal code provided with the
      * address is in the city for the address. It will return false when the
      * postal code is not in the city. If the address was not provided,
-     * could not be parsed or was not in the USA, null will be returned.
+     * could not be parsed or was not in USA, null will be returned.
      */
     @JsonProperty("is_postal_in_city")
     public final Boolean isPostalInCity() {
