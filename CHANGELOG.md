@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+1.0.1
+------------------
+* Added two new types to the `Event.Type` enum: `EMAIL_CHANGE` and
+  `PASSWORD_RESET`.
+
 1.0.0 (2016-09-16)
 ------------------
 

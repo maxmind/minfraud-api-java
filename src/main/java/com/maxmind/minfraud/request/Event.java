@@ -118,6 +118,8 @@ public final class Event extends AbstractModel {
     public enum Type {
         ACCOUNT_CREATION,
         ACCOUNT_LOGIN,
+        EMAIL_CHANGE,
+        PASSWORD_RESET,
         PURCHASE,
         RECURRING_PURCHASE,
         REFERRAL,
