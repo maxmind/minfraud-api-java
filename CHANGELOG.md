@@ -1,16 +1,17 @@
 CHANGELOG
 =========
 
-1.0.1
+1.1.0 (2016-10-10)
 ------------------
 * Added two new types to the `Event.Type` enum: `EMAIL_CHANGE` and
   `PASSWORD_RESET`.
+* Update Jackson and WireMock dependencies.
 
 1.0.0 (2016-09-16)
 ------------------
 
 * First production release.
-* Connections will now be reused between requests made with the same 
+* Connections will now be reused between requests made with the same
   `WebServiceClient` object.
 * `WebServiceClient` now implements `Closeable`.
 * You are now able to set a proxy to use via the `WebServiceClient.Builder`
