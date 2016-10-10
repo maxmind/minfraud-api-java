@@ -3,6 +3,7 @@ CHANGELOG
 
 1.1.0 (2016-10-10)
 ------------------
+
 * Added two new types to the `Event.Type` enum: `EMAIL_CHANGE` and
   `PASSWORD_RESET`.
 * Update Jackson and WireMock dependencies.
