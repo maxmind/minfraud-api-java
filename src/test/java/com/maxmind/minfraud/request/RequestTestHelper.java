@@ -128,6 +128,6 @@ public class RequestTestHelper {
 
         verify(postRequestedFor(urlMatching("/minfraud/v2.0/" + service))
                 .withRequestBody(equalToJson(requestBody))
-                .withHeader("Content-Type", matching("application/json")));
+                .withHeader("Content-Type", matching("application/json; charset=UTF-8")));
     }
 }

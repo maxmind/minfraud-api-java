@@ -31,6 +31,8 @@ import java.io.IOException;
 import java.net.*;
 import java.util.*;
 
+import static org.apache.http.entity.ContentType.APPLICATION_JSON;
+
 /**
  * Client for MaxMind minFraud Score, Insights, and Factors
  */
@@ -309,8 +311,7 @@ public final class WebServiceClient implements Closeable {
 
         String requestBody = transaction.toJson();
 
-        StringEntity input = new StringEntity(requestBody);
-        input.setContentType("application/json");
+        StringEntity input = new StringEntity(requestBody, APPLICATION_JSON);
 
         request.setEntity(input);
         return request;

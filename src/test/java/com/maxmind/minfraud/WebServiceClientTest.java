@@ -2,6 +2,8 @@ package com.maxmind.minfraud;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import com.maxmind.minfraud.exception.*;
+import com.maxmind.minfraud.request.Device;
+import com.maxmind.minfraud.request.Shipping;
 import com.maxmind.minfraud.request.Transaction;
 import com.maxmind.minfraud.response.FactorsResponse;
 import com.maxmind.minfraud.response.InsightsResponse;
@@ -13,6 +15,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
+
+import java.net.InetAddress;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.jcabi.matchers.RegexMatchers.matchesPattern;
@@ -67,6 +71,23 @@ public class WebServiceClientTest {
             // We cannot change this as it would be a breaking change to the GeoIP2 API.
             JSONAssert.assertEquals(responseContent, response.toJson(), false);
             verifyRequestFor("factors");
+        }
+    }
+
+    @Test
+    public void testRequestEncoding() throws Exception {
+        try (WebServiceClient client = createSuccessClient("insights", "{}")) {
+            Transaction request = new Transaction.Builder(
+                    new Device.Builder(InetAddress.getByName("1.1.1.1")).build()
+            ).shipping(
+                    new Shipping.Builder()
+                            .firstName("Allan dias á s maia")
+                            .build()
+            ).build();
+            client.insights(request);
+
+            verify(postRequestedFor(urlMatching("/minfraud/v2.0/insights"))
+                    .withRequestBody(equalToJson("{\"device\":{\"ip_address\":\"1.1.1.1\"},\"shipping\":{\"first_name\":\"Allan dias á s maia\"}}")));
         }
     }
 

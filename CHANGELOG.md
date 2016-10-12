@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+1.1.1 (2016-10-12)
+------------------
+
+* Non-ASCII characters are now correctly encoded as UTF-8 in the request body.
+  Reported by Julien Guery. GitHub #17.
+
 1.1.0 (2016-10-10)
 ------------------
 
