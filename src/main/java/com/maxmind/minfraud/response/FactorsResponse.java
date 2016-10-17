@@ -17,6 +17,7 @@ public final class FactorsResponse extends InsightsResponse {
             @JsonProperty("billing_address") BillingAddress billingAddress,
             @JsonProperty("credit_card") CreditCard creditCard,
             @JsonProperty("device") Device device,
+            @JsonProperty("disposition") Disposition disposition,
             @JsonProperty("email") Email email,
             @JsonProperty("funds_remaining") Double fundsRemaining,
             @JsonProperty("id") UUID id,
@@ -27,9 +28,9 @@ public final class FactorsResponse extends InsightsResponse {
             @JsonProperty("subscores") Subscores subscores,
             @JsonProperty("warnings") List<Warning> warnings
     ) {
-        super(billingAddress, creditCard, device, email, fundsRemaining,
-                id, ipAddress, queriesRemaining, riskScore, shippingAddress,
-                warnings);
+        super(billingAddress, creditCard, device, disposition, email,
+                fundsRemaining, id, ipAddress, queriesRemaining, riskScore,
+                shippingAddress, warnings);
         this.subscores = subscores;
     }
 

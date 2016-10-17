@@ -7,12 +7,11 @@ import java.util.UUID;
 
 /**
  * This class contains minFraud response data related to the device.
+ * <p>
+ * In order to receive device output from minFraud Insights or minFraud
+ * Factors, you must be using the Device Tracking Add-on.
  *
- *  In order to receive device output from minFraud Insights or minFraud
- *  Factors, you must be using the Device Tracking Add-on.
- *
- *  @see <a href="https://dev.maxmind.com/minfraud/device/">Device Tracking Add-on</a>
-
+ * @see <a href="https://dev.maxmind.com/minfraud/device/">Device Tracking Add-on</a>
  */
 public final class Device extends AbstractModel {
     private final Double confidence;
