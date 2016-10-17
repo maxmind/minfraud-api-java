@@ -115,6 +115,10 @@
     "id": "7835b099-d385-4e5b-969e-7df26181d73b",
     "last_seen": "2016-06-08T14:16:38Z"
   },
+  "disposition": {
+    "action": "reject",
+    "reason": "custom_rule"
+  },
   "email": {
     "is_free": true,
     "is_high_risk": true
