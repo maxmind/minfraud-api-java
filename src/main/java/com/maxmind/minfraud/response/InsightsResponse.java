@@ -20,6 +20,7 @@ public class InsightsResponse extends ScoreResponse {
             @JsonProperty("billing_address") BillingAddress billingAddress,
             @JsonProperty("credit_card") CreditCard creditCard,
             @JsonProperty("device") Device device,
+            @JsonProperty("disposition") Disposition disposition,
             @JsonProperty("email") Email email,
             @JsonProperty("funds_remaining") Double fundsRemaining,
             @JsonProperty("id") UUID id,
@@ -29,7 +30,7 @@ public class InsightsResponse extends ScoreResponse {
             @JsonProperty("shipping_address") ShippingAddress shippingAddress,
             @JsonProperty("warnings") List<Warning> warnings
     ) {
-        super(fundsRemaining, id, null, queriesRemaining, riskScore, warnings);
+        super(disposition, fundsRemaining, id, null, queriesRemaining, riskScore, warnings);
         this.billingAddress = billingAddress == null ? new BillingAddress() : billingAddress;
         this.creditCard = creditCard == null ? new CreditCard() : creditCard;
         this.device = device == null ? new Device() : device;

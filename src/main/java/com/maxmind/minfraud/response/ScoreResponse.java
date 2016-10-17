@@ -12,14 +12,16 @@ import java.util.UUID;
  * This class represents the minFraud Score response.
  */
 public class ScoreResponse extends AbstractModel {
-    protected final Double fundsRemaining;
-    protected final UUID id;
-    protected final Integer queriesRemaining;
-    protected final Double riskScore;
-    protected final List<Warning> warnings;
+    private final Disposition disposition;
+    private final Double fundsRemaining;
+    private final UUID id;
+    private final Integer queriesRemaining;
+    private final Double riskScore;
+    private final List<Warning> warnings;
     private final ScoreIpAddress ipAddress;
 
     public ScoreResponse(
+            @JsonProperty("disposition") Disposition disposition,
             @JsonProperty("funds_remaining") Double fundsRemaining,
             @JsonProperty("id") UUID id,
             @JsonProperty("ip_address") ScoreIpAddress ipAddress,
@@ -27,6 +29,7 @@ public class ScoreResponse extends AbstractModel {
             @JsonProperty("risk_score") Double riskScore,
             @JsonProperty("warnings") List<Warning> warnings
     ) {
+        this.disposition = disposition == null ? new Disposition() : disposition;
         this.fundsRemaining = fundsRemaining;
         this.id = id;
         this.ipAddress = ipAddress == null ? new ScoreIpAddress() : ipAddress;
@@ -34,6 +37,15 @@ public class ScoreResponse extends AbstractModel {
         this.riskScore = riskScore;
         this.warnings = Collections.unmodifiableList(warnings == null ? new ArrayList<Warning>() : warnings);
     }
+
+    /**
+     * @return The disposition set by your custom rules.
+     */
+    @JsonProperty("disposition")
+    public final Disposition getDisposition() {
+        return disposition;
+    }
+
 
     /**
      * @return The approximate US dollar value of the funds remaining on your
