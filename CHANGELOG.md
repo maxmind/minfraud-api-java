@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+1.2.0
+------------------
+
+* Added `/credit_card/token` input. Use the `token(String)` method on
+  `com.maxmind.minfraud.request.CreditCard.Builder` to set it.
+* All validation regular expressions are now pre-compiled.
+
 1.1.1 (2016-10-12)
 ------------------
 

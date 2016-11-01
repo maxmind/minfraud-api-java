@@ -3,6 +3,8 @@ package com.maxmind.minfraud.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
 
+import java.util.regex.Pattern;
+
 /**
  * The credit card information for the transaction.
  */
@@ -14,6 +16,7 @@ public final class CreditCard extends AbstractModel {
     private final String bankPhoneNumber;
     private final Character avsResult;
     private final Character cvvResult;
+    private final String token;
 
     private CreditCard(CreditCard.Builder builder) {
         issuerIdNumber = builder.issuerIdNumber;
@@ -23,6 +26,7 @@ public final class CreditCard extends AbstractModel {
         bankPhoneNumber = builder.bankPhoneNumber;
         avsResult = builder.avsResult;
         cvvResult = builder.cvvResult;
+        token = builder.token;
     }
 
     /**
@@ -30,11 +34,16 @@ public final class CreditCard extends AbstractModel {
      * from values set by the builder's methods.
      */
     public static final class Builder {
+        private static final Pattern IIN_PATTERN = Pattern.compile("^[0-9]{6}$");
+        private static final Pattern LAST_4_PATTERN = Pattern.compile("^[0-9]{4}$");
+        private static final Pattern TOKEN_PATTERN = Pattern.compile("^(?![0-9]{1,19}$)[\\x21-\\x7E]{1,255}$");
+
         String issuerIdNumber;
         String last4Digits;
         String bankName;
         String bankPhoneCountryCode;
         String bankPhoneNumber;
+        String token;
         Character avsResult;
         Character cvvResult;
 
@@ -47,7 +56,7 @@ public final class CreditCard extends AbstractModel {
          *                                  string.
          */
         public CreditCard.Builder issuerIdNumber(String number) {
-            if (!number.matches("[0-9]{6}")) {
+            if (!IIN_PATTERN.matcher(number).matches()) {
                 throw new IllegalArgumentException("The issuer ID number " + number + " is of the wrong format.");
             }
             issuerIdNumber = number;
@@ -61,7 +70,7 @@ public final class CreditCard extends AbstractModel {
          *                                  string.
          */
         public CreditCard.Builder last4Digits(String digits) {
-            if (!digits.matches("[0-9]{4}")) {
+            if (!LAST_4_PATTERN.matcher(digits).matches()) {
                 throw new IllegalArgumentException("The last 4 credit card digits " + digits + " are of the wrong format.");
             }
             last4Digits = digits;
@@ -114,6 +123,23 @@ public final class CreditCard extends AbstractModel {
          */
         public CreditCard.Builder cvvResult(Character code) {
             cvvResult = code;
+            return this;
+        }
+
+        /**
+         * @param token A token uniquely identifying the card. This should not be
+         *             the actual credit card number.
+         * @return The builder object.
+         * @throws IllegalArgumentException when the token is invalid.
+         *
+         */
+        public CreditCard.Builder token(String token) {
+            if (!TOKEN_PATTERN.matcher(token).matches()) {
+                throw new IllegalArgumentException("The credit card token was invalid. "
+                        + "Tokens must be non-space ASCII printable characters. If the "
+                        + "token consists of all digits, it must be more than 19 digits.");
+            }
+            this.token = token;
             return this;
         }
 
@@ -185,5 +211,13 @@ public final class CreditCard extends AbstractModel {
     @JsonProperty("cvv_result")
     public Character getCvvResult() {
         return cvvResult;
+    }
+
+    /**
+     * @return A credit card token uniquely identifying the card.
+     */
+    @JsonProperty("token")
+    public String getToken() {
+        return token;
     }
 }

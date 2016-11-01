@@ -1,10 +1,14 @@
 package com.maxmind.minfraud.request;
 
 import com.maxmind.minfraud.request.CreditCard.Builder;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(JUnitParamsRunner.class)
 public class CreditCardTest {
 
     @Test
@@ -79,4 +83,26 @@ public class CreditCardTest {
         CreditCard cc = new Builder().cvvResult('N').build();
         assertEquals(Character.valueOf('N'), cc.getCvvResult());
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    @Parameters({"4485921507912924",
+            "432312",
+            "this is invalid",
+            "",
+            "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    })
+    public void testInvalidToken(String token) throws Exception {
+        new Builder().token(token).build();
+    }
+
+    @Test
+    @Parameters({"t4485921507912924",
+            "a7f6%gf83fhAu",
+            "valid_token"
+    })
+    public void testValidToken(String token) throws Exception {
+        CreditCard cc = new Builder().token(token).build();
+        assertEquals(token, cc.getToken());
+    }
+
 }

@@ -87,6 +87,7 @@ public class RequestTestHelper {
                                 .avsResult('Y')
                                 .cvvResult('N')
                                 .last4Digits("7643")
+                                .token("123456abc1234")
                                 .build()
                 ).order(
                         new Order.Builder()

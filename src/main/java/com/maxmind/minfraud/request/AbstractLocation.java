@@ -3,6 +3,8 @@ package com.maxmind.minfraud.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
 
+import java.util.regex.Pattern;
+
 /**
  * This class represents the shared location behavior between
  * Billing and Shipping.
@@ -40,6 +42,8 @@ public abstract class AbstractLocation extends AbstractModel {
      */
     @SuppressWarnings("unchecked")
     abstract static class Builder<T extends AbstractLocation.Builder> {
+        private static final Pattern COUNTRY_CODE_PATTERN = Pattern.compile("^[A-Z]{2}$");
+
         String firstName;
         String lastName;
         String company;
@@ -124,7 +128,7 @@ public abstract class AbstractLocation extends AbstractModel {
          *                                  country code.
          */
         public final T country(String code) {
-            if (!code.matches("[A-Z]{2}")) {
+            if (!COUNTRY_CODE_PATTERN.matcher(code).matches()) {
                 throw new IllegalArgumentException("Expected two-letter country code in the ISO 3166-1 alpha-2 format");
             }
             country = code;
