@@ -5,6 +5,7 @@ import com.maxmind.minfraud.AbstractModel;
 
 import java.math.BigDecimal;
 import java.net.URI;
+import java.util.regex.Pattern;
 
 /**
  * The order information for the transaction.
@@ -35,6 +36,8 @@ public final class Order extends AbstractModel {
      * from values set by the builder's methods.
      */
     public static final class Builder {
+        private static final Pattern CURRENCY_CODE_PATTERN = Pattern.compile("^[A-Z]{3}$");
+
         BigDecimal amount;
         String currency;
         String discountCode;
@@ -70,7 +73,7 @@ public final class Order extends AbstractModel {
          *                                  three-letter currency code.
          */
         public Order.Builder currency(String code) {
-            if (!code.matches("[A-Z]{3}")) {
+            if (!CURRENCY_CODE_PATTERN.matcher(code).matches()) {
                 throw new IllegalArgumentException("The currency code " + code + " is invalid.");
             }
             currency = code;
