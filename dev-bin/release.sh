@@ -123,8 +123,8 @@ message="$version
 
 $notes"
 
-hub release create -a "minfraud-$version-with-dependencies.zip" \
-                   -a "minfraud-$version-with-dependencies.zip.asc" \
+hub release create -a "target/minfraud-$version-with-dependencies.zip" \
+                   -a "target/minfraud-$version-with-dependencies.zip.asc" \
                    -m "$message" "$tag"
 
 echo "Remember to do the release on https://oss.sonatype.org/!"
