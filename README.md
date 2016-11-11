@@ -14,7 +14,7 @@ To do this, add the dependency to your pom.xml:
     <dependency>
         <groupId>com.maxmind.minfraud</groupId>
         <artifactId>minfraud</artifactId>
-        <version>1.1.1</version>
+        <version>1.2.0</version>
     </dependency>
 ```
 
