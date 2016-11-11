@@ -127,8 +127,14 @@ public final class CreditCard extends AbstractModel {
         }
 
         /**
-         * @param token A token uniquely identifying the card. This should not be
-         *             the actual credit card number.
+         * @param token A token uniquely identifying the card. The token
+         *              should consist of non-space printable ASCII
+         *              characters. If the token is all digits, it must be
+         *              more than 19 characters long. The token must not be a
+         *              primary account number (PAN) or a simple
+         *              transformation of it. If you have a valid token that
+         *              looks like a PAN but is not one, you may prefix that
+         *              token with a fixed string, e.g., "token-".
          * @return The builder object.
          * @throws IllegalArgumentException when the token is invalid.
          *

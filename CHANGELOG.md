@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-1.2.0
+1.2.0 (2016-11-11)
 ------------------
 
 * Added `/credit_card/token` input. Use the `token(String)` method on
