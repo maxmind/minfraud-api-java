@@ -2,7 +2,7 @@
 layout: default
 title: MaxMind minFraud Score and Insights Java API
 language: java
-version: v1.2.0
+version: v1.3.0
 ---
 
 # MaxMind minFraud Score, Insights, and Factors Java API
@@ -14,6 +14,8 @@ Factors web services](https://dev.maxmind.com/minfraud/).
 
 ## Installation ##
 
+### Maven ###
+
 We recommend installing this package with [Maven](http://maven.apache.org/).
 To do this, add the dependency to your pom.xml:
 
@@ -21,8 +23,21 @@ To do this, add the dependency to your pom.xml:
     <dependency>
         <groupId>com.maxmind.minfraud</groupId>
         <artifactId>minfraud</artifactId>
-        <version>1.2.0</version>
+        <version>1.3.0</version>
     </dependency>
+```
+
+### Gradle ###
+
+Add the following to your `build.gradle` file:
+
+```
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile 'ccom.maxmind.minfraud:minfraud:1.3.0'
+}
 ```
 
 ## API Documentation ##
