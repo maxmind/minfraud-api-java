@@ -1,6 +1,9 @@
 CHANGELOG
 =========
 
+* Updated the docs for `com.maxmind.minfraud.response.AbstractAddress` now
+  that `isPostalInCity` may be returned for addresses world-wide.
+
 1.3.0 (2016-11-21)
 ------------------
 
