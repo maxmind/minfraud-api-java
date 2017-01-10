@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+1.4.0
+------------------
+
+* Added support for custom inputs. These can be set up from your account portal.
 * Updated the docs for `com.maxmind.minfraud.response.AbstractAddress` now
   that `isPostalInCity` may be returned for addresses world-wide.
 
