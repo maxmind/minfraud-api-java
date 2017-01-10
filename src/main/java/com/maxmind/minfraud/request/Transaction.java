@@ -13,6 +13,7 @@ public final class Transaction extends AbstractModel {
     private final Account account;
     private final Billing billing;
     private final CreditCard creditCard;
+    private final CustomInputs customInputs;
     private final Device device;
     private final Email email;
     private final Event event;
@@ -25,6 +26,7 @@ public final class Transaction extends AbstractModel {
         account = builder.account;
         billing = builder.billing;
         creditCard = builder.creditCard;
+        customInputs = builder.customInputs;
         device = builder.device;
         email = builder.email;
         event = builder.event;
@@ -42,6 +44,7 @@ public final class Transaction extends AbstractModel {
         Account account;
         Billing billing;
         CreditCard creditCard;
+        CustomInputs customInputs;
         Device device;
         Email email;
         Event event;
@@ -86,6 +89,15 @@ public final class Transaction extends AbstractModel {
          */
         public Builder creditCard(CreditCard val) {
             creditCard = val;
+            return this;
+        }
+
+        /**
+         * @param val The CustomInputs object.
+         * @return The builder object.
+         */
+        public Builder customInputs(CustomInputs val) {
+            customInputs = val;
             return this;
         }
 
@@ -176,6 +188,14 @@ public final class Transaction extends AbstractModel {
     @JsonProperty("credit_card")
     public CreditCard getCreditCard() {
         return creditCard;
+    }
+
+    /**
+     * @return The CustomInputs object.
+     */
+    @JsonProperty("custom_inputs")
+    public CustomInputs getCustomInputs() {
+        return customInputs;
     }
 
     /**
