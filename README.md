@@ -206,6 +206,13 @@ Transaction request = new Transaction.Builder(
             .price(3.)
             .quantity(1)
             .build()
+    ).customInputs(
+        new CustomInputs.Builder()
+            .put("float_input", 12.1)
+            .put("integer_input", 3123)
+            .put("string_input", "This is a string input.")
+            .put("boolean_input", true)
+            .build()
     ).build();
 
 WebServiceClient client = new WebServiceClient.Builder(6, "ABCD567890").build();

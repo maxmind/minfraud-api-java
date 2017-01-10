@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+1.5.0 (2017-07-07)
+------------------
+
+* Added support for custom inputs. These can be set up from your account portal.
 * Added support for new Device inputs. These are:
     * `/device/session_age`
     * `/device/session_id`
