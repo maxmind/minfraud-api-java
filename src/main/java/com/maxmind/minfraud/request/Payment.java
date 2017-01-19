@@ -94,6 +94,8 @@ public final class Payment extends AbstractModel {
      * Enumeration of payment processors
      */
     public enum Processor {
+        // These should exactly match the mF2 request enum value except they
+        // should be all uppercase.
         ADYEN,
         ALTAPAY,
         AMAZON_PAYMENTS,
@@ -113,6 +115,7 @@ public final class Payment extends AbstractModel {
         DALPAY,
         DIBS,
         DIGITAL_RIVER,
+        EBS,
         ECOMM365,
         ELAVON,
         EPAY,
@@ -120,10 +123,12 @@ public final class Payment extends AbstractModel {
         EWAY,
         FIRST_DATA,
         GLOBAL_PAYMENTS,
+        HIPAY,
         INGENICO,
         INTERNETSECURE,
         INTUIT_QUICKBOOKS_PAYMENTS,
         IUGU,
+        LEMON_WAY,
         MASTERCARD_PAYMENT_GATEWAY,
         MERCADOPAGO,
         MERCHANT_ESOLUTIONS,

@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+* Added the following new values to the `Payment.Processor` enum:
+  `EBS`, `HIPAY`, and `LEMON_WAY`.
 * Updated the docs for `com.maxmind.minfraud.response.AbstractAddress` now
   that `isPostalInCity` may be returned for addresses world-wide.
 
