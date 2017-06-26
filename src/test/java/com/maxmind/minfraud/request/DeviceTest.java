@@ -35,4 +35,19 @@ public class DeviceTest {
         Device device = new Builder(ip).acceptLanguage(al).build();
         assertEquals(al, device.getAcceptLanguage());
     }
+
+
+    @Test
+    public void testSessionAge() throws Exception {
+        Float hour = (float) 3600;
+        Device device = new Builder(ip).sessionAge(hour).build();
+        assertEquals(hour, device.getSessionAge());
+    }
+
+    @Test
+    public void testSessionId() throws Exception {
+        String id = "foobar";
+        Device device = new Builder(ip).sessionId(id).build();
+        assertEquals(id, device.getSessionId());
+    }
 }

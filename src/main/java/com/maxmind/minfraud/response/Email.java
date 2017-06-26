@@ -9,17 +9,20 @@ import com.maxmind.minfraud.AbstractModel;
 public final class Email extends AbstractModel {
     private final Boolean isFree;
     private final Boolean isHighRisk;
+    private final String firstSeen;
 
     public Email(
             @JsonProperty("is_free") Boolean isFree,
-            @JsonProperty("is_high_risk") Boolean isHighRisk
+            @JsonProperty("is_high_risk") Boolean isHighRisk,
+            @JsonProperty("first_seen") String firstSeen
     ) {
         this.isFree = isFree;
         this.isHighRisk = isHighRisk;
+        this.firstSeen = firstSeen;
     }
 
     public Email() {
-        this(null, null);
+        this(null, null, null);
     }
 
     /**
@@ -36,5 +39,15 @@ public final class Email extends AbstractModel {
     @JsonProperty("is_high_risk")
     public Boolean isHighRisk() {
         return isHighRisk;
+    }
+
+    /**
+     * @return A date string (e.g. 2017-04-24) to identify the date an email
+     *         address was first seen by MaxMind. This is expressed using the
+     *         ISO 8601 date format.
+     */
+    @JsonProperty("first_seen")
+    public String firstSeen() {
+        return firstSeen;
     }
 }

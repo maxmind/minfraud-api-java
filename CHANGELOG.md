@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+* Added support for new Device inputs. These are:
+    * `/device/session_age`
+    * `/device/session_id`
+* Added support for new Email outputs. These are:
+    * `/email/first_seen`
+
 1.4.0 (2017-02-22)
 ------------------
 
