@@ -39,7 +39,7 @@ public class DeviceTest {
 
     @Test
     public void testSessionAge() throws Exception {
-        Float hour = (float) 3600;
+        Double hour = 3600d;
         Device device = new Builder(ip).sessionAge(hour).build();
         assertEquals(hour, device.getSessionAge());
     }

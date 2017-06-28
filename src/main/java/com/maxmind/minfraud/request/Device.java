@@ -12,7 +12,7 @@ public final class Device extends AbstractModel {
     private final InetAddress ipAddress;
     private final String userAgent;
     private final String acceptLanguage;
-    private final Float sessionAge;
+    private final Double sessionAge;
     private final String sessionId;
 
     private Device(Device.Builder builder) {
@@ -31,7 +31,7 @@ public final class Device extends AbstractModel {
         InetAddress ipAddress;
         String userAgent;
         String acceptLanguage;
-        Float sessionAge;
+        Double sessionAge;
         String sessionId;
 
         /**
@@ -69,14 +69,14 @@ public final class Device extends AbstractModel {
         }
 
         /**
-         * @param sessionAge A floating point number. The number of seconds
-         *                   between the creation of the user's session and
-         *                   the time of the transaction. Note that session_age
-         *                   is not the duration of the current visit, but
-         *                   the time since the start of the first visit.
-         * @return The builder object.
+         * @param sessionAge The number of seconds between the creation of the
+         *                   user's session and the time of the transaction.
+         *                   Note that session_age is not the duration of the
+         *                   current visit, but the time since the start of the
+         *                   first visit.
+         *                   @return The builder object.
          */
-        public Device.Builder sessionAge(Float sessionAge) { this.sessionAge =
+        public Device.Builder sessionAge(Double sessionAge) { this.sessionAge =
             sessionAge; return this; }
 
         /**
@@ -119,7 +119,7 @@ public final class Device extends AbstractModel {
      * @return The session age.
      */
     @JsonProperty("session_age")
-    public Float getSessionAge() {
+    public Double getSessionAge() {
         return sessionAge;
     }
 
