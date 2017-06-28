@@ -47,7 +47,7 @@ public final class Email extends AbstractModel {
      *         ISO 8601 date format.
      */
     @JsonProperty("first_seen")
-    public String firstSeen() {
+    public String getFirstSeen() {
         return firstSeen;
     }
 }
