@@ -21,6 +21,13 @@ public final class Email extends AbstractModel {
         this.firstSeen = firstSeen;
     }
 
+    public Email(
+            Boolean isFree,
+            Boolean isHighRisk
+    ) {
+        this(isFree,isHighRisk,null);
+    }
+
     public Email() {
         this(null, null, null);
     }
