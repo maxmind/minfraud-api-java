@@ -12,11 +12,15 @@ public final class Device extends AbstractModel {
     private final InetAddress ipAddress;
     private final String userAgent;
     private final String acceptLanguage;
+    private final Double sessionAge;
+    private final String sessionId;
 
     private Device(Device.Builder builder) {
         ipAddress = builder.ipAddress;
         userAgent = builder.userAgent;
         acceptLanguage = builder.acceptLanguage;
+        sessionAge = builder.sessionAge;
+        sessionId = builder.sessionId;
     }
 
     /**
@@ -27,6 +31,8 @@ public final class Device extends AbstractModel {
         InetAddress ipAddress;
         String userAgent;
         String acceptLanguage;
+        Double sessionAge;
+        String sessionId;
 
         /**
          * The constructor for the {@code Device.Builder} class
@@ -63,6 +69,28 @@ public final class Device extends AbstractModel {
         }
 
         /**
+         * @param sessionAge The number of seconds between the creation of the
+         *                   user's session and the time of the transaction.
+         *                   Note that session_age is not the duration of the
+         *                   current visit, but the time since the start of the
+         *                   first visit.
+         *                   @return The builder object.
+         */
+        public Device.Builder sessionAge(Double sessionAge) { this.sessionAge =
+            sessionAge; return this; }
+
+        /**
+         * @param sessionId A string up to 255 characters in length. This is
+         *                  an ID which uniquely identifies a visitor's
+         *                  session on the site.
+         * @return The builder object.
+         */
+        public Device.Builder sessionId(String sessionId) {
+            this.sessionId = sessionId;
+            return this;
+        }
+
+        /**
          * @return An instance of {@code Device} created from the
          * fields set on this builder.
          */
@@ -85,6 +113,22 @@ public final class Device extends AbstractModel {
     @JsonProperty("accept_language")
     public String getAcceptLanguage() {
         return acceptLanguage;
+    }
+
+    /**
+     * @return The session age.
+     */
+    @JsonProperty("session_age")
+    public Double getSessionAge() {
+        return sessionAge;
+    }
+
+    /**
+     * @return The session id.
+     */
+    @JsonProperty("session_id")
+    public String getSessionId() {
+        return sessionId;
     }
 
     /**
