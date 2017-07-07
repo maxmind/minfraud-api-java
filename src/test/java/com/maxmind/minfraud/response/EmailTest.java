@@ -3,10 +3,7 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.jr.ob.JSON;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class EmailTest extends AbstractOutputTest {
 
@@ -26,7 +23,7 @@ public class EmailTest extends AbstractOutputTest {
 
         assertFalse(email.isFree());
         assertTrue(email.isHighRisk());
-        assertEquals(email.getFirstSeen(),"2017-01-02");
+        assertEquals(email.getFirstSeen(), "2017-01-02");
     }
 
     @Test

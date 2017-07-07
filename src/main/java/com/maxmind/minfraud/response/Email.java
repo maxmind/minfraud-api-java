@@ -25,7 +25,7 @@ public final class Email extends AbstractModel {
             Boolean isFree,
             Boolean isHighRisk
     ) {
-        this(isFree,isHighRisk,null);
+        this(isFree, isHighRisk, null);
     }
 
     public Email() {
@@ -50,8 +50,8 @@ public final class Email extends AbstractModel {
 
     /**
      * @return A date string (e.g. 2017-04-24) to identify the date an email
-     *         address was first seen by MaxMind. This is expressed using the
-     *         ISO 8601 date format.
+     * address was first seen by MaxMind. This is expressed using the
+     * ISO 8601 date format.
      */
     @JsonProperty("first_seen")
     public String getFirstSeen() {

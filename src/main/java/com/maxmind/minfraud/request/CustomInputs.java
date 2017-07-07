@@ -33,8 +33,8 @@ public final class CustomInputs extends AbstractModel {
         /**
          * Add a string custom input.
          *
-         * @param key The key for the custom input as defined on your account
-         *            portal.
+         * @param key   The key for the custom input as defined on your account
+         *              portal.
          * @param value The custom input value. Must be less than 256 characters
          *              and must not contain new lines.
          * @return The builder object.
@@ -44,8 +44,8 @@ public final class CustomInputs extends AbstractModel {
             validateKey(key);
             if (value.length() > 255 || value.contains("\n"))
                 throw new IllegalArgumentException("The custom input string " +
-                value + " is invalid. The string be less than" +
-                "256 characters and the string must not contain a newline.");
+                        value + " is invalid. The string be less than" +
+                        "256 characters and the string must not contain a newline.");
             inputs.put(key, value);
             return this;
         }
@@ -53,8 +53,8 @@ public final class CustomInputs extends AbstractModel {
         /**
          * Add a numeric custom input.
          *
-         * @param key The key for the custom input as defined on your account
-         *            portal.
+         * @param key   The key for the custom input as defined on your account
+         *              portal.
          * @param value The custom input value. Must be between -2^53 and 2^53,
          *              exclusive.
          * @return The builder object.
@@ -75,8 +75,8 @@ public final class CustomInputs extends AbstractModel {
         /**
          * Add a boolean custom input.
          *
-         * @param key The key for the custom input as defined on your account
-         *            portal.
+         * @param key   The key for the custom input as defined on your account
+         *              portal.
          * @param value The custom input value.
          * @return The builder object.
          * @throws IllegalArgumentException when the key or value are invalid.

@@ -29,6 +29,7 @@ public class TransactionTest {
         Transaction request = this.builder().creditCard(new CreditCard.Builder().bankName("name").build()).build();
         assertEquals("name", request.getCreditCard().getBankName());
     }
+
     @Test
     public void testCustomInputs() throws Exception {
         Transaction request = this.builder().customInputs(

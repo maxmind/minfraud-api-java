@@ -137,7 +137,6 @@ public final class CreditCard extends AbstractModel {
          *              token with a fixed string, e.g., "token-".
          * @return The builder object.
          * @throws IllegalArgumentException when the token is invalid.
-         *
          */
         public CreditCard.Builder token(String token) {
             if (!TOKEN_PATTERN.matcher(token).matches()) {

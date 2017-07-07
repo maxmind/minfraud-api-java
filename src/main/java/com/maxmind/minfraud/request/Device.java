@@ -74,10 +74,13 @@ public final class Device extends AbstractModel {
          *                   Note that session_age is not the duration of the
          *                   current visit, but the time since the start of the
          *                   first visit.
-         *                   @return The builder object.
+         * @return The builder object.
          */
-        public Device.Builder sessionAge(Double sessionAge) { this.sessionAge =
-            sessionAge; return this; }
+        public Device.Builder sessionAge(Double sessionAge) {
+            this.sessionAge =
+                    sessionAge;
+            return this;
+        }
 
         /**
          * @param sessionId A string up to 255 characters in length. This is
