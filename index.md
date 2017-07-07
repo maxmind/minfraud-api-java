@@ -2,7 +2,7 @@
 layout: default
 title: MaxMind minFraud Score and Insights Java API
 language: java
-version: v1.4.0
+version: v1.5.0
 ---
 
 # MaxMind minFraud Score, Insights, and Factors Java API
@@ -23,7 +23,7 @@ To do this, add the dependency to your pom.xml:
     <dependency>
         <groupId>com.maxmind.minfraud</groupId>
         <artifactId>minfraud</artifactId>
-        <version>1.4.0</version>
+        <version>1.5.0</version>
     </dependency>
 ```
 
@@ -36,7 +36,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'ccom.maxmind.minfraud:minfraud:1.4.0'
+    compile 'ccom.maxmind.minfraud:minfraud:1.5.0'
 }
 ```
 
@@ -126,6 +126,8 @@ Checked exceptions:
 Transaction request = new Transaction.Builder(
         new Device.Builder(InetAddress.getByName("1.1.1.1"))
             .acceptLanguage("en-US")
+            .sessionAge(3600.6)
+            .sessionId("foobar")
             .userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36")
             .build()
     ).account(
@@ -210,6 +212,13 @@ Transaction request = new Transaction.Builder(
             .itemId("c-12312")
             .price(3.)
             .quantity(1)
+            .build()
+    ).customInputs(
+        new CustomInputs.Builder()
+            .put("float_input", 12.1)
+            .put("integer_input", 3123)
+            .put("string_input", "This is a string input.")
+            .put("boolean_input", true)
             .build()
     ).build();
 
