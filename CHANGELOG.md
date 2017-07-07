@@ -11,19 +11,19 @@ CHANGELOG
 * Added support for new Email outputs. These are:
     * `/email/first_seen`
 * The following payment processors were added to the `Payment.Processor` enum:
-    * 'AMERICAN_EXPRESS_PAYMENT_GATEWAY'
-    * 'BLUESNAP'
-    * 'COMMDOO'
-    * 'CUROPAYMENTS'
-    * 'EXACT'
-    * 'OCEANPAYMENT'
-    * 'PAYMENTWALL'
-    * 'PAYZA'
-    * 'SECURETRADING'
-    * 'SOLIDTRUST_PAY'
-    * 'VANTIV'
-    * 'VERICHECK'
-    * 'VPOS'
+    * `AMERICAN_EXPRESS_PAYMENT_GATEWAY`
+    * `BLUESNAP`
+    * `COMMDOO`
+    * `CUROPAYMENTS`
+    * `EXACT`
+    * `OCEANPAYMENT`
+    * `PAYMENTWALL`
+    * `PAYZA`
+    * `SECURETRADING`
+    * `SOLIDTRUST_PAY`
+    * `VANTIV`
+    * `VERICHECK`
+    * `VPOS`
 
 1.4.0 (2017-02-22)
 ------------------
