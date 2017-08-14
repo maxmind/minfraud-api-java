@@ -1,8 +1,8 @@
 CHANGELOG
 =========
 
-1.5.1
------------------
+1.5.1 (2017-08-14)
+------------------
 
 * Corrected serialization of `/event/time` input to be valid RFC 3339. Reported by
   Luis Rojas. GitHub #26.
