@@ -2,7 +2,7 @@
 layout: default
 title: MaxMind minFraud Score and Insights Java API
 language: java
-version: v1.5.0
+version: v1.5.1
 ---
 
 # MaxMind minFraud Score, Insights, and Factors Java API
@@ -23,7 +23,7 @@ To do this, add the dependency to your pom.xml:
     <dependency>
         <groupId>com.maxmind.minfraud</groupId>
         <artifactId>minfraud</artifactId>
-        <version>1.5.0</version>
+        <version>1.5.1</version>
     </dependency>
 ```
 
@@ -36,7 +36,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'ccom.maxmind.minfraud:minfraud:1.5.0'
+    compile 'com.maxmind.minfraud:minfraud:1.5.1'
 }
 ```
 
@@ -176,7 +176,7 @@ Transaction request = new Transaction.Builder(
             .amount(new BigDecimal(Double.toString(1.1)))
             .currency("USD")
             .discountCode("10OFF")
-            .referrerUri("http://www.google.com/")
+            .referrerUri(new URI("http://www.google.com/"))
             .subaffiliateId("saf9")
             .build()
     ).payment(
