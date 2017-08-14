@@ -169,7 +169,7 @@ Transaction request = new Transaction.Builder(
             .amount(new BigDecimal(Double.toString(1.1)))
             .currency("USD")
             .discountCode("10OFF")
-            .referrerUri("http://www.google.com/")
+            .referrerUri(new URI("http://www.google.com/"))
             .subaffiliateId("saf9")
             .build()
     ).payment(
