@@ -29,7 +29,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'ccom.maxmind.minfraud:minfraud:1.5.0'
+    compile 'com.maxmind.minfraud:minfraud:1.5.0'
 }
 ```
 
