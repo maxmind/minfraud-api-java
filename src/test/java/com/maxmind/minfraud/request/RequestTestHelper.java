@@ -17,6 +17,20 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
  */
 public class RequestTestHelper {
     public static Transaction fullTransaction() throws Exception {
+        return makeTransaction(new Email.Builder()
+                                .address("test@maxmind.com")
+                                .domain("maxmind.com")
+                                .build());
+    }
+
+    public static Transaction fullTransactionEmailMd5() throws Exception {
+        return makeTransaction(new Email.Builder()
+                                .addressMd5("test@maxmind.com")
+                                .domain("maxmind.com")
+                                .build());
+    }
+
+    private static Transaction makeTransaction(Email e) throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
         return new Transaction.Builder(
                 new Device.Builder(InetAddress.getByName("81.2.69.160"))
@@ -41,10 +55,7 @@ public class RequestTestHelper {
                                 .username("fred")
                                 .build()
                 ).email(
-                        new Email.Builder()
-                                .address("test@maxmind.com")
-                                .domain("maxmind.com")
-                                .build()
+                    e
                 ).billing(
                         new Billing.Builder()
                                 .firstName("First")
@@ -133,8 +144,8 @@ public class RequestTestHelper {
         return new String(Files.readAllBytes(Paths.get(resource.toURI())), StandardCharsets.UTF_8);
     }
 
-    public static void verifyRequestFor(String service) throws IOException, URISyntaxException {
-        String requestBody = readJsonFile("full-request");
+    public static void verifyRequestFor(String service, String jsonFile) throws IOException, URISyntaxException {
+        String requestBody = readJsonFile(jsonFile);
 
         verify(postRequestedFor(urlMatching("/minfraud/v2.0/" + service))
                 .withRequestBody(equalToJson(requestBody))
