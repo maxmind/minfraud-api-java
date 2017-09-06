@@ -25,7 +25,8 @@ public class RequestTestHelper {
 
     public static Transaction fullTransactionEmailMd5() throws Exception {
         return makeTransaction(new Email.Builder()
-                                .addressMd5("test@maxmind.com")
+                                .address("test@maxmind.com")
+                                .hashAddress()
                                 .domain("maxmind.com")
                                 .build());
     }

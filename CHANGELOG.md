@@ -4,11 +4,11 @@ CHANGELOG
 x.x.x (UNRELEASED)
 ------------------
 
-* Behavior change! Default to sending the raw email address rather than its
-  MD5 hash. Previously only the MD5 hash of the email address would be
-  sent, and sending the raw email address was not possible. If you wish to
-  send only the MD5 hash of the email address, you must switch to the
-  `addressMd5()` method on the `Email` builder.
+* Behavior change! Default to sending the plain text email address rather
+  than its MD5 hash. Previously only the MD5 hash of the email address
+  would be sent, and sending the plain text email address was not possible.
+  If you wish to send only the MD5 hash of the email address, you must now
+  call `hashAddress()` on the `Email` builder in addition to `address()`.
 
 1.5.1 (2017-08-14)
 ------------------
