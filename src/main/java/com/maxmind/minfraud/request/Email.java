@@ -96,9 +96,9 @@ public final class Email extends AbstractModel {
 
     /**
      * @return The email address field to use in the transaction. This will be
-     * a valid email address if you used {@link #address(String)}, an MD5 hash
-     * if you used {@link #hashAddress()} as well, or null if you did not set an
-     * email address.
+     * a valid email address if you used {@link Builder#address(String)}, an MD5
+     * hash if you used {@link Builder#hashAddress()} as well, or null if you
+     * did not set an email address.
      */
     @JsonProperty("address")
     public String getAddress() {
