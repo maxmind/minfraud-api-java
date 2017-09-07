@@ -40,7 +40,19 @@ public class WebServiceClientTest {
             ScoreResponse response = client.score(request);
 
             JSONAssert.assertEquals(responseContent, response.toJson(), true);
-            verifyRequestFor("score");
+            verifyRequestFor("score", "full-request");
+        }
+    }
+
+    @Test
+    public void testFullScoreTransactionWithEmailMd5() throws Exception {
+        String responseContent = readJsonFile("score-response");
+        try (WebServiceClient client = createSuccessClient("score", responseContent)) {
+            Transaction request = fullTransactionEmailMd5();
+            ScoreResponse response = client.score(request);
+
+            JSONAssert.assertEquals(responseContent, response.toJson(), true);
+            verifyRequestFor("score", "full-request-email-md5");
         }
     }
 
@@ -55,7 +67,7 @@ public class WebServiceClientTest {
             // object, most notably the "name" field in the GeoIP2 InsightsResponse subobjects.
             // We cannot change this as it would be a breaking change to the GeoIP2 API.
             JSONAssert.assertEquals(responseContent, response.toJson(), false);
-            verifyRequestFor("insights");
+            verifyRequestFor("insights", "full-request");
         }
     }
 
@@ -70,7 +82,7 @@ public class WebServiceClientTest {
             // object, most notably the "name" field in the GeoIP2 InsightsResponse subobjects.
             // We cannot change this as it would be a breaking change to the GeoIP2 API.
             JSONAssert.assertEquals(responseContent, response.toJson(), false);
-            verifyRequestFor("factors");
+            verifyRequestFor("factors", "full-request");
         }
     }
 

@@ -1,5 +1,6 @@
 package com.maxmind.minfraud.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -10,11 +11,13 @@ import org.apache.commons.validator.routines.EmailValidator;
  * The email information for the transaction.
  */
 public final class Email extends AbstractModel {
-    private final String addressMd5;
+    private final String address;
+    private final boolean hashAddress;
     private final String domain;
 
     private Email(Email.Builder builder) {
-        addressMd5 = builder.addressMd5;
+        address = builder.address;
+        hashAddress = builder.hashAddress;
         domain = builder.domain;
     }
 
@@ -23,15 +26,19 @@ public final class Email extends AbstractModel {
      * from values set by the builder's methods.
      */
     public static final class Builder {
-        private String addressMd5;
+        private String address;
+        private boolean hashAddress;
         private String domain;
 
         /**
          * Set the email address and domain fields for the request. If
          * you set the email address from this method, you do <em>not</em>
          * need to set the domain separately. The domain will be set to
-         * the domain of the email address and the addressMd5 field will be
-         * set to the MD5 of the email address passed.
+         * the domain of the email address and the address field will be
+         * set to the email address passed.
+         *
+         * The email address will be sent in plain text unless you also call
+         * {@link #hashAddress()} to instead send it as an MD5 hash.
          *
          * @param address The valid email address used in the transaction.
          * @return The builder object.
@@ -46,7 +53,21 @@ public final class Email extends AbstractModel {
             if (this.domain == null) {
                 this.domain = address.substring(address.indexOf('@') + 1);
             }
-            this.addressMd5 = DigestUtils.md5Hex(address);
+            this.address = address;
+            return this;
+        }
+
+        /**
+         * Send the email address as its MD5 hash.
+         *
+         * By default the email address set by {@link #address(String)} will be
+         * sent in plain text. Enable sending it as an MD5 hash instead by
+         * calling this method.
+         *
+         * @return The builder object.
+         */
+        public Email.Builder hashAddress() {
+            this.hashAddress = true;
             return this;
         }
 
@@ -74,11 +95,34 @@ public final class Email extends AbstractModel {
     }
 
     /**
-     * @return The MD5 of the email address used in the transaction.
+     * @return The email address field to use in the transaction. This will be
+     * a valid email address if you used {@link Builder#address(String)}, an MD5
+     * hash if you used {@link Builder#hashAddress()} as well, or null if you
+     * did not set an email address.
      */
     @JsonProperty("address")
+    public String getAddress() {
+        if (address == null) {
+            return null;
+        }
+        if (hashAddress) {
+            return DigestUtils.md5Hex(address.toLowerCase());
+        }
+        return address;
+    }
+
+    /**
+     * @return The MD5 hash of the email address if you set an address using
+     * {@link Builder#address(String)}, or null if you did not.
+     * @deprecated {@link #getAddress()} should be used instead.
+     */
+    @JsonIgnore
+    @Deprecated
     public String getAddressMd5() {
-        return addressMd5;
+        if (address == null) {
+            return null;
+        }
+        return DigestUtils.md5Hex(address.toLowerCase());
     }
 
     /**
