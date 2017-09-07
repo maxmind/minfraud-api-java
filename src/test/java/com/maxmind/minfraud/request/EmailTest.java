@@ -38,6 +38,13 @@ public class EmailTest {
     }
 
     @Test
+    public void testMd5GetsLowercased() throws Exception {
+        Email email = new Builder().address("TEST@TEST.org").hashAddress().build();
+        assertEquals("MD5 generated from lowercased email", "476869598e748d958e819c180af31982", email.getAddress());
+        assertEquals("MD5 generated from lowercased email", "476869598e748d958e819c180af31982", email.getAddressMd5());
+    }
+
+    @Test
     public void testGetAddressWithoutSettingIt() throws Exception {
         Email email = new Builder().domain("test.org").hashAddress().build();
         assertEquals("null address if none set", null, email.getAddress());

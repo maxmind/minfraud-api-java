@@ -106,7 +106,7 @@ public final class Email extends AbstractModel {
             return null;
         }
         if (hashAddress) {
-            return DigestUtils.md5Hex(address);
+            return DigestUtils.md5Hex(address.toLowerCase());
         }
         return address;
     }
@@ -120,7 +120,7 @@ public final class Email extends AbstractModel {
         if (address == null) {
             return null;
         }
-        return DigestUtils.md5Hex(address);
+        return DigestUtils.md5Hex(address.toLowerCase());
     }
 
     /**
