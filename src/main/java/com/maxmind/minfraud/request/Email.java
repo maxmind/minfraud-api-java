@@ -112,10 +112,12 @@ public final class Email extends AbstractModel {
     }
 
     /**
-     * @return The MD5 hash of the email address if you set one, or null if you
-     * did not.
+     * @return The MD5 hash of the email address if you set an address using
+     * {@link Builder#address(String)}, or null if you did not.
+     * @deprecated {@link #getAddress()} should be used instead.
      */
     @JsonIgnore
+    @Deprecated
     public String getAddressMd5() {
         if (address == null) {
             return null;
