@@ -4,7 +4,7 @@
 
     <groupId>com.maxmind.minfraud</groupId>
     <artifactId>minfraud</artifactId>
-    <version>1.5.2-SNAPSHOT</version>
+    <version>1.6.0</version>
     <name>MaxMind minFraud Score and Insights API</name>
     <description>MaxMind minFraud Score and Insights API</description>
     <url>http://dev.maxmind.com/minfraud</url>
