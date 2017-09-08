@@ -11,6 +11,7 @@ x.x.x (UNRELEASED)
   call `hashAddress()` on the `Email` builder in addition to `address()`.
 * When sending a hashed email address, the address is now lower-cased
   before the MD5 is calculated.
+* Update Jackson and WireMock dependencies.
 
 1.5.1 (2017-08-14)
 ------------------
