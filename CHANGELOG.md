@@ -9,6 +9,8 @@ x.x.x (UNRELEASED)
   would be sent, and sending the plain text email address was not possible.
   If you wish to send only the MD5 hash of the email address, you must now
   call `hashAddress()` on the `Email` builder in addition to `address()`.
+* When sending a hashed email address, the address is now lower-cased
+  before the MD5 is calculated.
 
 1.5.1 (2017-08-14)
 ------------------
