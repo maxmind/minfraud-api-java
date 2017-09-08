@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-x.x.x (UNRELEASED)
+1.6.0 (2017-09-08)
 ------------------
 
 * Behavior change! Default to sending the plain text email address rather
