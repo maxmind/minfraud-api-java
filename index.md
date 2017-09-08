@@ -2,7 +2,7 @@
 layout: default
 title: MaxMind minFraud Score and Insights Java API
 language: java
-version: v1.5.1
+version: v1.6.0
 ---
 
 # MaxMind minFraud Score, Insights, and Factors Java API
@@ -16,14 +16,14 @@ Factors web services](https://dev.maxmind.com/minfraud/).
 
 ### Maven ###
 
-We recommend installing this package with [Maven](http://maven.apache.org/).
+We recommend installing this package with [Maven](https://maven.apache.org/).
 To do this, add the dependency to your pom.xml:
 
 ```xml
     <dependency>
         <groupId>com.maxmind.minfraud</groupId>
         <artifactId>minfraud</artifactId>
-        <version>1.5.1</version>
+        <version>1.6.0</version>
     </dependency>
 ```
 
@@ -36,14 +36,14 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'com.maxmind.minfraud:minfraud:1.5.1'
+    compile 'com.maxmind.minfraud:minfraud:1.6.0'
 }
 ```
 
 ## API Documentation ##
 
 API documentation is viewable on our [GitHub
-Page](http://maxmind.github.io/minfraud-api-java/) under the API tab.
+Page](https://maxmind.github.io/minfraud-api-java/) under the API tab.
 
 ## Usage ##
 
@@ -235,11 +235,11 @@ Please report all issues with this code using the
 
 If you are having an issue with the minFraud service that is not specific
 to the client API, please see
-[our support page](http://www.maxmind.com/en/support).
+[our support page](https://www.maxmind.com/en/support).
 
 ## Requirements  ##
 
-This code requires Java 7.
+This code requires Java 7+.
 
 ## Contributing ##
 
@@ -251,6 +251,6 @@ This API uses [Semantic Versioning](http://semver.org/).
 
 ## Copyright and License ##
 
-This software is Copyright (c) 2015-2016 by MaxMind, Inc.
+This software is Copyright (c) 2015-2017 by MaxMind, Inc.
 
 This is free software, licensed under the Apache License, Version 2.0.
