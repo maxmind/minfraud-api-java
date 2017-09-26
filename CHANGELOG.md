@@ -1,6 +1,16 @@
 CHANGELOG
 =========
 
+1.7.0
+-----------------
+
+* The following payment processors were added to the `Payment.Processor` enum:
+  * `BPOINT`
+  * `CHECKOUT_COM`
+  * `EMERCHANTPAY`
+  * `HEARTLAND`
+  * `PAYWAY`
+
 1.6.0 (2017-09-08)
 ------------------
 
