@@ -85,6 +85,12 @@
     "traits": {
       "domain": "in-addr.arpa",
       "ip_address": "81.2.69.160",
+      "is_anonymous": true,
+      "is_anonymous_vpn": true,
+      "is_hosting_provider": true,
+      "is_public_proxy": true,
+      "is_satellite_provider": true,
+      "is_tor_exit_node": true,
       "isp": "Andrews & Arnold Ltd",
       "organization": "STONEHOUSE office network",
       "user_type": "government"
