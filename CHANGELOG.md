@@ -12,7 +12,10 @@ CHANGELOG
   * `PAYWAY`
 * Updated `geoip2` dependency to add support for GeoIP2 Precision
   Insights anonymizer fields.
-  
+* Replaced use of deprecated `com.fasterxml.jackson.databind.util.ISO8601DateFormat`
+  with `com.fasterxml.jackson.databind.util.StdDateFormat` where
+  `withColonInTimeZone` is set to `true`.
+
 1.6.0 (2017-09-08)
 ------------------
 
