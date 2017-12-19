@@ -118,6 +118,7 @@ public final class Payment extends AbstractModel {
         CONEKTA,
         CUENTADIGITAL,
         CUROPAYMENTS,
+        CYBERSOURCE,
         DALPAY,
         DIBS,
         DIGITAL_RIVER,
@@ -184,6 +185,7 @@ public final class Payment extends AbstractModel {
         STRIPE,
         TELERECARGAS,
         TOWAH,
+        TRANSACT_PRO,
         USA_EPAY,
         VANTIV,
         VERAPAY,
@@ -192,6 +194,7 @@ public final class Payment extends AbstractModel {
         VIRTUAL_CARD_SERVICES,
         VME,
         VPOS,
+        WIRECARD,
         WORLDPAY;
 
         public String toString() {

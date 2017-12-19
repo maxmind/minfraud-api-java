@@ -1,11 +1,15 @@
 CHANGELOG
 =========
 
-1.7.1
+1.8.0
 ------------------
 
 * The web service client now correctly handles a proxy of `Proxy.NO_PROXY`.
   PR by Ernest Sadykov. GitHub #32.
+* The following payment processors were added to the `Payment.Processor` enum:
+  * `CYBERSOURCE`
+  * `TRANSACT_PRO`
+  * `WIRECARD`
 
 1.7.0 (2017-10-30)
 ------------------
