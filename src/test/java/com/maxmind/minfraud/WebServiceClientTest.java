@@ -22,6 +22,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.jcabi.matchers.RegexMatchers.matchesPattern;
 import static com.maxmind.minfraud.request.RequestTestHelper.*;
 import static org.hamcrest.core.StringStartsWith.startsWith;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(JUnitParamsRunner.class)
 public class WebServiceClientTest {
@@ -68,6 +70,15 @@ public class WebServiceClientTest {
             // We cannot change this as it would be a breaking change to the GeoIP2 API.
             JSONAssert.assertEquals(responseContent, response.toJson(), false);
             verifyRequestFor("insights", "full-request");
+            assertTrue(
+                    "response.getIpAddress().getCountry().isInEuropeanUnion() does not return true",
+                    response.getIpAddress().getCountry().isInEuropeanUnion());
+            assertFalse(
+                    "response.getIpAddress().getRegisteredCountry().isInEuropeanUnion() does not return false",
+                    response.getIpAddress().getRegisteredCountry().isInEuropeanUnion());
+            assertTrue(
+                    "response.getIpAddress().getRepresentedCountry().isInEuropeanUnion() does not return true",
+                    response.getIpAddress().getRepresentedCountry().isInEuropeanUnion());
         }
     }
 
@@ -83,6 +94,15 @@ public class WebServiceClientTest {
             // We cannot change this as it would be a breaking change to the GeoIP2 API.
             JSONAssert.assertEquals(responseContent, response.toJson(), false);
             verifyRequestFor("factors", "full-request");
+            assertTrue(
+                    "response.getIpAddress().getCountry().isInEuropeanUnion() does not return true",
+                    response.getIpAddress().getCountry().isInEuropeanUnion());
+            assertTrue(
+                    "response.getIpAddress().getRegisteredCountry().isInEuropeanUnion() does not return true",
+                    response.getIpAddress().getRegisteredCountry().isInEuropeanUnion());
+            assertFalse(
+                    "response.getIpAddress().getRepresentedCountry().isInEuropeanUnion() does not return false",
+                    response.getIpAddress().getRepresentedCountry().isInEuropeanUnion());
         }
     }
 
