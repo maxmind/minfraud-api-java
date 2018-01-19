@@ -169,7 +169,7 @@ Transaction request = new Transaction.Builder(
             .amount(new BigDecimal(Double.toString(1.1)))
             .currency("USD")
             .discountCode("10OFF")
-            .referrerUri(new URI("http://www.google.com/"))
+            .referrerUri(new URI("https://www.google.com/"))
             .subaffiliateId("saf9")
             .build()
     ).payment(
@@ -240,7 +240,7 @@ Patches and pull requests are encouraged. Please include unit tests whenever pos
 
 ## Versioning ##
 
-This API uses [Semantic Versioning](http://semver.org/).
+This API uses [Semantic Versioning](https://semver.org/).
 
 ## Copyright and License ##
 
