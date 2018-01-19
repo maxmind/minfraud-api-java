@@ -36,6 +36,7 @@
       "confidence": 99,
       "geoname_id": 2635167,
       "is_high_risk": false,
+      "is_in_european_union": true,
       "iso_code": "GB",
       "names": {
         "de": "Vereinigtes K\u00f6nigreich",
@@ -67,6 +68,21 @@
         "pt-BR": "Estados Unidos",
         "ru": "\u0421\u0428\u0410",
         "zh-CN": "\u7f8e\u56fd"
+      }
+    },
+    "represented_country": {
+      "geoname_id": 2635167,
+      "is_in_european_union": true,
+      "iso_code": "GB",
+      "names": {
+        "de": "Vereinigtes K\u00f6nigreich",
+        "en": "United Kingdom",
+        "es": "Reino Unido",
+        "fr": "Royaume-Uni",
+        "ja": "\u30a4\u30ae\u30ea\u30b9",
+        "pt-BR": "Reino Unido",
+        "ru": "\u0412\u0435\u043b\u0438\u043a\u043e\u0431\u0440\u0438\u0442\u0430\u043d\u0438\u044f",
+        "zh-CN": "\u82f1\u56fd"
       }
     },
     "subdivisions": [

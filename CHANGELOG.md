@@ -4,6 +4,10 @@ CHANGELOG
 1.8.0
 ------------------
 
+* Updated `geoip2` dependency. This version adds the `isInEuropeanUnion()`
+  method to `com.maxmind.geoip2.record.Country` and
+  `com.maxmind.minfraud.response.GeoIp2Country`. This returns `true` if the
+  country is a member state of the European Union.
 * The web service client now correctly handles a proxy of `Proxy.NO_PROXY`.
   PR by Ernest Sadykov. GitHub #32.
 * The following payment processors were added to the `Payment.Processor` enum:
