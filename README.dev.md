@@ -104,7 +104,7 @@ Add this to ~/.gnupg/gpg-agent.conf:
 - Review `CHANGELOG.md` for completeness and correctness.
 - Set a version and a date in `CHANGELOG.md` and commit that.
   - It gets used in the release process.
-- Bump version in `README.md` if appropriate.
+- Bump copyright year in `README.md` if appropriate.
   - You don't need to update the version. `./dev-bin/release.sh` does this.
 - Run `./dev-bin/release.sh`
   - This will package the release, update the gh-pages branch, bump the
