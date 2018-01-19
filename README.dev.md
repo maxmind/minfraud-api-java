@@ -99,9 +99,17 @@ Add this to ~/.gnupg/gpg-agent.conf:
 - Ensure you have a clean checkout of `master` and that the subdirectory
   `.gh-pages` either does not exist or is a clean checkout.
   - We'll be generating commits.
+- Review open issues and PRs to see if any can easily be fixed, closed, or
+  merged.
+- Review `CHANGELOG.md` for completeness and correctness.
 - Set a version and a date in `CHANGELOG.md` and commit that.
   - It gets used in the release process.
+- Bump version in `README.md` if appropriate.
+  - You don't need to update the version. `./dev-bin/release.sh` does this.
 - Run `./dev-bin/release.sh`
+  - This will package the release, update the gh-pages branch, bump the
+    version to the next development release, upload the release to GitHub
+    and tag it, and upload to Sonatype.
 - This will prompt you several times. Generally you need to say `y` or `n`.
 - You'll be prompted for your ssh key password, GPG key password, and
   GitHub.com username and password several times depending on your
@@ -129,6 +137,9 @@ Add this to ~/.gnupg/gpg-agent.conf:
   you wait. Eventually you should see the "Activity" line in the info
   about your repository say something like it is complete.
 - Click Release near the top.
+  - This also takes a moment (you will see "operation in progress" again).
+    Refresh as usual. When it's done, you won't see the "commmaxmind-xxxx"
+    entry in the staging repositories any more.
 - You're done!
 - If you want to check things over, look at the commits on GitHub.com,
   including to the `gh-pages` branch and release tags, and do an artifact
