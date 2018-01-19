@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-1.8.0
+1.8.0 (2018-01-19)
 ------------------
 
 * Updated `geoip2` dependency. This version adds the `isInEuropeanUnion()`
