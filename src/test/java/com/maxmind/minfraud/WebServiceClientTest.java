@@ -157,7 +157,8 @@ public class WebServiceClientTest {
     }
 
     @Test
-    @Parameters({"AUTHORIZATION_INVALID",
+    @Parameters({"ACCOUNT_ID_REQUIRED",
+            "AUTHORIZATION_INVALID",
             "LICENSE_KEY_REQUIRED",
             "USER_ID_REQUIRED"})
     public void testInvalidAuth(String code) throws Exception {

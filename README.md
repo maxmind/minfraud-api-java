@@ -41,7 +41,7 @@ Page](https://maxmind.github.io/minfraud-api-java/) under the API tab.
 ## Usage ##
 
 To use this API, first create a new `WebServiceClient` object. The constructor
-takes your MaxMind user ID, license key, and an optional options array as
+takes your MaxMind account ID, license key, and an optional options array as
 arguments. For example:
 
 ```java
@@ -99,7 +99,7 @@ Runtime exceptions:
 Checked exceptions:
 
 * `AuthenticationException` - This will be thrown when the server is unable to
-  authenticate the request, e.g., if the license key or user ID is invalid.
+  authenticate the request, e.g., if the license key or account ID is invalid.
 * `InsufficientFundsException` - This will be thrown when your account is out of
   funds.
 * `InvalidRequestException` - This will be thrown when the server rejects the
@@ -236,7 +236,8 @@ This code requires Java 7+.
 
 ## Contributing ##
 
-Patches and pull requests are encouraged. Please include unit tests whenever possible.
+Patches and pull requests are encouraged. Please include unit tests whenever
+possible.
 
 ## Versioning ##
 

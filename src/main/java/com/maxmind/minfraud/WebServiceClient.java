@@ -45,7 +45,7 @@ public final class WebServiceClient implements Closeable {
     private final boolean useHttps;
     private final List<String> locales;
     private final String licenseKey;
-    private final int userId;
+    private final int accountId;
 
 
     private final ObjectMapper mapper;
@@ -57,7 +57,7 @@ public final class WebServiceClient implements Closeable {
         useHttps = builder.useHttps;
         locales = builder.locales;
         licenseKey = builder.licenseKey;
-        userId = builder.userId;
+        accountId = builder.accountId;
 
         mapper = new ObjectMapper();
         mapper.disable(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS);
@@ -100,7 +100,7 @@ public final class WebServiceClient implements Closeable {
      * </p>
      */
     public static final class Builder {
-        final int userId;
+        final int accountId;
         final String licenseKey;
 
         String host = "minfraud.maxmind.com";
@@ -114,11 +114,11 @@ public final class WebServiceClient implements Closeable {
         private Proxy proxy;
 
         /**
-         * @param userId     Your MaxMind user ID.
+         * @param accountId     Your MaxMind account ID.
          * @param licenseKey Your MaxMind license key.
          */
-        public Builder(int userId, String licenseKey) {
-            this.userId = userId;
+        public Builder(int accountId, String licenseKey) {
+            this.accountId = accountId;
             this.licenseKey = licenseKey;
         }
 
@@ -295,7 +295,7 @@ public final class WebServiceClient implements Closeable {
 
     private HttpPost requestFor(Transaction transaction, URL url)
             throws MinFraudException, IOException {
-        Credentials credentials = new UsernamePasswordCredentials(Integer.toString(userId), licenseKey);
+        Credentials credentials = new UsernamePasswordCredentials(Integer.toString(accountId), licenseKey);
 
         HttpPost request;
         try {
@@ -397,6 +397,7 @@ public final class WebServiceClient implements Closeable {
         }
 
         switch (code) {
+            case "ACCOUNT_ID_REQUIRED":
             case "AUTHORIZATION_INVALID":
             case "LICENSE_KEY_REQUIRED":
             case "USER_ID_REQUIRED":
@@ -446,7 +447,7 @@ public final class WebServiceClient implements Closeable {
                 ", useHttps=" + useHttps +
                 ", locales=" + locales +
                 ", licenseKey='" + licenseKey + '\'' +
-                ", userId=" + userId +
+                ", accountId=" + accountId +
                 ", mapper=" + mapper +
                 ", httpClient=" + httpClient +
                 '}';
