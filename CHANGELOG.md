@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+1.9.0
+------------------
+
+* Renamed MaxMind user ID to account ID in the code and added support for the
+  new `ACCOUNT_ID_REQUIRED` error code.
+
 1.8.0 (2018-01-19)
 ------------------
 
