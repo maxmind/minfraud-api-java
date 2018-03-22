@@ -6,6 +6,12 @@ CHANGELOG
 
 * Renamed MaxMind user ID to account ID in the code and added support for the
   new `ACCOUNT_ID_REQUIRED` error code.
+* The following payment processors were added to the `Payment.Processor` enum:
+  * `CCAVENUE`
+  * `CT_PAYMENTS`
+  * `DALENYS`
+  * `ONEY`
+  * `POSCONNECT`
 
 1.8.0 (2018-01-19)
 ------------------
