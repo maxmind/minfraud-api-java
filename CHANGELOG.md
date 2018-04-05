@@ -12,6 +12,7 @@ CHANGELOG
   * `DALENYS`
   * `ONEY`
   * `POSCONNECT`
+* Added new type to the `Event.Type` enum: `PAYOUT_CHANGE`
 
 1.8.0 (2018-01-19)
 ------------------
