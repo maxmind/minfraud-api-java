@@ -66,7 +66,7 @@ public final class CreditCard extends AbstractModel {
     }
 
     /**
-     * @return The two letter <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">
+     * @return The two letter <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">
      * ISO 3166-1 alpha-2</a> country code associated with the location
      * of the majority of customers using this credit card as determined
      * by their billing address. In cases where the location of customers
