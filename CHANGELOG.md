@@ -15,6 +15,8 @@ CHANGELOG
 * Added new type to the `Event.Type` enum: `PAYOUT_CHANGE`
 * Added support for new Device output:
   * `/device/local_time`
+* Added support for new CreditCard output:
+  * `/credit_card/is_virtual`
 
 1.8.0 (2018-01-19)
 ------------------

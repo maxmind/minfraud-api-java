@@ -22,6 +22,7 @@ public class CreditCardTest extends AbstractOutputTest {
                         .put("country", "US")
                         .put("is_issued_in_billing_address_country", true)
                         .put("is_prepaid", true)
+                        .put("is_virtual", true)
                         .put("type", "credit")
                         .end()
                         .finish()
@@ -32,6 +33,7 @@ public class CreditCardTest extends AbstractOutputTest {
         assertEquals("Visa", cc.getBrand());
         assertEquals("credit", cc.getType());
         assertTrue(cc.isPrepaid());
+        assertTrue(cc.isVirtual());
         assertTrue(cc.isIssuedInBillingAddressCountry());
     }
 

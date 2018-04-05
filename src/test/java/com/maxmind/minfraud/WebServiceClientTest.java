@@ -82,6 +82,8 @@ public class WebServiceClientTest {
                     response.getIpAddress().getRepresentedCountry().isInEuropeanUnion());
             assertEquals(response.getDevice().getLocalTime(),
                     "2018-04-05T15:34:40-07:00");
+
+            assertTrue(response.getCreditCard().isVirtual());
         }
     }
 
