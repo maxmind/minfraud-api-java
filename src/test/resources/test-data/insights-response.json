@@ -135,7 +135,8 @@
   "device": {
     "confidence": 99,
     "id": "7835b099-d385-4e5b-969e-7df26181d73b",
-    "last_seen": "2016-06-08T14:16:38Z"
+    "last_seen": "2016-06-08T14:16:38Z",
+    "local_time": "2018-04-05T15:34:40-07:00"
   },
   "disposition": {
     "action": "reject",

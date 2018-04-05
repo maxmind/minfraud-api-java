@@ -22,6 +22,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.jcabi.matchers.RegexMatchers.matchesPattern;
 import static com.maxmind.minfraud.request.RequestTestHelper.*;
 import static org.hamcrest.core.StringStartsWith.startsWith;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -79,6 +80,8 @@ public class WebServiceClientTest {
             assertTrue(
                     "response.getIpAddress().getRepresentedCountry().isInEuropeanUnion() does not return true",
                     response.getIpAddress().getRepresentedCountry().isInEuropeanUnion());
+            assertEquals(response.getDevice().getLocalTime(),
+                    "2018-04-05T15:34:40-07:00");
         }
     }
 
