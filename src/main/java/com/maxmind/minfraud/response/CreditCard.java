@@ -12,13 +12,29 @@ public final class CreditCard extends AbstractModel {
     private final String country;
     private final Boolean isIssuedInBillingAddressCountry;
     private final Boolean isPrepaid;
+    private final Boolean isVirtual;
     private final String type;
+
+    // This method is for backwards compatibility. We should remove it when we
+    // do a major release.
+    public CreditCard(
+            String brand,
+            String country,
+            Boolean isIssuedInBillingAddressCountry,
+            Boolean isPrepaid,
+            Issuer issuer,
+            String type
+    ) {
+        this(brand, country, isIssuedInBillingAddressCountry, isPrepaid, false,
+            issuer, type);
+    }
 
     public CreditCard(
             @JsonProperty("brand") String brand,
             @JsonProperty("country") String country,
             @JsonProperty("is_issued_in_billing_address_country") Boolean isIssuedInBillingAddressCountry,
             @JsonProperty("is_prepaid") Boolean isPrepaid,
+            @JsonProperty("is_virtual") Boolean isVirtual,
             @JsonProperty("issuer") Issuer issuer,
             @JsonProperty("type") String type
     ) {
@@ -26,12 +42,13 @@ public final class CreditCard extends AbstractModel {
         this.country = country;
         this.isIssuedInBillingAddressCountry = isIssuedInBillingAddressCountry;
         this.isPrepaid = isPrepaid;
+        this.isVirtual = isVirtual;
         this.issuer = issuer == null ? new Issuer() : issuer;
         this.type = type;
     }
 
     public CreditCard() {
-        this(null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null);
     }
 
     /**
@@ -49,7 +66,7 @@ public final class CreditCard extends AbstractModel {
     }
 
     /**
-     * @return The two letter <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">
+     * @return The two letter <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">
      * ISO 3166-1 alpha-2</a> country code associated with the location
      * of the majority of customers using this credit card as determined
      * by their billing address. In cases where the location of customers
@@ -78,6 +95,15 @@ public final class CreditCard extends AbstractModel {
     @JsonProperty("is_prepaid")
     public Boolean isPrepaid() {
         return isPrepaid;
+    }
+
+    /**
+     * @return True if the card is a virtual card. False if not virtual. If the
+     * IIN was not provided or is unknown, null will be returned.
+     */
+    @JsonProperty("is_virtual")
+    public Boolean isVirtual() {
+        return isVirtual;
     }
 
     /**

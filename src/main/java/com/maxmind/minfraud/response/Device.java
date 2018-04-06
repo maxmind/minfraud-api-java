@@ -17,19 +17,32 @@ public final class Device extends AbstractModel {
     private final Double confidence;
     private final UUID id;
     private final String lastSeen;
+    private final String localTime;
+
+    // This method is for backwards compatibility. We should remove it when we
+    // do a major release.
+    public Device(
+            Double confidence,
+            UUID id,
+            String lastSeen
+    ) {
+        this(confidence, id, lastSeen, null);
+    }
 
     public Device(
             @JsonProperty("confidence") Double confidence,
             @JsonProperty("id") UUID id,
-            @JsonProperty("last_seen") String lastSeen
+            @JsonProperty("last_seen") String lastSeen,
+            @JsonProperty("local_time") String localTime
     ) {
         this.confidence = confidence;
         this.id = id;
         this.lastSeen = lastSeen;
+        this.localTime = localTime;
     }
 
     public Device() {
-        this(null, null, null);
+        this(null, null, null, null);
     }
 
     /**
@@ -58,5 +71,14 @@ public final class Device extends AbstractModel {
     @JsonProperty("last_seen")
     public String getLastSeen() {
         return lastSeen;
+    }
+
+    /**
+     * @return The date and time of the transaction at the UTC offset
+     * associated with the device. This is an RFC 3339 date-time.
+     */
+    @JsonProperty("local_time")
+    public String getLocalTime() {
+        return localTime;
     }
 }

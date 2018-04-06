@@ -120,6 +120,7 @@ public final class Event extends AbstractModel {
         ACCOUNT_LOGIN,
         EMAIL_CHANGE,
         PASSWORD_RESET,
+        PAYOUT_CHANGE,
         PURCHASE,
         RECURRING_PURCHASE,
         REFERRAL,

@@ -33,5 +33,8 @@ public class EventTest {
     public void testType() throws Exception {
         Event event = new Builder().type(Type.ACCOUNT_CREATION).build();
         assertEquals(Type.ACCOUNT_CREATION, event.getType());
+
+        event = new Builder().type(Type.PAYOUT_CHANGE).build();
+        assertEquals(Type.PAYOUT_CHANGE, event.getType());
     }
 }
