@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-1.9.0
+1.9.0 (2018-04-11)
 ------------------
 
 * Renamed MaxMind user ID to account ID in the code and added support for the
