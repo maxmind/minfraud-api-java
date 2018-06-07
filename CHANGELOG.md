@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+1.10.0
+------------------
+
+* The following payment processors were added to the `Payment.Processor` enum:
+  * `PAYEEZY`
+  * `PAYMENT_EXPRESS`
+
 1.9.0 (2018-04-11)
 ------------------
 
