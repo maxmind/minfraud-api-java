@@ -25,7 +25,7 @@ before_install:
   - npm install -g snyk
 install:
   - mvn install -DskipTests=true -Dgpg.skip=true
-  - snyk test --org=maxmind
+  - "if [[ $TRAVIS_JDK_VERSION == 'oraclejdk9' ]]; then snyk test --org=maxmind; fi"
 script:
   - mvn javadoc:javadoc
   - mvn test -B
