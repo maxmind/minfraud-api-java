@@ -30,7 +30,7 @@ script:
   - mvn javadoc:javadoc
   - mvn test -B
 after_success:
-  - snyk monitor --org=maxmind --project-name=maxmind/minfraud-api-java
+  - "if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' && $TRAVIS_JDK_VERSION == 'oraclejdk9' ]]; then snyk monitor --org=maxmind --project-name=maxmind/minfraud-api-java; fi"
 notifications:
   email:
     on_failure: always
