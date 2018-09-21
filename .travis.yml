@@ -12,25 +12,27 @@ addons:
     build_command: mvn -DskipTests=true compile
     branch_pattern: .*coverity.*
 language: java
-jdk:
-  - openjdk7
-  - oraclejdk8
-  - oraclejdk9
+matrix:
+  include:
+    - jdk: openjdk7
+    - jdk: oraclejdk8
+    - jdk: oraclejdk9
+      env: RUN_SNYK=true
 env:
   global:
     - secure: ExeU8coyJzkKuZwLjeVUl8y0PgEWQ7xl3JBFcJcYyweVQbid0Av2ZDEdOrJDTiT7Vb7/Gmny0sUOCyclPDOH8RS+0ENerhA/JDgsrU8KfSDLvPDjBXPX7sEnLVbCmM0SESjRNZ8apVgZexcbODQRfv6FRgpue0TomVb35c/Jdeu577DdEhXUr3PYbgluKhayZlRoJgdEYRKGolbstlkA4Zx6hUDoq2+Wzt782bQ7SOZD/Xi4VG/X7T8sUNjbg8JpxoN2rf/1Jsa3+HGVIaArda6KQu03iNQ/nqgRMB5Q9lOMXIwoLjEFVWHrJd7mBaHaHI0AJnCem/DP7amTsyv6vjgXHTHlPS2Cf6X/127ljry1+oOwLLe7o3ofsZkKB1+0+VhalHXFM60KHwAdsgYP1wS2uP8ITfNG3GGkVp8boS586Kkd0LfGxXEnqhiKYlJlChqlCJTnHwzo/eIQGymGcAxLXQo5vYiK/CwkXyewIbeR+u1yRuXTudwXE6bQaDUTQhl4EPut4MDlovrE61quk3OtBLtS085k9gggU9M0Av8VX+LXdPke+39Z/fAFjdVoGSOkmvAKDftlaqR79TQ/ALN/dhl9d9umVd1xcxig+uQxrXR+HSdXz2ISNnacEP0ejrbOYLJbb5ph7ftZmkC/fsk8BcSt7eAncHXbASJeaM4=
     - secure: pYYfFKf/HaJsj7Q/2QjUPcvVegq6kZLHW2pJag85eE3UcMB5IvxtxuJudIyDSQb8T+GMYwIwypTGuWYj26xepsXTJbVkRwQuQKnAIZojCn+VI3x+Mif+rZtUwwXY/uxSs9FHLrdE3U+RNtRLX4IlzJt5Kpaaqit8jBcu0BT4yCpxURarTL0xiCzwAGkRDRq42lnp84ldVI+RbECMtOmrJuHePOsAUo3egn/6j0lnWlZdopvggECKue/7rRJZwClnaC5Ckp7A8d7lVFOqrthUg4aaCdLJqfnlHWvdrWsvg2ce0Tnk7doi9fEJYpBzg7vR1aBOjz7pDonWtRUH7g+oxkRSNwSU7TZpw10ukEjK61OMDqkzxgv377tzoDs5cmuzDn0BBfNWJIYoBZ1VqFsHNROcCyt41Vg3zOrZtZJyps4oBSpWQdjBJui+L8gQehvwbx5s/H1hEyIXMOdspf/pzNcw8rFFX4Z5SI0WYj2+p1lJpiYcBJFR4ksi+OHQ8Wkcvsu77dE9SKBuPBx9ZtOR30J4jwiVHmnPGqAgB79aRc4W5skpSFHtYSSkl2eQCTh1tBuw6lVDbWdY5RlY7xCYYqsSSzfGe6ERs6Jg2RabUf/VP7AIY6Z9s6c/XfdtQ18wnCmie7phs/exwaSULFaxFGYHVuwXSthZzFuN2CItrmY=
 before_install:
-  - sudo apt-get install -y nodejs
-  - npm install -g snyk
+  - "if [[ $RUN_SNYK ]]; then sudo apt-get install -y nodejs; fi"
+  - "if [[ $RUN_SNYK ]]; then npm install -g snyk; fi"
 install:
   - mvn install -DskipTests=true -Dgpg.skip=true
-  - snyk test --org=maxmind
+  - "if [[ $RUN_SNYK ]]; then snyk test --org=maxmind; fi"
 script:
   - mvn javadoc:javadoc
   - mvn test -B
 after_success:
-  - snyk monitor --org=maxmind --project-name=maxmind/minfraud-api-java
+  - "if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' && $RUN_SNYK ]]; then snyk monitor --org=maxmind --project-name=maxmind/minfraud-api-java; fi"
 notifications:
   email:
     on_failure: always
