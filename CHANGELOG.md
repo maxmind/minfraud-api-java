@@ -5,8 +5,12 @@ CHANGELOG
 ------------------
 
 * The following payment processors were added to the `Payment.Processor` enum:
+  * `DATACASH`
+  * `GOCARDLESS`
   * `PAYEEZY`
   * `PAYMENT_EXPRESS`
+  * `SMARTDEBIT`
+  * `SYNAPSEFI`
 
 1.9.0 (2018-04-11)
 ------------------
