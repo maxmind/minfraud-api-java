@@ -161,6 +161,7 @@ public final class Payment extends AbstractModel {
         PAYEEZY,
         PAYFAST,
         PAYGATE,
+        PAYLIKE,
         PAYMENT_EXPRESS,
         PAYMENTWALL,
         PAYONE,
