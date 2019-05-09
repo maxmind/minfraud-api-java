@@ -15,9 +15,15 @@ language: java
 matrix:
   include:
     - jdk: openjdk7
-    - jdk: oraclejdk8
-    - jdk: oraclejdk9
+    - jdk: openjdk8
+    - jdk: openjdk11
       env: RUN_SNYK=true
+    - jdk: openjdk12
+    - jdk: openjdk-ea
+    - jdk: oraclejdk8
+    - jdk: oraclejdk11
+  allow_failures:
+    - jdk: openjdk-ea
 env:
   global:
     - secure: ExeU8coyJzkKuZwLjeVUl8y0PgEWQ7xl3JBFcJcYyweVQbid0Av2ZDEdOrJDTiT7Vb7/Gmny0sUOCyclPDOH8RS+0ENerhA/JDgsrU8KfSDLvPDjBXPX7sEnLVbCmM0SESjRNZ8apVgZexcbODQRfv6FRgpue0TomVb35c/Jdeu577DdEhXUr3PYbgluKhayZlRoJgdEYRKGolbstlkA4Zx6hUDoq2+Wzt782bQ7SOZD/Xi4VG/X7T8sUNjbg8JpxoN2rf/1Jsa3+HGVIaArda6KQu03iNQ/nqgRMB5Q9lOMXIwoLjEFVWHrJd7mBaHaHI0AJnCem/DP7amTsyv6vjgXHTHlPS2Cf6X/127ljry1+oOwLLe7o3ofsZkKB1+0+VhalHXFM60KHwAdsgYP1wS2uP8ITfNG3GGkVp8boS586Kkd0LfGxXEnqhiKYlJlChqlCJTnHwzo/eIQGymGcAxLXQo5vYiK/CwkXyewIbeR+u1yRuXTudwXE6bQaDUTQhl4EPut4MDlovrE61quk3OtBLtS085k9gggU9M0Av8VX+LXdPke+39Z/fAFjdVoGSOkmvAKDftlaqR79TQ/ALN/dhl9d9umVd1xcxig+uQxrXR+HSdXz2ISNnacEP0ejrbOYLJbb5ph7ftZmkC/fsk8BcSt7eAncHXbASJeaM4=
