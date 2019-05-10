@@ -137,6 +137,8 @@
                 <version>2.10.3</version>
                 <configuration>
                     <show>public</show>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
             <plugin>
