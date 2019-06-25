@@ -5,11 +5,15 @@ CHANGELOG
 ------------------
 
 * The following payment processors were added to the `Payment.Processor` enum:
+  * `AFTERPAY`
   * `DATACASH`
+  * `DOTPAY`
   * `GOCARDLESS`
+  * `KLARNA`
   * `PAYEEZY`
   * `PAYLIKE`
   * `PAYMENT_EXPRESS`
+  * `PAYSAFECARD`
   * `SMARTDEBIT`
   * `SYNAPSEFI`
 
