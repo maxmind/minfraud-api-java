@@ -97,6 +97,7 @@ public final class Payment extends AbstractModel {
         // These should exactly match the mF2 request enum value except they
         // should be all uppercase.
         ADYEN,
+        AFTERPAY,
         ALTAPAY,
         AMAZON_PAYMENTS,
         AMERICAN_EXPRESS_PAYMENT_GATEWAY,
@@ -126,6 +127,7 @@ public final class Payment extends AbstractModel {
         DATACASH,
         DIBS,
         DIGITAL_RIVER,
+        DOTPAY,
         EBS,
         ECOMM365,
         ELAVON,
@@ -143,6 +145,7 @@ public final class Payment extends AbstractModel {
         INTERNETSECURE,
         INTUIT_QUICKBOOKS_PAYMENTS,
         IUGU,
+        KLARNA,
         LEMON_WAY,
         MASTERCARD_PAYMENT_GATEWAY,
         MERCADOPAGO,
@@ -167,6 +170,7 @@ public final class Payment extends AbstractModel {
         PAYONE,
         PAYPAL,
         PAYPLUS,
+        PAYSAFECARD,
         PAYSTATION,
         PAYTRACE,
         PAYTRAIL,
