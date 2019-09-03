@@ -64,6 +64,17 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.5</version>
         </dependency>
+        <!--
+            commons-validator 1.6 depends on an older version of
+            commons-beanutils with a CVE. So add a direct dependency on the
+            commons-beanutils version that is fixed, while we wait for
+            commons-validator to be updated.
+        -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
+        </dependency>
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
