@@ -97,6 +97,7 @@ public final class Payment extends AbstractModel {
         // These should exactly match the mF2 request enum value except they
         // should be all uppercase.
         ADYEN,
+        AFFIRM,
         AFTERPAY,
         ALTAPAY,
         AMAZON_PAYMENTS,
@@ -142,6 +143,7 @@ public final class Payment extends AbstractModel {
         HEARTLAND,
         HIPAY,
         INGENICO,
+        INTERAC,
         INTERNETSECURE,
         INTUIT_QUICKBOOKS_PAYMENTS,
         IUGU,
