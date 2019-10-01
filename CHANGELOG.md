@@ -20,6 +20,7 @@ CHANGELOG
   * `SYNAPSEFI`
 * Deprecated `getEmailTenure()` and `getIpTenure()` methods of 
   `com.maxmind.minfraud.response.Subscores`. 
+* Deprecated the `isHighRisk()` method of `com.maxmind.minfraud.response.GeoIP2Country`.
 
 1.9.0 (2018-04-11)
 ------------------
