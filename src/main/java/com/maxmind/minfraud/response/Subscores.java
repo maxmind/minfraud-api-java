@@ -166,8 +166,13 @@ public final class Subscores {
     /**
      * @return The risk associated with the issuer ID number on the email
      * domain. If present, this is a value in the range 0.01 to 99.
+     * @deprecated Deprecated effective August 29, 2019. This subscore will
+     * default to 1 and will be removed in a future release. The user tenure on
+     * email is reflected in the email address subscore.
+     * {@link #getEmailAddress()}.
      */
     @JsonProperty("email_tenure")
+    @Deprecated
     public Double getEmailTenure() {
         return emailTenure;
     }
@@ -175,8 +180,12 @@ public final class Subscores {
     /**
      * @return The risk associated with the issuer ID number on the IP address.
      * If present, this is a value in the range 0.01 to 99.
+     * @deprecated Deprecated effective August 29, 2019. This subscore will 
+     * default to 1 and will be removed in a future release. The IP tenure is 
+     * reflected in the overall risk score. {@link ScoreResponse#getRiskScore()}
      */
     @JsonProperty("ip_tenure")
+    @Deprecated
     public Double getIpTenure() {
         return ipTenure;
     }

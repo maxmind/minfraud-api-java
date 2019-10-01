@@ -18,6 +18,8 @@ CHANGELOG
   * `PAYSAFECARD`
   * `SMARTDEBIT`
   * `SYNAPSEFI`
+* Deprecated `getEmailTenure()` and `getIpTenure()` methods of 
+  `com.maxmind.minfraud.response.Subscores`. 
 
 1.9.0 (2018-04-11)
 ------------------
