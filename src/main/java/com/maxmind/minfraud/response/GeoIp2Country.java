@@ -47,8 +47,10 @@ public final class GeoIp2Country extends Country {
 
     /**
      * @return This value is true if the IP country is high risk.
+     * @deprecated Deprecated effective August 29, 2019.
      */
     @JsonProperty("is_high_risk")
+    @Deprecated
     public boolean isHighRisk() {
         return this.isHighRisk;
     }
