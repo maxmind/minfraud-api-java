@@ -233,7 +233,7 @@ to the client API, please see
 
 ## Requirements  ##
 
-This code requires Java 7+.
+This code requires Java 8+.
 
 ## Contributing ##
 
