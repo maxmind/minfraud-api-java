@@ -4,6 +4,7 @@ import com.maxmind.minfraud.request.Email.Builder;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class EmailTest {
 
@@ -47,12 +48,12 @@ public class EmailTest {
     @Test
     public void testGetAddressWithoutSettingIt() throws Exception {
         Email email = new Builder().domain("test.org").hashAddress().build();
-        assertEquals("null address if none set", null, email.getAddress());
-        assertEquals("null addressMd5 if none set", null, email.getAddressMd5());
+        assertNull("null address if none set", email.getAddress());
+        assertNull("null addressMd5 if none set", email.getAddressMd5());
 
         Email email2 = new Builder().domain("test.org").hashAddress().build();
-        assertEquals("null address if none set", null, email2.getAddress());
-        assertEquals("null addressMd5 if none set", null, email2.getAddressMd5());
+        assertNull("null address if none set", email2.getAddress());
+        assertNull("null addressMd5 if none set", email2.getAddressMd5());
     }
 
     @Test(expected = IllegalArgumentException.class)
