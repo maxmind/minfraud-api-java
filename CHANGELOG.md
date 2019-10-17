@@ -6,6 +6,7 @@ CHANGELOG
 
 * IMPORTANT: Java 8 is now required. If you need Java 7 support, please
   continue using 1.9.0.
+* Responses with chunked encoding are now handled correctly.
 * The following payment processors were added to the `Payment.Processor` enum:
   * `AFFIRM`
   * `AFTERPAY`
