@@ -331,13 +331,7 @@ public final class WebServiceClient implements Closeable {
             throw new HttpException("Received an unexpected HTTP status ("
                     + status + ") for " + url, status, url);
         }
-
         HttpEntity entity = response.getEntity();
-
-        if (entity.getContentLength() <= 0L) {
-            throw new HttpException("Received a 200 response for " + url
-                    + " but there was no message body.", 200, url);
-        }
 
         InjectableValues inject = new Std().addValue(
                 "locales", locales);
@@ -359,11 +353,6 @@ public final class WebServiceClient implements Closeable {
             PermissionRequiredException {
         HttpEntity entity = response.getEntity();
         int status = response.getStatusLine().getStatusCode();
-
-        if (entity.getContentLength() <= 0L) {
-            throw new HttpException("Received a " + status + " error for "
-                    + url + " with no body", status, url);
-        }
 
         String body = EntityUtils.toString(entity, "UTF-8");
 

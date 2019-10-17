@@ -133,8 +133,8 @@ public class WebServiceClientTest {
         try (WebServiceClient client = createSuccessClient("insights", "")) {
             Transaction request = fullTransaction();
 
-            thrown.expect(HttpException.class);
-            thrown.expectMessage(matchesPattern("Received a 200 response for .*/minfraud/v2.0/insights but there was no message body\\."));
+            thrown.expect(MinFraudException.class);
+            thrown.expectMessage(matchesPattern("Received a 200 response but could not decode it as JSON"));
             client.insights(request);
         }
     }
@@ -212,7 +212,7 @@ public class WebServiceClientTest {
     @Test
     public void test400WithNoBody() throws Exception {
         thrown.expect(HttpException.class);
-        thrown.expectMessage(matchesPattern("Received a 400 error for .*/minfraud/v2.0/insights with no body"));
+        thrown.expectMessage(matchesPattern("Received a 400 error for .*/minfraud/v2.0/insights but it did not include the expected JSON body:.*"));
         createInsightsError(
                 400,
                 "application/json",
@@ -290,8 +290,6 @@ public class WebServiceClientTest {
                 .willReturn(aResponse()
                         .withStatus(status)
                         .withHeader("Content-Type", contentType)
-                        // This is wrong if we use non-ASCII characters, but we don't currently
-                        .withHeader("Content-Length", Integer.toString(responseContent.length()))
                         .withBody(responseContent)));
 
         return new WebServiceClient.Builder(6, "0123456789")
