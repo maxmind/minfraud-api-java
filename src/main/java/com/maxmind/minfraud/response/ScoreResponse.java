@@ -35,7 +35,7 @@ public class ScoreResponse extends AbstractModel {
         this.ipAddress = ipAddress == null ? new ScoreIpAddress() : ipAddress;
         this.queriesRemaining = queriesRemaining;
         this.riskScore = riskScore;
-        this.warnings = Collections.unmodifiableList(warnings == null ? new ArrayList<Warning>() : warnings);
+        this.warnings = Collections.unmodifiableList(warnings == null ? new ArrayList<>() : warnings);
     }
 
     /**
