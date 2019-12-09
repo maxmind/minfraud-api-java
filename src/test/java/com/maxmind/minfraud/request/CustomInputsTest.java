@@ -44,16 +44,16 @@ public class CustomInputsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testTooLargeLong() throws Exception {
-        new CustomInputs.Builder().put("long", 1L << 53);
+        new CustomInputs.Builder().put("long", 10_000_000_000_000L);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testTooSmallLong() throws Exception {
-        new CustomInputs.Builder().put("long", -(1L << 53));
+        new CustomInputs.Builder().put("long", -10_000_000_000_000L);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testTooLargeDouble() throws Exception {
-        new CustomInputs.Builder().put("double", (double) (1L << 53));
+        new CustomInputs.Builder().put("double", 1e13);
     }
 }

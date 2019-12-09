@@ -6,6 +6,9 @@ CHANGELOG
 
 * IMPORTANT: Java 8 is now required. If you need Java 7 support, please
   continue using 1.9.0.
+* The client-side validation for numeric custom inputs has been updated to
+  match the server-side validation. The valid range is -9,999,999,999,999
+  to 9,999,999,999,999. Previously, larger numbers were allowed.
 * Responses with chunked encoding are now handled correctly.
 * The following payment processors were added to the `Payment.Processor` enum:
   * `AFFIRM`
@@ -21,8 +24,8 @@ CHANGELOG
   * `PAYSAFECARD`
   * `SMARTDEBIT`
   * `SYNAPSEFI`
-* Deprecated `getEmailTenure()` and `getIpTenure()` methods of 
-  `com.maxmind.minfraud.response.Subscores`. 
+* Deprecated `getEmailTenure()` and `getIpTenure()` methods of
+  `com.maxmind.minfraud.response.Subscores`.
 * Deprecated the `isHighRisk()` method of `com.maxmind.minfraud.response.GeoIP2Country`.
 
 1.9.0 (2018-04-11)
