@@ -25,7 +25,7 @@ public final class CustomInputs extends AbstractModel {
      * from values set by the builder's methods.
      */
     public static class Builder {
-        private static final long NUM_MAX = 1L << 53;
+        private static final long NUM_MAX = 10_000_000_000_000L;
         private static final Pattern KEY_PATTERN = Pattern.compile("^[a-z0-9_]{1,25}$");
 
         final Map<String, Object> inputs = new HashMap<>();
@@ -55,7 +55,7 @@ public final class CustomInputs extends AbstractModel {
          *
          * @param key   The key for the custom input as defined on your account
          *              portal.
-         * @param value The custom input value. Must be between -2^53 and 2^53,
+         * @param value The custom input value. Must be between -10^13 and 10^13
          *              exclusive.
          * @return The builder object.
          * @throws IllegalArgumentException when the key or value are invalid.
