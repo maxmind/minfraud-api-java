@@ -26,9 +26,28 @@ public final class Email extends AbstractModel {
      * from values set by the builder's methods.
      */
     public static final class Builder {
+        private final boolean enableValidation;
         private String address;
         private boolean hashAddress;
         private String domain;
+
+        /**
+         * The constructor for the builder.
+         *
+         * By default, validation will be enabled.
+         */
+        public Builder() {
+            enableValidation = true;
+        }
+
+        /**
+         * The constructor for the builder.
+         *
+         * @param enableValidation Whether validation should be enabled.
+         */
+        public Builder(boolean enableValidation) {
+            this.enableValidation = enableValidation;
+        }
 
         /**
          * Set the email address and domain fields for the request. If
@@ -46,12 +65,15 @@ public final class Email extends AbstractModel {
          *                                  address.
          */
         public Email.Builder address(String address) {
-            if (!EmailValidator.getInstance().isValid(address)) {
+            if (enableValidation && !EmailValidator.getInstance().isValid(address)) {
                 throw new IllegalArgumentException("The email address " + address + " is not valid.");
             }
 
             if (this.domain == null) {
-                this.domain = address.substring(address.indexOf('@') + 1);
+                int domainIndex = address.lastIndexOf('@') + 1;
+                if (domainIndex > 0 && domainIndex < address.length()) {
+                    this.domain = address.substring(domainIndex);
+                }
             }
             this.address = address;
             return this;
@@ -78,7 +100,7 @@ public final class Email extends AbstractModel {
          * @throws IllegalArgumentException when domain is not a valid domain.
          */
         public Email.Builder domain(String domain) {
-            if (!DomainValidator.getInstance().isValid(domain)) {
+            if (enableValidation && !DomainValidator.getInstance().isValid(domain)) {
                 throw new IllegalArgumentException("The email domain " + domain + " is not valid.");
             }
             this.domain = domain;

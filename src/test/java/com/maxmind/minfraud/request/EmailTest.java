@@ -3,6 +3,9 @@ package com.maxmind.minfraud.request;
 import com.maxmind.minfraud.request.Email.Builder;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -14,6 +17,30 @@ public class EmailTest {
         assertEquals("raw email", "test@test.org", email.getAddress());
         assertEquals("domain set from email", "test.org", email.getDomain());
         assertEquals("MD5 getter works", "476869598e748d958e819c180af31982", email.getAddressMd5());
+    }
+
+    @Test
+    public void testMultipleAtAddress() throws Exception {
+        Email email = new Builder().address("\"test@test\"@test.org").build();
+        assertEquals("raw email", "\"test@test\"@test.org", email.getAddress());
+        assertEquals("domain set from email", "test.org", email.getDomain());
+        assertEquals("MD5 getter works", "3dd024e8c10ae51231f5f89a82b01160", email.getAddressMd5());
+    }
+
+    @Test
+    public void testAddressWithNoValidation() throws Exception {
+        Map<String, String> addresses = new HashMap<String, String>() {{
+            put("test", null);
+            put("@test", "test");
+            put("test@", null);
+            put("test@test.generic", "test.generic");
+        }};
+
+        for (String address:addresses.keySet()) {
+            Email email = new Builder(false).address(address).build();
+            assertEquals("raw email", address, email.getAddress());
+            assertEquals("domain set from email", addresses.get(address), email.getDomain());
+        }
     }
 
     @Test
@@ -65,6 +92,13 @@ public class EmailTest {
     public void testDomain() throws Exception {
         String domain = "domain.com";
         Email email = new Builder().domain(domain).build();
+        assertEquals(domain, email.getDomain());
+    }
+
+    @Test
+    public void testDomainWithoutValidation() throws Exception {
+        String domain = "bad domain @!";
+        Email email = new Builder(false).domain(domain).build();
         assertEquals(domain, email.getDomain());
     }
 
