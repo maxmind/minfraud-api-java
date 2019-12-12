@@ -13,11 +13,15 @@ CHANGELOG
 * The following payment processors were added to the `Payment.Processor` enum:
   * `AFFIRM`
   * `AFTERPAY`
+  * `CETELEM`
   * `DATACASH`
   * `DOTPAY`
+  * `ECOMMPAY`
+  * `G2A_PAY`
   * `GOCARDLESS`
   * `INTERAC`
   * `KLARNA`
+  * `MERCANET`
   * `PAYEEZY`
   * `PAYLIKE`
   * `PAYMENT_EXPRESS`
