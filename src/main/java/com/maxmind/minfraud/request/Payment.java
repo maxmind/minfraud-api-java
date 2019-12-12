@@ -111,6 +111,7 @@ public final class Payment extends AbstractModel {
         BRAINTREE,
         CCAVENUE,
         CCNOW,
+        CETELEM,
         CHASE_PAYMENTECH,
         CHECKOUT_COM,
         CIELO,
@@ -131,6 +132,7 @@ public final class Payment extends AbstractModel {
         DOTPAY,
         EBS,
         ECOMM365,
+        ECOMMPAY,
         ELAVON,
         EMERCHANTPAY,
         EPAY,
@@ -138,6 +140,7 @@ public final class Payment extends AbstractModel {
         EWAY,
         EXACT,
         FIRST_DATA,
+        G2A_PAY,
         GLOBAL_PAYMENTS,
         GOCARDLESS,
         HEARTLAND,
@@ -151,6 +154,7 @@ public final class Payment extends AbstractModel {
         LEMON_WAY,
         MASTERCARD_PAYMENT_GATEWAY,
         MERCADOPAGO,
+        MERCANET,
         MERCHANT_ESOLUTIONS,
         MIRJEH,
         MOLLIE,
@@ -206,7 +210,12 @@ public final class Payment extends AbstractModel {
         TRANSACT_PRO,
         USA_EPAY,
         VANTIV,
+        /**
+         * @deprecated Use VEREPAY. This was a misspelling.
+         */
+        @Deprecated
         VERAPAY,
+        VEREPAY,
         VERICHECK,
         VINDICIA,
         VIRTUAL_CARD_SERVICES,
