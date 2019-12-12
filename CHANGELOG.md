@@ -6,6 +6,8 @@ CHANGELOG
 
 * IMPORTANT: Java 8 is now required. If you need Java 7 support, please
   continue using 1.9.0.
+* Added constructor to `com.maxmind.minfraud.request.Email.Builder` that
+  allows validation to be disabled.
 * The client-side validation for numeric custom inputs has been updated to
   match the server-side validation. The valid range is -9,999,999,999,999
   to 9,999,999,999,999. Previously, larger numbers were allowed.
