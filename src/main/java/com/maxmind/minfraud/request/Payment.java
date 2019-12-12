@@ -210,7 +210,12 @@ public final class Payment extends AbstractModel {
         TRANSACT_PRO,
         USA_EPAY,
         VANTIV,
+        /**
+         * @deprecated Use VEREPAY. This was a misspelling.
+         */
+        @Deprecated
         VERAPAY,
+        VEREPAY,
         VERICHECK,
         VINDICIA,
         VIRTUAL_CARD_SERVICES,

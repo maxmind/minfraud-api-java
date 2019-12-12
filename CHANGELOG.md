@@ -28,6 +28,9 @@ CHANGELOG
   * `PAYSAFECARD`
   * `SMARTDEBIT`
   * `SYNAPSEFI`
+  * `VEREPAY`
+* Deprecated `VERAPAY` in the `Payment.Processor` enum. This was a misspelling
+  of `VEREPAY`.
 * Deprecated `getEmailTenure()` and `getIpTenure()` methods of
   `com.maxmind.minfraud.response.Subscores`.
 * Deprecated the `isHighRisk()` method of `com.maxmind.minfraud.response.GeoIP2Country`.
