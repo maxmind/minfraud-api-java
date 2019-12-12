@@ -51,7 +51,10 @@ public final class Email extends AbstractModel {
             }
 
             if (this.domain == null) {
-                this.domain = address.substring(address.indexOf('@') + 1);
+                int domainIndex = address.lastIndexOf('@') + 1;
+                if (domainIndex > 0 && domainIndex < address.length()) {
+                    this.domain = address.substring(domainIndex);
+                }
             }
             this.address = address;
             return this;

@@ -17,6 +17,14 @@ public class EmailTest {
     }
 
     @Test
+    public void testMultipleAtAddress() throws Exception {
+        Email email = new Builder().address("\"test@test\"@test.org").build();
+        assertEquals("raw email", "\"test@test\"@test.org", email.getAddress());
+        assertEquals("domain set from email", "test.org", email.getDomain());
+        assertEquals("MD5 getter works", "3dd024e8c10ae51231f5f89a82b01160", email.getAddressMd5());
+    }
+
+    @Test
     public void testAddressMd5() throws Exception {
         Email email = new Builder().address("test@test.org").hashAddress().build();
         assertEquals("MD5 generated from email", "476869598e748d958e819c180af31982", email.getAddress());
