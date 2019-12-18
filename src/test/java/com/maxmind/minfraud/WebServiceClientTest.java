@@ -80,8 +80,7 @@ public class WebServiceClientTest {
             assertTrue(
                     "response.getIpAddress().getRepresentedCountry().isInEuropeanUnion() does not return true",
                     response.getIpAddress().getRepresentedCountry().isInEuropeanUnion());
-            assertEquals(response.getDevice().getLocalTime(),
-                    "2018-04-05T15:34:40-07:00");
+            assertEquals("2018-04-05T15:34:40-07:00", response.getDevice().getLocalTime());
 
             assertTrue(response.getCreditCard().isVirtual());
         }
