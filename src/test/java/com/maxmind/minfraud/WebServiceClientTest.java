@@ -82,6 +82,9 @@ public class WebServiceClientTest {
                     response.getIpAddress().getRepresentedCountry().isInEuropeanUnion());
             assertEquals("2018-04-05T15:34:40-07:00", response.getDevice().getLocalTime());
 
+            assertEquals("81.2.69.160", response.getIpAddress().getTraits().getIpAddress() );
+            assertEquals("81.2.69.0/24", response.getIpAddress().getTraits().getNetwork().toString());
+
             assertTrue(response.getCreditCard().isVirtual());
         }
     }
@@ -107,6 +110,10 @@ public class WebServiceClientTest {
             assertFalse(
                     "response.getIpAddress().getRepresentedCountry().isInEuropeanUnion() does not return false",
                     response.getIpAddress().getRepresentedCountry().isInEuropeanUnion());
+
+
+            assertEquals("81.2.69.160", response.getIpAddress().getTraits().getIpAddress() );
+            assertEquals("81.2.69.0/24", response.getIpAddress().getTraits().getNetwork().toString());
         }
     }
 

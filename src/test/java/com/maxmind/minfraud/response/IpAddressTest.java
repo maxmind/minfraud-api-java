@@ -31,6 +31,7 @@ public class IpAddressTest extends AbstractOutputTest {
                         .put("is_hosting_provider", true)
                         .put("is_public_proxy", true)
                         .put("is_tor_exit_node", true)
+                        .put("network", "1.2.0.0/16")
                         .end()
                         .end()
                         .finish()
@@ -38,6 +39,7 @@ public class IpAddressTest extends AbstractOutputTest {
 
         assertEquals("IP risk", new Double(99), address.getRisk());
         assertEquals("correct local time", time, address.getLocation().getLocalTime());
+        assertEquals("1.2.0.0/16", address.getTraits().getNetwork().toString());
         assertTrue("isHighRisk", address.getCountry().isHighRisk());
         assertTrue("isAnonymous", address.getTraits().isAnonymous());
         assertTrue("isAnonymousVpn", address.getTraits().isAnonymousVpn());
