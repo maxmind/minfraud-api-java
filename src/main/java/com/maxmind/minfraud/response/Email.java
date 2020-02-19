@@ -58,7 +58,8 @@ public final class Email extends AbstractModel {
     /**
      * /**
      *
-     * @return True if the email address is for a free email service provider.
+     * @return Whether the email address is from a free email provider such as
+     * Gmail. If no email address was passed, this will be {@code null}.
      */
     @JsonProperty("is_free")
     public Boolean isFree() {
@@ -66,7 +67,8 @@ public final class Email extends AbstractModel {
     }
 
     /**
-     * @return True if the email address is associated with fraud.
+     * @return Whether the email address is associated with fraud. If no email
+     * address was passed, this will be {@code null}.
      */
     @JsonProperty("is_high_risk")
     public Boolean isHighRisk() {
