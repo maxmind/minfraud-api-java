@@ -7,33 +7,59 @@ import com.maxmind.minfraud.AbstractModel;
  * This class contains minFraud response data related to the email address.
  */
 public final class Email extends AbstractModel {
+    private final Boolean isDisposable;
     private final Boolean isFree;
     private final Boolean isHighRisk;
     private final String firstSeen;
 
     public Email(
+            @JsonProperty("is_disposable") Boolean isDisposable,
             @JsonProperty("is_free") Boolean isFree,
             @JsonProperty("is_high_risk") Boolean isHighRisk,
             @JsonProperty("first_seen") String firstSeen
     ) {
+        this.isDisposable = isDisposable;
         this.isFree = isFree;
         this.isHighRisk = isHighRisk;
         this.firstSeen = firstSeen;
+    }
+
+    // The following constructors are for backward compatibility and
+    // can be removed as part of a major release
+    public Email(
+            Boolean isFree,
+            Boolean isHighRisk,
+            String firstSeen
+    ) {
+        this(null, isFree, isHighRisk, firstSeen);
     }
 
     public Email(
             Boolean isFree,
             Boolean isHighRisk
     ) {
-        this(isFree, isHighRisk, null);
+        this(null, isFree, isHighRisk, null);
     }
 
     public Email() {
         this(null, null, null);
     }
 
+
     /**
-     * @return True if the email address is for a free email service provider.
+     * @return Whether the email address is from a disposable email provider.
+     * If no email address was passed, this will be {@code null}.
+     */
+    @JsonProperty("is_disposable")
+    public Boolean isDisposable() {
+        return isDisposable;
+    }
+
+    /**
+     * /**
+     *
+     * @return Whether the email address is from a free email provider such as
+     * Gmail. If no email address was passed, this will be {@code null}.
      */
     @JsonProperty("is_free")
     public Boolean isFree() {
@@ -41,7 +67,8 @@ public final class Email extends AbstractModel {
     }
 
     /**
-     * @return True if the email address is associated with fraud.
+     * @return Whether the email address is associated with fraud. If no email
+     * address was passed, this will be {@code null}.
      */
     @JsonProperty("is_high_risk")
     public Boolean isHighRisk() {

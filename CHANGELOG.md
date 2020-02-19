@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+1.11.0
+-------------------
+
+* Added support for the new email output `/email/is_disposable`. This can
+  be accessed via the `isDisposable()` method on the `Email` response
+  object.
+
 1.10.0 (2019-12-19)
 -------------------
 
