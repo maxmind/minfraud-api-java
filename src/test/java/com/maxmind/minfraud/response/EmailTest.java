@@ -14,6 +14,7 @@ public class EmailTest extends AbstractOutputTest {
                 JSON.std
                         .composeString()
                         .startObject()
+                        .put("is_disposable", false)
                         .put("is_free", false)
                         .put("is_high_risk", true)
                         .put("first_seen", "2017-01-02")
@@ -21,6 +22,7 @@ public class EmailTest extends AbstractOutputTest {
                         .finish()
         );
 
+        assertFalse(email.isDisposable());
         assertFalse(email.isFree());
         assertTrue(email.isHighRisk());
         assertEquals(email.getFirstSeen(), "2017-01-02");
@@ -39,6 +41,7 @@ public class EmailTest extends AbstractOutputTest {
                         .finish()
         );
 
+        assertNull(email.isDisposable());
         assertFalse(email.isFree());
         assertTrue(email.isHighRisk());
         assertNull(email.getFirstSeen());
