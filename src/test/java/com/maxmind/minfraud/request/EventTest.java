@@ -4,6 +4,7 @@ import com.maxmind.minfraud.request.Event.Builder;
 import com.maxmind.minfraud.request.Event.Type;
 import org.junit.Test;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
@@ -23,10 +24,17 @@ public class EventTest {
     }
 
     @Test
-    public void testTime() throws Exception {
+    public void testTimeWithDate() throws Exception {
         Date date = new Date();
         Event event = new Builder().time(date).build();
         assertEquals(date, event.getTime());
+    }
+
+    @Test
+    public void testTimeWithZonedDateTime() throws Exception {
+        ZonedDateTime date = ZonedDateTime.now();
+        Event event = new Builder().time(date).build();
+        assertEquals(date, event.getDateTime());
     }
 
     @Test

@@ -9,6 +9,9 @@ CHANGELOG
 * Added `Device.getLastSeenDateTime()`, `Device.getLocalDateTime()`,
   `Email.getFirstSeenDate()`, and `GeoIp2Location.getLocalDateTime()` methods
   that return `java.time` objects rather than strings.
+* The request event time is now stored internally as a `ZonedDateTime`. An
+  `Event.Builder.time(ZonedDateTime)` method was also added to the event
+  builder.
 
 1.11.0 (2020-02-21)
 -------------------
