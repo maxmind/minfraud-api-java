@@ -1,7 +1,10 @@
 package com.maxmind.minfraud.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
+
+import java.time.LocalDate;
 
 /**
  * This class contains minFraud response data related to the email address.
@@ -101,5 +104,17 @@ public final class Email extends AbstractModel {
     @JsonProperty("first_seen")
     public String getFirstSeen() {
         return firstSeen;
+    }
+
+    /**
+     * @return A date to identify the date an email address was first seen by
+     * MaxMind.
+     */
+    @JsonIgnore
+    public LocalDate getFirstSeenDate() {
+        if (firstSeen == null) {
+            return null;
+        }
+        return LocalDate.parse(firstSeen);
     }
 }

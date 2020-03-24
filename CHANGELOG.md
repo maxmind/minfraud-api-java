@@ -6,6 +6,9 @@ CHANGELOG
 
 * Added support for the new email output `/email/domain/first_seen` This can
   be accessed via `response.getEmail().getDomain().getFirstSeen()`.
+* Added `Device.getLastSeenDateTime()`, `Device.getLocalDateTime()`,
+  `Email.getFirstSeenDate()`, and `GeoIp2Location.getLocalDateTime()` methods
+  that return `java.time` objects rather than strings.
 
 1.11.0 (2020-02-21)
 -------------------

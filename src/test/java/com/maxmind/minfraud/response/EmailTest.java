@@ -31,7 +31,8 @@ public class EmailTest extends AbstractOutputTest {
         assertFalse(email.isDisposable());
         assertFalse(email.isFree());
         assertTrue(email.isHighRisk());
-        assertEquals(email.getFirstSeen(), "2017-01-02");
+        assertEquals("2017-01-02", email.getFirstSeen());
+        assertEquals(LocalDate.parse("2017-01-02"), email.getFirstSeenDate());
     }
 
     @Test
@@ -51,5 +52,6 @@ public class EmailTest extends AbstractOutputTest {
         assertFalse(email.isFree());
         assertTrue(email.isHighRisk());
         assertNull(email.getFirstSeen());
+        assertNull(email.getFirstSeenDate());
     }
 }
