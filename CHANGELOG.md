@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+1.12.0
+-------------------
+
+* Added support for the new email output `/email/domain/first_seen` This can
+  be accessed via `response.getEmail().getDomain().getFirstSeen()`.
+
 1.11.0 (2020-02-21)
 -------------------
 

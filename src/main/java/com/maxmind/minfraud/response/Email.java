@@ -11,13 +11,16 @@ public final class Email extends AbstractModel {
     private final Boolean isFree;
     private final Boolean isHighRisk;
     private final String firstSeen;
+    private final EmailDomain domain;
 
     public Email(
+            @JsonProperty("domain") EmailDomain domain,
             @JsonProperty("is_disposable") Boolean isDisposable,
             @JsonProperty("is_free") Boolean isFree,
             @JsonProperty("is_high_risk") Boolean isHighRisk,
             @JsonProperty("first_seen") String firstSeen
     ) {
+        this.domain = domain;
         this.isDisposable = isDisposable;
         this.isFree = isFree;
         this.isHighRisk = isHighRisk;
@@ -26,6 +29,15 @@ public final class Email extends AbstractModel {
 
     // The following constructors are for backward compatibility and
     // can be removed as part of a major release
+    public Email(
+            Boolean isDisposable,
+            Boolean isFree,
+            Boolean isHighRisk,
+            String firstSeen
+    ) {
+        this(null, isDisposable, isFree, isHighRisk, firstSeen);
+    }
+
     public Email(
             Boolean isFree,
             Boolean isHighRisk,
@@ -45,6 +57,12 @@ public final class Email extends AbstractModel {
         this(null, null, null);
     }
 
+    /**
+     * @return The {@code EmailDomain} model object.
+     */
+    public EmailDomain getDomain() {
+        return domain;
+    }
 
     /**
      * @return Whether the email address is from a disposable email provider.

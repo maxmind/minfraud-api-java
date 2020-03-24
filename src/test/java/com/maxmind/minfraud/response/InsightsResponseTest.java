@@ -3,6 +3,7 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.jr.ob.JSON;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
@@ -20,6 +21,11 @@ public class InsightsResponseTest extends AbstractOutputTest {
                         .startObject()
                         .startObjectField("disposition")
                         .put("action", "accept")
+                        .end()
+                        .startObjectField("email")
+                        .startObjectField("domain")
+                        .put("first_seen", "2014-02-03")
+                        .end()
                         .end()
                         .startObjectField("ip_address")
                         .startObjectField("country")
@@ -53,6 +59,7 @@ public class InsightsResponseTest extends AbstractOutputTest {
         );
 
         assertEquals("disposition", "accept", insights.getDisposition().getAction());
+        assertEquals("email domain first seen", LocalDate.parse("2014-02-03"), insights.getEmail().getDomain().getFirstSeen());
         assertEquals("correct country ISO", "US", insights.getIpAddress().getCountry().getIsoCode());
         assertTrue("correct credit card prepaid", insights.getCreditCard().isPrepaid());
         assertTrue("correct shipping address is in IP country", insights.getShippingAddress().isInIpCountry());
