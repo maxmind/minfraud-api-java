@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.InjectableValues.Std;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.maxmind.minfraud.exception.*;
 import com.maxmind.minfraud.request.Transaction;
 import com.maxmind.minfraud.response.FactorsResponse;
@@ -62,6 +63,7 @@ public final class WebServiceClient implements Closeable {
         mapper = new ObjectMapper();
         mapper.disable(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS);
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        mapper.registerModule(new JavaTimeModule());
         mapper.setDateFormat(new StdDateFormat().withColonInTimeZone(true));
 
         RequestConfig.Builder configBuilder = RequestConfig.custom()

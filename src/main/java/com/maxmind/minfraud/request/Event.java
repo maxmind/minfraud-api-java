@@ -1,15 +1,18 @@
 package com.maxmind.minfraud.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 public final class Event extends AbstractModel {
 
     private final String transactionId;
     private final String shopId;
-    private final Date time;
+    private final ZonedDateTime time;
     private final Type type;
 
     private Event(Event.Builder builder) {
@@ -26,7 +29,7 @@ public final class Event extends AbstractModel {
     public static final class Builder {
         String transactionId;
         String shopId;
-        Date time;
+        ZonedDateTime time;
         Type type;
 
         /**
@@ -58,7 +61,16 @@ public final class Event extends AbstractModel {
          * @return The builder object.
          */
         public Event.Builder time(Date date) {
-            time = new Date(date.getTime());
+            time = date.toInstant().atZone(ZoneId.systemDefault());
+            return this;
+        }
+
+        /**
+         * @param date The date and time the event occurred.
+         * @return The builder object.
+         */
+        public Event.Builder time(ZonedDateTime date) {
+            time = date;
             return this;
         }
 
@@ -99,8 +111,16 @@ public final class Event extends AbstractModel {
     /**
      * @return The date and time of the event.
      */
-    @JsonProperty("time")
+    @JsonIgnore
     public Date getTime() {
+        return Date.from(time.toInstant());
+    }
+
+    /**
+     * @return The date and time of the event.
+     */
+    @JsonProperty("time")
+    public ZonedDateTime getDateTime() {
         return time;
     }
 

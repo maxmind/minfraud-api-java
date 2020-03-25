@@ -151,13 +151,11 @@ public class WebServiceClientTest {
 
     @Test
     public void testInsufficientCredit() throws Exception {
-        Exception ex = assertThrows(InsufficientFundsException.class, () -> {
-            createInsightsError(
-                    402,
-                    "application/json",
-                    "{\"code\":\"INSUFFICIENT_FUNDS\",\"error\":\"out of credit\"}"
-            );
-        });
+        Exception ex = assertThrows(InsufficientFundsException.class, () -> createInsightsError(
+                402,
+                "application/json",
+                "{\"code\":\"INSUFFICIENT_FUNDS\",\"error\":\"out of credit\"}"
+        ));
         assertEquals("out of credit", ex.getMessage());
 
     }
@@ -180,13 +178,11 @@ public class WebServiceClientTest {
 
     @Test
     public void testPermissionRequired() throws Exception {
-        Exception ex = assertThrows(PermissionRequiredException.class, () -> {
-            createInsightsError(
-                    403,
-                    "application/json",
-                    "{\"code\":\"PERMISSION_REQUIRED\",\"error\":\"Permission required\"}"
-            );
-        });
+        Exception ex = assertThrows(PermissionRequiredException.class, () -> createInsightsError(
+                403,
+                "application/json",
+                "{\"code\":\"PERMISSION_REQUIRED\",\"error\":\"Permission required\"}"
+        ));
         assertEquals("Permission required", ex.getMessage());
     }
 

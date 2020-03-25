@@ -1,8 +1,10 @@
 package com.maxmind.minfraud.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
 
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 /**
@@ -74,11 +76,35 @@ public final class Device extends AbstractModel {
     }
 
     /**
+     * @return The date and time of the last sighting of the device as a
+     * {@code ZonedDateTime}.
+     */
+    @JsonIgnore
+    public ZonedDateTime getLastSeenDateTime() {
+        if (lastSeen == null) {
+            return null;
+        }
+        return ZonedDateTime.parse(lastSeen);
+    }
+
+    /**
      * @return The date and time of the transaction at the UTC offset
      * associated with the device. This is an RFC 3339 date-time.
      */
     @JsonProperty("local_time")
     public String getLocalTime() {
         return localTime;
+    }
+
+    /**
+     * @return The date and time of the transaction at the UTC offset
+     * associated with the device as a {@code ZonedDateTime}.
+     */
+    @JsonIgnore
+    public ZonedDateTime getLocalDateTime() {
+        if (localTime == null) {
+            return null;
+        }
+        return ZonedDateTime.parse(localTime);
     }
 }

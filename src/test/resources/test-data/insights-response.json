@@ -145,6 +145,9 @@
     "reason": "custom_rule"
   },
   "email": {
+    "domain": {
+      "first_seen": "2014-02-23"
+    },
     "first_seen": "2017-01-02",
     "is_disposable": true,
     "is_free": true,

@@ -8,7 +8,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
@@ -32,7 +32,6 @@ public class RequestTestHelper {
     }
 
     private static Transaction makeTransaction(Email e) throws Exception {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
         return new Transaction.Builder(
                 new Device.Builder(InetAddress.getByName("81.2.69.160"))
                         .userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36")
@@ -46,7 +45,7 @@ public class RequestTestHelper {
                                 .Builder()
                                 .transactionId("txn3134133")
                                 .shopId("s2123")
-                                .time(dateFormat.parse("2012-04-12T23:20:50.52Z"))
+                                .time(ZonedDateTime.parse("2012-04-12T23:20:50.52Z"))
                                 .type(Event.Type.PURCHASE)
                                 .build()
                 )
