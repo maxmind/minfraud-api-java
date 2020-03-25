@@ -12,6 +12,9 @@ CHANGELOG
 * The request event time is now stored internally as a `ZonedDateTime`. An
   `Event.Builder.time(ZonedDateTime)` method was also added to the event
   builder.
+* The following payment processors were added to the `Payment.Processor` enum:
+  * `CARDPAY`
+  * `EPX`
 
 1.11.0 (2020-02-21)
 -------------------
