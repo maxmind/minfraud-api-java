@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-1.12.0
+1.12.0 (2020-03-26)
 -------------------
 
 * Added support for the new email output `/email/domain/first_seen` This can
