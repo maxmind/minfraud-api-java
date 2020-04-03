@@ -69,6 +69,13 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.12</version>
         </dependency>
+        <dependency>
+            <!-- httpclient pulls this in. We pull in a newer version
+            because of a security issue in 1.11 -->
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.13</version>
+        </dependency>
         <!--
             commons-validator 1.6 depends on an older version of
             commons-beanutils with a CVE. So add a direct dependency on the
