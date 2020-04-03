@@ -37,6 +37,7 @@ public class InsightsResponseTest extends AbstractOutputTest {
                         .end()
                         .end()
                         .startObjectField("credit_card")
+                        .put("is_business", true)
                         .put("is_prepaid", true)
                         .end()
                         .startObjectField("shipping_address")
@@ -61,6 +62,7 @@ public class InsightsResponseTest extends AbstractOutputTest {
         assertEquals("disposition", "accept", insights.getDisposition().getAction());
         assertEquals("email domain first seen", LocalDate.parse("2014-02-03"), insights.getEmail().getDomain().getFirstSeen());
         assertEquals("correct country ISO", "US", insights.getIpAddress().getCountry().getIsoCode());
+        assertTrue("correct credit card is business", insights.getCreditCard().isBusiness());
         assertTrue("correct credit card prepaid", insights.getCreditCard().isPrepaid());
         assertTrue("correct shipping address is in IP country", insights.getShippingAddress().isInIpCountry());
         assertTrue("correct billing address is in IP country", insights.getBillingAddress().isInIpCountry());

@@ -10,6 +10,7 @@ public final class CreditCard extends AbstractModel {
     private final Issuer issuer;
     private final String brand;
     private final String country;
+    private final Boolean isBusiness;
     private final Boolean isIssuedInBillingAddressCountry;
     private final Boolean isPrepaid;
     private final Boolean isVirtual;
@@ -29,9 +30,26 @@ public final class CreditCard extends AbstractModel {
             issuer, type);
     }
 
+    // This method is for backwards compatibility. We should remove it when we
+    // do a major release.
+    public CreditCard(
+            String brand,
+            String country,
+            Boolean isIssuedInBillingAddressCountry,
+            Boolean isPrepaid,
+            Boolean isVirtual,
+            Issuer issuer,
+            String type
+    ) {
+        this(brand, country, false, isIssuedInBillingAddressCountry, isPrepaid,
+            isVirtual, issuer, type);
+    }
+
+
     public CreditCard(
             @JsonProperty("brand") String brand,
             @JsonProperty("country") String country,
+            @JsonProperty("is_business") Boolean isBusiness,
             @JsonProperty("is_issued_in_billing_address_country") Boolean isIssuedInBillingAddressCountry,
             @JsonProperty("is_prepaid") Boolean isPrepaid,
             @JsonProperty("is_virtual") Boolean isVirtual,
@@ -40,6 +58,7 @@ public final class CreditCard extends AbstractModel {
     ) {
         this.brand = brand;
         this.country = country;
+        this.isBusiness = isBusiness;
         this.isIssuedInBillingAddressCountry = isIssuedInBillingAddressCountry;
         this.isPrepaid = isPrepaid;
         this.isVirtual = isVirtual;
@@ -75,6 +94,15 @@ public final class CreditCard extends AbstractModel {
      */
     public String getCountry() {
         return country;
+    }
+
+    /**
+     * @return True if the card is a business card. False if not a business
+     * card. If the IIN was not provided or is unknown, null will be returned.
+     */
+    @JsonProperty("is_business")
+    public Boolean isBusiness() {
+        return isBusiness;
     }
 
     /**
