@@ -74,7 +74,7 @@
             because of a security issue in 1.11 -->
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.13</version>
+            <version>1.14</version>
         </dependency>
         <!--
             commons-validator 1.6 depends on an older version of
