@@ -113,7 +113,9 @@ Checked exceptions:
 * `HttpException` -This will be thrown when an unexpected HTTP error
   occurs such as an internal server error or other unexpected status code.
 
-## Example
+## Examples
+
+### Insights
 
 ```java
 
@@ -222,6 +224,26 @@ WebServiceClient client = new WebServiceClient.Builder(6, "ABCD567890").build();
 System.out.println(client.insights(request));
 ```
 
+### Report Transaction
+
+```java
+import java.net.InetAddress;
+import java.util.UUID;
+import com.maxmind.minfraud.request.TransactionReport.Tag;
+
+TransactionReport transaction = new TransactionReport.Builder(InetAddress.getByName("1.1.1.1"), Tag.NOT_FRAUD)
+    .chargebackCode("mycode")
+	.maxmindId("12345678")
+	.minfraudId(UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d"))
+	.notes("notes go here")
+	.transactionId("foo")
+	.build();
+
+WebServiceClient client = new WebServiceClient.Builder(6, "ABCD567890").build();
+
+client.reportTransaction(transaction);
+```
+
 ## Support ##
 
 Please report all issues with this code using the
@@ -246,6 +268,6 @@ This API uses [Semantic Versioning](https://semver.org/).
 
 ## Copyright and License ##
 
-This software is Copyright (c) 2015-2018 by MaxMind, Inc.
+This software is Copyright (c) 2015-2020 by MaxMind, Inc.
 
 This is free software, licensed under the Apache License, Version 2.0.

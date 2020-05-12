@@ -5,6 +5,7 @@ import com.maxmind.minfraud.exception.*;
 import com.maxmind.minfraud.request.Device;
 import com.maxmind.minfraud.request.Shipping;
 import com.maxmind.minfraud.request.Transaction;
+import com.maxmind.minfraud.request.TransactionReport;
 import com.maxmind.minfraud.response.FactorsResponse;
 import com.maxmind.minfraud.response.InsightsResponse;
 import com.maxmind.minfraud.response.ScoreResponse;
@@ -30,9 +31,17 @@ public class WebServiceClientTest {
     public final WireMockRule wireMockRule = new WireMockRule(0); // 0 picks random port
 
     @Test
+    public void testReportTransaction() throws Exception {
+        String responseContent = "";
+        try (WebServiceClient client = createSuccessClient("transactions/report", 204, responseContent)) {
+            TransactionReport request = fullTransactionReport();
+            client.reportTransaction(request);
+        }
+    }
+    @Test
     public void testFullScoreTransaction() throws Exception {
         String responseContent = readJsonFile("score-response");
-        try (WebServiceClient client = createSuccessClient("score", responseContent)) {
+        try (WebServiceClient client = createSuccessClient("score", 200, responseContent)) {
             Transaction request = fullTransaction();
             ScoreResponse response = client.score(request);
 
@@ -44,7 +53,7 @@ public class WebServiceClientTest {
     @Test
     public void testFullScoreTransactionWithEmailMd5() throws Exception {
         String responseContent = readJsonFile("score-response");
-        try (WebServiceClient client = createSuccessClient("score", responseContent)) {
+        try (WebServiceClient client = createSuccessClient("score", 200, responseContent)) {
             Transaction request = fullTransactionEmailMd5();
             ScoreResponse response = client.score(request);
 
@@ -56,7 +65,7 @@ public class WebServiceClientTest {
     @Test
     public void testFullInsightsTransaction() throws Exception {
         String responseContent = readJsonFile("insights-response");
-        try (WebServiceClient client = createSuccessClient("insights", responseContent)) {
+        try (WebServiceClient client = createSuccessClient("insights", 200, responseContent)) {
             Transaction request = fullTransaction();
             InsightsResponse response = client.insights(request);
 
@@ -86,7 +95,7 @@ public class WebServiceClientTest {
     @Test
     public void testFullFactorsTransaction() throws Exception {
         String responseContent = readJsonFile("factors-response");
-        try (WebServiceClient client = createSuccessClient("factors", responseContent)) {
+        try (WebServiceClient client = createSuccessClient("factors", 200, responseContent)) {
             Transaction request = fullTransaction();
             FactorsResponse response = client.factors(request);
 
@@ -113,7 +122,7 @@ public class WebServiceClientTest {
 
     @Test
     public void testRequestEncoding() throws Exception {
-        try (WebServiceClient client = createSuccessClient("insights", "{}")) {
+        try (WebServiceClient client = createSuccessClient("insights", 200, "{}")) {
             Transaction request = new Transaction.Builder(
                     new Device.Builder(InetAddress.getByName("1.1.1.1")).build()
             ).shipping(
@@ -130,7 +139,7 @@ public class WebServiceClientTest {
 
     @Test
     public void test200WithNoBody() throws Exception {
-        try (WebServiceClient client = createSuccessClient("insights", "")) {
+        try (WebServiceClient client = createSuccessClient("insights", 200, "")) {
             Transaction request = fullTransaction();
             Exception ex = assertThrows(MinFraudException.class, () -> client.insights(request));
 
@@ -140,7 +149,7 @@ public class WebServiceClientTest {
 
     @Test
     public void test200WithInvalidJson() throws Exception {
-        try (WebServiceClient client = createSuccessClient("insights", "{")) {
+        try (WebServiceClient client = createSuccessClient("insights", 200, "{")) {
             Transaction request = fullTransaction();
 
             Exception ex = assertThrows(MinFraudException.class, () -> client.insights(request));
@@ -272,10 +281,10 @@ public class WebServiceClientTest {
         assertThat(ex.getMessage(), startsWith("Received a server error (500)"));
     }
 
-    private WebServiceClient createSuccessClient(String service, String responseContent) {
+    private WebServiceClient createSuccessClient(String service, int code, String responseContent) {
         return createClient(
                 service,
-                200,
+                code,
                 "application/vnd.maxmind.com-minfraud-" + service + "+json; charset=UTF-8; version=2.0\n",
                 responseContent
         );

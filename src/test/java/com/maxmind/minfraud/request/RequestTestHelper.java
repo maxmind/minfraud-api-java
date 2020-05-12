@@ -5,10 +5,13 @@ import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.UUID;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.ZonedDateTime;
+
+import com.maxmind.minfraud.request.TransactionReport.Tag;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
@@ -16,6 +19,14 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
  * Helper for creating test requests.
  */
 public class RequestTestHelper {
+    public static TransactionReport fullTransactionReport() throws Exception {
+        return new TransactionReport.Builder(InetAddress.getByName("1.1.1.1"), Tag.NOT_FRAUD)
+                                .chargebackCode("foo")
+                                .maxmindId("12345678")
+                                .minfraudId(UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d"))
+                                .build();
+    }
+
     public static Transaction fullTransaction() throws Exception {
         return makeTransaction(new Email.Builder()
                                 .address("test@maxmind.com")
