@@ -3,8 +3,8 @@
 
 ## Description ##
 
-This package provides an API for the [MaxMind minFraud Score, Insights, and
-Factors web services](https://dev.maxmind.com/minfraud/).
+This package provides an API for the [MaxMind minFraud Score, Insights, Factors
+and Report Transaction web services](https://dev.maxmind.com/minfraud/).
 
 ## Installation ##
 
@@ -86,6 +86,18 @@ FactorsResponse factors = client.factors(transaction);
 
 If the request succeeds, a model object will be returned for the endpoint.
 If the request fails, an exception will be thrown.
+
+To report a transaction:
+
+```java
+TransactionReport transaction = new TransactionReport.Builder(
+         InetAddress.getByName("1.1.1.1"), Tag.NOT_FRAUD
+     ).build();
+client.reportTransaction(transaction);
+```
+
+`reportTransaction()` has a `void` return type. If the request fails, an
+exception will be thrown.
 
 See the API documentation for more details.
 
@@ -224,20 +236,28 @@ WebServiceClient client = new WebServiceClient.Builder(6, "ABCD567890").build();
 System.out.println(client.insights(request));
 ```
 
-### Report Transaction
+### Report Transactions API
+
+MaxMind encourages the use of this API, as data received through this channel
+is continually used to improve the accuracy of our fraud detection algorithms.
+
+To use the Report Transactions API, create a new `TransactionReport` object. An
+IP address and a valid tag are required arguments.  Additional params may also
+be set, as documented below.
+
+If the report is successful, nothing is returned. If the report fails, an
+exception with be thrown.
+
+See the API documentation for more details.
 
 ```java
-import java.net.InetAddress;
-import java.util.UUID;
-import com.maxmind.minfraud.request.TransactionReport.Tag;
-
 TransactionReport transaction = new TransactionReport.Builder(InetAddress.getByName("1.1.1.1"), Tag.NOT_FRAUD)
     .chargebackCode("mycode")
-	.maxmindId("12345678")
-	.minfraudId(UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d"))
-	.notes("notes go here")
-	.transactionId("foo")
-	.build();
+    .maxmindId("12345678")
+    .minfraudId(UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d"))
+    .notes("notes go here")
+    .transactionId("foo")
+    .build();
 
 WebServiceClient client = new WebServiceClient.Builder(6, "ABCD567890").build();
 
