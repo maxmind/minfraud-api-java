@@ -52,7 +52,7 @@ popd
 
 mvn versions:display-dependency-updates
 
-read -e -p "Continue given above dependencies? (y/n) " should_continue
+read -e -p -r "Continue given above dependencies? (y/n) " should_continue
 
 if [ "$should_continue" != "y" ]; then
     echo "Aborting"
@@ -78,7 +78,7 @@ cat README.md >> $page
 if [ -n "$(git status --porcelain)" ]; then
     git diff
 
-    read -e -p "Commit README.md changes? " should_commit
+    read -e -p -r "Commit README.md changes? " should_commit
     if [ "$should_commit" != "y" ]; then
         echo "Aborting"
         exit 1
@@ -105,7 +105,7 @@ $notes
 
 "
 
-read -e -p "Push to origin? " should_push
+read -e -p -r "Push to origin? " should_push
 
 if [ "$should_push" != "y" ]; then
     echo "Aborting"

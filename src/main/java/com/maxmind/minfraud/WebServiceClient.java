@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.util.StdDateFormat;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.maxmind.minfraud.exception.*;
 import com.maxmind.minfraud.request.Transaction;
+import com.maxmind.minfraud.request.TransactionReport;
 import com.maxmind.minfraud.response.FactorsResponse;
 import com.maxmind.minfraud.response.InsightsResponse;
 import com.maxmind.minfraud.response.ScoreResponse;
@@ -282,7 +283,39 @@ public final class WebServiceClient implements Closeable {
         return responseFor("score", transaction, ScoreResponse.class);
     }
 
-    private <T> T responseFor(String service, Transaction transaction, Class<T> cls)
+    /**
+     * Make a Report Transaction request to the web service using the TransactionReport
+     * request object passed to the method.
+     *
+     * @param transaction A TransactionReport request object.
+     * @throws InsufficientFundsException  when there are insufficient funds on
+     *                                     the account.
+     * @throws AuthenticationException     when there is a problem authenticating.
+     * @throws InvalidRequestException     when the request is invalid for some
+     *                                     other reason.
+     * @throws PermissionRequiredException when permission is required to use the
+     *                                     service.
+     * @throws MinFraudException           when the web service returns unexpected
+     *                                     content.
+     * @throws HttpException               when the web service returns an unexpected
+     *                                     response.
+     * @throws IOException                 when some other IO error occurs.
+     */
+    public void reportTransaction(TransactionReport transaction) throws IOException,
+            MinFraudException, InsufficientFundsException, InvalidRequestException,
+            AuthenticationException, PermissionRequiredException, HttpException {
+        if (transaction == null) {
+            throw new IllegalArgumentException("transaction report must not be null");
+        }
+        URL url = createUrl(WebServiceClient.pathBase + "transactions/report");
+        HttpPost request = requestFor(transaction, url);
+
+        try (CloseableHttpResponse response = httpClient.execute(request)) {
+            maybeThrowException(response, url);
+        }
+    }
+
+    private <T> T responseFor(String service, AbstractModel transaction, Class<T> cls)
             throws IOException, MinFraudException {
         if (transaction == null) {
             throw new IllegalArgumentException("transaction must not be null");
@@ -295,7 +328,7 @@ public final class WebServiceClient implements Closeable {
         }
     }
 
-    private HttpPost requestFor(Transaction transaction, URL url)
+    private HttpPost requestFor(AbstractModel transaction, URL url)
             throws MinFraudException, IOException {
         Credentials credentials = new UsernamePasswordCredentials(Integer.toString(accountId), licenseKey);
 
@@ -321,18 +354,23 @@ public final class WebServiceClient implements Closeable {
         return request;
     }
 
-    private <T> T handleResponse(CloseableHttpResponse response, URL url, Class<T> cls)
-            throws MinFraudException, IOException {
+    private void maybeThrowException(CloseableHttpResponse response, URL url) throws IOException, MinFraudException {
         int status = response.getStatusLine().getStatusCode();
         if (status >= 400 && status < 500) {
             this.handle4xxStatus(response, url);
         } else if (status >= 500 && status < 600) {
             throw new HttpException("Received a server error (" + status
                     + ") for " + url, status, url);
-        } else if (status != 200) {
+        } else if (status != 200 && status != 204) {
             throw new HttpException("Received an unexpected HTTP status ("
                     + status + ") for " + url, status, url);
         }
+    }
+
+    private <T> T handleResponse(CloseableHttpResponse response, URL url, Class<T> cls)
+            throws MinFraudException, IOException {
+        maybeThrowException(response, url);
+
         HttpEntity entity = response.getEntity();
 
         InjectableValues inject = new Std().addValue(

@@ -1,6 +1,9 @@
 CHANGELOG
 =========
 
+* Added support for Report Transaction API. Report Transaction requests can be
+  created via `TransactionReport.Builder()`.
+
 1.13.0 (2020-04-06)
 -------------------
 
