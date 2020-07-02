@@ -1,6 +1,17 @@
 CHANGELOG
 =========
 
+1.15.0
+-------------------
+
+* The following payment processors were added to the `Payment.Processor` enum:
+  * `CASHFREE`
+  * `FIRST_ATLANTIC_COMMERCE`
+  * `KOMOJU`
+  * `PAYTM`
+  * `RAZORPAY`
+  * `SYSTEMPAY`
+
 1.14.0 (2020-06-10)
 -------------------
 
