@@ -15,13 +15,16 @@ public final class Subscores {
     private final Double country;
     private final Double countryMismatch;
     private final Double cvvResult;
+    private final Double device;
     private final Double emailAddress;
     private final Double emailDomain;
+    private final Double emailLocalPart;
     private final Double emailTenure;
     private final Double ipTenure;
     private final Double issuerIdNumber;
     private final Double orderAmount;
     private final Double phoneNumber;
+    private final Double shippingAddress;
     private final Double shippingAddressDistanceToIpLocation;
     private final Double timeOfDay;
 
@@ -34,13 +37,16 @@ public final class Subscores {
             @JsonProperty("country") Double country,
             @JsonProperty("country_mismatch") Double countryMismatch,
             @JsonProperty("cvv_result") Double cvvResult,
+            @JsonProperty("device") Double device,
             @JsonProperty("email_address") Double emailAddress,
             @JsonProperty("email_domain") Double emailDomain,
+            @JsonProperty("email_local_part") Double emailLocalPart,
             @JsonProperty("email_tenure") Double emailTenure,
             @JsonProperty("ip_tenure") Double ipTenure,
             @JsonProperty("issuer_id_number") Double issuerIdNumber,
             @JsonProperty("order_amount") Double orderAmount,
             @JsonProperty("phone_number") Double phoneNumber,
+            @JsonProperty("shipping_address") Double shippingAddress,
             @JsonProperty("shipping_address_distance_to_ip_location") Double shippingAddressDistanceToIpLocation,
             @JsonProperty("time_of_day") Double timeOfDay
     ) {
@@ -52,20 +58,50 @@ public final class Subscores {
         this.country = country;
         this.countryMismatch = countryMismatch;
         this.cvvResult = cvvResult;
+        this.device = device;
         this.emailAddress = emailAddress;
         this.emailDomain = emailDomain;
+        this.emailLocalPart = emailLocalPart;
         this.emailTenure = emailTenure;
         this.ipTenure = ipTenure;
         this.issuerIdNumber = issuerIdNumber;
         this.orderAmount = orderAmount;
         this.phoneNumber = phoneNumber;
+        this.shippingAddress = shippingAddress;
         this.shippingAddressDistanceToIpLocation = shippingAddressDistanceToIpLocation;
         this.timeOfDay = timeOfDay;
     }
 
+    // This method is for backwards compatibility. We should remove it when we
+    // do a major release.
+    public Subscores(
+            Double avsResult,
+            Double billingAddress,
+            Double billingAddressDistanceToIpLocation,
+            Double browser,
+            Double chargeback,
+            Double country,
+            Double countryMismatch,
+            Double cvvResult,
+            Double emailAddress,
+            Double emailDomain,
+            Double emailTenure,
+            Double ipTenure,
+            Double issuerIdNumber,
+            Double orderAmount,
+            Double phoneNumber,
+            Double shippingAddressDistanceToIpLocation,
+            Double timeOfDay
+    ) {
+        this(avsResult, billingAddress, billingAddressDistanceToIpLocation, browser, chargeback,
+        country, countryMismatch, cvvResult, null, emailAddress, emailDomain, null, emailTenure,
+        ipTenure, issuerIdNumber, orderAmount, phoneNumber, null, shippingAddressDistanceToIpLocation,
+        timeOfDay);
+    }
+
     public Subscores() {
         this(null, null, null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null);
+                null, null, null, null, null, null, null, null);
     }
 
     /**
@@ -146,6 +182,15 @@ public final class Subscores {
     }
 
     /**
+     * @return The risk associated with the device. If present, this is a value in
+     * the range 0.01 to 99.
+     */
+    @JsonProperty("device")
+    public Double getDevice() {
+        return device;
+    }
+
+    /**
      * @return The risk associated with the particular email address. If
      * present, this is a value in the range 0.01 to 99.
      */
@@ -161,6 +206,16 @@ public final class Subscores {
     @JsonProperty("email_domain")
     public Double getEmailDomain() {
         return emailDomain;
+    }
+
+    /**
+     * @return The risk associated with the email address local part (the part
+     *  of the email address before the @ symbol). If present, this is a value
+     *  in the range 0.01 to 99.
+     */
+    @JsonProperty("email_local_part")
+    public Double getEmailLocalPart() {
+        return emailLocalPart;
     }
 
     /**
@@ -216,6 +271,15 @@ public final class Subscores {
     @JsonProperty("phone_number")
     public Double getPhoneNumber() {
         return phoneNumber;
+    }
+
+    /**
+     * @return The risk associated with the shipping address. If present, this is
+     * a value in the range 0.01 to 99.
+     */
+    @JsonProperty("shipping_address")
+    public Double getShippingAddress() {
+        return shippingAddress;
     }
 
     /**
