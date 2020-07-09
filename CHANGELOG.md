@@ -1,13 +1,7 @@
 CHANGELOG
 =========
 
-* Added support for three new Factors outputs: `/subscores/device` (the risk
-  associated with the device), `/subscores/email_local_part` (the risk
-  associated with the part of the email address before the @ symbol) and
-  `/subscores/shipping_address` (the risk associated with the shipping
-  address).
-
-1.15.0
+1.15.0 (2020-07-09)
 -------------------
 
 * The following payment processors were added to the `Payment.Processor` enum:
@@ -17,6 +11,11 @@ CHANGELOG
   * `PAYTM`
   * `RAZORPAY`
   * `SYSTEMPAY`
+* Added support for three new Factors outputs: `/subscores/device` (the risk
+  associated with the device), `/subscores/email_local_part` (the risk
+  associated with the part of the email address before the @ symbol) and
+  `/subscores/shipping_address` (the risk associated with the shipping
+  address).
 
 1.14.0 (2020-06-10)
 -------------------
