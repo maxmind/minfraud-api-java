@@ -80,6 +80,7 @@ public final class WebServiceClient implements Closeable {
         RequestConfig config = configBuilder.build();
         httpClient =
                 HttpClientBuilder.create()
+                        .setMaxConnPerRoute(20)
                         .setUserAgent(userAgent())
                         .setDefaultRequestConfig(config).build();
     }

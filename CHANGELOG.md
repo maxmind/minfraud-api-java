@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+1.16.0
+-------------------
+* The HTTP client now allows up to 20 connections to be active at once.
+  Previously the limit was 2. Reported by mjancewicz. GitHub #110.
+
 1.15.0 (2020-07-09)
 -------------------
 
