@@ -104,7 +104,7 @@ public class RequestTestHelper {
                                 .build()
                 ).creditCard(
                         new CreditCard.Builder()
-                                .issuerIdNumber("323132")
+                                .issuerIdNumber("411111")
                                 .bankName("Bank of No Hope")
                                 .bankPhoneCountryCode("1")
                                 .bankPhoneNumber("123-456-1234")
