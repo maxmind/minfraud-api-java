@@ -44,7 +44,7 @@ public class RequestTestHelper {
 
     private static Transaction makeTransaction(Email e) throws Exception {
         return new Transaction.Builder(
-                new Device.Builder(InetAddress.getByName("81.2.69.160"))
+                new Device.Builder(InetAddress.getByName("152.216.7.110"))
                         .userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36")
                         .sessionAge(3600.5)
                         .sessionId("foobar")

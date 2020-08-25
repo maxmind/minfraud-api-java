@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TransactionTest {
     private Transaction.Builder builder() throws UnknownHostException {
-        return new Transaction.Builder(new Device.Builder(InetAddress.getByName("81.2.69.160")).build());
+        return new Transaction.Builder(new Device.Builder(InetAddress.getByName("152.216.7.110")).build());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class TransactionTest {
     @Test
     public void testDevice() throws Exception {
         Transaction request = this.builder().build();
-        assertEquals(InetAddress.getByName("81.2.69.160"), request.getDevice().getIpAddress());
+        assertEquals(InetAddress.getByName("152.216.7.110"), request.getDevice().getIpAddress());
     }
 
     @Test
