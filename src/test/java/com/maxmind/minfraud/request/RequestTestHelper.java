@@ -44,7 +44,7 @@ public class RequestTestHelper {
 
     private static Transaction makeTransaction(Email e) throws Exception {
         return new Transaction.Builder(
-                new Device.Builder(InetAddress.getByName("81.2.69.160"))
+                new Device.Builder(InetAddress.getByName("152.216.7.110"))
                         .userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36")
                         .sessionAge(3600.5)
                         .sessionId("foobar")
@@ -78,7 +78,7 @@ public class RequestTestHelper {
                                 .region("CT")
                                 .country("US")
                                 .postal("06510")
-                                .phoneNumber("323-123-4321")
+                                .phoneNumber("123-456-7890")
                                 .phoneCountryCode("1")
                                 .build()
                 ).shipping(
@@ -92,7 +92,7 @@ public class RequestTestHelper {
                                 .region("OK")
                                 .country("US")
                                 .postal("73003")
-                                .phoneNumber("403-321-2323")
+                                .phoneNumber("123-456-0000")
                                 .phoneCountryCode("1")
                                 .deliverySpeed(Shipping.DeliverySpeed.SAME_DAY)
                                 .build()
@@ -104,10 +104,10 @@ public class RequestTestHelper {
                                 .build()
                 ).creditCard(
                         new CreditCard.Builder()
-                                .issuerIdNumber("323132")
+                                .issuerIdNumber("411111")
                                 .bankName("Bank of No Hope")
                                 .bankPhoneCountryCode("1")
-                                .bankPhoneNumber("800-342-1232")
+                                .bankPhoneNumber("123-456-1234")
                                 .avsResult('Y')
                                 .cvvResult('N')
                                 .last4Digits("7643")
