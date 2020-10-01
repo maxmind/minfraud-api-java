@@ -214,6 +214,7 @@ public final class Payment extends AbstractModel {
         SYNAPSEFI,
         SYSTEMPAY,
         TELERECARGAS,
+        TSYS,
         TOWAH,
         TRANSACT_PRO,
         USA_EPAY,
