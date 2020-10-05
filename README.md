@@ -1,5 +1,4 @@
 # MaxMind minFraud Score, Insights, and Factors Java API
-[![Build Status](https://travis-ci.org/maxmind/minfraud-api-java.png?branch=master)](https://travis-ci.org/maxmind/minfraud-api-java)
 
 ## Description ##
 
