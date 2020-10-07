@@ -35,16 +35,18 @@ public final class Device extends AbstractModel {
         String sessionId;
 
         /**
-         * The constructor for the {@code Device.Builder} class
+         * Constructor for the {@code Device.Builder} class
+         */
+        public Builder() {
+        }
+
+        /**
+         * Constructor for the {@code Device.Builder} class
          *
          * @param ipAddress The IP address associated with the device used
          *                  by the customer in the transaction.
          */
         public Builder(InetAddress ipAddress) {
-            if (ipAddress == null) {
-                throw new IllegalArgumentException("ipAddress must not be null");
-            }
-
             this.ipAddress = ipAddress;
         }
 
@@ -65,6 +67,16 @@ public final class Device extends AbstractModel {
          */
         public Device.Builder acceptLanguage(String acceptLanguage) {
             this.acceptLanguage = acceptLanguage;
+            return this;
+        }
+
+        /**
+         * @param ipAddress The IP address associated with the device used
+         *                  by the customer in the transaction.
+         * @return The builder object.
+         */
+        public Device.Builder ipAddress(InetAddress ipAddress) {
+            this.ipAddress = ipAddress;
             return this;
         }
 

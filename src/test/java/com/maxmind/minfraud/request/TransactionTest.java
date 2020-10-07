@@ -13,6 +13,12 @@ public class TransactionTest {
     }
 
     @Test
+    public void testConstructorWithoutDevice() throws Exception {
+        Transaction request = new Transaction.Builder().build();
+        assertEquals(null, request.getDevice());
+    }
+
+    @Test
     public void testAccount() throws Exception {
         Transaction request = this.builder().account(new Account.Builder().userId("1").build()).build();
         assertEquals("1", request.getAccount().getUserId());
@@ -41,6 +47,19 @@ public class TransactionTest {
     public void testDevice() throws Exception {
         Transaction request = this.builder().build();
         assertEquals(InetAddress.getByName("152.216.7.110"), request.getDevice().getIpAddress());
+    }
+
+    @Test
+    public void testDeviceThroughMethod() throws Exception {
+        InetAddress ip = InetAddress.getByName("152.216.7.110");
+
+        Device device = new Device.Builder().ipAddress(ip).build();
+
+        Transaction request = new Transaction.Builder()
+            .device(device)
+            .build();
+
+        assertEquals(ip, request.getDevice().getIpAddress());
     }
 
     @Test
