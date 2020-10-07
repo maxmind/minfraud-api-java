@@ -147,7 +147,6 @@ public final class WebServiceClient implements Closeable {
             return this;
         }
 
-
         /**
          * @param val The host to use.
          * @return Builder object
@@ -165,7 +164,6 @@ public final class WebServiceClient implements Closeable {
             port = val;
             return this;
         }
-
 
         /**
          * @param val List of locale codes to use in name property from most

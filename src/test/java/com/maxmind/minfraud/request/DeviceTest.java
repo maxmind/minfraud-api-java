@@ -36,7 +36,6 @@ public class DeviceTest {
         assertEquals(al, device.getAcceptLanguage());
     }
 
-
     @Test
     public void testSessionAge() throws Exception {
         Double hour = 3600d;

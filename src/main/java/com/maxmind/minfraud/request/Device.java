@@ -139,7 +139,6 @@ public final class Device extends AbstractModel {
      */
     @JsonProperty("ip_address")
     public InetAddress getIpAddress() {
-
         return ipAddress;
     }
 }
