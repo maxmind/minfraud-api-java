@@ -17,8 +17,20 @@ public class DeviceTest {
     }
 
     @Test
-    public void testIpAddress() throws Exception {
+    public void testConstructorWithoutIP() throws Exception {
+        Device device = new Builder().build();
+        assertEquals(null, device.getIpAddress());
+    }
+
+    @Test
+    public void testIpAddressThroughConstructor() throws Exception {
         Device device = new Builder(ip).build();
+        assertEquals(ip, device.getIpAddress());
+    }
+
+    @Test
+    public void testIpAddress() throws Exception {
+        Device device = new Builder().ipAddress(ip).build();
         assertEquals(ip, device.getIpAddress());
     }
 
@@ -35,7 +47,6 @@ public class DeviceTest {
         Device device = new Builder(ip).acceptLanguage(al).build();
         assertEquals(al, device.getAcceptLanguage());
     }
-
 
     @Test
     public void testSessionAge() throws Exception {
