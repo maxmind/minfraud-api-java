@@ -1,5 +1,4 @@
 # MaxMind minFraud Score, Insights, and Factors Java API
-[![Build Status](https://travis-ci.org/maxmind/minfraud-api-java.png?branch=master)](https://travis-ci.org/maxmind/minfraud-api-java)
 
 ## Description ##
 
@@ -130,7 +129,6 @@ Checked exceptions:
 ### Insights
 
 ```java
-
 Transaction request = new Transaction.Builder(
         new Device.Builder(InetAddress.getByName("1.1.1.1"))
             .acceptLanguage("en-US")
@@ -231,7 +229,6 @@ Transaction request = new Transaction.Builder(
     ).build();
 
 WebServiceClient client = new WebServiceClient.Builder(6, "ABCD567890").build();
-
 
 System.out.println(client.insights(request));
 ```

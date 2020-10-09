@@ -54,14 +54,17 @@ public final class Transaction extends AbstractModel {
         final List<ShoppingCartItem> shoppingCart = new ArrayList<>();
 
         /**
-         * The constructor for {@code Builder}
+         * Constructor for {@code Builder}
+         */
+        public Builder() {
+        }
+
+        /**
+         * Constructor for {@code Builder}
          *
          * @param device The {@code Device} model for the request
          */
         public Builder(Device device) {
-            if (device == null) {
-                throw new IllegalArgumentException("device must not be null");
-            }
             this.device = device;
         }
 
@@ -98,6 +101,15 @@ public final class Transaction extends AbstractModel {
          */
         public Builder customInputs(CustomInputs val) {
             customInputs = val;
+            return this;
+        }
+
+        /**
+         * @param val The Device object.
+         * @return The builder object.
+         */
+        public Builder device(Device val) {
+            device = val;
             return this;
         }
 
