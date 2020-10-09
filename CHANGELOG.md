@@ -3,8 +3,10 @@ CHANGELOG
 
 1.16.0
 -------------------
+
 * The HTTP client now allows up to 20 connections to be active at once.
   Previously the limit was 2. Reported by mjancewicz. GitHub #110.
+* `TSYS` was added to the `Payment.Processor` enum.
 * The device IP address is no longer a required input.
 
 1.15.0 (2020-07-09)
