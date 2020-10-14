@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-1.16.0
+1.16.0 (2020-10-14)
 -------------------
 
 * The HTTP client now allows up to 20 connections to be active at once.
