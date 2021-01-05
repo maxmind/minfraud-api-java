@@ -102,6 +102,8 @@ public final class Payment extends AbstractModel {
         ALTAPAY,
         AMAZON_PAYMENTS,
         AMERICAN_EXPRESS_PAYMENT_GATEWAY,
+        APPLE_PAY,
+        APS_PAYMENTS,
         AUTHORIZENET,
         BALANCED,
         BEANSTREAM,
