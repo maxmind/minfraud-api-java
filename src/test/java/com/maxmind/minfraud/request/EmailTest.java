@@ -83,6 +83,91 @@ public class EmailTest {
         assertNull("null addressMd5 if none set", email2.getAddressMd5());
     }
 
+    @Test
+    public void testNormalizing() throws Exception {
+        Email e;
+
+        e = new Builder().address("test@maxmind.com").hashAddress().build();
+        assertEquals("MD5", "977577b140bfb7c516e4746204fbdb01", e.getAddress());
+        assertEquals("domain", "maxmind.com", e.getDomain());
+
+        e = new Builder().address("Test@maxmind.com").hashAddress().build();
+        assertEquals("MD5", "977577b140bfb7c516e4746204fbdb01", e.getAddress());
+        assertEquals("domain", "maxmind.com", e.getDomain());
+
+        e = new Builder(false).address("  Test@maxmind.com").hashAddress().build();
+        assertEquals("MD5", "977577b140bfb7c516e4746204fbdb01", e.getAddress());
+        assertEquals("domain", "maxmind.com", e.getDomain());
+
+        e = new Builder().address("Test+alias@maxmind.com").hashAddress().build();
+        assertEquals("MD5", "977577b140bfb7c516e4746204fbdb01", e.getAddress());
+        assertEquals("domain", "maxmind.com", e.getDomain());
+
+        e = new Builder().address("Test+007+008@maxmind.com").hashAddress().build();
+        assertEquals("MD5", "977577b140bfb7c516e4746204fbdb01", e.getAddress());
+        assertEquals("domain", "maxmind.com", e.getDomain());
+
+        e = new Builder().address("Test+@maxmind.com").hashAddress().build();
+        assertEquals("MD5", "977577b140bfb7c516e4746204fbdb01", e.getAddress());
+        assertEquals("domain", "maxmind.com", e.getDomain());
+
+        e = new Builder(false).address("Test@maxmind.com.").hashAddress().build();
+        assertEquals("MD5", "977577b140bfb7c516e4746204fbdb01", e.getAddress());
+        assertEquals("domain", "maxmind.com.", e.getDomain());
+
+        e = new Builder().address("+@maxmind.com").hashAddress().build();
+        assertEquals("MD5", "aa57884e48f0dda9fc6f4cb2bffb1dd2", e.getAddress());
+        assertEquals("domain", "maxmind.com", e.getDomain());
+
+        e = new Builder(false).address("Test@ maxmind.com").hashAddress().build();
+        assertEquals("MD5", "977577b140bfb7c516e4746204fbdb01", e.getAddress());
+        assertEquals("domain", " maxmind.com", e.getDomain());
+
+        e = new Builder().address("Test+foo@yahoo.com").hashAddress().build();
+        assertEquals("MD5", "a5f830c699fd71ad653aa59fa688c6d9", e.getAddress());
+        assertEquals("domain", "yahoo.com", e.getDomain());
+
+        e = new Builder().address("Test-foo@yahoo.com").hashAddress().build();
+        assertEquals("MD5", "88e478531ab3bc303f1b5da82c2e9bbb", e.getAddress());
+        assertEquals("domain", "yahoo.com", e.getDomain());
+
+        e = new Builder().address("Test-foo-foo2@yahoo.com").hashAddress().build();
+        assertEquals("MD5", "88e478531ab3bc303f1b5da82c2e9bbb", e.getAddress());
+        assertEquals("domain", "yahoo.com", e.getDomain());
+
+        e = new Builder().address("Test-foo@gmail.com").hashAddress().build();
+        assertEquals("MD5", "6f3ff986fa5e830dbbf08a942777a17c", e.getAddress());
+        assertEquals("domain", "gmail.com", e.getDomain());
+
+        e = new Builder().address("test@gmail.com").hashAddress().build();
+        assertEquals("MD5", "1aedb8d9dc4751e229a335e371db8058", e.getAddress());
+        assertEquals("domain", "gmail.com", e.getDomain());
+
+        e = new Builder().address("test@gamil.com").hashAddress().build();
+        assertEquals("MD5", "1aedb8d9dc4751e229a335e371db8058", e.getAddress());
+        assertEquals("domain", "gamil.com", e.getDomain());
+
+        e = new Builder().address("test@bücher.com").hashAddress().build();
+        assertEquals("MD5", "24948acabac551360cd510d5e5e2b464", e.getAddress());
+        assertEquals("domain", "bücher.com", e.getDomain());
+
+        e = new Builder().address("Test+alias@Bücher.com").hashAddress().build();
+        assertEquals("MD5", "24948acabac551360cd510d5e5e2b464", e.getAddress());
+        assertEquals("domain", "Bücher.com", e.getDomain());
+
+        e = new Builder(false).address("test").hashAddress().build();
+        assertEquals("MD5", "098f6bcd4621d373cade4e832627b4f6", e.getAddress());
+        assertNull("domain", e.getDomain());
+
+        e = new Builder(false).address("test@").hashAddress().build();
+        assertEquals("MD5", "246a848af2f8394e3adbc738dbe43720", e.getAddress());
+        assertNull("domain", e.getDomain());
+
+        e = new Builder(false).address("test@.").hashAddress().build();
+        assertEquals("MD5", "246a848af2f8394e3adbc738dbe43720", e.getAddress());
+        assertEquals("domain", ".", e.getDomain());
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidAddress() throws Exception {
         new Builder().address("a@test@test.org").build();

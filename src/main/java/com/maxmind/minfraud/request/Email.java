@@ -6,6 +6,12 @@ import com.maxmind.minfraud.AbstractModel;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.validator.routines.DomainValidator;
 import org.apache.commons.validator.routines.EmailValidator;
+import java.net.IDN;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The email information for the transaction.
@@ -14,6 +20,29 @@ public final class Email extends AbstractModel {
     private final String address;
     private final boolean hashAddress;
     private final String domain;
+    private static final Map<String, String> typoDomains;
+    private static final Pattern addressDashRegex;
+    private static final Pattern addressPlusRegex;
+
+    static {
+        HashMap<String, String> m = new HashMap<>();
+
+        // gmail.com
+        m.put("35gmai.com", "gmail.com");
+        m.put("636gmail.com", "gmail.com");
+        m.put("gamil.com", "gmail.com");
+        m.put("gmail.comu", "gmail.com");
+        m.put("gmial.com", "gmail.com");
+        m.put("gmil.com", "gmail.com");
+        m.put("yahoogmail.com", "gmail.com");
+        // outlook.com
+        m.put("putlook.com", "outlook.com");
+
+        typoDomains = Collections.unmodifiableMap(m);
+
+        addressDashRegex = Pattern.compile("\\A([^-]+)-.*\\z");
+        addressPlusRegex = Pattern.compile("\\A([^+]+)\\+.*\\z");
+    }
 
     private Email(Email.Builder builder) {
         address = builder.address;
@@ -128,9 +157,56 @@ public final class Email extends AbstractModel {
             return null;
         }
         if (hashAddress) {
-            return DigestUtils.md5Hex(address.toLowerCase());
+            return DigestUtils.md5Hex(cleanAddress(address));
         }
         return address;
+    }
+
+    private String cleanAddress(String address) {
+        address = address.trim().toLowerCase();
+
+        int domainIndex = address.lastIndexOf('@');
+        if (domainIndex == -1 || domainIndex + 1 == address.length()) {
+            return address;
+        }
+
+        String localPart = address.substring(0, domainIndex);
+        String domain = address.substring(domainIndex + 1);
+
+        domain = cleanDomain(domain);
+
+        Pattern p;
+        if (domain.equals("yahoo.com")) {
+            p = addressDashRegex;
+        } else {
+            p = addressPlusRegex;
+        }
+        Matcher m = p.matcher(localPart);
+        if (m.find()) {
+            localPart = m.replaceFirst(m.group(1));
+        }
+
+        return localPart + "@" + domain;
+    }
+
+    private String cleanDomain(String domain) {
+        if (domain == null) {
+            return null;
+        }
+
+        domain = domain.trim();
+
+        if (domain.endsWith(".")) {
+            domain = domain.substring(0, domain.length() - 1);
+        }
+
+        domain = IDN.toASCII(domain);
+
+        if (typoDomains.containsKey(domain)) {
+            domain = typoDomains.get(domain);
+        }
+
+        return domain;
     }
 
     /**
@@ -144,7 +220,7 @@ public final class Email extends AbstractModel {
         if (address == null) {
             return null;
         }
-        return DigestUtils.md5Hex(address.toLowerCase());
+        return DigestUtils.md5Hex(cleanAddress(address));
     }
 
     /**

@@ -7,6 +7,8 @@ CHANGELOG
 * The following payment processors were added to the `Payment.Processor` enum:
   * `APPLE_PAY`
   * `APS_PAYMENTS`
+* Added additional normalizing of the email address if `hashAddress` is
+  enabled.
 
 1.16.0 (2020-10-14)
 -------------------
