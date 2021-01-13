@@ -10,8 +10,6 @@ import java.net.IDN;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * The email information for the transaction.
@@ -21,8 +19,6 @@ public final class Email extends AbstractModel {
     private final boolean hashAddress;
     private final String domain;
     private static final Map<String, String> typoDomains;
-    private static final Pattern addressDashRegex;
-    private static final Pattern addressPlusRegex;
 
     static {
         HashMap<String, String> m = new HashMap<String, String>() {{
@@ -39,9 +35,6 @@ public final class Email extends AbstractModel {
         }};
 
         typoDomains = Collections.unmodifiableMap(m);
-
-        addressDashRegex = Pattern.compile("\\A([^-]+)-.*\\z");
-        addressPlusRegex = Pattern.compile("\\A([^+]+)\\+.*\\z");
     }
 
     private Email(Email.Builder builder) {
@@ -175,15 +168,15 @@ public final class Email extends AbstractModel {
 
         domain = cleanDomain(domain);
 
-        Pattern p;
+        int stopChar;
         if (domain.equals("yahoo.com")) {
-            p = addressDashRegex;
+            stopChar = '-';
         } else {
-            p = addressPlusRegex;
+            stopChar = '+';
         }
-        Matcher m = p.matcher(localPart);
-        if (m.find()) {
-            localPart = m.replaceFirst(m.group(1));
+        int stopCharIndex = localPart.indexOf(stopChar);
+        if (stopCharIndex > 0) {
+            localPart = localPart.substring(0, stopCharIndex);
         }
 
         return localPart + "@" + domain;
