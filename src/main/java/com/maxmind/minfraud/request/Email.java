@@ -25,18 +25,18 @@ public final class Email extends AbstractModel {
     private static final Pattern addressPlusRegex;
 
     static {
-        HashMap<String, String> m = new HashMap<>();
-
-        // gmail.com
-        m.put("35gmai.com", "gmail.com");
-        m.put("636gmail.com", "gmail.com");
-        m.put("gamil.com", "gmail.com");
-        m.put("gmail.comu", "gmail.com");
-        m.put("gmial.com", "gmail.com");
-        m.put("gmil.com", "gmail.com");
-        m.put("yahoogmail.com", "gmail.com");
-        // outlook.com
-        m.put("putlook.com", "outlook.com");
+        HashMap<String, String> m = new HashMap<String, String>() {{
+            // gmail.com
+            put("35gmai.com", "gmail.com");
+            put("636gmail.com", "gmail.com");
+            put("gamil.com", "gmail.com");
+            put("gmail.comu", "gmail.com");
+            put("gmial.com", "gmail.com");
+            put("gmil.com", "gmail.com");
+            put("yahoogmail.com", "gmail.com");
+            // outlook.com
+            put("putlook.com", "outlook.com");
+        }};
 
         typoDomains = Collections.unmodifiableMap(m);
 
