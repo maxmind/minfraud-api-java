@@ -6,6 +6,10 @@ import com.maxmind.minfraud.AbstractModel;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.validator.routines.DomainValidator;
 import org.apache.commons.validator.routines.EmailValidator;
+import java.net.IDN;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The email information for the transaction.
@@ -14,6 +18,24 @@ public final class Email extends AbstractModel {
     private final String address;
     private final boolean hashAddress;
     private final String domain;
+    private static final Map<String, String> typoDomains;
+
+    static {
+        HashMap<String, String> m = new HashMap<String, String>() {{
+            // gmail.com
+            put("35gmai.com", "gmail.com");
+            put("636gmail.com", "gmail.com");
+            put("gamil.com", "gmail.com");
+            put("gmail.comu", "gmail.com");
+            put("gmial.com", "gmail.com");
+            put("gmil.com", "gmail.com");
+            put("yahoogmail.com", "gmail.com");
+            // outlook.com
+            put("putlook.com", "outlook.com");
+        }};
+
+        typoDomains = Collections.unmodifiableMap(m);
+    }
 
     private Email(Email.Builder builder) {
         address = builder.address;
@@ -128,9 +150,56 @@ public final class Email extends AbstractModel {
             return null;
         }
         if (hashAddress) {
-            return DigestUtils.md5Hex(address.toLowerCase());
+            return DigestUtils.md5Hex(cleanAddress(address));
         }
         return address;
+    }
+
+    private String cleanAddress(String address) {
+        address = address.trim().toLowerCase();
+
+        int domainIndex = address.lastIndexOf('@');
+        if (domainIndex == -1 || domainIndex + 1 == address.length()) {
+            return address;
+        }
+
+        String localPart = address.substring(0, domainIndex);
+        String domain = address.substring(domainIndex + 1);
+
+        domain = cleanDomain(domain);
+
+        int stopChar;
+        if (domain.equals("yahoo.com")) {
+            stopChar = '-';
+        } else {
+            stopChar = '+';
+        }
+        int stopCharIndex = localPart.indexOf(stopChar);
+        if (stopCharIndex > 0) {
+            localPart = localPart.substring(0, stopCharIndex);
+        }
+
+        return localPart + "@" + domain;
+    }
+
+    private String cleanDomain(String domain) {
+        if (domain == null) {
+            return null;
+        }
+
+        domain = domain.trim();
+
+        if (domain.endsWith(".")) {
+            domain = domain.substring(0, domain.length() - 1);
+        }
+
+        domain = IDN.toASCII(domain);
+
+        if (typoDomains.containsKey(domain)) {
+            domain = typoDomains.get(domain);
+        }
+
+        return domain;
     }
 
     /**
@@ -144,7 +213,7 @@ public final class Email extends AbstractModel {
         if (address == null) {
             return null;
         }
-        return DigestUtils.md5Hex(address.toLowerCase());
+        return DigestUtils.md5Hex(cleanAddress(address));
     }
 
     /**
