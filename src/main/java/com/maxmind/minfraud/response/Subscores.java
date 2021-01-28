@@ -72,8 +72,10 @@ public final class Subscores {
         this.timeOfDay = timeOfDay;
     }
 
-    // This method is for backwards compatibility. We should remove it when we
-    // do a major release.
+    /**
+     * @deprecated This constructor only exists for backward compatibility
+     * and will be removed in the next major release.
+     */
     public Subscores(
             Double avsResult,
             Double billingAddress,

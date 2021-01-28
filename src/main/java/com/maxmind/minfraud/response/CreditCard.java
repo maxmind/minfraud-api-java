@@ -16,8 +16,10 @@ public final class CreditCard extends AbstractModel {
     private final Boolean isVirtual;
     private final String type;
 
-    // This method is for backwards compatibility. We should remove it when we
-    // do a major release.
+    /**
+     * @deprecated This constructor only exists for backward compatibility
+     * and will be removed in the next major release.
+     */
     public CreditCard(
             String brand,
             String country,
@@ -30,8 +32,10 @@ public final class CreditCard extends AbstractModel {
             issuer, type);
     }
 
-    // This method is for backwards compatibility. We should remove it when we
-    // do a major release.
+    /**
+     * @deprecated This constructor only exists for backward compatibility
+     * and will be removed in the next major release.
+     */
     public CreditCard(
             String brand,
             String country,
