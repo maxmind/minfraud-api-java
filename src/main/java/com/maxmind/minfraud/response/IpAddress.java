@@ -41,6 +41,18 @@ public final class IpAddress extends InsightsResponse implements IpAddressInterf
     /**
      * @deprecated This constructor only exists for backward compatibility
      * and will be removed in the next major release.
+     *
+     * @param city The city information.
+     * @param continent The continent information.
+     * @param country The country information.
+     * @param location The location information.
+     * @param maxmind Maxmind-specific information.
+     * @param postal The postal information.
+     * @param registeredCountry The information about the country where the IP was registered.
+     * @param representedCountry The represented country, e.g., for military bases in other countries.
+     * @param risk The IP risk.
+     * @param subdivisions The list of subdivisions.
+     * @param traits Information about various other IP traits.
      */
     public IpAddress(
             City city,

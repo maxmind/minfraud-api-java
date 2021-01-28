@@ -17,6 +17,13 @@ public final class GeoIp2Country extends Country {
     /**
      * @deprecated This constructor only exists for backward compatibility
      * and will be removed in the next major release.
+     *
+     * @param locales The locales.
+     * @param confidence The confidence.
+     * @param geoNameId The GeoName ID.
+     * @param isHighRisk Whether it is a high risk country.
+     * @param isoCode The ISO code.
+     * @param names The names.
      */
     public GeoIp2Country(
             List<String> locales,

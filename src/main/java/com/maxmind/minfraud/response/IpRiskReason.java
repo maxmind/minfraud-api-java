@@ -24,7 +24,7 @@ public final class IpRiskReason extends AbstractModel {
      * <dl>
      *     <dt>ANONYMOUS_IP</dt>
      *     <dd>The IP address belongs to an anonymous network. See the
-     *     object at <c>.IPAddress.Traits</c> for more details.</dd>
+     *     object at <code>.IPAddress.Traits</code> for more details.</dd>
      *
      *     <dt>BILLING_POSTAL_VELOCITY</dt>
      *     <dd>Many different billing postal codes have been seen on
