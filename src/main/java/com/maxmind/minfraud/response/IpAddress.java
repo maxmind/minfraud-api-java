@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.geoip2.model.InsightsResponse;
 import com.maxmind.geoip2.record.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -13,6 +15,7 @@ public final class IpAddress extends InsightsResponse implements IpAddressInterf
     private final GeoIp2Country country;
     private final GeoIp2Location location;
     private final Double risk;
+    private final List<IpRiskReason> riskReasons;
 
     public IpAddress(
             @JsonProperty("city") City city,
@@ -24,6 +27,7 @@ public final class IpAddress extends InsightsResponse implements IpAddressInterf
             @JsonProperty("registered_country") Country registeredCountry,
             @JsonProperty("represented_country") RepresentedCountry representedCountry,
             @JsonProperty("risk") Double risk,
+            @JsonProperty("risk_reasons") List<IpRiskReason> riskReasons,
             @JsonProperty("subdivisions") List<Subdivision> subdivisions,
             @JsonProperty("traits") Traits traits
     ) {
@@ -31,6 +35,28 @@ public final class IpAddress extends InsightsResponse implements IpAddressInterf
         this.country = country == null ? new GeoIp2Country() : country;
         this.location = location == null ? new GeoIp2Location() : location;
         this.risk = risk;
+        this.riskReasons = Collections.unmodifiableList(riskReasons == null ? new ArrayList<>() : riskReasons);
+    }
+
+    /**
+     * @deprecated This constructor only exists for backward compatibility
+     * and will be removed in the next major release.
+     */
+    public IpAddress(
+            City city,
+            Continent continent,
+            GeoIp2Country country,
+            GeoIp2Location location,
+            MaxMind maxmind,
+            Postal postal,
+            Country registeredCountry,
+            RepresentedCountry representedCountry,
+            Double risk,
+            List<Subdivision> subdivisions,
+            Traits traits
+    ) {
+        this(city, continent, country, location, maxmind, postal, registeredCountry, representedCountry,
+                risk, null, subdivisions, traits);
     }
 
     public IpAddress() {
@@ -62,5 +88,15 @@ public final class IpAddress extends InsightsResponse implements IpAddressInterf
      */
     public Double getRisk() {
         return risk;
+    }
+
+    /**
+     * @return An unmodifiable list contains risk reason objects identifying
+     * the reasons why the IP address received the associated risk. This will
+     * be an empty list if there are no reasons.
+     */
+    @JsonProperty("risk_reasons")
+    public final List<IpRiskReason> getRiskReasons() {
+        return riskReasons;
     }
 }

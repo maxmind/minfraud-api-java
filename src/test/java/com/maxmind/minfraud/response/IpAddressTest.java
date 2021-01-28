@@ -3,8 +3,7 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.jr.ob.JSON;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class IpAddressTest extends AbstractOutputTest {
 
@@ -18,6 +17,12 @@ public class IpAddressTest extends AbstractOutputTest {
                         .composeString()
                         .startObject()
                         .put("risk", 99)
+                        .startArrayField("risk_reasons")
+                        .startObject()
+                        .put("code", "ANONYMOUS_IP")
+                        .put("reason", "some reason")
+                        .end()
+                        .end()
                         .startObjectField("country")
                         .put("is_high_risk", true)
                         .end()
@@ -46,6 +51,19 @@ public class IpAddressTest extends AbstractOutputTest {
         assertTrue("isHostingProvider", address.getTraits().isHostingProvider());
         assertTrue("isPublicProxy", address.getTraits().isPublicProxy());
         assertTrue("isTorExitNode", address.getTraits().isTorExitNode());
+        assertEquals("IP risk reason code", "ANONYMOUS_IP",
+                address.getRiskReasons().get(0).getCode());
+        assertEquals("IP risk reason", "some reason",
+                address.getRiskReasons().get(0).getReason());
+    }
 
+    @Test
+    public void testEmptyObject() throws Exception {
+        IpAddress address = this.deserialize(
+                IpAddress.class,
+                "{}"
+        );
+
+        assertNotNull(address.getRiskReasons());
     }
 }

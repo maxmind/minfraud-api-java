@@ -8,6 +8,7 @@ import com.maxmind.minfraud.request.Transaction;
 import com.maxmind.minfraud.request.TransactionReport;
 import com.maxmind.minfraud.response.FactorsResponse;
 import com.maxmind.minfraud.response.InsightsResponse;
+import com.maxmind.minfraud.response.IpRiskReason;
 import com.maxmind.minfraud.response.ScoreResponse;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -17,6 +18,7 @@ import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.net.InetAddress;
+import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.jcabi.matchers.RegexMatchers.matchesPattern;
@@ -89,6 +91,12 @@ public class WebServiceClientTest {
             assertEquals("81.2.69.0/24", response.getIpAddress().getTraits().getNetwork().toString());
 
             assertTrue(response.getCreditCard().isVirtual());
+
+            List<IpRiskReason> reasons = response.getIpAddress().getRiskReasons();
+
+            assertEquals("two IP risk reasons", 2, reasons.size());
+            assertEquals("second IP risk reason code", "MINFRAUD_NETWORK_ACTIVITY",
+                    reasons.get(1).getCode());
         }
     }
 

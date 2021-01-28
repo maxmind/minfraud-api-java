@@ -9,6 +9,9 @@ CHANGELOG
   * `APS_PAYMENTS`
 * Added additional normalizing of the email address if `hashAddress` is
   enabled.
+* Added support for the IP address risk reasons in the minFraud Insights and
+  Factors responses. This is available at `response.getIpAddress().getRiskReasons()`.
+  It is a list of `IpRiskReason` objects.
 
 1.16.0 (2020-10-14)
 -------------------
