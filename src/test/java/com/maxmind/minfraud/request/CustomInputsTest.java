@@ -27,33 +27,33 @@ public class CustomInputsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testInvalidKey() throws Exception {
+    public void testInvalidKey() {
         new CustomInputs.Builder().put("InvalidKey", 1);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testStringThatIsTooLong() throws Exception {
+    public void testStringThatIsTooLong() {
         new CustomInputs.Builder().put("string",
                 new String(new char[256]).replace('\0', 'x'));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testStringWithNewLine() throws Exception {
+    public void testStringWithNewLine() {
         new CustomInputs.Builder().put("string", "test\n");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testTooLargeLong() throws Exception {
+    public void testTooLargeLong() {
         new CustomInputs.Builder().put("long", 10_000_000_000_000L);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testTooSmallLong() throws Exception {
+    public void testTooSmallLong() {
         new CustomInputs.Builder().put("long", -10_000_000_000_000L);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testTooLargeDouble() throws Exception {
+    public void testTooLargeDouble() {
         new CustomInputs.Builder().put("double", 1e13);
     }
 }

@@ -12,58 +12,58 @@ import static org.junit.Assert.assertTrue;
 public class OrderTest {
 
     @Test
-    public void testDoubleAmount() throws Exception {
+    public void testDoubleAmount() {
         Order order = new Builder().amount(1.1).build();
         assertEquals(BigDecimal.valueOf(1.1), order.getAmount());
     }
 
     @Test
-    public void testAmount() throws Exception {
+    public void testAmount() {
         Order order = new Builder().amount(BigDecimal.valueOf(1.1)).build();
         assertEquals(BigDecimal.valueOf(1.1), order.getAmount());
     }
 
     @Test
-    public void testCurrency() throws Exception {
+    public void testCurrency() {
         Order order = new Builder().currency("USD").build();
         assertEquals("USD", order.getCurrency());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCurrencyWithDigits() throws Exception {
+    public void testCurrencyWithDigits() {
         new Builder().currency("US1").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCurrencyThatIsTooShort() throws Exception {
+    public void testCurrencyThatIsTooShort() {
         new Builder().currency("US").build();
     }
 
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCurrencyThatIsTooLong() throws Exception {
+    public void testCurrencyThatIsTooLong() {
         new Builder().currency("USDE").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCurrencyInWrongCase() throws Exception {
+    public void testCurrencyInWrongCase() {
         new Builder().currency("usd").build();
     }
 
     @Test
-    public void testDiscountCode() throws Exception {
+    public void testDiscountCode() {
         Order order = new Builder().discountCode("dsc").build();
         assertEquals("dsc", order.getDiscountCode());
     }
 
     @Test
-    public void testAffiliateId() throws Exception {
+    public void testAffiliateId() {
         Order order = new Builder().affiliateId("af").build();
         assertEquals("af", order.getAffiliateId());
     }
 
     @Test
-    public void testSubaffiliateId() throws Exception {
+    public void testSubaffiliateId() {
         Order order = new Builder().subaffiliateId("saf").build();
         assertEquals("saf", order.getSubaffiliateId());
     }
@@ -76,13 +76,13 @@ public class OrderTest {
     }
 
     @Test
-    public void testIsGift() throws Exception {
+    public void testIsGift() {
         Order order = new Builder().isGift(true).build();
         assertTrue(order.isGift());
     }
 
     @Test
-    public void testHasGiftMessage() throws Exception {
+    public void testHasGiftMessage() {
         Order order = new Builder().hasGiftMessage(true).build();
         assertTrue(order.hasGiftMessage());
     }

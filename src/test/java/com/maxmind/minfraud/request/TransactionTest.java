@@ -13,7 +13,7 @@ public class TransactionTest {
     }
 
     @Test
-    public void testConstructorWithoutDevice() throws Exception {
+    public void testConstructorWithoutDevice() {
         Transaction request = new Transaction.Builder().build();
         assertEquals(null, request.getDevice());
     }
