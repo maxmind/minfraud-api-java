@@ -101,17 +101,15 @@ public class TransactionReportTest {
         .transactionId("foo")
         .build();
 
-        final String expectedJSON = new StringBuilder()
-        .append("{")
-        .append("ip_address:'1.1.1.1',")
-        .append("tag:'not_fraud',")
-        .append("chargeback_code:'mycode',")
-        .append("maxmind_id:'12345678',")
-        .append("minfraud_id:'58fa38d8-4b87-458b-a22b-f00eda1aa20d',")
-        .append("notes:'notes go here',")
-        .append("transaction_id:'foo'")
-        .append("}")
-        .toString();
+        final String expectedJSON = "{" +
+                "ip_address:'1.1.1.1'," +
+                "tag:'not_fraud'," +
+                "chargeback_code:'mycode'," +
+                "maxmind_id:'12345678'," +
+                "minfraud_id:'58fa38d8-4b87-458b-a22b-f00eda1aa20d'," +
+                "notes:'notes go here'," +
+                "transaction_id:'foo'" +
+                "}";
 
         JSONAssert.assertEquals(expectedJSON, report.toJson(), true);
     }

@@ -7,10 +7,11 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class DeviceTest {
 
-    private InetAddress ip;
+    private final InetAddress ip;
 
     public DeviceTest() throws UnknownHostException {
         ip = InetAddress.getByName("1.1.1.1");
@@ -19,7 +20,7 @@ public class DeviceTest {
     @Test
     public void testConstructorWithoutIP() {
         Device device = new Builder().build();
-        assertEquals(null, device.getIpAddress());
+        assertNull(device.getIpAddress());
     }
 
     @Test
