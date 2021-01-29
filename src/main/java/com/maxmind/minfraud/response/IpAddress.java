@@ -46,7 +46,7 @@ public final class IpAddress extends InsightsResponse implements IpAddressInterf
      * @param continent The continent information.
      * @param country The country information.
      * @param location The location information.
-     * @param maxmind Maxmind-specific information.
+     * @param maxmind MaxMind-specific information.
      * @param postal The postal information.
      * @param registeredCountry The information about the country where the IP was registered.
      * @param representedCountry The represented country, e.g., for military bases in other countries.
@@ -103,7 +103,7 @@ public final class IpAddress extends InsightsResponse implements IpAddressInterf
     }
 
     /**
-     * @return An unmodifiable list contains risk reason objects identifying
+     * @return An unmodifiable list containing risk reason objects that identify
      * the reasons why the IP address received the associated risk. This will
      * be an empty list if there are no reasons.
      */
