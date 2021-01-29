@@ -10,31 +10,31 @@ import static org.junit.Assert.assertEquals;
 public class ShoppingCartTest {
 
     @Test
-    public void testCategory() throws Exception {
+    public void testCategory() {
         ShoppingCartItem item = new Builder().category("cat1").build();
         assertEquals("cat1", item.getCategory());
     }
 
     @Test
-    public void testItemId() throws Exception {
+    public void testItemId() {
         ShoppingCartItem item = new Builder().itemId("id5").build();
         assertEquals("id5", item.getItemId());
     }
 
     @Test
-    public void testQuantity() throws Exception {
+    public void testQuantity() {
         ShoppingCartItem item = new Builder().quantity(100).build();
         assertEquals(Integer.valueOf(100), item.getQuantity());
     }
 
     @Test
-    public void testPrice() throws Exception {
+    public void testPrice() {
         ShoppingCartItem item = new Builder().price(BigDecimal.TEN).build();
         assertEquals(BigDecimal.TEN, item.getPrice());
     }
 
     @Test
-    public void testDoublePrice() throws Exception {
+    public void testDoublePrice() {
         ShoppingCartItem item = new Builder().price(10.3).build();
         assertEquals(BigDecimal.valueOf(10.3), item.getPrice());
     }

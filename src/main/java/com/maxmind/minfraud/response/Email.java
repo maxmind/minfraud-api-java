@@ -30,8 +30,15 @@ public final class Email extends AbstractModel {
         this.firstSeen = firstSeen;
     }
 
-    // The following constructors are for backward compatibility and
-    // can be removed as part of a major release
+    /**
+     * @deprecated This constructor only exists for backward compatibility
+     * and will be removed in the next major release.
+     *
+     * @param isDisposable Whether it is a disposable email.
+     * @param isFree Whether it is a free email.
+     * @param isHighRisk Whether it is a high risk email.
+     * @param firstSeen When the email was first seen.
+     */
     public Email(
             Boolean isDisposable,
             Boolean isFree,
@@ -41,6 +48,14 @@ public final class Email extends AbstractModel {
         this(null, isDisposable, isFree, isHighRisk, firstSeen);
     }
 
+    /**
+     * @deprecated This constructor only exists for backward compatibility
+     * and will be removed in the next major release.
+     *
+     * @param isFree Whether it is a free email.
+     * @param isHighRisk Whether it is a high risk email.
+     * @param firstSeen When the email was first seen.
+     */
     public Email(
             Boolean isFree,
             Boolean isHighRisk,
@@ -49,6 +64,13 @@ public final class Email extends AbstractModel {
         this(null, isFree, isHighRisk, firstSeen);
     }
 
+    /**
+     * @deprecated This constructor only exists for backward compatibility
+     * and will be removed in the next major release.
+     *
+     * @param isFree Whether it is a free email.
+     * @param isHighRisk Whether it is a high risk email.
+     */
     public Email(
             Boolean isFree,
             Boolean isHighRisk

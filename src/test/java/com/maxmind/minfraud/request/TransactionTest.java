@@ -6,6 +6,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class TransactionTest {
     private Transaction.Builder builder() throws UnknownHostException {
@@ -13,9 +14,9 @@ public class TransactionTest {
     }
 
     @Test
-    public void testConstructorWithoutDevice() throws Exception {
+    public void testConstructorWithoutDevice() {
         Transaction request = new Transaction.Builder().build();
-        assertEquals(null, request.getDevice());
+        assertNull(request.getDevice());
     }
 
     @Test

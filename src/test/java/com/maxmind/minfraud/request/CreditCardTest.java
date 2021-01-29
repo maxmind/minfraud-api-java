@@ -12,74 +12,74 @@ import static org.junit.Assert.assertEquals;
 public class CreditCardTest {
 
     @Test
-    public void testIssuerIdNumber() throws Exception {
+    public void testIssuerIdNumber() {
         CreditCard cc = new Builder().issuerIdNumber("123456").build();
         assertEquals("123456", cc.getIssuerIdNumber());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIssuerIdNumberThatIsTooLong() throws Exception {
+    public void testIssuerIdNumberThatIsTooLong() {
         new Builder().issuerIdNumber("1234567").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIssuerIdNumberThatIsTooShort() throws Exception {
+    public void testIssuerIdNumberThatIsTooShort() {
         new Builder().issuerIdNumber("12345").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIssuerIdNumberThatHasLetters() throws Exception {
+    public void testIssuerIdNumberThatHasLetters() {
         new Builder().issuerIdNumber("12345a").build();
     }
 
     @Test
-    public void testLast4Digits() throws Exception {
+    public void testLast4Digits() {
         CreditCard cc = new Builder().last4Digits("1234").build();
         assertEquals("1234", cc.getLast4Digits());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testLast4DigitsThatIsTooLong() throws Exception {
+    public void testLast4DigitsThatIsTooLong() {
         new Builder().last4Digits("12345").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testLast4DigitsThatIsTooShort() throws Exception {
+    public void testLast4DigitsThatIsTooShort() {
         new Builder().last4Digits("123").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testLast4DigitsThatHasLetters() throws Exception {
+    public void testLast4DigitsThatHasLetters() {
         new Builder().last4Digits("123a").build();
     }
 
     @Test
-    public void testBankName() throws Exception {
+    public void testBankName() {
         CreditCard cc = new Builder().bankName("Bank").build();
         assertEquals("Bank", cc.getBankName());
     }
 
     @Test
-    public void testBankPhoneCountryCode() throws Exception {
+    public void testBankPhoneCountryCode() {
         CreditCard cc = new Builder().bankPhoneCountryCode("1").build();
         assertEquals("1", cc.getBankPhoneCountryCode());
     }
 
     @Test
-    public void testBankPhoneNumber() throws Exception {
+    public void testBankPhoneNumber() {
         String phone = "231-323-3123";
         CreditCard cc = new Builder().bankPhoneNumber(phone).build();
         assertEquals(phone, cc.getBankPhoneNumber());
     }
 
     @Test
-    public void testAvsResult() throws Exception {
+    public void testAvsResult() {
         CreditCard cc = new Builder().avsResult('Y').build();
         assertEquals(Character.valueOf('Y'), cc.getAvsResult());
     }
 
     @Test
-    public void testCvvResult() throws Exception {
+    public void testCvvResult() {
         CreditCard cc = new Builder().cvvResult('N').build();
         assertEquals(Character.valueOf('N'), cc.getCvvResult());
     }
@@ -91,7 +91,7 @@ public class CreditCardTest {
             "",
             "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     })
-    public void testInvalidToken(String token) throws Exception {
+    public void testInvalidToken(String token) {
         new Builder().token(token).build();
     }
 
@@ -100,7 +100,7 @@ public class CreditCardTest {
             "a7f6%gf83fhAu",
             "valid_token"
     })
-    public void testValidToken(String token) throws Exception {
+    public void testValidToken(String token) {
         CreditCard cc = new Builder().token(token).build();
         assertEquals(token, cc.getToken());
     }

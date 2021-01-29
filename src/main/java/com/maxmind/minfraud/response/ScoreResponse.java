@@ -93,8 +93,8 @@ public class ScoreResponse extends AbstractModel {
     }
 
     /**
-     * @return An unmodifiable list contains warning objects detailing issues
-     * with the request that was sent such as invalid or unknown inputs. It is
+     * @return An unmodifiable list containing warning objects that detail
+     * issues with the request such as invalid or unknown inputs. It is
      * highly recommended that you check this list for issues when integrating
      * the web service.
      */

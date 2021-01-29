@@ -77,7 +77,7 @@ an Insights request by calling `insights` method:
 InsightsResponse insights = client.insights(transaction);
 ```
 
-an Factors request by calling `factors` method:
+a Factors request by calling `factors` method:
 
 ```java
 FactorsResponse factors = client.factors(transaction);

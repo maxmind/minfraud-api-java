@@ -22,67 +22,67 @@ public class TransactionReportTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testInvalidIPAddress() throws Exception {
+    public void testInvalidIPAddress() {
         new Builder(null, tag).maxmindId("123456789").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testInvalidTag() throws Exception {
+    public void testInvalidTag() {
         new Builder(ip, null).maxmindId("123456789").build();
     }
 
     @Test
-    public void testIpAddress() throws Exception {
+    public void testIpAddress() {
         final TransactionReport report = new Builder(ip, tag).build();
         assertEquals(ip, report.getIpAddress());
     }
 
     @Test
-    public void testTag() throws Exception {
+    public void testTag() {
         final TransactionReport report = new Builder(ip, tag).build();
         assertEquals(Tag.NOT_FRAUD, report.getTag());
     }
 
     @Test
-    public void testChargebackCode() throws Exception {
+    public void testChargebackCode() {
         final String code = "foo";
         final TransactionReport report = new Builder(ip, tag).chargebackCode(code).build();
         assertEquals(code, report.getChargebackCode());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testTooLongMaxmindId() throws Exception {
+    public void testTooLongMaxmindId() {
         new Builder(ip, tag).maxmindId("123456789").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testTooShortMaxmindId() throws Exception {
+    public void testTooShortMaxmindId() {
         new Builder(ip, tag).maxmindId("1234567").build();
     }
 
     @Test
-    public void testValidMaxmindId() throws Exception {
+    public void testValidMaxmindId() {
         final String id = "12345678";
         final TransactionReport report = new Builder(ip, tag).maxmindId(id).build();
         assertEquals(id, report.getMaxmindId());
     }
 
     @Test
-    public void testMinfraudId() throws Exception {
+    public void testMinfraudId() {
         final UUID id = UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d");
         final TransactionReport report = new Builder(ip, tag).minfraudId(id).build();
         assertEquals(id, report.getMinfraudId());
     }
 
     @Test
-    public void testNotes() throws Exception {
+    public void testNotes() {
         final String notes = "foo";
         final TransactionReport report = new Builder(ip, tag).notes(notes).build();
         assertEquals(notes, report.getNotes());
     }
 
     @Test
-    public void testTransactionID() throws Exception {
+    public void testTransactionID() {
         final String id = "foo";
         final TransactionReport report = new Builder(ip, tag).transactionId(id).build();
         assertEquals(id, report.getTransactionId());
@@ -101,17 +101,15 @@ public class TransactionReportTest {
         .transactionId("foo")
         .build();
 
-        final String expectedJSON = new StringBuilder()
-        .append("{")
-        .append("ip_address:'1.1.1.1',")
-        .append("tag:'not_fraud',")
-        .append("chargeback_code:'mycode',")
-        .append("maxmind_id:'12345678',")
-        .append("minfraud_id:'58fa38d8-4b87-458b-a22b-f00eda1aa20d',")
-        .append("notes:'notes go here',")
-        .append("transaction_id:'foo'")
-        .append("}")
-        .toString();
+        final String expectedJSON = "{" +
+                "ip_address:'1.1.1.1'," +
+                "tag:'not_fraud'," +
+                "chargeback_code:'mycode'," +
+                "maxmind_id:'12345678'," +
+                "minfraud_id:'58fa38d8-4b87-458b-a22b-f00eda1aa20d'," +
+                "notes:'notes go here'," +
+                "transaction_id:'foo'" +
+                "}";
 
         JSONAssert.assertEquals(expectedJSON, report.toJson(), true);
     }

@@ -8,6 +8,7 @@ import com.maxmind.minfraud.request.Transaction;
 import com.maxmind.minfraud.request.TransactionReport;
 import com.maxmind.minfraud.response.FactorsResponse;
 import com.maxmind.minfraud.response.InsightsResponse;
+import com.maxmind.minfraud.response.IpRiskReason;
 import com.maxmind.minfraud.response.ScoreResponse;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -17,6 +18,7 @@ import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.net.InetAddress;
+import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.jcabi.matchers.RegexMatchers.matchesPattern;
@@ -89,6 +91,12 @@ public class WebServiceClientTest {
             assertEquals("81.2.69.0/24", response.getIpAddress().getTraits().getNetwork().toString());
 
             assertTrue(response.getCreditCard().isVirtual());
+
+            List<IpRiskReason> reasons = response.getIpAddress().getRiskReasons();
+
+            assertEquals("two IP risk reasons", 2, reasons.size());
+            assertEquals("second IP risk reason code", "MINFRAUD_NETWORK_ACTIVITY",
+                    reasons.get(1).getCode());
         }
     }
 
@@ -159,7 +167,7 @@ public class WebServiceClientTest {
     }
 
     @Test
-    public void testInsufficientCredit() throws Exception {
+    public void testInsufficientCredit() {
         Exception ex = assertThrows(InsufficientFundsException.class, () -> createInsightsError(
                 402,
                 "application/json",
@@ -174,7 +182,7 @@ public class WebServiceClientTest {
             "AUTHORIZATION_INVALID",
             "LICENSE_KEY_REQUIRED",
             "USER_ID_REQUIRED"})
-    public void testInvalidAuth(String code) throws Exception {
+    public void testInvalidAuth(String code) {
         Exception ex = assertThrows(AuthenticationException.class, () ->
                 createInsightsError(
                         401,
@@ -186,7 +194,7 @@ public class WebServiceClientTest {
     }
 
     @Test
-    public void testPermissionRequired() throws Exception {
+    public void testPermissionRequired() {
         Exception ex = assertThrows(PermissionRequiredException.class, () -> createInsightsError(
                 403,
                 "application/json",
@@ -196,7 +204,7 @@ public class WebServiceClientTest {
     }
 
     @Test
-    public void testInvalidRequest() throws Exception {
+    public void testInvalidRequest() {
         Exception ex = assertThrows(InvalidRequestException.class, () ->
                 createInsightsError(
                         400,
@@ -208,7 +216,7 @@ public class WebServiceClientTest {
     }
 
     @Test
-    public void test400WithInvalidJson() throws Exception {
+    public void test400WithInvalidJson() {
         Exception ex = assertThrows(HttpException.class, () ->
                 createInsightsError(
                         400,
@@ -220,7 +228,7 @@ public class WebServiceClientTest {
     }
 
     @Test
-    public void test400WithNoBody() throws Exception {
+    public void test400WithNoBody() {
         Exception ex = assertThrows(HttpException.class, () ->
                 createInsightsError(
                         400,
@@ -232,7 +240,7 @@ public class WebServiceClientTest {
     }
 
     @Test
-    public void test400WithUnexpectedContentType() throws Exception {
+    public void test400WithUnexpectedContentType() {
         Exception ex = assertThrows(HttpException.class, () ->
                 createInsightsError(
                         400,
@@ -245,7 +253,7 @@ public class WebServiceClientTest {
     }
 
     @Test
-    public void test400WithUnexpectedJson() throws Exception {
+    public void test400WithUnexpectedJson() {
         Exception ex = assertThrows(HttpException.class, () ->
                 createInsightsError(
                         400,
@@ -257,7 +265,7 @@ public class WebServiceClientTest {
     }
 
     @Test
-    public void test300() throws Exception {
+    public void test300() {
         Exception ex = assertThrows(HttpException.class, () ->
                 createInsightsError(
                         300,
@@ -270,7 +278,7 @@ public class WebServiceClientTest {
     }
 
     @Test
-    public void test500() throws Exception {
+    public void test500() {
         Exception ex = assertThrows(HttpException.class, () ->
                 createInsightsError(
                         500,

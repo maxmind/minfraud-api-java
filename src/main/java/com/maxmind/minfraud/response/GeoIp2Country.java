@@ -14,8 +14,17 @@ import java.util.Map;
 public final class GeoIp2Country extends Country {
     private final boolean isHighRisk;
 
-    // This method is for backwards compatibility. We should remove it when we
-    // do a major release.
+    /**
+     * @deprecated This constructor only exists for backward compatibility
+     * and will be removed in the next major release.
+     *
+     * @param locales The locales.
+     * @param confidence The confidence.
+     * @param geoNameId The GeoName ID.
+     * @param isHighRisk Whether it is a high risk country.
+     * @param isoCode The ISO code.
+     * @param names The names.
+     */
     public GeoIp2Country(
             List<String> locales,
             Integer confidence,

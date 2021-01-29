@@ -72,8 +72,28 @@ public final class Subscores {
         this.timeOfDay = timeOfDay;
     }
 
-    // This method is for backwards compatibility. We should remove it when we
-    // do a major release.
+    /**
+     * @deprecated This constructor only exists for backward compatibility
+     * and will be removed in the next major release.
+     *
+     * @param avsResult The AVS result subscore.
+     * @param billingAddress The billing address subscore.
+     * @param billingAddressDistanceToIpLocation The billing address distance to the IP location subscore.
+     * @param browser The browser subscore.
+     * @param chargeback The chargeback subscore.
+     * @param country The country subscore.
+     * @param countryMismatch The country mismatch subscore.
+     * @param cvvResult The CVV result subscore.
+     * @param emailAddress The email address subscore.
+     * @param emailDomain The email domain subscore.
+     * @param emailTenure The email tenure subscore.
+     * @param ipTenure The IP tenure subscore.
+     * @param issuerIdNumber The IIN subscore.
+     * @param orderAmount The order amount subscore.
+     * @param phoneNumber The phone number subscore.
+     * @param shippingAddressDistanceToIpLocation The shipping address distance to IP location subscore.
+     * @param timeOfDay The time of day subscore.
+     */
     public Subscores(
             Double avsResult,
             Double billingAddress,

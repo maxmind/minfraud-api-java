@@ -13,7 +13,7 @@ public class ShippingTest extends AbstractLocationTest {
     }
 
     @Test
-    public void testDeliverySpeed() throws Exception {
+    public void testDeliverySpeed() {
         Shipping loc = this.builder().deliverySpeed(DeliverySpeed.EXPEDITED).build();
         assertEquals(DeliverySpeed.EXPEDITED, loc.getDeliverySpeed());
     }

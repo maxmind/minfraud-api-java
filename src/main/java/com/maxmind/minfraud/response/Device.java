@@ -21,8 +21,14 @@ public final class Device extends AbstractModel {
     private final String lastSeen;
     private final String localTime;
 
-    // This method is for backwards compatibility. We should remove it when we
-    // do a major release.
+    /**
+     * @deprecated This constructor only exists for backward compatibility
+     * and will be removed in the next major release.
+     *
+     * @param confidence The device confidence.
+     * @param id The device ID.
+     * @param lastSeen When the device was last seen.
+     */
     public Device(
             Double confidence,
             UUID id,

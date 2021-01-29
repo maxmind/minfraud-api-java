@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 public class WarningTest extends AbstractOutputTest {
 
     @Test
-    public void testWarningn() throws Exception {
+    public void testWarning() throws Exception {
         String code = "INVALID_INPUT";
         String msg = "Input invalid";
         String pointer = "/first/second";

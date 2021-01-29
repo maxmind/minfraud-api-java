@@ -10,83 +10,83 @@ public abstract class AbstractLocationTest {
 
 
     @Test
-    public void testFirstName() throws Exception {
+    public void testFirstName() {
         AbstractLocation loc = this.builder().firstName("frst").build();
         assertEquals("frst", loc.getFirstName());
     }
 
     @Test
-    public void testLastName() throws Exception {
+    public void testLastName() {
         AbstractLocation loc = this.builder().lastName("last").build();
         assertEquals("last", loc.getLastName());
     }
 
     @Test
-    public void testCompany() throws Exception {
+    public void testCompany() {
         AbstractLocation loc = this.builder().company("company").build();
         assertEquals("company", loc.getCompany());
     }
 
     @Test
-    public void testAddress() throws Exception {
+    public void testAddress() {
         AbstractLocation loc = this.builder().address("addr").build();
         assertEquals("addr", loc.getAddress());
     }
 
     @Test
-    public void testAddress2() throws Exception {
+    public void testAddress2() {
         AbstractLocation loc = this.builder().address2("addr2").build();
         assertEquals("addr2", loc.getAddress2());
     }
 
     @Test
-    public void testCity() throws Exception {
+    public void testCity() {
         AbstractLocation loc = this.builder().city("Pdx").build();
         assertEquals("Pdx", loc.getCity());
     }
 
     @Test
-    public void testRegion() throws Exception {
+    public void testRegion() {
         AbstractLocation loc = this.builder().region("MN").build();
         assertEquals("MN", loc.getRegion());
     }
 
     @Test
-    public void testCountry() throws Exception {
+    public void testCountry() {
         AbstractLocation loc = this.builder().country("US").build();
         assertEquals("US", loc.getCountry());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCountryThatIsTooLong() throws Exception {
+    public void testCountryThatIsTooLong() {
         this.builder().country("USA").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCountryWithNumbers() throws Exception {
+    public void testCountryWithNumbers() {
         this.builder().country("U1").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCountryInWrongCase() throws Exception {
+    public void testCountryInWrongCase() {
         this.builder().country("us").build();
     }
 
     @Test
-    public void testPostal() throws Exception {
+    public void testPostal() {
         AbstractLocation loc = this.builder().postal("03231").build();
         assertEquals("03231", loc.getPostal());
     }
 
     @Test
-    public void testPhoneNumber() throws Exception {
+    public void testPhoneNumber() {
         String phone = "321-321-3213";
         AbstractLocation loc = this.builder().phoneNumber(phone).build();
         assertEquals(phone, loc.getPhoneNumber());
     }
 
     @Test
-    public void testPhoneCountryCode() throws Exception {
+    public void testPhoneCountryCode() {
         AbstractLocation loc = this.builder().phoneCountryCode("1").build();
         assertEquals("1", loc.getPhoneCountryCode());
     }

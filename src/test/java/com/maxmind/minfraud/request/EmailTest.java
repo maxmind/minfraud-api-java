@@ -12,7 +12,7 @@ import static org.junit.Assert.assertNull;
 public class EmailTest {
 
     @Test
-    public void testAddress() throws Exception {
+    public void testAddress() {
         Email email = new Builder().address("test@test.org").build();
         assertEquals("raw email", "test@test.org", email.getAddress());
         assertEquals("domain set from email", "test.org", email.getDomain());
@@ -20,7 +20,7 @@ public class EmailTest {
     }
 
     @Test
-    public void testMultipleAtAddress() throws Exception {
+    public void testMultipleAtAddress() {
         Email email = new Builder().address("\"test@test\"@test.org").build();
         assertEquals("raw email", "\"test@test\"@test.org", email.getAddress());
         assertEquals("domain set from email", "test.org", email.getDomain());
@@ -28,7 +28,7 @@ public class EmailTest {
     }
 
     @Test
-    public void testAddressWithNoValidation() throws Exception {
+    public void testAddressWithNoValidation() {
         Map<String, String> addresses = new HashMap<String, String>() {{
             put("test", null);
             put("@test", "test");
@@ -44,7 +44,7 @@ public class EmailTest {
     }
 
     @Test
-    public void testAddressMd5() throws Exception {
+    public void testAddressMd5() {
         Email email = new Builder().address("test@test.org").hashAddress().build();
         assertEquals("MD5 generated from email", "476869598e748d958e819c180af31982", email.getAddress());
         assertEquals("domain set from email", "test.org", email.getDomain());
@@ -52,7 +52,7 @@ public class EmailTest {
     }
 
     @Test
-    public void testAddressMd5MultipleTimes() throws Exception {
+    public void testAddressMd5MultipleTimes() {
         Email email = new Builder().address("test@test.org").hashAddress().hashAddress().build();
         assertEquals("MD5 generated from email", "476869598e748d958e819c180af31982", email.getAddress());
         assertEquals("domain set from email", "test.org", email.getDomain());
@@ -60,20 +60,20 @@ public class EmailTest {
     }
 
     @Test
-    public void testHashAddressWithoutAddress() throws Exception {
+    public void testHashAddressWithoutAddress() {
         Email email = new Builder().domain("test.org").hashAddress().build();
         assertEquals("domain is set", "test.org", email.getDomain());
     }
 
     @Test
-    public void testMd5GetsLowercased() throws Exception {
+    public void testMd5GetsLowercased() {
         Email email = new Builder().address("TEST@TEST.org").hashAddress().build();
         assertEquals("MD5 generated from lowercased email", "476869598e748d958e819c180af31982", email.getAddress());
         assertEquals("MD5 generated from lowercased email", "476869598e748d958e819c180af31982", email.getAddressMd5());
     }
 
     @Test
-    public void testGetAddressWithoutSettingIt() throws Exception {
+    public void testGetAddressWithoutSettingIt() {
         Email email = new Builder().domain("test.org").hashAddress().build();
         assertNull("null address if none set", email.getAddress());
         assertNull("null addressMd5 if none set", email.getAddressMd5());
@@ -84,7 +84,7 @@ public class EmailTest {
     }
 
     @Test
-    public void testNormalizing() throws Exception {
+    public void testNormalizing() {
         Email e;
 
         e = new Builder().address("test@maxmind.com").hashAddress().build();
@@ -169,26 +169,26 @@ public class EmailTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testInvalidAddress() throws Exception {
+    public void testInvalidAddress() {
         new Builder().address("a@test@test.org").build();
     }
 
     @Test
-    public void testDomain() throws Exception {
+    public void testDomain() {
         String domain = "domain.com";
         Email email = new Builder().domain(domain).build();
         assertEquals(domain, email.getDomain());
     }
 
     @Test
-    public void testDomainWithoutValidation() throws Exception {
+    public void testDomainWithoutValidation() {
         String domain = "bad domain @!";
         Email email = new Builder(false).domain(domain).build();
         assertEquals(domain, email.getDomain());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testInvalidDomain() throws Exception {
+    public void testInvalidDomain() {
         new Builder().domain(" domain.com").build();
     }
 }
