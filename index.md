@@ -2,7 +2,7 @@
 layout: default
 title: MaxMind minFraud Score and Insights Java API
 language: java
-version: v1.16.0
+version: v1.17.0
 ---
 
 # MaxMind minFraud Score, Insights, and Factors Java API
@@ -23,7 +23,7 @@ To do this, add the dependency to your pom.xml:
     <dependency>
         <groupId>com.maxmind.minfraud</groupId>
         <artifactId>minfraud</artifactId>
-        <version>1.16.0</version>
+        <version>1.17.0</version>
     </dependency>
 ```
 
@@ -36,7 +36,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'com.maxmind.minfraud:minfraud:1.16.0'
+    compile 'com.maxmind.minfraud:minfraud:1.17.0'
 }
 ```
 
@@ -84,7 +84,7 @@ an Insights request by calling `insights` method:
 InsightsResponse insights = client.insights(transaction);
 ```
 
-an Factors request by calling `factors` method:
+a Factors request by calling `factors` method:
 
 ```java
 FactorsResponse factors = client.factors(transaction);
@@ -292,6 +292,6 @@ This API uses [Semantic Versioning](https://semver.org/).
 
 ## Copyright and License ##
 
-This software is Copyright (c) 2015-2020 by MaxMind, Inc.
+This software is Copyright (c) 2015-2021 by MaxMind, Inc.
 
 This is free software, licensed under the Apache License, Version 2.0.
