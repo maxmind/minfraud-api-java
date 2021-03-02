@@ -107,8 +107,9 @@ public final class CreditCard extends AbstractModel {
         }
 
         /**
-         * @param code The phone number, without the country code, for the
-         *             issuing bank as provided by the end user.
+         * @param code The address verification system (AVS) check result, as
+         *             returned to you by the credit card processor. The
+         *             minFraud service supports the standard AVS codes.
          * @return The builder object.
          */
         public CreditCard.Builder avsResult(Character code) {
