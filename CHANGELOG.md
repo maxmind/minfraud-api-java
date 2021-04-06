@@ -1,6 +1,17 @@
 CHANGELOG
 =========
 
+1.18.0
+-------------------
+
+* The following payment processors were added to the `Payment.Processor` enum:
+  * `CARDKNOX`
+  * `CREDITGUARD`
+  * `CREDORAX`
+  * `DLOCAL`
+  * `ONPAY`
+  * `SAFECHARGE`
+
 1.17.0 (2021-02-02)
 -------------------
 
