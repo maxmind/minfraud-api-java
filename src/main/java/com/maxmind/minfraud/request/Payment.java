@@ -133,6 +133,7 @@ public final class Payment extends AbstractModel {
         CYBERSOURCE,
         DALENYS,
         DALPAY,
+        DATACAP,
         DATACASH,
         DIBS,
         DIGITAL_RIVER,
