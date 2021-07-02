@@ -8,6 +8,7 @@ CHANGELOG
   * `CARDKNOX`
   * `CREDITGUARD`
   * `CREDORAX`
+  * `DATACAP`
   * `DLOCAL`
   * `ONPAY`
   * `SAFECHARGE`
