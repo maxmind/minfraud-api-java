@@ -25,7 +25,7 @@ public final class Disposition extends AbstractModel {
     /**
      * @return A {@code String} with the action to take on the transaction as
      * defined by your custom rules. The current set of values are
-     * "accept", "manual_review", and "reject". If you do not have
+     * "accept", "manual_review", "reject" and "test". If you do not have
      * custom rules set up, {@code null} will be returned.
      */
     @JsonProperty("action")

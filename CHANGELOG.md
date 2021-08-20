@@ -12,6 +12,7 @@ CHANGELOG
   * `DLOCAL`
   * `ONPAY`
   * `SAFECHARGE`
+* Documented the new `test` disposition action.
 
 1.17.0 (2021-02-02)
 -------------------
