@@ -17,6 +17,7 @@ public final class CreditCard extends AbstractModel {
     private final Character avsResult;
     private final Character cvvResult;
     private final String token;
+    private final Boolean was3dSecureSuccessful;
 
     private CreditCard(CreditCard.Builder builder) {
         issuerIdNumber = builder.issuerIdNumber;
@@ -27,6 +28,7 @@ public final class CreditCard extends AbstractModel {
         avsResult = builder.avsResult;
         cvvResult = builder.cvvResult;
         token = builder.token;
+        was3dSecureSuccessful = builder.was3dSecureSuccessful;
     }
 
     /**
@@ -46,6 +48,7 @@ public final class CreditCard extends AbstractModel {
         String token;
         Character avsResult;
         Character cvvResult;
+        Boolean was3dSecureSuccessful;
 
         /**
          * @param number The issuer ID number for the credit card. This is the
@@ -150,6 +153,24 @@ public final class CreditCard extends AbstractModel {
         }
 
         /**
+         * @param wasSuccessful An indication of whether or not the outcome of
+         *                      3D-Secure verification (e.g. Safekey,
+         *                      SecureCode, Verified by Visa)  was successful,
+         *                      as provided by the end user. {@code true} if
+         *                      customer verification was successful, or
+         *                      {@code false} if the customer failed
+         *                      verification. If 3-D Secure verification was not
+         *                      used, was unavailable, or resulted in another
+         *                      outcome other than success or failure, do not
+         *                      use this method.
+         * @return The builder object.
+         */
+        public CreditCard.Builder was3dSecureSuccessful(Boolean wasSuccessful) {
+            this.was3dSecureSuccessful = wasSuccessful;
+            return this;
+        }
+
+        /**
          * @return An instance of {@code CreditCard} created from the
          * fields set on this builder.
          */
@@ -225,5 +246,19 @@ public final class CreditCard extends AbstractModel {
     @JsonProperty("token")
     public String getToken() {
         return token;
+    }
+
+    /**
+     * @return An indication of whether or not the outcome of 3D-Secure
+     *         verification (e.g. Safekey, SecureCode, Verified by Visa) was
+     *         successful, as provided by the end user. {@code true} if customer
+     *         verification was successful, or {@code false} if the customer
+     *         failed verification. {@code null} if 3-D Secure verification was
+     *         not used, was unavailable, or resulted in another outcome other
+     *         than success or failure.
+     */
+    @JsonProperty("was_3d_secure_successful")
+    public Boolean getWas3dSecureSuccessful() {
+        return was3dSecureSuccessful;
     }
 }

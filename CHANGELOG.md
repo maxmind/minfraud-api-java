@@ -16,6 +16,14 @@ CHANGELOG
 * Added support for the `/disposition/rule_label` output in Score, Insights and
   Factors. This is available at `response.getDisposition().getRuleLabel()`, and
   is the label of the custom rule that was triggered by the transaction.
+* Added support for the `/credit_card/was_3d_secure_successful` input in Score,
+  Insights and Factors. This input should indicate whether or not the outcome of
+  3D-Secure verification (e.g. Safekey, SecureCode, Verified by Visa) was
+  successful. `true` if customer verification was successful, or `false` if the
+  customer failed verification. If 3-D Secure verification was not used, was
+  unavailable, or resulted in another outcome other than success or failure, do
+  not include this field. Use the `was3dSecureSuccessful(Boolean)` method on
+  `com.maxmind.minfraud.request.CreditCard.Builder` to set it.
 
 1.17.0 (2021-02-02)
 -------------------

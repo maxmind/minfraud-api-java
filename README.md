@@ -163,6 +163,7 @@ Transaction request = new Transaction.Builder(
             .cvvResult('Y')
             .issuerIdNumber("213312")
             .last4Digits("3211")
+            .was3dSecureSuccessful(true)
             .build()
     ).email(
         new Email.Builder()

@@ -112,6 +112,7 @@ public class RequestTestHelper {
                                 .cvvResult('N')
                                 .last4Digits("7643")
                                 .token("123456abc1234")
+                                .was3dSecureSuccessful(true)
                                 .build()
                 ).order(
                         new Order.Builder()
