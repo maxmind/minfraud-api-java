@@ -13,6 +13,9 @@ CHANGELOG
   * `ONPAY`
   * `SAFECHARGE`
 * Documented the new `test` disposition action.
+* Added support for the `/disposition/rule_label` output in Score, Insights and
+  Factors. This is available at `response.getDisposition().getRuleLabel()`, and
+  is the label of the custom rule that was triggered by the transaction.
 
 1.17.0 (2021-02-02)
 -------------------

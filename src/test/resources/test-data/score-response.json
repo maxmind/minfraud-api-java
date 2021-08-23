@@ -5,7 +5,8 @@
   "queries_remaining": 1000,
   "disposition": {
     "action": "reject",
-    "reason": "custom_rule"
+    "reason": "custom_rule",
+    "rule_label": "the label"
   },
   "ip_address": {
     "risk": 99

@@ -9,17 +9,20 @@ import com.maxmind.minfraud.AbstractModel;
 public final class Disposition extends AbstractModel {
     private final String action;
     private final String reason;
+    private final String ruleLabel;
 
     public Disposition(
             @JsonProperty("action") String action,
-            @JsonProperty("reason") String reason
+            @JsonProperty("reason") String reason,
+            @JsonProperty("rule_label") String ruleLabel
     ) {
         this.action = action;
         this.reason = reason;
+        this.ruleLabel = ruleLabel;
     }
 
     public Disposition() {
-        this(null, null);
+        this(null, null, null);
     }
 
     /**
@@ -42,5 +45,16 @@ public final class Disposition extends AbstractModel {
     @JsonProperty("reason")
     public String getReason() {
         return reason;
+    }
+
+    /**
+     * @return A {@code String} with the label of the custom rule that was
+     * triggered. If you do not have custom rules set up, the triggered
+     * custom rule does not have a label, or no custom rule was triggered,
+     * {@code null} will be returned.
+     */
+    @JsonProperty("rule_label")
+    public String getRuleLabel() {
+        return ruleLabel;
     }
 }

@@ -137,7 +137,8 @@
   },
   "disposition": {
     "action": "reject",
-    "reason": "custom_rule"
+    "reason": "custom_rule",
+    "rule_label": "the label"
   },
   "email": {
     "domain": {
