@@ -16,11 +16,13 @@ public class DispositionTest extends AbstractOutputTest {
                         .startObject()
                         .put("action", "accept")
                         .put("reason", "default")
+                        .put("rule_label", "the label")
                         .end()
                         .finish()
         );
 
         assertEquals("accept", disposition.getAction());
         assertEquals("default", disposition.getReason());
+        assertEquals("the label", disposition.getRuleLabel());
     }
 }

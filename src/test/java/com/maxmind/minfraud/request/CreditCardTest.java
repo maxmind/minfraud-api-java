@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(JUnitParamsRunner.class)
 public class CreditCardTest {
@@ -105,4 +106,9 @@ public class CreditCardTest {
         assertEquals(token, cc.getToken());
     }
 
+    @Test
+    public void testWas3dSecureSuccessful() {
+        CreditCard cc = new Builder().was3dSecureSuccessful(true).build();
+        assertTrue(cc.getWas3dSecureSuccessful());
+    }
 }
