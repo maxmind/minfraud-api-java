@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-1.18.0
+1.18.0 (2021-08-31)
 -------------------
 
 * The following payment processors were added to the `Payment.Processor` enum:
