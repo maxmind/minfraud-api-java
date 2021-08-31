@@ -47,6 +47,17 @@ Put this information into `~/.m2/settings.xml` (Maven settings). Your
           <username>git</username>
         </server>
       </servers>
+      <profiles>
+        <profile>
+          <id>my_profile_id</id>
+          <activation>
+            <activeByDefault>true</activeByDefault>
+          </activation>
+          <properties>
+            <gpg.keyname><!-- The GPG ID of your publishing key --></gpg.keyname>
+          </properties>
+        </profile>
+      </profiles>
     </settings>
 
 Some links about Sonatype:
@@ -55,6 +66,12 @@ Some links about Sonatype:
 * http://central.sonatype.org/pages/releasing-the-deployment.html
 * http://central.sonatype.org/pages/apache-maven.html
 
+
+See the following documentation for details on specifying which gpg to use for
+publishing in your local settings.xml:
+
+* https://central.sonatype.org/publish/requirements/gpg/
+* https://maven.apache.org/plugins/maven-gpg-plugin/usage.html
 
 ## Setting up GPG
 You need a key. It is fine to create/use your own, but you'll probably want
