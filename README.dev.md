@@ -113,9 +113,10 @@ Add this to ~/.gnupg/gpg-agent.conf:
 ## Steps
 - Ensure you can run `mvn test` and `mvn package` successfully. Run
   `mvn clean` after.
-- Ensure you have a clean checkout of `main` and that the subdirectory
-  `.gh-pages` either does not exist or is a clean checkout.
+- Create a release branch off `main`. Ensure you have a clean checkout and that
+  the subdirectory `.gh-pages` either does not exist or is a clean checkout.
   - We'll be generating commits.
+  - When the release is complete, you should deliver the release PR for review.
 - Review open issues and PRs to see if any can easily be fixed, closed, or
   merged.
 - Review `CHANGELOG.md` for completeness and correctness.
