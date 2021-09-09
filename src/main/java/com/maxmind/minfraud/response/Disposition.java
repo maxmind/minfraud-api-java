@@ -38,9 +38,8 @@ public final class Disposition extends AbstractModel {
 
     /**
      * @return A {@code String} with the reason for the action. The current
-     * possible values are "custom_rule", "block_list", and "default".
-     * If you do not have custom rules set up, {@code null} will be
-     * returned.
+     * possible values are "custom_rule" and "default". If you do not have
+     * custom rules set up, {@code null} will be returned.
      */
     @JsonProperty("reason")
     public String getReason() {
