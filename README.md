@@ -240,8 +240,8 @@ MaxMind encourages the use of this API, as data received through this channel
 is continually used to improve the accuracy of our fraud detection algorithms.
 
 To use the Report Transactions API, create a new `TransactionReport` object. An
-IP address and a valid tag are required arguments.  Additional params may also
-be set, as documented below.
+IP address and a valid tag are required arguments. Additional params may
+also be set, as documented below.
 
 If the report is successful, nothing is returned. If the report fails, an
 exception with be thrown.
