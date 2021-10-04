@@ -1,6 +1,21 @@
 CHANGELOG
 =========
 
+1.19.0
+-------------------
+
+* The following payment processors were added to the `Payment.Processor` enum:
+  * `BOACOMPRA`
+  * `BOKU`
+  * `COREGATEWAY`
+  * `FISERV`
+  * `NEOPAY`
+  * `NEOSURF`
+  * `OPENBUCKS`
+  * `PAYSERA`
+  * `PAYVISION`
+  * `TRUSTLY`
+
 1.18.0 (2021-08-31)
 -------------------
 
