@@ -4,6 +4,12 @@ CHANGELOG
 1.19.0
 -------------------
 
+* Upgraded the `geoip2` dependency to 2.16.1. This adds mobile country code
+  (MCC) and mobile network code (MNC) to minFraud Insights and Factors
+  responses. These are available at
+  `response.getIpAddress.getTraits.getMobileCountryCode()` and
+  `response.getIpAddress.getTraits.getMobileNetworkCode()`. We expect this
+  data to be available by late January 2022.
 * The following payment processors were added to the `Payment.Processor` enum:
   * `BOACOMPRA`
   * `BOKU`

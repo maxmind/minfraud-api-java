@@ -36,6 +36,8 @@ public class IpAddressTest extends AbstractOutputTest {
                         .put("is_hosting_provider", true)
                         .put("is_public_proxy", true)
                         .put("is_tor_exit_node", true)
+                        .put("mobile_country_code", "310")
+                        .put("mobile_network_code", "004")
                         .put("network", "1.2.0.0/16")
                         .end()
                         .end()
@@ -51,6 +53,10 @@ public class IpAddressTest extends AbstractOutputTest {
         assertTrue("isHostingProvider", address.getTraits().isHostingProvider());
         assertTrue("isPublicProxy", address.getTraits().isPublicProxy());
         assertTrue("isTorExitNode", address.getTraits().isTorExitNode());
+        assertEquals("mobile country code", "310",
+                address.getTraits().getMobileCountryCode());
+        assertEquals("mobile network code", "004",
+                address.getTraits().getMobileNetworkCode());
         assertEquals("IP risk reason code", "ANONYMOUS_IP",
                 address.getRiskReasons().get(0).getCode());
         assertEquals("IP risk reason", "some reason",
