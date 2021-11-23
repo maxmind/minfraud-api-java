@@ -10,7 +10,7 @@
   - The release process generates commits.
 - Ensure you have the necessary dependencies available:
   - e.g., `apt-get install maven openjdk-8-jdk git-core gpg`
-- Ensure [hub](https://github.com/github.com/hub) is set up and in your
+- Ensure [gh](https://github.com/cli/cli) is set up and in your
   `PATH`.
   - An easy way to do this is get a release tarball and run `./install`.
 
