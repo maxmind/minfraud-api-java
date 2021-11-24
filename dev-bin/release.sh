@@ -119,12 +119,8 @@ popd
 git push
 git push --tags
 
-message="$version
-
-$notes"
-
-hub release create -a "target/minfraud-$version-with-dependencies.zip" \
-                   -a "target/minfraud-$version-with-dependencies.zip.asc" \
-                   -m "$message" "$tag"
+gh release create --target "$(git branch --show-current)" -t "$version" -n "$notes" "$tag" \
+    "target/minfraud-$version-with-dependencies.zip" \
+    "target/minfraud-$version-with-dependencies.zip.asc"
 
 echo "Remember to do the release on https://oss.sonatype.org/!"
