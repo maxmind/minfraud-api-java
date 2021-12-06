@@ -1,13 +1,8 @@
 package com.maxmind.minfraud;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.InjectableValues.Std;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.StdDateFormat;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.maxmind.minfraud.exception.*;
 import com.maxmind.minfraud.request.Transaction;
 import com.maxmind.minfraud.request.TransactionReport;
@@ -42,7 +37,6 @@ public final class WebServiceClient implements Closeable {
     private final List<String> locales;
     private final Duration requestTimeout;
 
-    private final ObjectMapper mapper;
     private final HttpClient httpClient;
 
     private WebServiceClient(WebServiceClient.Builder builder) {
@@ -58,12 +52,6 @@ public final class WebServiceClient implements Closeable {
                 Base64.getEncoder()
                         .encodeToString((builder.accountId + ":" + builder.licenseKey)
                                 .getBytes(StandardCharsets.UTF_8));
-
-        mapper = new ObjectMapper();
-        mapper.disable(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS);
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        mapper.registerModule(new JavaTimeModule());
-        mapper.setDateFormat(new StdDateFormat().withColonInTimeZone(true));
 
         requestTimeout = builder.requestTimeout;
         HttpClient.Builder httpClientBuilder = HttpClient.newBuilder()
@@ -409,7 +397,7 @@ public final class WebServiceClient implements Closeable {
                 "locales", locales);
 
         try (InputStream stream = response.body()) {
-            return mapper.readerFor(cls).with(inject).readValue(stream);
+            return Mapper.get().readerFor(cls).with(inject).readValue(stream);
         } catch (IOException e) {
             throw new MinFraudException(
                     "Received a 200 response but could not decode it as JSON", e);
@@ -429,7 +417,7 @@ public final class WebServiceClient implements Closeable {
 
         Map<String, String> content;
         try {
-            content = mapper.readValue(body,
+            content = Mapper.get().readValue(body,
                     new TypeReference<HashMap<String, String>>() {
                     });
             this.handleErrorWithJsonBody(content, body, status, uri);
@@ -516,7 +504,6 @@ public final class WebServiceClient implements Closeable {
                 ", port=" + port +
                 ", useHttps=" + useHttps +
                 ", locales=" + locales +
-                ", mapper=" + mapper +
                 ", httpClient=" + httpClient +
                 '}';
     }
