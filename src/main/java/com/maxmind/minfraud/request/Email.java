@@ -105,7 +105,7 @@ public final class Email extends AbstractModel {
         /**
          * Send the email address as its MD5 hash.
          * <p>
-         * By default the email address set by {@link #address(String)} will be
+         * By default, the email address set by {@link #address(String)} will be
          * sent in plain text. Enable sending it as an MD5 hash instead by
          * calling this method.
          *
