@@ -348,11 +348,14 @@ public final class WebServiceClient implements Closeable {
         HttpResponse<InputStream> response = null;
         try {
             response = httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
+            return handleResponse(response, uri, cls);
         } catch (InterruptedException e) {
             throw new MinFraudException("Interrupted sending request", e);
-
+        } finally {
+            if (response != null) {
+                response.body().close();
+            }
         }
-        return handleResponse(response, uri, cls);
     }
 
     private HttpRequest requestFor(AbstractModel transaction, URI uri)
