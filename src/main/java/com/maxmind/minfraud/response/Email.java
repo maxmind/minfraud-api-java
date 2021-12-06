@@ -30,7 +30,7 @@ public final class Email extends AbstractModel {
             @JsonProperty("is_high_risk") Boolean isHighRisk,
             @JsonProperty("first_seen") String firstSeen
     ) {
-        this.domain = domain;
+        this.domain = domain == null ? new EmailDomain() : domain;
         this.isDisposable = isDisposable;
         this.isFree = isFree;
         this.isHighRisk = isHighRisk;
@@ -38,7 +38,7 @@ public final class Email extends AbstractModel {
     }
 
     public Email() {
-        this(null, null, null);
+        this(null, null, null, null, null);
     }
 
     /**

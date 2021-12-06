@@ -26,6 +26,8 @@ CHANGELOG
   `IpAddress.getCountry()` now returns a `com.maxmind.geoip2.record.Country`.
 * Removed deprecated `Payment.Processor.VERAPAY` enum value. Use `VEREPAY`
   instead.
+* `Email.getDomain()` will now return an empty object rather than null if
+  there is no domain data. This is match other response model class getters.
 * Upgraded the `geoip2` dependency to 2.16.1. This adds mobile country code
   (MCC) and mobile network code (MNC) to minFraud Insights and Factors
   responses. These are available at
