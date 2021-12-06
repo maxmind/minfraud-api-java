@@ -7,7 +7,6 @@ import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.ZonedDateTime;
@@ -153,7 +152,7 @@ public class RequestTestHelper {
     public static String readJsonFile(String name) throws IOException, URISyntaxException {
         URL resource = RequestTestHelper.class
                 .getResource("/test-data/" + name + ".json");
-        return new String(Files.readAllBytes(Paths.get(resource.toURI())), StandardCharsets.UTF_8);
+        return Files.readString(Paths.get(resource.toURI()));
     }
 
     public static void verifyRequestFor(String service, String jsonFile) throws IOException, URISyntaxException {

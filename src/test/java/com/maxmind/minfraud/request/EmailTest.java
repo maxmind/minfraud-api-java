@@ -29,7 +29,7 @@ public class EmailTest {
 
     @Test
     public void testAddressWithNoValidation() {
-        Map<String, String> addresses = new HashMap<String, String>() {{
+        Map<String, String> addresses = new HashMap<>() {{
             put("test", null);
             put("@test", "test");
             put("test@", null);

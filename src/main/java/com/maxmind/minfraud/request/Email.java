@@ -22,7 +22,7 @@ public final class Email extends AbstractModel {
     private static final Map<String, String> typoDomains;
 
     static {
-        HashMap<String, String> m = new HashMap<String, String>() {{
+        HashMap<String, String> m = new HashMap<>() {{
             // gmail.com
             put("35gmai.com", "gmail.com");
             put("636gmail.com", "gmail.com");

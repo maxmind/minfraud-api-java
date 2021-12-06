@@ -44,7 +44,7 @@ public class IpAddressTest extends AbstractOutputTest {
                         .finish()
         );
 
-        assertEquals("IP risk", new Double(99), address.getRisk());
+        assertEquals("IP risk", Double.valueOf(99), address.getRisk());
         assertEquals("correct local time", time, address.getLocation().getLocalTime());
         assertEquals("1.2.0.0/16", address.getTraits().getNetwork().toString());
         assertTrue("isHighRisk", address.getCountry().isHighRisk());
