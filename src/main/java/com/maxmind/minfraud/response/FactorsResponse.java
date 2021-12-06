@@ -10,7 +10,6 @@ import java.util.UUID;
  */
 public final class FactorsResponse extends InsightsResponse {
 
-
     private final Subscores subscores;
 
     public FactorsResponse(

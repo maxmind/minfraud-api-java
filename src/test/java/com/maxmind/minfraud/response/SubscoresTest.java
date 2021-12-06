@@ -44,8 +44,6 @@ public class SubscoresTest extends AbstractOutputTest {
         assertEquals("cvv_result", Double.valueOf(0.08), subscores.getCvvResult());
         assertEquals("email_address", Double.valueOf(0.09), subscores.getEmailAddress());
         assertEquals("email_domain", Double.valueOf(0.10), subscores.getEmailDomain());
-        assertEquals("email_tenure", Double.valueOf(0.11), subscores.getEmailTenure());
-        assertEquals("ip_tenure", Double.valueOf(0.12), subscores.getIpTenure());
         assertEquals("issuer_id_number", Double.valueOf(0.13), subscores.getIssuerIdNumber());
         assertEquals("order_amount", Double.valueOf(0.14), subscores.getOrderAmount());
         assertEquals("phone_number", Double.valueOf(0.15), subscores.getPhoneNumber());

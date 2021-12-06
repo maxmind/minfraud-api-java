@@ -59,8 +59,6 @@ public class FactorsResponseTest extends AbstractOutputTest {
         assertEquals("email_address", Double.valueOf(0.09), factors.getSubscores().getEmailAddress());
         assertEquals("email_domain", Double.valueOf(0.10), factors.getSubscores().getEmailDomain());
         assertEquals("email_local_part", Double.valueOf(0.19), factors.getSubscores().getEmailLocalPart());
-        assertEquals("email_tenure", Double.valueOf(0.11), factors.getSubscores().getEmailTenure());
-        assertEquals("ip_tenure", Double.valueOf(0.12), factors.getSubscores().getIpTenure());
         assertEquals("issuer_id_number", Double.valueOf(0.13), factors.getSubscores().getIssuerIdNumber());
         assertEquals("order_amount", Double.valueOf(0.14), factors.getSubscores().getOrderAmount());
         assertEquals("phone_number", Double.valueOf(0.15), factors.getSubscores().getPhoneNumber());

@@ -1,6 +1,5 @@
 package com.maxmind.minfraud.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -201,20 +200,6 @@ public final class Email extends AbstractModel {
         }
 
         return domain;
-    }
-
-    /**
-     * @return The MD5 hash of the email address if you set an address using
-     * {@link Builder#address(String)}, or null if you did not.
-     * @deprecated {@link #getAddress()} should be used instead.
-     */
-    @JsonIgnore
-    @Deprecated
-    public String getAddressMd5() {
-        if (address == null) {
-            return null;
-        }
-        return DigestUtils.md5Hex(cleanAddress(address));
     }
 
     /**

@@ -18,6 +18,14 @@ CHANGELOG
   deprecated in favor of `getUri()`. Constructors that took a `URL` have
   been replaced with the equivalent taking a `URI`.
 * Deprecated constructors on model classes were removed.
+* Removed deprecated response methods:
+  * `Email.getAddressMd5()`
+  * `Subscores.getEmailTenure()`
+  * `Subscores.getIpTenure()`
+* Removed `GeoIp2Country` and its associated `isHighRisk()` method.
+  `IpAddress.getCountry()` now returns a `com.maxmind.geoip2.record.Country`.
+* Removed deprecated `Payment.Processor.VERAPAY` enum value. Use `VEREPAY`
+  instead.
 * Upgraded the `geoip2` dependency to 2.16.1. This adds mobile country code
   (MCC) and mobile network code (MNC) to minFraud Insights and Factors
   responses. These are available at
