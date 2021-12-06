@@ -1,9 +1,33 @@
 CHANGELOG
 =========
 
-1.19.0
+2.0.0
 -------------------
 
+* Java 11 or greater is now required.
+* Apache HttpClient has been replaced with `java.net.http.HttpClient`.
+* The `close()` method on `WebServiceClient` is now deprecated. It
+  no longer does anything.
+* On `WebServiceClient.Builder`:
+  * `connectTimeout(int)` has been deprecated in favor of
+    `connectTimeout(Duration)`.
+  * `readTimeout(int)` has been deprecated in favor of
+    `requestTimeout(Duration)`.
+  * `proxy(Proxy)` has been deprecated in favor of `proxy(ProxySelector)`.
+* On `HttpException` and `InvalidRequestException`, `getUrl()` has been
+  deprecated in favor of `getUri()`. Constructors that took a `URL` have
+  been replaced with the equivalent taking a `URI`.
+* Deprecated constructors on model classes were removed.
+* Removed deprecated response methods:
+  * `Email.getAddressMd5()`
+  * `Subscores.getEmailTenure()`
+  * `Subscores.getIpTenure()`
+* Removed `GeoIp2Country` and its associated `isHighRisk()` method.
+  `IpAddress.getCountry()` now returns a `com.maxmind.geoip2.record.Country`.
+* Removed deprecated `Payment.Processor.VERAPAY` enum value. Use `VEREPAY`
+  instead.
+* `Email.getDomain()` will now return an empty object rather than null if
+  there is no domain data. This is match other response model class getters.
 * Upgraded the `geoip2` dependency to 2.16.1. This adds mobile country code
   (MCC) and mobile network code (MNC) to minFraud Insights and Factors
   responses. These are available at

@@ -3,7 +3,6 @@ package com.maxmind.minfraud.request;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.maxmind.minfraud.AbstractModel;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -17,7 +16,7 @@ public final class CustomInputs extends AbstractModel {
     private final Map<String, Object> inputs;
 
     private CustomInputs(Builder builder) {
-        inputs = Collections.unmodifiableMap(new HashMap<>(builder.inputs));
+        inputs = Map.copyOf(builder.inputs);
     }
 
     /**

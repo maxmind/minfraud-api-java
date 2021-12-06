@@ -17,54 +17,15 @@ public final class CreditCard extends AbstractModel {
     private final String type;
 
     /**
-     * @deprecated This constructor only exists for backward compatibility
-     * and will be removed in the next major release.
-     *
-     * @param brand The credit card brand.
-     * @param country The country the card was issued in.
+     * @param brand                           The credit card brand.
+     * @param country                         The country the card was issued in.
+     * @param isBusiness                      Whether it is a business card.
      * @param isIssuedInBillingAddressCountry Whether the issuing country matches billing country.
-     * @param isPrepaid Whether the card was prepaid.
-     * @param issuer The issuer information.
-     * @param type The type.
+     * @param isPrepaid                       Whether the card was prepaid.
+     * @param isVirtual                       Whether it is a virtual card.
+     * @param issuer                          The issuer information.
+     * @param type                            The type.
      */
-    public CreditCard(
-            String brand,
-            String country,
-            Boolean isIssuedInBillingAddressCountry,
-            Boolean isPrepaid,
-            Issuer issuer,
-            String type
-    ) {
-        this(brand, country, isIssuedInBillingAddressCountry, isPrepaid, false,
-            issuer, type);
-    }
-
-    /**
-     * @deprecated This constructor only exists for backward compatibility
-     * and will be removed in the next major release.
-     *
-     * @param brand The credit card brand.
-     * @param country The country the card was issued in.
-     * @param isIssuedInBillingAddressCountry Whether the issuing country matches billing country.
-     * @param isPrepaid Whether the card was prepaid.
-     * @param isVirtual Whether it is a virtual card.
-     * @param issuer The issuer information.
-     * @param type The type.
-     */
-    public CreditCard(
-            String brand,
-            String country,
-            Boolean isIssuedInBillingAddressCountry,
-            Boolean isPrepaid,
-            Boolean isVirtual,
-            Issuer issuer,
-            String type
-    ) {
-        this(brand, country, false, isIssuedInBillingAddressCountry, isPrepaid,
-            isVirtual, issuer, type);
-    }
-
-
     public CreditCard(
             @JsonProperty("brand") String brand,
             @JsonProperty("country") String country,
@@ -86,7 +47,7 @@ public final class CreditCard extends AbstractModel {
     }
 
     public CreditCard() {
-        this(null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, null);
     }
 
     /**

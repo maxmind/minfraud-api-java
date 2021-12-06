@@ -17,6 +17,10 @@ public final class EmailDomain extends AbstractModel {
         this.firstSeen = firstSeen;
     }
 
+    public EmailDomain() {
+        this(null);
+    }
+
     /**
      * @return A date to identify the date an email domain was first
      * seen by MaxMind.

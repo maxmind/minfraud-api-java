@@ -16,6 +16,13 @@ public final class Email extends AbstractModel {
     private final String firstSeen;
     private final EmailDomain domain;
 
+    /**
+     * @param domain       The {@code EmailDomain} model object.
+     * @param isDisposable Whether it is a disposable email.
+     * @param isFree       Whether it is a free email.
+     * @param isHighRisk   Whether it is a high risk email.
+     * @param firstSeen    When the email was first seen.
+     */
     public Email(
             @JsonProperty("domain") EmailDomain domain,
             @JsonProperty("is_disposable") Boolean isDisposable,
@@ -23,63 +30,15 @@ public final class Email extends AbstractModel {
             @JsonProperty("is_high_risk") Boolean isHighRisk,
             @JsonProperty("first_seen") String firstSeen
     ) {
-        this.domain = domain;
+        this.domain = domain == null ? new EmailDomain() : domain;
         this.isDisposable = isDisposable;
         this.isFree = isFree;
         this.isHighRisk = isHighRisk;
         this.firstSeen = firstSeen;
     }
 
-    /**
-     * @deprecated This constructor only exists for backward compatibility
-     * and will be removed in the next major release.
-     *
-     * @param isDisposable Whether it is a disposable email.
-     * @param isFree Whether it is a free email.
-     * @param isHighRisk Whether it is a high risk email.
-     * @param firstSeen When the email was first seen.
-     */
-    public Email(
-            Boolean isDisposable,
-            Boolean isFree,
-            Boolean isHighRisk,
-            String firstSeen
-    ) {
-        this(null, isDisposable, isFree, isHighRisk, firstSeen);
-    }
-
-    /**
-     * @deprecated This constructor only exists for backward compatibility
-     * and will be removed in the next major release.
-     *
-     * @param isFree Whether it is a free email.
-     * @param isHighRisk Whether it is a high risk email.
-     * @param firstSeen When the email was first seen.
-     */
-    public Email(
-            Boolean isFree,
-            Boolean isHighRisk,
-            String firstSeen
-    ) {
-        this(null, isFree, isHighRisk, firstSeen);
-    }
-
-    /**
-     * @deprecated This constructor only exists for backward compatibility
-     * and will be removed in the next major release.
-     *
-     * @param isFree Whether it is a free email.
-     * @param isHighRisk Whether it is a high risk email.
-     */
-    public Email(
-            Boolean isFree,
-            Boolean isHighRisk
-    ) {
-        this(null, isFree, isHighRisk, null);
-    }
-
     public Email() {
-        this(null, null, null);
+        this(null, null, null, null, null);
     }
 
     /**

@@ -271,9 +271,9 @@ If you are having an issue with the minFraud service that is not specific
 to the client API, please see
 [our support page](https://www.maxmind.com/en/support).
 
-## Requirements  ##
+## Requirements ##
 
-This code requires Java 8+.
+This code requires Java 11+.
 
 ## Contributing ##
 

@@ -1,6 +1,8 @@
 package com.maxmind.minfraud.exception;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 
 /**
@@ -10,30 +12,30 @@ import java.net.URL;
  */
 public final class HttpException extends IOException {
     private final int httpStatus;
-    private final URL url;
+    private final URI uri;
 
     /**
      * @param message    A message describing the reason why the exception was thrown.
      * @param httpStatus The HTTP status of the response that caused the exception.
-     * @param url        The URL queried.
+     * @param uri        The URI queried.
      */
-    public HttpException(String message, int httpStatus, URL url) {
+    public HttpException(String message, int httpStatus, URI uri) {
         super(message);
         this.httpStatus = httpStatus;
-        this.url = url;
+        this.uri = uri;
     }
 
     /**
      * @param message    A message describing the reason why the exception was thrown.
      * @param httpStatus The HTTP status of the response that caused the exception.
-     * @param url        The URL queried.
+     * @param uri        The URI queried.
      * @param cause      The cause of the exception.
      */
-    public HttpException(String message, int httpStatus, URL url,
+    public HttpException(String message, int httpStatus, URI uri,
                          Throwable cause) {
         super(message, cause);
         this.httpStatus = httpStatus;
-        this.url = url;
+        this.uri = uri;
     }
 
     /**
@@ -44,9 +46,22 @@ public final class HttpException extends IOException {
     }
 
     /**
-     * @return the URL queried.
+     * @return the URI queried.
      */
+    public URI getUri() {
+        return this.uri;
+    }
+
+    /**
+     * @return the URL queried.
+     * @deprecated Use getUri() instead
+     */
+    @Deprecated
     public URL getUrl() {
-        return url;
+        try {
+            return this.uri.toURL();
+        } catch (MalformedURLException e) {
+            return null;
+        }
     }
 }

@@ -1,5 +1,7 @@
 package com.maxmind.minfraud.exception;
 
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 
 /**
@@ -10,16 +12,16 @@ import java.net.URL;
 public class InvalidRequestException extends MinFraudException {
     private final String code;
     private final int httpStatus;
-    private final URL url;
+    private final URI uri;
 
     /**
      * @param message A message explaining the cause of the error.
      * @param code    The error code returned by the web service.
-     * @param url     The URL queried.
+     * @param uri     The URL queried.
      */
-    public InvalidRequestException(String message, String code, URL url) {
+    public InvalidRequestException(String message, String code, URI uri) {
         super(message);
-        this.url = url;
+        this.uri = uri;
         this.code = code;
         this.httpStatus = 0;
     }
@@ -28,14 +30,14 @@ public class InvalidRequestException extends MinFraudException {
      * @param message    A message explaining the cause of the error.
      * @param code       The error code returned by the web service.
      * @param httpStatus The HTTP status of the response.
-     * @param url        The URL queried.
+     * @param uri        The URL queried.
      * @param e          The cause of the exception.
      */
     public InvalidRequestException(String message, String code, int httpStatus,
-                                   URL url, Throwable e) {
+                                   URI uri, Throwable e) {
         super(message, e);
         this.code = code;
-        this.url = url;
+        this.uri = uri;
         this.httpStatus = httpStatus;
     }
 
@@ -55,9 +57,22 @@ public class InvalidRequestException extends MinFraudException {
     }
 
     /**
-     * @return the URL queried.
+     * @return the URI queried.
      */
-    public final URL getUrl() {
-        return url;
+    public URI getUri() {
+        return this.uri;
+    }
+
+    /**
+     * @return the URL queried.
+     * @deprecated Use getUri() instead
+     */
+    @Deprecated
+    public URL getUrl() {
+        try {
+            return this.uri.toURL();
+        } catch (MalformedURLException e) {
+            return null;
+        }
     }
 }

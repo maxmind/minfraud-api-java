@@ -1,88 +1,66 @@
 package com.maxmind.minfraud;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.InjectableValues.Std;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.StdDateFormat;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.maxmind.minfraud.exception.*;
 import com.maxmind.minfraud.request.Transaction;
 import com.maxmind.minfraud.request.TransactionReport;
 import com.maxmind.minfraud.response.FactorsResponse;
 import com.maxmind.minfraud.response.InsightsResponse;
 import com.maxmind.minfraud.response.ScoreResponse;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHost;
-import org.apache.http.HttpResponse;
-import org.apache.http.auth.Credentials;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.auth.BasicScheme;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.*;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.*;
-
-import static org.apache.http.entity.ContentType.APPLICATION_JSON;
 
 /**
  * Client for MaxMind minFraud Score, Insights, and Factors
  */
 public final class WebServiceClient implements Closeable {
     private static final String pathBase = "/minfraud/v2.0/";
+    private static final String userAgent = "minFraud-API/"
+            + WebServiceClient.class.getPackage().getImplementationVersion()
+            + " Java/" + System.getProperty("java.version");
 
+    private final String authHeader;
     private final String host;
     private final int port;
     private final boolean useHttps;
     private final List<String> locales;
-    private final String licenseKey;
-    private final int accountId;
+    private final Duration requestTimeout;
 
-
-    private final ObjectMapper mapper;
-    private final CloseableHttpClient httpClient;
+    private final HttpClient httpClient;
 
     private WebServiceClient(WebServiceClient.Builder builder) {
         host = builder.host;
         port = builder.port;
         useHttps = builder.useHttps;
         locales = builder.locales;
-        licenseKey = builder.licenseKey;
-        accountId = builder.accountId;
 
-        mapper = new ObjectMapper();
-        mapper.disable(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS);
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        mapper.registerModule(new JavaTimeModule());
-        mapper.setDateFormat(new StdDateFormat().withColonInTimeZone(true));
+        // HttpClient supports basic auth, but it will only send it after the
+        // server responds with an unauthorized. As such, we just make the
+        // Authorization header ourselves.
+        authHeader = "Basic " +
+                Base64.getEncoder()
+                        .encodeToString((builder.accountId + ":" + builder.licenseKey)
+                                .getBytes(StandardCharsets.UTF_8));
 
-        RequestConfig.Builder configBuilder = RequestConfig.custom()
-                .setConnectTimeout(builder.connectTimeout)
-                .setSocketTimeout(builder.readTimeout);
-
-        if (builder.proxy != null && builder.proxy != Proxy.NO_PROXY) {
-            InetSocketAddress address = (InetSocketAddress) builder.proxy.address();
-            HttpHost proxyHost = new HttpHost(address.getHostName(), address.getPort());
-            configBuilder.setProxy(proxyHost);
+        requestTimeout = builder.requestTimeout;
+        HttpClient.Builder httpClientBuilder = HttpClient.newBuilder()
+                .proxy(builder.proxy);
+        if (builder.connectTimeout != null) {
+            httpClientBuilder.connectTimeout(builder.connectTimeout);
         }
+        httpClient = httpClientBuilder.build();
 
-        RequestConfig config = configBuilder.build();
-        httpClient =
-                HttpClientBuilder.create()
-                        .setMaxConnPerRoute(20)
-                        .setUserAgent(userAgent())
-                        .setDefaultRequestConfig(config).build();
     }
 
     /**
@@ -107,18 +85,19 @@ public final class WebServiceClient implements Closeable {
         final int accountId;
         final String licenseKey;
 
+
         String host = "minfraud.maxmind.com";
         int port = 443;
         boolean useHttps = true;
 
-        int connectTimeout = -1;
-        int readTimeout = -1;
+        Duration connectTimeout;
+        Duration requestTimeout;
 
         List<String> locales = Collections.singletonList("en");
-        private Proxy proxy;
+        private ProxySelector proxy = ProxySelector.getDefault();
 
         /**
-         * @param accountId     Your MaxMind account ID.
+         * @param accountId  Your MaxMind account ID.
          * @param licenseKey Your MaxMind license key.
          */
         public Builder(int accountId, String licenseKey) {
@@ -130,8 +109,19 @@ public final class WebServiceClient implements Closeable {
          * @param val Timeout in milliseconds to establish a connection to the
          *            web service. There is no timeout by default.
          * @return Builder object
+         * @deprecated Use connectTimeout(Duration) instead
          */
+        @Deprecated
         public WebServiceClient.Builder connectTimeout(int val) {
+            return connectTimeout(Duration.ofMillis(val));
+        }
+
+        /**
+         * @param val Timeout duration to establish a connection to the web
+         *            service. There is no timeout by default.
+         * @return Builder object
+         */
+        public WebServiceClient.Builder connectTimeout(Duration val) {
             connectTimeout = val;
             return this;
         }
@@ -183,9 +173,32 @@ public final class WebServiceClient implements Closeable {
          *            established connection to the web service. There is no
          *            timeout by default.
          * @return Builder object
+         * @deprecated Use requestTimeout(Duration) instead
          */
+        @Deprecated
         public WebServiceClient.Builder readTimeout(int val) {
-            readTimeout = val;
+            return requestTimeout(Duration.ofMillis(val));
+        }
+
+        /**
+         * @param val Request timeout duration. here is no timeout by default.
+         * @return Builder object
+         */
+        public Builder requestTimeout(Duration val) {
+            requestTimeout = val;
+            return this;
+        }
+
+        /**
+         * @param val the proxy to use when making this request.
+         * @return Builder object
+         * @deprecated Use proxy(ProxySelector)
+         */
+        @Deprecated
+        public Builder proxy(Proxy val) {
+            if (val != null && val != Proxy.NO_PROXY) {
+                proxy = ProxySelector.of((InetSocketAddress) val.address());
+            }
             return this;
         }
 
@@ -193,10 +206,11 @@ public final class WebServiceClient implements Closeable {
          * @param val the proxy to use when making this request.
          * @return Builder object
          */
-        public Builder proxy(Proxy val) {
-            this.proxy = val;
+        public Builder proxy(ProxySelector val) {
+            proxy = val;
             return this;
         }
+
 
         /**
          * @return an instance of {@code WebServiceClient} created from the
@@ -306,11 +320,20 @@ public final class WebServiceClient implements Closeable {
         if (transaction == null) {
             throw new IllegalArgumentException("transaction report must not be null");
         }
-        URL url = createUrl(WebServiceClient.pathBase + "transactions/report");
-        HttpPost request = requestFor(transaction, url);
+        URI uri = createUri(WebServiceClient.pathBase + "transactions/report");
+        HttpRequest request = requestFor(transaction, uri);
 
-        try (CloseableHttpResponse response = httpClient.execute(request)) {
-            maybeThrowException(response, url);
+        HttpResponse<InputStream> response = null;
+        try {
+            response = httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
+            maybeThrowException(response, uri);
+            exhaustBody(response);
+        } catch (InterruptedException e) {
+            throw new MinFraudException("Interrupted sending request", e);
+        } finally {
+            if (response != null) {
+                response.body().close();
+            }
         }
     }
 
@@ -319,99 +342,99 @@ public final class WebServiceClient implements Closeable {
         if (transaction == null) {
             throw new IllegalArgumentException("transaction must not be null");
         }
-        URL url = createUrl(WebServiceClient.pathBase + service);
-        HttpPost request = requestFor(transaction, url);
+        URI uri = createUri(WebServiceClient.pathBase + service);
+        HttpRequest request = requestFor(transaction, uri);
 
-        try (CloseableHttpResponse response = httpClient.execute(request)) {
-            return handleResponse(response, url, cls);
+        HttpResponse<InputStream> response = null;
+        try {
+            response = httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
+            return handleResponse(response, uri, cls);
+        } catch (InterruptedException e) {
+            throw new MinFraudException("Interrupted sending request", e);
+        } finally {
+            if (response != null) {
+                response.body().close();
+            }
         }
     }
 
-    private HttpPost requestFor(AbstractModel transaction, URL url)
+    private HttpRequest requestFor(AbstractModel transaction, URI uri)
             throws MinFraudException, IOException {
-        Credentials credentials = new UsernamePasswordCredentials(Integer.toString(accountId), licenseKey);
+        HttpRequest.Builder builder = HttpRequest.newBuilder()
+                .uri(uri)
+                .header("Accept", "application/json")
+                .header("Authorization", authHeader)
+                .header("Content-Type", "application/json; charset=UTF-8")
+                .header("User-Agent", userAgent)
+                // XXX - creating this JSON string is somewhat wasteful. We
+                // could use an input stream instead.
+                .POST(HttpRequest.BodyPublishers.ofString(transaction.toJson()));
 
-        HttpPost request;
-        try {
-            request = new HttpPost(url.toURI());
-        } catch (URISyntaxException e) {
-            throw new MinFraudException("Error parsing request URL", e);
+        if (requestTimeout != null) {
+            builder.timeout(requestTimeout);
         }
-        try {
-            request.addHeader(new BasicScheme().authenticate(credentials, request, null));
-        } catch (org.apache.http.auth.AuthenticationException e) {
-            throw new AuthenticationException("Error setting up request authentication", e);
-        }
-        request.addHeader("Accept", "application/json");
-        request.addHeader("User-Agent", this.userAgent());
 
-        String requestBody = transaction.toJson();
-
-        StringEntity input = new StringEntity(requestBody, APPLICATION_JSON);
-
-        request.setEntity(input);
-        return request;
+        return builder.build();
     }
 
-    private void maybeThrowException(CloseableHttpResponse response, URL url) throws IOException, MinFraudException {
-        int status = response.getStatusLine().getStatusCode();
+    private void maybeThrowException(HttpResponse<InputStream> response, URI uri) throws IOException, MinFraudException {
+        int status = response.statusCode();
         if (status >= 400 && status < 500) {
-            this.handle4xxStatus(response, url);
+            this.handle4xxStatus(response, uri);
         } else if (status >= 500 && status < 600) {
+            exhaustBody(response);
             throw new HttpException("Received a server error (" + status
-                    + ") for " + url, status, url);
+                    + ") for " + uri, status, uri);
         } else if (status != 200 && status != 204) {
+            exhaustBody(response);
             throw new HttpException("Received an unexpected HTTP status ("
-                    + status + ") for " + url, status, url);
+                    + status + ") for " + uri, status, uri);
         }
     }
 
-    private <T> T handleResponse(CloseableHttpResponse response, URL url, Class<T> cls)
+    private <T> T handleResponse(HttpResponse<InputStream> response, URI uri, Class<T> cls)
             throws MinFraudException, IOException {
-        maybeThrowException(response, url);
-
-        HttpEntity entity = response.getEntity();
+        maybeThrowException(response, uri);
 
         InjectableValues inject = new Std().addValue(
                 "locales", locales);
 
-        try {
-            return mapper.readerFor(cls).with(inject).readValue(entity.getContent());
+        try (InputStream stream = response.body()) {
+            return Mapper.get().readerFor(cls).with(inject).readValue(stream);
         } catch (IOException e) {
             throw new MinFraudException(
                     "Received a 200 response but could not decode it as JSON", e);
-        } finally {
-            EntityUtils.consume(entity);
         }
     }
 
-
-    private void handle4xxStatus(HttpResponse response, URL url)
+    private void handle4xxStatus(HttpResponse<InputStream> response, URI uri)
             throws IOException, InsufficientFundsException,
             InvalidRequestException, AuthenticationException,
             PermissionRequiredException {
-        HttpEntity entity = response.getEntity();
-        int status = response.getStatusLine().getStatusCode();
+        int status = response.statusCode();
 
-        String body = EntityUtils.toString(entity, "UTF-8");
+        String body;
+        try (InputStream stream = response.body()) {
+            body = new String(stream.readAllBytes(), StandardCharsets.UTF_8);
+        }
 
         Map<String, String> content;
         try {
-            content = mapper.readValue(body,
+            content = Mapper.get().readValue(body,
                     new TypeReference<HashMap<String, String>>() {
                     });
-            this.handleErrorWithJsonBody(content, body, status, url);
+            this.handleErrorWithJsonBody(content, body, status, uri);
         } catch (HttpException e) {
             throw e;
         } catch (IOException e) {
             throw new HttpException("Received a " + status + " error for "
-                    + url + " but it did not include the expected JSON body: "
-                    + body, status, url, e);
+                    + uri + " but it did not include the expected JSON body: "
+                    + body, status, uri, e);
         }
     }
 
     private void handleErrorWithJsonBody(Map<String, String> content,
-                                         String body, int status, URL url)
+                                         String body, int status, URI uri)
             throws HttpException, InsufficientFundsException,
             InvalidRequestException, AuthenticationException,
             PermissionRequiredException {
@@ -421,7 +444,7 @@ public final class WebServiceClient implements Closeable {
         if (error == null || code == null) {
             throw new HttpException(
                     "Error response contains JSON but it does not specify code or error keys: "
-                            + body, status, url);
+                            + body, status, uri);
         }
 
         switch (code) {
@@ -435,36 +458,46 @@ public final class WebServiceClient implements Closeable {
             case "PERMISSION_REQUIRED":
                 throw new PermissionRequiredException(error);
             default:
-                throw new InvalidRequestException(error, code, status, url, null);
+                throw new InvalidRequestException(error, code, status, uri, null);
         }
     }
 
-    private URL createUrl(String path) throws MinFraudException {
+    private URI createUri(String path) throws MinFraudException {
         try {
-            return new URIBuilder()
-                    .setScheme(useHttps ? "https" : "http")
-                    .setHost(this.host)
-                    .setPort(this.port)
-                    .setPath(path)
-                    .build().toURL();
-        } catch (MalformedURLException | URISyntaxException e) {
+            return new URI(
+                    useHttps ? "https" : "http",
+                    null,
+                    host,
+                    port,
+                    path,
+                    null,
+                    null
+            );
+
+        } catch (URISyntaxException e) {
             throw new MinFraudException("Error creating service URL", e);
         }
     }
 
-    private String userAgent() {
-        return "minFraud-API/"
-                + getClass().getPackage().getImplementationVersion()
-                + " Java/" + System.getProperty("java.version");
+    private void exhaustBody(HttpResponse<InputStream> response) throws HttpException {
+        InputStream body = response.body();
+
+        try {
+            // Make sure we read the stream until the end so that
+            // the connection can be reused.
+            while (body.read() != -1) {
+            }
+        } catch (IOException e) {
+            throw new HttpException("Error reading response body", response.statusCode(), response.uri(), e);
+        }
     }
 
-
     /**
-     * Close any open connections and return resources to the system.
+     * @deprecated Closing is no longer necessary with java.net.http.HttpClient.
      */
     @Override
+    @Deprecated
     public void close() throws IOException {
-        httpClient.close();
     }
 
     @Override
@@ -474,9 +507,6 @@ public final class WebServiceClient implements Closeable {
                 ", port=" + port +
                 ", useHttps=" + useHttps +
                 ", locales=" + locales +
-                ", licenseKey='" + licenseKey + '\'' +
-                ", accountId=" + accountId +
-                ", mapper=" + mapper +
                 ", httpClient=" + httpClient +
                 '}';
     }

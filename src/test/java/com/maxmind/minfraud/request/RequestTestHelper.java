@@ -1,17 +1,16 @@
 package com.maxmind.minfraud.request;
 
+import com.maxmind.minfraud.request.TransactionReport.Tag;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.UUID;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.ZonedDateTime;
-
-import com.maxmind.minfraud.request.TransactionReport.Tag;
+import java.util.UUID;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
@@ -21,25 +20,25 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 public class RequestTestHelper {
     public static TransactionReport fullTransactionReport() throws Exception {
         return new TransactionReport.Builder(InetAddress.getByName("1.1.1.1"), Tag.NOT_FRAUD)
-                                .chargebackCode("foo")
-                                .maxmindId("12345678")
-                                .minfraudId(UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d"))
-                                .build();
+                .chargebackCode("foo")
+                .maxmindId("12345678")
+                .minfraudId(UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d"))
+                .build();
     }
 
     public static Transaction fullTransaction() throws Exception {
         return makeTransaction(new Email.Builder()
-                                .address("test@maxmind.com")
-                                .domain("maxmind.com")
-                                .build());
+                .address("test@maxmind.com")
+                .domain("maxmind.com")
+                .build());
     }
 
     public static Transaction fullTransactionEmailMd5() throws Exception {
         return makeTransaction(new Email.Builder()
-                                .address("test@maxmind.com")
-                                .hashAddress()
-                                .domain("maxmind.com")
-                                .build());
+                .address("test@maxmind.com")
+                .hashAddress()
+                .domain("maxmind.com")
+                .build());
     }
 
     private static Transaction makeTransaction(Email e) throws Exception {
@@ -66,7 +65,7 @@ public class RequestTestHelper {
                                 .username("fred")
                                 .build()
                 ).email(
-                    e
+                        e
                 ).billing(
                         new Billing.Builder()
                                 .firstName("First")
@@ -153,7 +152,7 @@ public class RequestTestHelper {
     public static String readJsonFile(String name) throws IOException, URISyntaxException {
         URL resource = RequestTestHelper.class
                 .getResource("/test-data/" + name + ".json");
-        return new String(Files.readAllBytes(Paths.get(resource.toURI())), StandardCharsets.UTF_8);
+        return Files.readString(Paths.get(resource.toURI()));
     }
 
     public static void verifyRequestFor(String service, String jsonFile) throws IOException, URISyntaxException {

@@ -57,8 +57,8 @@ public class TransactionTest {
         Device device = new Device.Builder().ipAddress(ip).build();
 
         Transaction request = new Transaction.Builder()
-            .device(device)
-            .build();
+                .device(device)
+                .build();
 
         assertEquals(ip, request.getDevice().getIpAddress());
     }

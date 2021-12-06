@@ -3,8 +3,8 @@ package com.maxmind.minfraud.request;
 import com.maxmind.minfraud.request.TransactionReport.Builder;
 import com.maxmind.minfraud.request.TransactionReport.Tag;
 import org.junit.Test;
-
 import org.skyscreamer.jsonassert.JSONAssert;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.UUID;
@@ -92,14 +92,14 @@ public class TransactionReportTest {
     @Test
     public void testAllFields() throws Exception {
         final TransactionReport report = new TransactionReport.Builder(
-            InetAddress.getByName("1.1.1.1"), Tag.NOT_FRAUD
+                InetAddress.getByName("1.1.1.1"), Tag.NOT_FRAUD
         )
-        .chargebackCode("mycode")
-        .maxmindId("12345678")
-        .minfraudId(UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d"))
-        .notes("notes go here")
-        .transactionId("foo")
-        .build();
+                .chargebackCode("mycode")
+                .maxmindId("12345678")
+                .minfraudId(UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d"))
+                .notes("notes go here")
+                .transactionId("foo")
+                .build();
 
         final String expectedJSON = "{" +
                 "ip_address:'1.1.1.1'," +

@@ -23,9 +23,9 @@ import java.util.List;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.jcabi.matchers.RegexMatchers.matchesPattern;
 import static com.maxmind.minfraud.request.RequestTestHelper.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringStartsWith.startsWith;
 import static org.junit.Assert.*;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(JUnitParamsRunner.class)
 public class WebServiceClientTest {
@@ -40,6 +40,7 @@ public class WebServiceClientTest {
             client.reportTransaction(request);
         }
     }
+
     @Test
     public void testFullScoreTransaction() throws Exception {
         String responseContent = readJsonFile("score-response");

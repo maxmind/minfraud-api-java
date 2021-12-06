@@ -1,11 +1,11 @@
 package com.maxmind.minfraud.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.validator.routines.DomainValidator;
 import org.apache.commons.validator.routines.EmailValidator;
+
 import java.net.IDN;
 import java.util.Collections;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ public final class Email extends AbstractModel {
     private static final Map<String, String> typoDomains;
 
     static {
-        HashMap<String, String> m = new HashMap<String, String>() {{
+        HashMap<String, String> m = new HashMap<>() {{
             // gmail.com
             put("35gmai.com", "gmail.com");
             put("636gmail.com", "gmail.com");
@@ -55,7 +55,7 @@ public final class Email extends AbstractModel {
 
         /**
          * The constructor for the builder.
-         *
+         * <p>
          * By default, validation will be enabled.
          */
         public Builder() {
@@ -77,7 +77,7 @@ public final class Email extends AbstractModel {
          * need to set the domain separately. The domain will be set to
          * the domain of the email address and the address field will be
          * set to the email address passed.
-         *
+         * <p>
          * The email address will be sent in plain text unless you also call
          * {@link #hashAddress()} to instead send it as an MD5 hash.
          *
@@ -103,8 +103,8 @@ public final class Email extends AbstractModel {
 
         /**
          * Send the email address as its MD5 hash.
-         *
-         * By default the email address set by {@link #address(String)} will be
+         * <p>
+         * By default, the email address set by {@link #address(String)} will be
          * sent in plain text. Enable sending it as an MD5 hash instead by
          * calling this method.
          *
@@ -200,20 +200,6 @@ public final class Email extends AbstractModel {
         }
 
         return domain;
-    }
-
-    /**
-     * @return The MD5 hash of the email address if you set an address using
-     * {@link Builder#address(String)}, or null if you did not.
-     * @deprecated {@link #getAddress()} should be used instead.
-     */
-    @JsonIgnore
-    @Deprecated
-    public String getAddressMd5() {
-        if (address == null) {
-            return null;
-        }
-        return DigestUtils.md5Hex(cleanAddress(address));
     }
 
     /**

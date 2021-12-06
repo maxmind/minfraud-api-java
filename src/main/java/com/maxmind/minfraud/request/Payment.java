@@ -238,11 +238,6 @@ public final class Payment extends AbstractModel {
         TSYS,
         USA_EPAY,
         VANTIV,
-        /**
-         * @deprecated Use VEREPAY. This was a misspelling.
-         */
-        @Deprecated
-        VERAPAY,
         VEREPAY,
         VERICHECK,
         VINDICIA,

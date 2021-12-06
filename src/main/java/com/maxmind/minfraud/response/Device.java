@@ -22,21 +22,11 @@ public final class Device extends AbstractModel {
     private final String localTime;
 
     /**
-     * @deprecated This constructor only exists for backward compatibility
-     * and will be removed in the next major release.
-     *
      * @param confidence The device confidence.
-     * @param id The device ID.
-     * @param lastSeen When the device was last seen.
+     * @param id         The device ID.
+     * @param lastSeen   When the device was last seen.
+     * @param localTime  The local time of the device.
      */
-    public Device(
-            Double confidence,
-            UUID id,
-            String lastSeen
-    ) {
-        this(confidence, id, lastSeen, null);
-    }
-
     public Device(
             @JsonProperty("confidence") Double confidence,
             @JsonProperty("id") UUID id,

@@ -250,12 +250,12 @@ public final class CreditCard extends AbstractModel {
 
     /**
      * @return An indication of whether or not the outcome of 3D-Secure
-     *         verification (e.g. Safekey, SecureCode, Verified by Visa) was
-     *         successful, as provided by the end user. {@code true} if customer
-     *         verification was successful, or {@code false} if the customer
-     *         failed verification. {@code null} if 3-D Secure verification was
-     *         not used, was unavailable, or resulted in another outcome other
-     *         than success or failure.
+     * verification (e.g. Safekey, SecureCode, Verified by Visa) was
+     * successful, as provided by the end user. {@code true} if customer
+     * verification was successful, or {@code false} if the customer
+     * failed verification. {@code null} if 3-D Secure verification was
+     * not used, was unavailable, or resulted in another outcome other
+     * than success or failure.
      */
     @JsonProperty("was_3d_secure_successful")
     public Boolean getWas3dSecureSuccessful() {

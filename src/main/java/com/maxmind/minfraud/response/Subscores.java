@@ -19,8 +19,6 @@ public final class Subscores {
     private final Double emailAddress;
     private final Double emailDomain;
     private final Double emailLocalPart;
-    private final Double emailTenure;
-    private final Double ipTenure;
     private final Double issuerIdNumber;
     private final Double orderAmount;
     private final Double phoneNumber;
@@ -28,6 +26,26 @@ public final class Subscores {
     private final Double shippingAddressDistanceToIpLocation;
     private final Double timeOfDay;
 
+    /**
+     * @param avsResult                           The AVS result subscore.
+     * @param billingAddress                      The billing address subscore.
+     * @param billingAddressDistanceToIpLocation  The billing address distance to the IP location subscore.
+     * @param browser                             The browser subscore.
+     * @param chargeback                          The chargeback subscore.
+     * @param country                             The country subscore.
+     * @param countryMismatch                     The country mismatch subscore.
+     * @param cvvResult                           The CVV result subscore.
+     * @param device                              The device subscore..
+     * @param emailAddress                        The email address subscore.
+     * @param emailDomain                         The email domain subscore.
+     * @param emailLocalPart                      The subscore for the local part of the email.
+     * @param issuerIdNumber                      The IIN subscore.
+     * @param orderAmount                         The order amount subscore.
+     * @param phoneNumber                         The phone number subscore.
+     * @param shippingAddress                     The shipping addresss subscore.
+     * @param shippingAddressDistanceToIpLocation The shipping address distance to IP location subscore.
+     * @param timeOfDay                           The time of day subscore.
+     */
     public Subscores(
             @JsonProperty("avs_result") Double avsResult,
             @JsonProperty("billing_address") Double billingAddress,
@@ -41,8 +59,6 @@ public final class Subscores {
             @JsonProperty("email_address") Double emailAddress,
             @JsonProperty("email_domain") Double emailDomain,
             @JsonProperty("email_local_part") Double emailLocalPart,
-            @JsonProperty("email_tenure") Double emailTenure,
-            @JsonProperty("ip_tenure") Double ipTenure,
             @JsonProperty("issuer_id_number") Double issuerIdNumber,
             @JsonProperty("order_amount") Double orderAmount,
             @JsonProperty("phone_number") Double phoneNumber,
@@ -62,8 +78,6 @@ public final class Subscores {
         this.emailAddress = emailAddress;
         this.emailDomain = emailDomain;
         this.emailLocalPart = emailLocalPart;
-        this.emailTenure = emailTenure;
-        this.ipTenure = ipTenure;
         this.issuerIdNumber = issuerIdNumber;
         this.orderAmount = orderAmount;
         this.phoneNumber = phoneNumber;
@@ -72,56 +86,9 @@ public final class Subscores {
         this.timeOfDay = timeOfDay;
     }
 
-    /**
-     * @deprecated This constructor only exists for backward compatibility
-     * and will be removed in the next major release.
-     *
-     * @param avsResult The AVS result subscore.
-     * @param billingAddress The billing address subscore.
-     * @param billingAddressDistanceToIpLocation The billing address distance to the IP location subscore.
-     * @param browser The browser subscore.
-     * @param chargeback The chargeback subscore.
-     * @param country The country subscore.
-     * @param countryMismatch The country mismatch subscore.
-     * @param cvvResult The CVV result subscore.
-     * @param emailAddress The email address subscore.
-     * @param emailDomain The email domain subscore.
-     * @param emailTenure The email tenure subscore.
-     * @param ipTenure The IP tenure subscore.
-     * @param issuerIdNumber The IIN subscore.
-     * @param orderAmount The order amount subscore.
-     * @param phoneNumber The phone number subscore.
-     * @param shippingAddressDistanceToIpLocation The shipping address distance to IP location subscore.
-     * @param timeOfDay The time of day subscore.
-     */
-    public Subscores(
-            Double avsResult,
-            Double billingAddress,
-            Double billingAddressDistanceToIpLocation,
-            Double browser,
-            Double chargeback,
-            Double country,
-            Double countryMismatch,
-            Double cvvResult,
-            Double emailAddress,
-            Double emailDomain,
-            Double emailTenure,
-            Double ipTenure,
-            Double issuerIdNumber,
-            Double orderAmount,
-            Double phoneNumber,
-            Double shippingAddressDistanceToIpLocation,
-            Double timeOfDay
-    ) {
-        this(avsResult, billingAddress, billingAddressDistanceToIpLocation, browser, chargeback,
-        country, countryMismatch, cvvResult, null, emailAddress, emailDomain, null, emailTenure,
-        ipTenure, issuerIdNumber, orderAmount, phoneNumber, null, shippingAddressDistanceToIpLocation,
-        timeOfDay);
-    }
-
     public Subscores() {
         this(null, null, null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null);
+                null, null, null, null, null, null);
     }
 
     /**
@@ -230,39 +197,12 @@ public final class Subscores {
 
     /**
      * @return The risk associated with the email address local part (the part
-     *  of the email address before the @ symbol). If present, this is a value
-     *  in the range 0.01 to 99.
+     * of the email address before the @ symbol). If present, this is a value
+     * in the range 0.01 to 99.
      */
     @JsonProperty("email_local_part")
     public Double getEmailLocalPart() {
         return emailLocalPart;
-    }
-
-    /**
-     * @return The risk associated with the issuer ID number on the email
-     * domain. If present, this is a value in the range 0.01 to 99.
-     * @deprecated Deprecated effective August 29, 2019. This subscore will
-     * default to 1 and will be removed in a future release. The user tenure on
-     * email is reflected in the email address subscore.
-     * {@link #getEmailAddress()}.
-     */
-    @JsonProperty("email_tenure")
-    @Deprecated
-    public Double getEmailTenure() {
-        return emailTenure;
-    }
-
-    /**
-     * @return The risk associated with the issuer ID number on the IP address.
-     * If present, this is a value in the range 0.01 to 99.
-     * @deprecated Deprecated effective August 29, 2019. This subscore will 
-     * default to 1 and will be removed in a future release. The IP tenure is 
-     * reflected in the overall risk score. {@link ScoreResponse#getRiskScore()}
-     */
-    @JsonProperty("ip_tenure")
-    @Deprecated
-    public Double getIpTenure() {
-        return ipTenure;
     }
 
     /**

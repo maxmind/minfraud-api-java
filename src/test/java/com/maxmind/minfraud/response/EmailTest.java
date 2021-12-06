@@ -48,6 +48,7 @@ public class EmailTest extends AbstractOutputTest {
                         .finish()
         );
 
+        assertNotNull(email.getDomain());
         assertNull(email.isDisposable());
         assertFalse(email.isFree());
         assertTrue(email.isHighRisk());
