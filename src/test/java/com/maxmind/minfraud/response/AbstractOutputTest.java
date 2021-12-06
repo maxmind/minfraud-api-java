@@ -14,7 +14,7 @@ import java.util.Collections;
 public abstract class AbstractOutputTest {
 
     <T> T deserialize(Class<T> cls, String json) throws IOException {
-        ObjectMapper         mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
         mapper.disable(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS);
         mapper.enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         mapper.registerModule(new JavaTimeModule());

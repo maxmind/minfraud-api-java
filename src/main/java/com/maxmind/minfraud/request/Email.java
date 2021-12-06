@@ -6,6 +6,7 @@ import com.maxmind.minfraud.AbstractModel;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.validator.routines.DomainValidator;
 import org.apache.commons.validator.routines.EmailValidator;
+
 import java.net.IDN;
 import java.util.Collections;
 import java.util.HashMap;
@@ -55,7 +56,7 @@ public final class Email extends AbstractModel {
 
         /**
          * The constructor for the builder.
-         *
+         * <p>
          * By default, validation will be enabled.
          */
         public Builder() {
@@ -77,7 +78,7 @@ public final class Email extends AbstractModel {
          * need to set the domain separately. The domain will be set to
          * the domain of the email address and the address field will be
          * set to the email address passed.
-         *
+         * <p>
          * The email address will be sent in plain text unless you also call
          * {@link #hashAddress()} to instead send it as an MD5 hash.
          *
@@ -103,7 +104,7 @@ public final class Email extends AbstractModel {
 
         /**
          * Send the email address as its MD5 hash.
-         *
+         * <p>
          * By default the email address set by {@link #address(String)} will be
          * sent in plain text. Enable sending it as an MD5 hash instead by
          * calling this method.

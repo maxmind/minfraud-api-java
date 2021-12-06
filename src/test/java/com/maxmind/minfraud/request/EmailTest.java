@@ -36,7 +36,7 @@ public class EmailTest {
             put("test@test.generic", "test.generic");
         }};
 
-        for (String address:addresses.keySet()) {
+        for (String address : addresses.keySet()) {
             Email email = new Builder(false).address(address).build();
             assertEquals("raw email", address, email.getAddress());
             assertEquals("domain set from email", addresses.get(address), email.getDomain());

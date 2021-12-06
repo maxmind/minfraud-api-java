@@ -3,7 +3,6 @@ package com.maxmind.minfraud.exception;
 import org.junit.Test;
 
 import java.net.URI;
-import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
 

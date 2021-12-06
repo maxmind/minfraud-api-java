@@ -73,26 +73,25 @@ public final class Subscores {
     }
 
     /**
+     * @param avsResult                           The AVS result subscore.
+     * @param billingAddress                      The billing address subscore.
+     * @param billingAddressDistanceToIpLocation  The billing address distance to the IP location subscore.
+     * @param browser                             The browser subscore.
+     * @param chargeback                          The chargeback subscore.
+     * @param country                             The country subscore.
+     * @param countryMismatch                     The country mismatch subscore.
+     * @param cvvResult                           The CVV result subscore.
+     * @param emailAddress                        The email address subscore.
+     * @param emailDomain                         The email domain subscore.
+     * @param emailTenure                         The email tenure subscore.
+     * @param ipTenure                            The IP tenure subscore.
+     * @param issuerIdNumber                      The IIN subscore.
+     * @param orderAmount                         The order amount subscore.
+     * @param phoneNumber                         The phone number subscore.
+     * @param shippingAddressDistanceToIpLocation The shipping address distance to IP location subscore.
+     * @param timeOfDay                           The time of day subscore.
      * @deprecated This constructor only exists for backward compatibility
      * and will be removed in the next major release.
-     *
-     * @param avsResult The AVS result subscore.
-     * @param billingAddress The billing address subscore.
-     * @param billingAddressDistanceToIpLocation The billing address distance to the IP location subscore.
-     * @param browser The browser subscore.
-     * @param chargeback The chargeback subscore.
-     * @param country The country subscore.
-     * @param countryMismatch The country mismatch subscore.
-     * @param cvvResult The CVV result subscore.
-     * @param emailAddress The email address subscore.
-     * @param emailDomain The email domain subscore.
-     * @param emailTenure The email tenure subscore.
-     * @param ipTenure The IP tenure subscore.
-     * @param issuerIdNumber The IIN subscore.
-     * @param orderAmount The order amount subscore.
-     * @param phoneNumber The phone number subscore.
-     * @param shippingAddressDistanceToIpLocation The shipping address distance to IP location subscore.
-     * @param timeOfDay The time of day subscore.
      */
     public Subscores(
             Double avsResult,
@@ -114,9 +113,9 @@ public final class Subscores {
             Double timeOfDay
     ) {
         this(avsResult, billingAddress, billingAddressDistanceToIpLocation, browser, chargeback,
-        country, countryMismatch, cvvResult, null, emailAddress, emailDomain, null, emailTenure,
-        ipTenure, issuerIdNumber, orderAmount, phoneNumber, null, shippingAddressDistanceToIpLocation,
-        timeOfDay);
+                country, countryMismatch, cvvResult, null, emailAddress, emailDomain, null, emailTenure,
+                ipTenure, issuerIdNumber, orderAmount, phoneNumber, null, shippingAddressDistanceToIpLocation,
+                timeOfDay);
     }
 
     public Subscores() {
@@ -230,8 +229,8 @@ public final class Subscores {
 
     /**
      * @return The risk associated with the email address local part (the part
-     *  of the email address before the @ symbol). If present, this is a value
-     *  in the range 0.01 to 99.
+     * of the email address before the @ symbol). If present, this is a value
+     * in the range 0.01 to 99.
      */
     @JsonProperty("email_local_part")
     public Double getEmailLocalPart() {
@@ -255,8 +254,8 @@ public final class Subscores {
     /**
      * @return The risk associated with the issuer ID number on the IP address.
      * If present, this is a value in the range 0.01 to 99.
-     * @deprecated Deprecated effective August 29, 2019. This subscore will 
-     * default to 1 and will be removed in a future release. The IP tenure is 
+     * @deprecated Deprecated effective August 29, 2019. This subscore will
+     * default to 1 and will be removed in a future release. The IP tenure is
      * reflected in the overall risk score. {@link ScoreResponse#getRiskScore()}
      */
     @JsonProperty("ip_tenure")

@@ -109,7 +109,7 @@ public final class WebServiceClient implements Closeable {
         private ProxySelector proxy = ProxySelector.getDefault();
 
         /**
-         * @param accountId     Your MaxMind account ID.
+         * @param accountId  Your MaxMind account ID.
          * @param licenseKey Your MaxMind license key.
          */
         public Builder(int accountId, String licenseKey) {

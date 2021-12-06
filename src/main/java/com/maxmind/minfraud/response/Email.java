@@ -31,13 +31,12 @@ public final class Email extends AbstractModel {
     }
 
     /**
+     * @param isDisposable Whether it is a disposable email.
+     * @param isFree       Whether it is a free email.
+     * @param isHighRisk   Whether it is a high risk email.
+     * @param firstSeen    When the email was first seen.
      * @deprecated This constructor only exists for backward compatibility
      * and will be removed in the next major release.
-     *
-     * @param isDisposable Whether it is a disposable email.
-     * @param isFree Whether it is a free email.
-     * @param isHighRisk Whether it is a high risk email.
-     * @param firstSeen When the email was first seen.
      */
     public Email(
             Boolean isDisposable,
@@ -49,12 +48,11 @@ public final class Email extends AbstractModel {
     }
 
     /**
+     * @param isFree     Whether it is a free email.
+     * @param isHighRisk Whether it is a high risk email.
+     * @param firstSeen  When the email was first seen.
      * @deprecated This constructor only exists for backward compatibility
      * and will be removed in the next major release.
-     *
-     * @param isFree Whether it is a free email.
-     * @param isHighRisk Whether it is a high risk email.
-     * @param firstSeen When the email was first seen.
      */
     public Email(
             Boolean isFree,
@@ -65,11 +63,10 @@ public final class Email extends AbstractModel {
     }
 
     /**
+     * @param isFree     Whether it is a free email.
+     * @param isHighRisk Whether it is a high risk email.
      * @deprecated This constructor only exists for backward compatibility
      * and will be removed in the next major release.
-     *
-     * @param isFree Whether it is a free email.
-     * @param isHighRisk Whether it is a high risk email.
      */
     public Email(
             Boolean isFree,
