@@ -244,6 +244,7 @@ public final class Payment extends AbstractModel {
         VIRTUAL_CARD_SERVICES,
         VME,
         VPOS,
+        WINDCAVE,
         WIRECARD,
         WORLDPAY;
 

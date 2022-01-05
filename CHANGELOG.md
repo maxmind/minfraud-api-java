@@ -45,6 +45,7 @@ CHANGELOG
   * `PAYSERA`
   * `PAYVISION`
   * `TRUSTLY`
+  * `WINDCAVE`
 
 1.18.0 (2021-08-31)
 -------------------
