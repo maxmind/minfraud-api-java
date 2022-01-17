@@ -34,7 +34,8 @@ public final class FactorsResponse extends InsightsResponse {
     }
 
     /**
-     * @return The {@code Subscores} model object.
+     * @return The {@code Subscores} model object containing the risk factor
+     * scores.
      */
     @JsonProperty("subscores")
     public Subscores getSubscores() {

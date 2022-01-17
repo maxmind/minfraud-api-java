@@ -3,8 +3,8 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * This class contains subscores for many of the individual components that are
- * used to calculate the overall risk score.
+ * This class contains scores for many of the risk factors that are used to
+ * calculate the overall risk score.
  */
 public final class Subscores {
     private final Double avsResult;
@@ -27,24 +27,24 @@ public final class Subscores {
     private final Double timeOfDay;
 
     /**
-     * @param avsResult                           The AVS result subscore.
-     * @param billingAddress                      The billing address subscore.
-     * @param billingAddressDistanceToIpLocation  The billing address distance to the IP location subscore.
-     * @param browser                             The browser subscore.
-     * @param chargeback                          The chargeback subscore.
-     * @param country                             The country subscore.
-     * @param countryMismatch                     The country mismatch subscore.
-     * @param cvvResult                           The CVV result subscore.
-     * @param device                              The device subscore..
-     * @param emailAddress                        The email address subscore.
-     * @param emailDomain                         The email domain subscore.
-     * @param emailLocalPart                      The subscore for the local part of the email.
-     * @param issuerIdNumber                      The IIN subscore.
-     * @param orderAmount                         The order amount subscore.
-     * @param phoneNumber                         The phone number subscore.
-     * @param shippingAddress                     The shipping addresss subscore.
-     * @param shippingAddressDistanceToIpLocation The shipping address distance to IP location subscore.
-     * @param timeOfDay                           The time of day subscore.
+     * @param avsResult                           The AVS result risk factor score.
+     * @param billingAddress                      The billing address risk factor score.
+     * @param billingAddressDistanceToIpLocation  The billing address distance to the IP location risk factor score.
+     * @param browser                             The browser risk factor score.
+     * @param chargeback                          The chargeback risk factor score.
+     * @param country                             The country risk factor score.
+     * @param countryMismatch                     The country mismatch risk factor score.
+     * @param cvvResult                           The CVV result risk factor score.
+     * @param device                              The device risk factor score..
+     * @param emailAddress                        The email address risk factor score.
+     * @param emailDomain                         The email domain risk factor score.
+     * @param emailLocalPart                      The risk factor score for the local part of the email.
+     * @param issuerIdNumber                      The IIN risk factor score.
+     * @param orderAmount                         The order amount risk factor score.
+     * @param phoneNumber                         The phone number risk factor score.
+     * @param shippingAddress                     The shipping addresss risk factor score.
+     * @param shippingAddressDistanceToIpLocation The shipping address distance to IP location risk factor score.
+     * @param timeOfDay                           The time of day risk factor score.
      */
     public Subscores(
             @JsonProperty("avs_result") Double avsResult,
