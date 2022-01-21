@@ -162,7 +162,7 @@ Transaction request = new Transaction.Builder(
             .bankPhoneNumber("313-231-3213")
             .cvvResult('Y')
             .issuerIdNumber("213312")
-            .last4Digits("3211")
+            .lastDigits("3211")
             .was3dSecureSuccessful(true)
             .build()
     ).email(

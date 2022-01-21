@@ -16,6 +16,9 @@ public class CreditCardTest {
     public void testIssuerIdNumber() {
         CreditCard cc = new Builder().issuerIdNumber("123456").build();
         assertEquals("123456", cc.getIssuerIdNumber());
+
+        cc = new Builder().issuerIdNumber("12345678").build();
+        assertEquals("12345678", cc.getIssuerIdNumber());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -37,21 +40,33 @@ public class CreditCardTest {
     public void testLast4Digits() {
         CreditCard cc = new Builder().last4Digits("1234").build();
         assertEquals("1234", cc.getLast4Digits());
+        assertEquals("1234", cc.getLastDigits());
+    }
+
+    @Test
+    public void testLastDigits() {
+        CreditCard cc = new Builder().lastDigits("1234").build();
+        assertEquals("1234", cc.getLast4Digits());
+        assertEquals("1234", cc.getLastDigits());
+
+        cc = new Builder().lastDigits("12").build();
+        assertEquals("12", cc.getLast4Digits());
+        assertEquals("12", cc.getLastDigits());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testLast4DigitsThatIsTooLong() {
-        new Builder().last4Digits("12345").build();
+    public void testLastDigitsThatIsTooLong() {
+        new Builder().lastDigits("12345").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testLast4DigitsThatIsTooShort() {
-        new Builder().last4Digits("123").build();
+    public void testLastDigitsThatIsTooShort() {
+        new Builder().lastDigits("123").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testLast4DigitsThatHasLetters() {
-        new Builder().last4Digits("123a").build();
+    public void testLastDigitsThatHasLetters() {
+        new Builder().lastDigits("123a").build();
     }
 
     @Test

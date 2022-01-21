@@ -1,5 +1,6 @@
 package com.maxmind.minfraud.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
 
@@ -10,7 +11,7 @@ import java.util.regex.Pattern;
  */
 public final class CreditCard extends AbstractModel {
     private final String issuerIdNumber;
-    private final String last4Digits;
+    private final String lastDigits;
     private final String bankName;
     private final String bankPhoneCountryCode;
     private final String bankPhoneNumber;
@@ -21,7 +22,7 @@ public final class CreditCard extends AbstractModel {
 
     private CreditCard(CreditCard.Builder builder) {
         issuerIdNumber = builder.issuerIdNumber;
-        last4Digits = builder.last4Digits;
+        lastDigits = builder.lastDigits;
         bankName = builder.bankName;
         bankPhoneCountryCode = builder.bankPhoneCountryCode;
         bankPhoneNumber = builder.bankPhoneNumber;
@@ -36,12 +37,12 @@ public final class CreditCard extends AbstractModel {
      * from values set by the builder's methods.
      */
     public static final class Builder {
-        private static final Pattern IIN_PATTERN = Pattern.compile("^[0-9]{6}$");
-        private static final Pattern LAST_4_PATTERN = Pattern.compile("^[0-9]{4}$");
+        private static final Pattern IIN_PATTERN = Pattern.compile("^(?:[0-9]{6}|[0-9]{8})$");
+        private static final Pattern LAST_DIGITS_PATTERN = Pattern.compile("^(?:[0-9]{2}|[0-9]{4})$");
         private static final Pattern TOKEN_PATTERN = Pattern.compile("^(?![0-9]{1,19}$)[\\x21-\\x7E]{1,255}$");
 
         String issuerIdNumber;
-        String last4Digits;
+        String lastDigits;
         String bankName;
         String bankPhoneCountryCode;
         String bankPhoneNumber;
@@ -52,7 +53,7 @@ public final class CreditCard extends AbstractModel {
 
         /**
          * @param number The issuer ID number for the credit card. This is the
-         *               first 6 digits of the credit card number. It
+         *               first 6 or 8 digits of the credit card number. It
          *               identifies the issuing bank.
          * @return The builder object.
          * @throws IllegalArgumentException when number is not a six digit
@@ -67,16 +68,30 @@ public final class CreditCard extends AbstractModel {
         }
 
         /**
-         * @param digits The last four digits of the credit card number.
+         * @deprecated
+         * Use lastDigits instead.
+         *
+         * @param digits The last two or four digits of the credit card number.
          * @return The builder object.
-         * @throws IllegalArgumentException when number is not a four digit
+         * @throws IllegalArgumentException when number is not a two or four digit
          *                                  string.
          */
+        @Deprecated
         public CreditCard.Builder last4Digits(String digits) {
-            if (!LAST_4_PATTERN.matcher(digits).matches()) {
-                throw new IllegalArgumentException("The last 4 credit card digits " + digits + " are of the wrong format.");
+            return this.lastDigits(digits);
+        }
+
+        /**
+         * @param digits The last two or four digits of the credit card number.
+         * @return The builder object.
+         * @throws IllegalArgumentException when number is not a two or four digit
+         *                                  string.
+         */
+        public CreditCard.Builder lastDigits(String digits) {
+            if (!LAST_DIGITS_PATTERN.matcher(digits).matches()) {
+                throw new IllegalArgumentException("The last credit card digits " + digits + " are of the wrong format.");
             }
-            last4Digits = digits;
+            lastDigits = digits;
             return this;
         }
 
@@ -188,11 +203,22 @@ public final class CreditCard extends AbstractModel {
     }
 
     /**
-     * @return The last 4 digits of the credit card number.
+     * @deprecated
+     *
+     * @return The last two or four digits of the credit card number.
      */
-    @JsonProperty("last_4_digits")
+    @Deprecated
+    @JsonIgnore
     public String getLast4Digits() {
-        return last4Digits;
+        return this.getLastDigits();
+    }
+
+    /**
+     * @return The last two or four digits of the credit card number.
+     */
+    @JsonProperty("last_digits")
+    public String getLastDigits() {
+        return lastDigits;
     }
 
     /**
