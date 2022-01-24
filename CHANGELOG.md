@@ -1,8 +1,8 @@
 CHANGELOG
 =========
 
-2.0.0
--------------------
+2.0.0 (2022-01-24)
+------------------
 
 * Java 11 or greater is now required.
 * Apache HttpClient has been replaced with `java.net.http.HttpClient`.
