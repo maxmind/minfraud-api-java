@@ -2,11 +2,14 @@ package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.validator.routines.DomainValidator;
 import org.apache.commons.validator.routines.EmailValidator;
 
+import java.math.BigInteger;
 import java.net.IDN;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -150,7 +153,15 @@ public final class Email extends AbstractModel {
             return null;
         }
         if (hashAddress) {
-            return DigestUtils.md5Hex(cleanAddress(address));
+            String cleanAddress = cleanAddress(address);
+            try {
+                MessageDigest d = MessageDigest.getInstance("MD5");
+                d.update(cleanAddress.getBytes(Charset.forName("UTF8")));
+                BigInteger i = new BigInteger(1, d.digest());
+                return  String.format("%032x", i);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException("No MD5 algorithm for MessageDigest!", e);
+            }
         }
         return address;
     }

@@ -62,6 +62,7 @@ CHANGELOG
   * `Mastercard`
   * `UnionPay`
   * `Visa`
+* Apache Commons Codec is no longer used for generating MD5s.
 
 1.18.0 (2021-08-31)
 -------------------
