@@ -2,7 +2,7 @@
 layout: default
 title: MaxMind minFraud Score and Insights Java API
 language: java
-version: v1.18.0
+version: v2.0.0
 ---
 
 # MaxMind minFraud Score, Insights, and Factors Java API
@@ -23,7 +23,7 @@ To do this, add the dependency to your pom.xml:
     <dependency>
         <groupId>com.maxmind.minfraud</groupId>
         <artifactId>minfraud</artifactId>
-        <version>1.18.0</version>
+        <version>2.0.0</version>
     </dependency>
 ```
 
@@ -36,7 +36,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'com.maxmind.minfraud:minfraud:1.18.0'
+    compile 'com.maxmind.minfraud:minfraud:2.0.0'
 }
 ```
 
@@ -169,7 +169,7 @@ Transaction request = new Transaction.Builder(
             .bankPhoneNumber("313-231-3213")
             .cvvResult('Y')
             .issuerIdNumber("213312")
-            .last4Digits("3211")
+            .lastDigits("3211")
             .was3dSecureSuccessful(true)
             .build()
     ).email(
@@ -247,8 +247,8 @@ MaxMind encourages the use of this API, as data received through this channel
 is continually used to improve the accuracy of our fraud detection algorithms.
 
 To use the Report Transactions API, create a new `TransactionReport` object. An
-IP address and a valid tag are required arguments.  Additional params may also
-be set, as documented below.
+IP address and a valid tag are required arguments. Additional params may
+also be set, as documented below.
 
 If the report is successful, nothing is returned. If the report fails, an
 exception with be thrown.
@@ -278,9 +278,9 @@ If you are having an issue with the minFraud service that is not specific
 to the client API, please see
 [our support page](https://www.maxmind.com/en/support).
 
-## Requirements  ##
+## Requirements ##
 
-This code requires Java 8+.
+This code requires Java 11+.
 
 ## Contributing ##
 
@@ -293,6 +293,6 @@ This API uses [Semantic Versioning](https://semver.org/).
 
 ## Copyright and License ##
 
-This software is Copyright (c) 2015-2021 by MaxMind, Inc.
+This software is Copyright (c) 2015-2022 by MaxMind, Inc.
 
 This is free software, licensed under the Apache License, Version 2.0.
