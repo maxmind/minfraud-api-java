@@ -89,6 +89,19 @@ public class CreditCardTest {
     }
 
     @Test
+    public void testCountry() {
+        String country = "CA";
+        CreditCard cc = new Builder().country(country).build();
+        assertEquals(country, cc.getCountry());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    @Parameters({"ca"})
+    public void testInvalidCountry(String country) {
+        new Builder().country(country).build();
+    }
+
+    @Test
     public void testAvsResult() {
         CreditCard cc = new Builder().avsResult('Y').build();
         assertEquals(Character.valueOf('Y'), cc.getAvsResult());

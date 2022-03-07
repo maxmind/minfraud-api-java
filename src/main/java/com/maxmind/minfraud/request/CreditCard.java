@@ -15,6 +15,7 @@ public final class CreditCard extends AbstractModel {
     private final String bankName;
     private final String bankPhoneCountryCode;
     private final String bankPhoneNumber;
+    private final String country;
     private final Character avsResult;
     private final Character cvvResult;
     private final String token;
@@ -26,6 +27,7 @@ public final class CreditCard extends AbstractModel {
         bankName = builder.bankName;
         bankPhoneCountryCode = builder.bankPhoneCountryCode;
         bankPhoneNumber = builder.bankPhoneNumber;
+        country = builder.country;
         avsResult = builder.avsResult;
         cvvResult = builder.cvvResult;
         token = builder.token;
@@ -37,6 +39,7 @@ public final class CreditCard extends AbstractModel {
      * from values set by the builder's methods.
      */
     public static final class Builder {
+        private static final Pattern COUNTRY_CODE_PATTERN = Pattern.compile("^[A-Z]{2}$");
         private static final Pattern IIN_PATTERN = Pattern.compile("^(?:[0-9]{6}|[0-9]{8})$");
         private static final Pattern LAST_DIGITS_PATTERN = Pattern.compile("^(?:[0-9]{2}|[0-9]{4})$");
         private static final Pattern TOKEN_PATTERN = Pattern.compile("^(?![0-9]{1,19}$)[\\x21-\\x7E]{1,255}$");
@@ -46,6 +49,7 @@ public final class CreditCard extends AbstractModel {
         String bankName;
         String bankPhoneCountryCode;
         String bankPhoneNumber;
+        String country;
         String token;
         Character avsResult;
         Character cvvResult;
@@ -121,6 +125,24 @@ public final class CreditCard extends AbstractModel {
          */
         public CreditCard.Builder bankPhoneNumber(String number) {
             bankPhoneNumber = number;
+            return this;
+        }
+
+        /**
+         * @param code The two character ISO 3166-1 alpha-2 country code where
+         *             the issuer of the card is located. This may be passed
+         *             instead of issuerIdNumber if you do not wish to pass
+         *             partial account numbers, or if your payment processor
+         *             does not provide them.
+         * @return The builder object.
+         * @throws IllegalArgumentException when code is not a two-letter
+         *                                  country code.
+         */
+        public CreditCard.Builder country(String code) {
+            if (!COUNTRY_CODE_PATTERN.matcher(code).matches()) {
+                throw new IllegalArgumentException("Expected two-letter country code in the ISO 3166-1 alpha-2 format");
+            }
+            country = code;
             return this;
         }
 
@@ -245,6 +267,15 @@ public final class CreditCard extends AbstractModel {
     @JsonProperty("bank_phone_number")
     public String getBankPhoneNumber() {
         return bankPhoneNumber;
+    }
+
+    /**
+     * @return The two character ISO 3166-1 alpha-2 country code where the
+     * issuer of the card is located.
+     */
+    @JsonProperty("country")
+    public String getCountry() {
+        return country;
     }
 
     /**
