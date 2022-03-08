@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+2.1.0
+------------------
+
+* Added the input `/credit_card/country`. This is the country where the
+  issuer of the card is located. This may be passed instead of the
+  `/credit_card/issuer_id_number` if you do not wish to pass partial
+  account numbers or if your payment processor does not provide them. You
+  may provide this using the `country` method on `CreditCard.Builder`.
+
 2.0.0 (2022-01-24)
 ------------------
 
