@@ -96,7 +96,7 @@ public class CreditCardTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    @Parameters({"ca"})
+    @Parameters({"ca", "USA", "C1"})
     public void testInvalidCountry(String country) {
         new Builder().country(country).build();
     }
