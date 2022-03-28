@@ -8,6 +8,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import java.math.BigInteger;
 import java.net.IDN;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
@@ -156,7 +157,7 @@ public final class Email extends AbstractModel {
             String cleanAddress = cleanAddress(address);
             try {
                 MessageDigest d = MessageDigest.getInstance("MD5");
-                d.update(cleanAddress.getBytes(Charset.forName("UTF8")));
+                d.update(cleanAddress.getBytes(StandardCharsets.UTF_8));
                 BigInteger i = new BigInteger(1, d.digest());
                 return  String.format("%032x", i);
             } catch (NoSuchAlgorithmException e) {
