@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-2.1.0
+2.1.0 (2022-03-28)
 ------------------
 
 * Added the input `/credit_card/country`. This is the country where the
