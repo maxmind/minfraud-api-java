@@ -5,6 +5,7 @@ import com.maxmind.minfraud.AbstractModel;
 
 import java.math.BigInteger;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -52,7 +53,7 @@ public final class Account extends AbstractModel {
         public Account.Builder username(String username) {
             try {
                 MessageDigest d = MessageDigest.getInstance("MD5");
-                d.update(username.getBytes(Charset.forName("UTF8")));
+                d.update(username.getBytes(StandardCharsets.UTF_8));
                 BigInteger i = new BigInteger(1, d.digest());
                 this.usernameMd5 = String.format("%032x", i);
                 return this;
