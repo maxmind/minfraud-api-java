@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+2.2.0
+------------------
+
+* Added `SHOPIFY_PAYMENTS` to the `Payment.Processor` enum.
+
 2.1.0 (2022-03-28)
 ------------------
 
