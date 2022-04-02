@@ -222,6 +222,7 @@ public final class Payment extends AbstractModel {
         SAFECHARGE,
         SAGEPAY,
         SECURETRADING,
+        SHOPIFY_PAYMENTS,
         SIMPLIFY_COMMERCE,
         SKRILL,
         SMARTCOIN,
