@@ -158,6 +158,7 @@ public final class Payment extends AbstractModel {
         G2A_PAY,
         GLOBAL_PAYMENTS,
         GOCARDLESS,
+        GOOGLE_PAY,
         HEARTLAND,
         HIPAY,
         INGENICO,
