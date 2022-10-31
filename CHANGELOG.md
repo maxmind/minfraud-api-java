@@ -1,11 +1,11 @@
 CHANGELOG
 =========
 
-2.2.0
+2.2.0 (2022-10-31)
 ------------------
 
-* Added `SHOPIFY_PAYMENTS` to the `Payment.Processor` enum.
-* Added `GOOGLE_PAY` to the `Payment.Processor` enum.
+* Added `GOOGLE_PAY` and `SHOPIFY_PAYMENTS` to the `Payment.Processor` enum.
+* Updated Jackson and GeoIP2 dependencies.
 
 2.1.0 (2022-03-28)
 ------------------
