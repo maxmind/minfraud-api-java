@@ -2,8 +2,14 @@ package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.geoip2.model.InsightsResponse;
-import com.maxmind.geoip2.record.*;
-
+import com.maxmind.geoip2.record.City;
+import com.maxmind.geoip2.record.Continent;
+import com.maxmind.geoip2.record.Country;
+import com.maxmind.geoip2.record.MaxMind;
+import com.maxmind.geoip2.record.Postal;
+import com.maxmind.geoip2.record.RepresentedCountry;
+import com.maxmind.geoip2.record.Subdivision;
+import com.maxmind.geoip2.record.Traits;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

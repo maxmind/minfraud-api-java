@@ -3,23 +3,36 @@ package com.maxmind.minfraud;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.InjectableValues.Std;
-import com.maxmind.minfraud.exception.*;
+import com.maxmind.minfraud.exception.AuthenticationException;
+import com.maxmind.minfraud.exception.HttpException;
+import com.maxmind.minfraud.exception.InsufficientFundsException;
+import com.maxmind.minfraud.exception.InvalidRequestException;
+import com.maxmind.minfraud.exception.MinFraudException;
+import com.maxmind.minfraud.exception.PermissionRequiredException;
 import com.maxmind.minfraud.request.Transaction;
 import com.maxmind.minfraud.request.TransactionReport;
 import com.maxmind.minfraud.response.FactorsResponse;
 import com.maxmind.minfraud.response.InsightsResponse;
 import com.maxmind.minfraud.response.ScoreResponse;
-
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.*;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.ProxySelector;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Client for MaxMind minFraud Score, Insights, and Factors

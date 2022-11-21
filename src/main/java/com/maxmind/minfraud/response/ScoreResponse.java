@@ -2,7 +2,6 @@ package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

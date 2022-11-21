@@ -2,7 +2,6 @@ package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.maxmind.minfraud.AbstractModel;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
