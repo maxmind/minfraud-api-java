@@ -40,10 +40,11 @@ public final class CustomInputs extends AbstractModel {
          */
         public Builder put(String key, String value) {
             validateKey(key);
-            if (value.length() > 255 || value.contains("\n"))
+            if (value.length() > 255 || value.contains("\n")) {
                 throw new IllegalArgumentException("The custom input string " +
                         value + " is invalid. The string be less than" +
                         "256 characters and the string must not contain a newline.");
+            }
             inputs.put(key, value);
             return this;
         }
@@ -61,11 +62,12 @@ public final class CustomInputs extends AbstractModel {
         public Builder put(String key, Number value) {
             validateKey(key);
             double doubleValue = value.doubleValue();
-            if (doubleValue <= -NUM_MAX || doubleValue >= NUM_MAX)
+            if (doubleValue <= -NUM_MAX || doubleValue >= NUM_MAX) {
                 throw new IllegalArgumentException(
                         "The custom input number " + value + "is invalid. " +
                                 "The number must be between -" + NUM_MAX +
                                 " and " + NUM_MAX + ", exclusive.");
+            }
             inputs.put(key, value);
             return this;
         }
