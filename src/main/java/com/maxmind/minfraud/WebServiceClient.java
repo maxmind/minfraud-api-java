@@ -61,8 +61,8 @@ public final class WebServiceClient implements Closeable {
         // HttpClient supports basic auth, but it will only send it after the
         // server responds with an unauthorized. As such, we just make the
         // Authorization header ourselves.
-        authHeader = "Basic " +
-                Base64.getEncoder()
+        authHeader = "Basic "
+                + Base64.getEncoder()
                         .encodeToString((builder.accountId + ":" + builder.licenseKey)
                                 .getBytes(StandardCharsets.UTF_8));
 
@@ -515,12 +515,12 @@ public final class WebServiceClient implements Closeable {
 
     @Override
     public String toString() {
-        return "WebServiceClient{" +
-                "host='" + host + '\'' +
-                ", port=" + port +
-                ", useHttps=" + useHttps +
-                ", locales=" + locales +
-                ", httpClient=" + httpClient +
-                '}';
+        return "WebServiceClient{"
+                + "host='" + host + '\''
+                + ", port=" + port
+                + ", useHttps=" + useHttps
+                + ", locales=" + locales
+                + ", httpClient=" + httpClient
+                + '}';
     }
 }
