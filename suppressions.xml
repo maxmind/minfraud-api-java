@@ -5,22 +5,17 @@
         "https://checkstyle.org/dtds/suppressions_1_0.dtd">
 
 <suppressions>
-  <!-- <suppress checks="LineLength" files="WebServiceClient.java"/>
-  <suppress checks="LineLength" files="WebServiceClient.java"/> -->
-
+  <suppress checks="Indentation" files="Email.java" lines="28-38"/>
   <suppress checks="LineLength" files="AbstractAddress.java" lines="13"/>
   <suppress checks="LineLength" files="AbstractLocation.java" lines="131"/>
   <suppress checks="LineLength" files="CreditCard.java" lines="33,43,44,67,93,95,140,142"/>
-    <suppress checks="LineLength" files="Email.java" lines="93"/>
-
+  <suppress checks="LineLength" files="Email.java" lines="93"/>
   <suppress checks="LineLength" files="GeoIp2Location.java" lines="25"/>
   <suppress checks="LineLength" files="IpAddress.java" lines="33,53,56"/>
-    <suppress checks="LineLength" files="ScoreResponse.java" lines="37"/>
-    <suppress checks="LineLength" files="ShoppingCartItem.java" lines="58"/>
-
+  <suppress checks="LineLength" files="ScoreResponse.java" lines="37"/>
+  <suppress checks="LineLength" files="ShoppingCartItem.java" lines="58"/>
   <suppress checks="LineLength" files="Subscores.java" lines="32,41,46,52,66"/>
-      <suppress checks="LineLength" files="TransactionReport.java" lines="75,76,82"/>
-
+  <suppress checks="LineLength" files="TransactionReport.java" lines="75,76,82"/>
   <suppress checks="LineLength" files="WebServiceClient.java" lines="143,393,504"/>
   
 </suppressions>
