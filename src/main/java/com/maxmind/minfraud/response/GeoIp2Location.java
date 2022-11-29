@@ -3,7 +3,6 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.geoip2.record.Location;
-
 import java.time.ZonedDateTime;
 
 /**

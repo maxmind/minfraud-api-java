@@ -3,7 +3,6 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
-
 import java.time.ZonedDateTime;
 import java.util.UUID;
 

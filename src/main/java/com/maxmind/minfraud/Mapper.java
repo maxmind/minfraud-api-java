@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.util.StdDateFormat;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 class Mapper {
-    private final static ObjectMapper mapper = JsonMapper.builder()
+    private static final  ObjectMapper mapper = JsonMapper.builder()
             .addModule(new JavaTimeModule())
             .defaultDateFormat(new StdDateFormat().withColonInTimeZone(true))
             .enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING)
