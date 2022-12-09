@@ -1,10 +1,9 @@
 package com.maxmind.minfraud.exception;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.net.URI;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 public class HttpExceptionTest {
 

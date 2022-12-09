@@ -47,24 +47,26 @@ public final class Subscores {
      * @param timeOfDay                           The time of day risk factor score.
      */
     public Subscores(
-            @JsonProperty("avs_result") Double avsResult,
-            @JsonProperty("billing_address") Double billingAddress,
-            @JsonProperty("billing_address_distance_to_ip_location") Double billingAddressDistanceToIpLocation,
-            @JsonProperty("browser") Double browser,
-            @JsonProperty("chargeback") Double chargeback,
-            @JsonProperty("country") Double country,
-            @JsonProperty("country_mismatch") Double countryMismatch,
-            @JsonProperty("cvv_result") Double cvvResult,
-            @JsonProperty("device") Double device,
-            @JsonProperty("email_address") Double emailAddress,
-            @JsonProperty("email_domain") Double emailDomain,
-            @JsonProperty("email_local_part") Double emailLocalPart,
-            @JsonProperty("issuer_id_number") Double issuerIdNumber,
-            @JsonProperty("order_amount") Double orderAmount,
-            @JsonProperty("phone_number") Double phoneNumber,
-            @JsonProperty("shipping_address") Double shippingAddress,
-            @JsonProperty("shipping_address_distance_to_ip_location") Double shippingAddressDistanceToIpLocation,
-            @JsonProperty("time_of_day") Double timeOfDay
+        @JsonProperty("avs_result") Double avsResult,
+        @JsonProperty("billing_address") Double billingAddress,
+        @JsonProperty("billing_address_distance_to_ip_location")
+        Double billingAddressDistanceToIpLocation,
+        @JsonProperty("browser") Double browser,
+        @JsonProperty("chargeback") Double chargeback,
+        @JsonProperty("country") Double country,
+        @JsonProperty("country_mismatch") Double countryMismatch,
+        @JsonProperty("cvv_result") Double cvvResult,
+        @JsonProperty("device") Double device,
+        @JsonProperty("email_address") Double emailAddress,
+        @JsonProperty("email_domain") Double emailDomain,
+        @JsonProperty("email_local_part") Double emailLocalPart,
+        @JsonProperty("issuer_id_number") Double issuerIdNumber,
+        @JsonProperty("order_amount") Double orderAmount,
+        @JsonProperty("phone_number") Double phoneNumber,
+        @JsonProperty("shipping_address") Double shippingAddress,
+        @JsonProperty("shipping_address_distance_to_ip_location")
+        Double shippingAddressDistanceToIpLocation,
+        @JsonProperty("time_of_day") Double timeOfDay
     ) {
         this.avsResult = avsResult;
         this.billingAddress = billingAddress;
@@ -88,7 +90,7 @@ public final class Subscores {
 
     public Subscores() {
         this(null, null, null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null);
+            null, null, null, null, null, null);
     }
 
     /**

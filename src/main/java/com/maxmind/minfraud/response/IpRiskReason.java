@@ -11,8 +11,8 @@ public final class IpRiskReason extends AbstractModel {
     private final String reason;
 
     public IpRiskReason(
-            @JsonProperty("code") String code,
-            @JsonProperty("reason") String reason
+        @JsonProperty("code") String code,
+        @JsonProperty("reason") String reason
     ) {
         this.code = code;
         this.reason = reason;

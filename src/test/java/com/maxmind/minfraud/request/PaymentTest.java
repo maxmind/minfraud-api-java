@@ -1,11 +1,11 @@
 package com.maxmind.minfraud.request;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import com.maxmind.minfraud.request.Payment.Builder;
 import com.maxmind.minfraud.request.Payment.Processor;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class PaymentTest {
 

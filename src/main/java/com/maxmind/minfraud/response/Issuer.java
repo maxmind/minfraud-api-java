@@ -13,10 +13,10 @@ public final class Issuer extends AbstractModel {
     private final Boolean matchesProvidedPhoneNumber;
 
     public Issuer(
-            @JsonProperty("matches_provided_name") Boolean matchesProvidedName,
-            @JsonProperty("matches_provided_phone_number") Boolean matchesProvidedPhoneNumber,
-            @JsonProperty("name") String name,
-            @JsonProperty("phone_number") String phoneNumber
+        @JsonProperty("matches_provided_name") Boolean matchesProvidedName,
+        @JsonProperty("matches_provided_phone_number") Boolean matchesProvidedPhoneNumber,
+        @JsonProperty("name") String name,
+        @JsonProperty("phone_number") String phoneNumber
     ) {
         this.matchesProvidedName = matchesProvidedName;
         this.matchesProvidedPhoneNumber = matchesProvidedPhoneNumber;

@@ -90,7 +90,8 @@ public final class Email extends AbstractModel {
          */
         public Email.Builder address(String address) {
             if (enableValidation && !EmailValidator.getInstance().isValid(address)) {
-                throw new IllegalArgumentException("The email address " + address + " is not valid.");
+                throw new IllegalArgumentException(
+                    "The email address " + address + " is not valid.");
             }
 
             if (this.domain == null) {
@@ -157,7 +158,7 @@ public final class Email extends AbstractModel {
                 MessageDigest d = MessageDigest.getInstance("MD5");
                 d.update(cleanAddress.getBytes(StandardCharsets.UTF_8));
                 BigInteger i = new BigInteger(1, d.digest());
-                return  String.format("%032x", i);
+                return String.format("%032x", i);
             } catch (NoSuchAlgorithmException e) {
                 throw new RuntimeException("No MD5 algorithm for MessageDigest!", e);
             }

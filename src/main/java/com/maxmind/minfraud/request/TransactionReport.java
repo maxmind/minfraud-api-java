@@ -79,7 +79,8 @@ public final class TransactionReport extends AbstractModel {
          */
         public TransactionReport.Builder maxmindId(String maxmindId) {
             if (maxmindId.length() != 8) {
-                throw new IllegalArgumentException("maxmindId must be exactly 8 characters in length");
+                throw new IllegalArgumentException(
+                    "maxmindId must be exactly 8 characters in length");
             }
             this.maxmindId = maxmindId;
             return this;

@@ -1,13 +1,12 @@
 package com.maxmind.minfraud.request;
 
-import com.maxmind.minfraud.request.Email.Builder;
-import org.junit.Test;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
+import com.maxmind.minfraud.request.Email.Builder;
+import java.util.HashMap;
+import java.util.Map;
+import org.junit.Test;
 
 public class EmailTest {
 
@@ -44,14 +43,16 @@ public class EmailTest {
     @Test
     public void testAddressMd5() {
         Email email = new Builder().address("test@test.org").hashAddress().build();
-        assertEquals("MD5 generated from email", "476869598e748d958e819c180af31982", email.getAddress());
+        assertEquals("MD5 generated from email", "476869598e748d958e819c180af31982",
+            email.getAddress());
         assertEquals("domain set from email", "test.org", email.getDomain());
     }
 
     @Test
     public void testAddressMd5MultipleTimes() {
         Email email = new Builder().address("test@test.org").hashAddress().hashAddress().build();
-        assertEquals("MD5 generated from email", "476869598e748d958e819c180af31982", email.getAddress());
+        assertEquals("MD5 generated from email", "476869598e748d958e819c180af31982",
+            email.getAddress());
         assertEquals("domain set from email", "test.org", email.getDomain());
     }
 
@@ -64,7 +65,8 @@ public class EmailTest {
     @Test
     public void testMd5GetsLowercased() {
         Email email = new Builder().address("TEST@TEST.org").hashAddress().build();
-        assertEquals("MD5 generated from lowercased email", "476869598e748d958e819c180af31982", email.getAddress());
+        assertEquals("MD5 generated from lowercased email", "476869598e748d958e819c180af31982",
+            email.getAddress());
     }
 
     @Test

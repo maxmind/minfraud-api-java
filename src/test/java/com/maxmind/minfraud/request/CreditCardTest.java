@@ -1,13 +1,13 @@
 package com.maxmind.minfraud.request;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import com.maxmind.minfraud.request.CreditCard.Builder;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(JUnitParamsRunner.class)
 public class CreditCardTest {
@@ -115,10 +115,10 @@ public class CreditCardTest {
 
     @Test(expected = IllegalArgumentException.class)
     @Parameters({"4485921507912924",
-            "432312",
-            "this is invalid",
-            "",
-            "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        "432312",
+        "this is invalid",
+        "",
+        "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     })
     public void testInvalidToken(String token) {
         new Builder().token(token).build();
@@ -126,8 +126,8 @@ public class CreditCardTest {
 
     @Test
     @Parameters({"t4485921507912924",
-            "a7f6%gf83fhAu",
-            "valid_token"
+        "a7f6%gf83fhAu",
+        "valid_token"
     })
     public void testValidToken(String token) {
         CreditCard cc = new Builder().token(token).build();

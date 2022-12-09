@@ -40,8 +40,8 @@ import java.util.Map;
 public final class WebServiceClient implements Closeable {
     private static final String pathBase = "/minfraud/v2.0/";
     private static final String userAgent = "minFraud-API/"
-            + WebServiceClient.class.getPackage().getImplementationVersion()
-            + " Java/" + System.getProperty("java.version");
+        + WebServiceClient.class.getPackage().getImplementationVersion()
+        + " Java/" + System.getProperty("java.version");
 
     private final String authHeader;
     private final String host;
@@ -62,13 +62,13 @@ public final class WebServiceClient implements Closeable {
         // server responds with an unauthorized. As such, we just make the
         // Authorization header ourselves.
         authHeader = "Basic "
-                + Base64.getEncoder()
-                        .encodeToString((builder.accountId + ":" + builder.licenseKey)
-                                .getBytes(StandardCharsets.UTF_8));
+            + Base64.getEncoder()
+            .encodeToString((builder.accountId + ":" + builder.licenseKey)
+                .getBytes(StandardCharsets.UTF_8));
 
         requestTimeout = builder.requestTimeout;
         HttpClient.Builder httpClientBuilder = HttpClient.newBuilder()
-                .proxy(builder.proxy);
+            .proxy(builder.proxy);
         if (builder.connectTimeout != null) {
             httpClientBuilder.connectTimeout(builder.connectTimeout);
         }
@@ -254,8 +254,8 @@ public final class WebServiceClient implements Closeable {
      * @throws IOException                 when some other IO error occurs.
      */
     public FactorsResponse factors(Transaction transaction) throws IOException,
-            MinFraudException, InsufficientFundsException, InvalidRequestException,
-            AuthenticationException, PermissionRequiredException, HttpException {
+        MinFraudException, InsufficientFundsException, InvalidRequestException,
+        AuthenticationException, PermissionRequiredException, HttpException {
         return responseFor("factors", transaction, FactorsResponse.class);
     }
 
@@ -279,8 +279,8 @@ public final class WebServiceClient implements Closeable {
      * @throws IOException                 when some other IO error occurs.
      */
     public InsightsResponse insights(Transaction transaction) throws IOException,
-            MinFraudException, InsufficientFundsException, InvalidRequestException,
-            AuthenticationException, PermissionRequiredException, HttpException {
+        MinFraudException, InsufficientFundsException, InvalidRequestException,
+        AuthenticationException, PermissionRequiredException, HttpException {
         return responseFor("insights", transaction, InsightsResponse.class);
     }
 
@@ -304,8 +304,8 @@ public final class WebServiceClient implements Closeable {
      * @throws IOException                 when some other IO error occurs.
      */
     public ScoreResponse score(Transaction transaction) throws IOException,
-            MinFraudException, InsufficientFundsException, InvalidRequestException,
-            AuthenticationException, PermissionRequiredException, HttpException {
+        MinFraudException, InsufficientFundsException, InvalidRequestException,
+        AuthenticationException, PermissionRequiredException, HttpException {
         return responseFor("score", transaction, ScoreResponse.class);
     }
 
@@ -328,8 +328,8 @@ public final class WebServiceClient implements Closeable {
      * @throws IOException                 when some other IO error occurs.
      */
     public void reportTransaction(TransactionReport transaction) throws IOException,
-            MinFraudException, InsufficientFundsException, InvalidRequestException,
-            AuthenticationException, PermissionRequiredException, HttpException {
+        MinFraudException, InsufficientFundsException, InvalidRequestException,
+        AuthenticationException, PermissionRequiredException, HttpException {
         if (transaction == null) {
             throw new IllegalArgumentException("transaction report must not be null");
         }
@@ -351,7 +351,7 @@ public final class WebServiceClient implements Closeable {
     }
 
     private <T> T responseFor(String service, AbstractModel transaction, Class<T> cls)
-            throws IOException, MinFraudException {
+        throws IOException, MinFraudException {
         if (transaction == null) {
             throw new IllegalArgumentException("transaction must not be null");
         }
@@ -372,16 +372,16 @@ public final class WebServiceClient implements Closeable {
     }
 
     private HttpRequest requestFor(AbstractModel transaction, URI uri)
-            throws MinFraudException, IOException {
+        throws MinFraudException, IOException {
         HttpRequest.Builder builder = HttpRequest.newBuilder()
-                .uri(uri)
-                .header("Accept", "application/json")
-                .header("Authorization", authHeader)
-                .header("Content-Type", "application/json; charset=UTF-8")
-                .header("User-Agent", userAgent)
-                // XXX - creating this JSON string is somewhat wasteful. We
-                // could use an input stream instead.
-                .POST(HttpRequest.BodyPublishers.ofString(transaction.toJson()));
+            .uri(uri)
+            .header("Accept", "application/json")
+            .header("Authorization", authHeader)
+            .header("Content-Type", "application/json; charset=UTF-8")
+            .header("User-Agent", userAgent)
+            // XXX - creating this JSON string is somewhat wasteful. We
+            // could use an input stream instead.
+            .POST(HttpRequest.BodyPublishers.ofString(transaction.toJson()));
 
         if (requestTimeout != null) {
             builder.timeout(requestTimeout);
@@ -390,40 +390,41 @@ public final class WebServiceClient implements Closeable {
         return builder.build();
     }
 
-    private void maybeThrowException(HttpResponse<InputStream> response, URI uri) throws IOException, MinFraudException {
+    private void maybeThrowException(HttpResponse<InputStream> response, URI uri)
+        throws IOException, MinFraudException {
         int status = response.statusCode();
         if (status >= 400 && status < 500) {
             this.handle4xxStatus(response, uri);
         } else if (status >= 500 && status < 600) {
             exhaustBody(response);
             throw new HttpException("Received a server error (" + status
-                    + ") for " + uri, status, uri);
+                + ") for " + uri, status, uri);
         } else if (status != 200 && status != 204) {
             exhaustBody(response);
             throw new HttpException("Received an unexpected HTTP status ("
-                    + status + ") for " + uri, status, uri);
+                + status + ") for " + uri, status, uri);
         }
     }
 
     private <T> T handleResponse(HttpResponse<InputStream> response, URI uri, Class<T> cls)
-            throws MinFraudException, IOException {
+        throws MinFraudException, IOException {
         maybeThrowException(response, uri);
 
         InjectableValues inject = new Std().addValue(
-                "locales", locales);
+            "locales", locales);
 
         try (InputStream stream = response.body()) {
             return Mapper.get().readerFor(cls).with(inject).readValue(stream);
         } catch (IOException e) {
             throw new MinFraudException(
-                    "Received a 200 response but could not decode it as JSON", e);
+                "Received a 200 response but could not decode it as JSON", e);
         }
     }
 
     private void handle4xxStatus(HttpResponse<InputStream> response, URI uri)
-            throws IOException, InsufficientFundsException,
-            InvalidRequestException, AuthenticationException,
-            PermissionRequiredException {
+        throws IOException, InsufficientFundsException,
+        InvalidRequestException, AuthenticationException,
+        PermissionRequiredException {
         int status = response.statusCode();
 
         String body;
@@ -434,30 +435,30 @@ public final class WebServiceClient implements Closeable {
         Map<String, String> content;
         try {
             content = Mapper.get().readValue(body,
-                    new TypeReference<HashMap<String, String>>() {
-                    });
+                new TypeReference<HashMap<String, String>>() {
+                });
             this.handleErrorWithJsonBody(content, body, status, uri);
         } catch (HttpException e) {
             throw e;
         } catch (IOException e) {
             throw new HttpException("Received a " + status + " error for "
-                    + uri + " but it did not include the expected JSON body: "
-                    + body, status, uri, e);
+                + uri + " but it did not include the expected JSON body: "
+                + body, status, uri, e);
         }
     }
 
     private void handleErrorWithJsonBody(Map<String, String> content,
                                          String body, int status, URI uri)
-            throws HttpException, InsufficientFundsException,
-            InvalidRequestException, AuthenticationException,
-            PermissionRequiredException {
+        throws HttpException, InsufficientFundsException,
+        InvalidRequestException, AuthenticationException,
+        PermissionRequiredException {
         String error = content.get("error");
         String code = content.get("code");
 
         if (error == null || code == null) {
             throw new HttpException(
-                    "Error response contains JSON but it does not specify code or error keys: "
-                            + body, status, uri);
+                "Error response contains JSON but it does not specify code or error keys: "
+                    + body, status, uri);
         }
 
         switch (code) {
@@ -478,13 +479,13 @@ public final class WebServiceClient implements Closeable {
     private URI createUri(String path) throws MinFraudException {
         try {
             return new URI(
-                    useHttps ? "https" : "http",
-                    null,
-                    host,
-                    port,
-                    path,
-                    null,
-                    null
+                useHttps ? "https" : "http",
+                null,
+                host,
+                port,
+                path,
+                null,
+                null
             );
 
         } catch (URISyntaxException e) {
@@ -501,7 +502,8 @@ public final class WebServiceClient implements Closeable {
             while (body.read() != -1) {
             }
         } catch (IOException e) {
-            throw new HttpException("Error reading response body", response.statusCode(), response.uri(), e);
+            throw new HttpException("Error reading response body", response.statusCode(),
+                response.uri(), e);
         }
     }
 
@@ -516,11 +518,11 @@ public final class WebServiceClient implements Closeable {
     @Override
     public String toString() {
         return "WebServiceClient{"
-                + "host='" + host + '\''
-                + ", port=" + port
-                + ", useHttps=" + useHttps
-                + ", locales=" + locales
-                + ", httpClient=" + httpClient
-                + '}';
+            + "host='" + host + '\''
+            + ", port=" + port
+            + ", useHttps=" + useHttps
+            + ", locales=" + locales
+            + ", httpClient=" + httpClient
+            + '}';
     }
 }

@@ -1,4 +1,5 @@
 # Preparing your environment for a release
+
 - Ensure you have access to publish to the repository on
   [Sonatype](https://oss.sonatype.org).
   - See the section about Sonatype access.
@@ -14,8 +15,8 @@
   `PATH`.
   - An easy way to do this is get a release tarball and run `./install`.
 
-
 ## Setting up Sonatype access
+
 To get this access, make an account on the [Sonatype JIRA issue
 tracker](https://issues.sonatype.org/) and make an issue asking for access
 [like so](https://issues.sonatype.org/browse/OSSRH-34414).
@@ -66,7 +67,6 @@ Some links about Sonatype:
 * http://central.sonatype.org/pages/releasing-the-deployment.html
 * http://central.sonatype.org/pages/apache-maven.html
 
-
 See the following documentation for details on specifying which gpg to use for
 publishing in your local settings.xml:
 
@@ -74,6 +74,7 @@ publishing in your local settings.xml:
 * https://maven.apache.org/plugins/maven-gpg-plugin/usage.html
 
 ## Setting up GPG
+
 You need a key. It is fine to create/use your own, but you'll probably want
 one with your MaxMind email address.
 
@@ -93,8 +94,8 @@ Make sure you publish it to a keyserver. See
 [here](http://central.sonatype.org/pages/working-with-pgp-signatures.html)
 for more info about that and the process in general.
 
-
 ### gpg "inappropriate ioctl" errors
+
 You only really need to do this if you see "inappropriate ioctl" errors,
 but it shouldn't hurt to proactively do this.
 
@@ -107,10 +108,10 @@ Add this to ~/.gnupg/gpg-agent.conf:
 
     allow-loopback-pinentry
 
-
 # Releasing
 
 ## Steps
+
 - Ensure you can run `mvn test` and `mvn package` successfully. Run
   `mvn clean` after.
 - Create a release branch off `main`. Ensure you have a clean checkout and that
@@ -164,8 +165,8 @@ Add this to ~/.gnupg/gpg-agent.conf:
   search on [Sonatype](https://oss.sonatype.org) to see the version is as
   you expect.
 
-
 ## Updating dependencies
+
 Review the versions and look at what changed in their changelogs. If you
 think it is appropriate to update the dependencies, stop the release
 process (say `n` or ctrl-c out).

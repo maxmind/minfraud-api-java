@@ -128,7 +128,8 @@ public abstract class AbstractLocation extends AbstractModel {
          */
         public final T country(String code) {
             if (!COUNTRY_CODE_PATTERN.matcher(code).matches()) {
-                throw new IllegalArgumentException("Expected two-letter country code in the ISO 3166-1 alpha-2 format");
+                throw new IllegalArgumentException(
+                    "Expected two-letter country code in the ISO 3166-1 alpha-2 format");
             }
             country = code;
             return (T) this;

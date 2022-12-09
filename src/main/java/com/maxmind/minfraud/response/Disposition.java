@@ -12,9 +12,9 @@ public final class Disposition extends AbstractModel {
     private final String ruleLabel;
 
     public Disposition(
-            @JsonProperty("action") String action,
-            @JsonProperty("reason") String reason,
-            @JsonProperty("rule_label") String ruleLabel
+        @JsonProperty("action") String action,
+        @JsonProperty("reason") String reason,
+        @JsonProperty("rule_label") String ruleLabel
     ) {
         this.action = action;
         this.reason = reason;

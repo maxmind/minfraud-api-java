@@ -37,23 +37,25 @@ public final class IpAddress extends InsightsResponse implements IpAddressInterf
      * @param traits             Information about various other IP traits.
      */
     public IpAddress(
-            @JsonProperty("city") City city,
-            @JsonProperty("continent") Continent continent,
-            @JsonProperty("country") Country country,
-            @JsonProperty("location") GeoIp2Location location,
-            @JsonProperty("maxmind") MaxMind maxmind,
-            @JsonProperty("postal") Postal postal,
-            @JsonProperty("registered_country") Country registeredCountry,
-            @JsonProperty("represented_country") RepresentedCountry representedCountry,
-            @JsonProperty("risk") Double risk,
-            @JsonProperty("risk_reasons") List<IpRiskReason> riskReasons,
-            @JsonProperty("subdivisions") List<Subdivision> subdivisions,
-            @JsonProperty("traits") Traits traits
+        @JsonProperty("city") City city,
+        @JsonProperty("continent") Continent continent,
+        @JsonProperty("country") Country country,
+        @JsonProperty("location") GeoIp2Location location,
+        @JsonProperty("maxmind") MaxMind maxmind,
+        @JsonProperty("postal") Postal postal,
+        @JsonProperty("registered_country") Country registeredCountry,
+        @JsonProperty("represented_country") RepresentedCountry representedCountry,
+        @JsonProperty("risk") Double risk,
+        @JsonProperty("risk_reasons") List<IpRiskReason> riskReasons,
+        @JsonProperty("subdivisions") List<Subdivision> subdivisions,
+        @JsonProperty("traits") Traits traits
     ) {
-        super(city, continent, country, location, maxmind, postal, registeredCountry, representedCountry, subdivisions, traits);
+        super(city, continent, country, location, maxmind, postal, registeredCountry,
+            representedCountry, subdivisions, traits);
         this.location = location == null ? new GeoIp2Location() : location;
         this.risk = risk;
-        this.riskReasons = Collections.unmodifiableList(riskReasons == null ? new ArrayList<>() : riskReasons);
+        this.riskReasons =
+            Collections.unmodifiableList(riskReasons == null ? new ArrayList<>() : riskReasons);
     }
 
     public IpAddress() {
@@ -83,7 +85,7 @@ public final class IpAddress extends InsightsResponse implements IpAddressInterf
      * be an empty list if there are no reasons.
      */
     @JsonProperty("risk_reasons")
-    public final List<IpRiskReason> getRiskReasons() {
+    public List<IpRiskReason> getRiskReasons() {
         return riskReasons;
     }
 }

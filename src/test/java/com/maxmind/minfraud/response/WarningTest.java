@@ -1,9 +1,9 @@
 package com.maxmind.minfraud.response;
 
+import static org.junit.Assert.assertEquals;
+
 import com.fasterxml.jackson.jr.ob.JSON;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class WarningTest extends AbstractOutputTest {
 
@@ -14,15 +14,15 @@ public class WarningTest extends AbstractOutputTest {
         String pointer = "/first/second";
 
         Warning warning = this.deserialize(
-                Warning.class,
-                JSON.std
-                        .composeString()
-                        .startObject()
-                        .put("code", code)
-                        .put("warning", msg)
-                        .put("input_pointer", pointer)
-                        .end()
-                        .finish()
+            Warning.class,
+            JSON.std
+                .composeString()
+                .startObject()
+                .put("code", code)
+                .put("warning", msg)
+                .put("input_pointer", pointer)
+                .end()
+                .finish()
         );
 
         assertEquals("code", code, warning.getCode());

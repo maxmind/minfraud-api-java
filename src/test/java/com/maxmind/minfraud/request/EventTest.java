@@ -1,13 +1,12 @@
 package com.maxmind.minfraud.request;
 
+import static org.junit.Assert.assertEquals;
+
 import com.maxmind.minfraud.request.Event.Builder;
 import com.maxmind.minfraud.request.Event.Type;
-import org.junit.Test;
-
 import java.time.ZonedDateTime;
 import java.util.Date;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 public class EventTest {
 

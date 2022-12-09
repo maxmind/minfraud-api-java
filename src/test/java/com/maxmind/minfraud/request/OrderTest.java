@@ -1,13 +1,12 @@
 package com.maxmind.minfraud.request;
 
-import com.maxmind.minfraud.request.Order.Builder;
-import org.junit.Test;
-
-import java.math.BigDecimal;
-import java.net.URI;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import com.maxmind.minfraud.request.Order.Builder;
+import java.math.BigDecimal;
+import java.net.URI;
+import org.junit.Test;
 
 public class OrderTest {
 

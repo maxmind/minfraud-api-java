@@ -27,10 +27,10 @@ public final class Device extends AbstractModel {
      * @param localTime  The local time of the device.
      */
     public Device(
-            @JsonProperty("confidence") Double confidence,
-            @JsonProperty("id") UUID id,
-            @JsonProperty("last_seen") String lastSeen,
-            @JsonProperty("local_time") String localTime
+        @JsonProperty("confidence") Double confidence,
+        @JsonProperty("id") UUID id,
+        @JsonProperty("last_seen") String lastSeen,
+        @JsonProperty("local_time") String localTime
     ) {
         this.confidence = confidence;
         this.id = id;

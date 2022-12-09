@@ -10,16 +10,16 @@ import com.fasterxml.jackson.databind.util.StdDateFormat;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 class Mapper {
-    private static final  ObjectMapper mapper = JsonMapper.builder()
-            .addModule(new JavaTimeModule())
-            .defaultDateFormat(new StdDateFormat().withColonInTimeZone(true))
-            .enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING)
-            .disable(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS)
-            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-            .serializationInclusion(JsonInclude.Include.NON_NULL)
-            .serializationInclusion(JsonInclude.Include.NON_EMPTY)
-            .build();
+    private static final ObjectMapper mapper = JsonMapper.builder()
+        .addModule(new JavaTimeModule())
+        .defaultDateFormat(new StdDateFormat().withColonInTimeZone(true))
+        .enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING)
+        .disable(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS)
+        .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+        .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+        .serializationInclusion(JsonInclude.Include.NON_NULL)
+        .serializationInclusion(JsonInclude.Include.NON_EMPTY)
+        .build();
 
     public static ObjectMapper get() {
         return mapper;

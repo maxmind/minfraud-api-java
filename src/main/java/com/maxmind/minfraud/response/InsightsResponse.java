@@ -16,18 +16,18 @@ public class InsightsResponse extends ScoreResponse {
     private final BillingAddress billingAddress;
 
     public InsightsResponse(
-            @JsonProperty("billing_address") BillingAddress billingAddress,
-            @JsonProperty("credit_card") CreditCard creditCard,
-            @JsonProperty("device") Device device,
-            @JsonProperty("disposition") Disposition disposition,
-            @JsonProperty("email") Email email,
-            @JsonProperty("funds_remaining") Double fundsRemaining,
-            @JsonProperty("id") UUID id,
-            @JsonProperty("ip_address") IpAddress ipAddress,
-            @JsonProperty("queries_remaining") Integer queriesRemaining,
-            @JsonProperty("risk_score") Double riskScore,
-            @JsonProperty("shipping_address") ShippingAddress shippingAddress,
-            @JsonProperty("warnings") List<Warning> warnings
+        @JsonProperty("billing_address") BillingAddress billingAddress,
+        @JsonProperty("credit_card") CreditCard creditCard,
+        @JsonProperty("device") Device device,
+        @JsonProperty("disposition") Disposition disposition,
+        @JsonProperty("email") Email email,
+        @JsonProperty("funds_remaining") Double fundsRemaining,
+        @JsonProperty("id") UUID id,
+        @JsonProperty("ip_address") IpAddress ipAddress,
+        @JsonProperty("queries_remaining") Integer queriesRemaining,
+        @JsonProperty("risk_score") Double riskScore,
+        @JsonProperty("shipping_address") ShippingAddress shippingAddress,
+        @JsonProperty("warnings") List<Warning> warnings
     ) {
         super(disposition, fundsRemaining, id, null, queriesRemaining, riskScore, warnings);
         this.billingAddress = billingAddress == null ? new BillingAddress() : billingAddress;

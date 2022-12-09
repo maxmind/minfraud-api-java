@@ -12,9 +12,9 @@ public final class Warning extends AbstractModel {
     private final String inputPointer;
 
     public Warning(
-            @JsonProperty("code") String code,
-            @JsonProperty("warning") String warning,
-            @JsonProperty("input_pointer") String inputPointer
+        @JsonProperty("code") String code,
+        @JsonProperty("warning") String warning,
+        @JsonProperty("input_pointer") String inputPointer
     ) {
         this.code = code;
         this.warning = warning;
