@@ -228,7 +228,7 @@ public final class CreditCard extends AbstractModel {
 
     /**
      * @return The last two or four digits of the credit card number.
-     * @deprecated
+     * @deprecated use {@code getLastDigits}
      */
     @Deprecated
     @JsonIgnore
