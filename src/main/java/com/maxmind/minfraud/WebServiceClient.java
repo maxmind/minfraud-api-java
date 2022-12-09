@@ -126,8 +126,8 @@ public final class WebServiceClient {
         }
 
         /**
-         * Disables HTTPS to connect to a test server or proxy. The minFraud ScoreResponse and InsightsResponse web services require
-         * HTTPS.
+         * Disables HTTPS to connect to a test server or proxy. The minFraud ScoreResponse and
+         * InsightsResponse web services require HTTPS.
          *
          * @return Builder object
          */
