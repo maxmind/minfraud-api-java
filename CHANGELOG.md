@@ -5,6 +5,16 @@ CHANGELOG
 ------------------
 
 * This library is now a Java module.
+* Removed deprecated `last4Digits` method on `CreditCard.Builder` and
+  `getLast4Digits` method on `CreditCard`. Use `lastDigits` and
+  `getLastDigits` instead.
+* Removed deprecated `connectTimeout(int)`, `readTimeout(int)`, and
+  `proxy(Proxy)` on `WebServiceClient.Builder`. Use
+  `connectTimeout(Duration)`, `requestTimeout(Duration)`, and
+  `proxy(ProxySelector)` instead.
+* `WebServiceClient` no longer implements `Closeable` and the `Close`
+  method has been removed. This method was deprecated when the library
+  switched to using `java.net.http.HttpClient`.
 
 2.2.0 (2022-10-31)
 ------------------

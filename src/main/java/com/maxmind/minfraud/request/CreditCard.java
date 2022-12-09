@@ -1,6 +1,5 @@
 package com.maxmind.minfraud.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
 import java.util.regex.Pattern;
@@ -71,18 +70,6 @@ public final class CreditCard extends AbstractModel {
             }
             issuerIdNumber = number;
             return this;
-        }
-
-        /**
-         * @param digits The last two or four digits of the credit card number.
-         * @return The builder object.
-         * @throws IllegalArgumentException when number is not a two or four digit
-         *                                  string.
-         * @deprecated Use lastDigits instead.
-         */
-        @Deprecated
-        public CreditCard.Builder last4Digits(String digits) {
-            return this.lastDigits(digits);
         }
 
         /**
@@ -224,16 +211,6 @@ public final class CreditCard extends AbstractModel {
     @JsonProperty("issuer_id_number")
     public String getIssuerIdNumber() {
         return issuerIdNumber;
-    }
-
-    /**
-     * @return The last two or four digits of the credit card number.
-     * @deprecated use {@code getLastDigits}
-     */
-    @Deprecated
-    @JsonIgnore
-    public String getLast4Digits() {
-        return this.getLastDigits();
     }
 
     /**

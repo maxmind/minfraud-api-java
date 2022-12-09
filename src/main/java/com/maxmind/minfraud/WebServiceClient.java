@@ -14,11 +14,8 @@ import com.maxmind.minfraud.request.TransactionReport;
 import com.maxmind.minfraud.response.FactorsResponse;
 import com.maxmind.minfraud.response.InsightsResponse;
 import com.maxmind.minfraud.response.ScoreResponse;
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 import java.net.ProxySelector;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -37,7 +34,7 @@ import java.util.Map;
 /**
  * Client for MaxMind minFraud Score, Insights, and Factors
  */
-public final class WebServiceClient implements Closeable {
+public final class WebServiceClient {
     private static final String pathBase = "/minfraud/v2.0/";
     private static final String userAgent = "minFraud-API/"
         + WebServiceClient.class.getPackage().getImplementationVersion()
@@ -119,17 +116,6 @@ public final class WebServiceClient implements Closeable {
         }
 
         /**
-         * @param val Timeout in milliseconds to establish a connection to the
-         *            web service. There is no timeout by default.
-         * @return Builder object
-         * @deprecated Use connectTimeout(Duration) instead
-         */
-        @Deprecated
-        public WebServiceClient.Builder connectTimeout(int val) {
-            return connectTimeout(Duration.ofMillis(val));
-        }
-
-        /**
          * @param val Timeout duration to establish a connection to the web
          *            service. There is no timeout by default.
          * @return Builder object
@@ -181,17 +167,6 @@ public final class WebServiceClient implements Closeable {
             return this;
         }
 
-        /**
-         * @param val readTimeout in milliseconds to read data from an
-         *            established connection to the web service. There is no
-         *            timeout by default.
-         * @return Builder object
-         * @deprecated Use requestTimeout(Duration) instead
-         */
-        @Deprecated
-        public WebServiceClient.Builder readTimeout(int val) {
-            return requestTimeout(Duration.ofMillis(val));
-        }
 
         /**
          * @param val Request timeout duration. here is no timeout by default.
@@ -202,18 +177,6 @@ public final class WebServiceClient implements Closeable {
             return this;
         }
 
-        /**
-         * @param val the proxy to use when making this request.
-         * @return Builder object
-         * @deprecated Use proxy(ProxySelector)
-         */
-        @Deprecated
-        public Builder proxy(Proxy val) {
-            if (val != null && val != Proxy.NO_PROXY) {
-                proxy = ProxySelector.of((InetSocketAddress) val.address());
-            }
-            return this;
-        }
 
         /**
          * @param val the proxy to use when making this request.
@@ -505,14 +468,6 @@ public final class WebServiceClient implements Closeable {
             throw new HttpException("Error reading response body", response.statusCode(),
                 response.uri(), e);
         }
-    }
-
-    /**
-     * @deprecated Closing is no longer necessary with java.net.http.HttpClient.
-     */
-    @Override
-    @Deprecated
-    public void close() throws IOException {
     }
 
     @Override
