@@ -20,13 +20,13 @@ public class ScoreResponse extends AbstractModel {
     private final ScoreIpAddress ipAddress;
 
     public ScoreResponse(
-            @JsonProperty("disposition") Disposition disposition,
-            @JsonProperty("funds_remaining") Double fundsRemaining,
-            @JsonProperty("id") UUID id,
-            @JsonProperty("ip_address") ScoreIpAddress ipAddress,
-            @JsonProperty("queries_remaining") Integer queriesRemaining,
-            @JsonProperty("risk_score") Double riskScore,
-            @JsonProperty("warnings") List<Warning> warnings
+        @JsonProperty("disposition") Disposition disposition,
+        @JsonProperty("funds_remaining") Double fundsRemaining,
+        @JsonProperty("id") UUID id,
+        @JsonProperty("ip_address") ScoreIpAddress ipAddress,
+        @JsonProperty("queries_remaining") Integer queriesRemaining,
+        @JsonProperty("risk_score") Double riskScore,
+        @JsonProperty("warnings") List<Warning> warnings
     ) {
         this.disposition = disposition == null ? new Disposition() : disposition;
         this.fundsRemaining = fundsRemaining;
@@ -34,7 +34,8 @@ public class ScoreResponse extends AbstractModel {
         this.ipAddress = ipAddress == null ? new ScoreIpAddress() : ipAddress;
         this.queriesRemaining = queriesRemaining;
         this.riskScore = riskScore;
-        this.warnings = Collections.unmodifiableList(warnings == null ? new ArrayList<>() : warnings);
+        this.warnings =
+            Collections.unmodifiableList(warnings == null ? new ArrayList<>() : warnings);
     }
 
     /**

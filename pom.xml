@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.maxmind.minfraud</groupId>
@@ -35,13 +36,6 @@
             <email>goschwald@maxmind.com</email>
         </developer>
     </developers>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-            <checkstyle-maven-plugin.version>3.2.0</checkstyle-maven-plugin.version>
-            <checkstyle.version>10.3</checkstyle.version>
-            <checkstyle.config.location>checkstyle.xml</checkstyle.config.location>
-            <checkstyle.suppressions.location>suppressions.xml</checkstyle.suppressions.location>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -113,34 +107,26 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.openrewrite.maven</groupId>
-                <artifactId>rewrite-maven-plugin</artifactId>
-                <version>4.37.0</version>
-                <configuration>
-                    <activeRecipes>
-                        <recipe>org.openrewrite.java.cleanup.Cleanup</recipe>
-                    </activeRecipes>
-                </configuration>
-            </plugin>
-            <plugin>
-
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${checkstyle-maven-plugin.version}</version>
+                <version>3.2.0</version>
                 <configuration>
                     <consoleOutput>true</consoleOutput>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
+                    <violationSeverity>warning</violationSeverity>
                 </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
-                        <version>${checkstyle.version}</version>
+                        <version>10.5.0</version>
                     </dependency>
                 </dependencies>
                 <executions>
                     <execution>
-                        <id>validate</id>
-                        <phase>validate</phase>
+                        <id>test</id>
+                        <phase>test</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
@@ -249,7 +235,7 @@
                 <configuration>
                     <format>xml</format>
                     <maxmem>256m</maxmem>
-                    <check />
+                    <check/>
                 </configuration>
             </plugin>
             <plugin>
@@ -270,7 +256,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${checkstyle-maven-plugin.version}</version>
+                <version>3.2.0</version>
                 <reportSets>
                     <reportSet>
                         <reports>

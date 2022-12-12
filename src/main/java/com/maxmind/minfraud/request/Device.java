@@ -89,7 +89,7 @@ public final class Device extends AbstractModel {
          */
         public Device.Builder sessionAge(Double sessionAge) {
             this.sessionAge =
-                    sessionAge;
+                sessionAge;
             return this;
         }
 

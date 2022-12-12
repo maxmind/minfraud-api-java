@@ -1,22 +1,21 @@
 package com.maxmind.minfraud.request;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 public class CustomInputsTest {
     @Test
     public void TestPuttingTypes() {
         Map<String, Object> inputs = new CustomInputs.Builder()
-                .put("string_input_1", "test string")
-                .put("int_input", 19)
-                .put("long_input", 12L)
-                .put("float_input", 3.2f)
-                .put("double_input", 32.123d)
-                .put("bool_input", true)
-                .build().getInputs();
+            .put("string_input_1", "test string")
+            .put("int_input", 19)
+            .put("long_input", 12L)
+            .put("float_input", 3.2f)
+            .put("double_input", 32.123d)
+            .put("bool_input", true)
+            .build().getInputs();
 
         assertEquals("test string", inputs.get("string_input_1"));
         assertEquals(19, inputs.get("int_input"));
@@ -34,7 +33,7 @@ public class CustomInputsTest {
     @Test(expected = IllegalArgumentException.class)
     public void testStringThatIsTooLong() {
         new CustomInputs.Builder().put("string",
-                new String(new char[256]).replace('\0', 'x'));
+            new String(new char[256]).replace('\0', 'x'));
     }
 
     @Test(expected = IllegalArgumentException.class)

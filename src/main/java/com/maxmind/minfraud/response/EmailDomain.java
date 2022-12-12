@@ -11,7 +11,7 @@ public final class EmailDomain extends AbstractModel {
     private final LocalDate firstSeen;
 
     public EmailDomain(
-            @JsonProperty("first_seen") LocalDate firstSeen
+        @JsonProperty("first_seen") LocalDate firstSeen
     ) {
         this.firstSeen = firstSeen;
     }

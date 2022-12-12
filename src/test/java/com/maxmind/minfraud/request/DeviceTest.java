@@ -1,13 +1,12 @@
 package com.maxmind.minfraud.request;
 
-import com.maxmind.minfraud.request.Device.Builder;
-import org.junit.Test;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
+import com.maxmind.minfraud.request.Device.Builder;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import org.junit.Test;
 
 public class DeviceTest {
 

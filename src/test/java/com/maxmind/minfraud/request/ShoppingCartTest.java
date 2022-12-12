@@ -1,11 +1,10 @@
 package com.maxmind.minfraud.request;
 
-import com.maxmind.minfraud.request.ShoppingCartItem.Builder;
-import org.junit.Test;
-
-import java.math.BigDecimal;
-
 import static org.junit.Assert.assertEquals;
+
+import com.maxmind.minfraud.request.ShoppingCartItem.Builder;
+import java.math.BigDecimal;
+import org.junit.Test;
 
 public class ShoppingCartTest {
 

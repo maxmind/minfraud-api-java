@@ -9,7 +9,7 @@ public final class ScoreIpAddress implements IpAddressInterface {
     private final Double risk;
 
     public ScoreIpAddress(
-            @JsonProperty("risk") Double risk
+        @JsonProperty("risk") Double risk
     ) {
         this.risk = risk;
     }

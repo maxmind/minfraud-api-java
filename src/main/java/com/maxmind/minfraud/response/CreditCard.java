@@ -27,14 +27,15 @@ public final class CreditCard extends AbstractModel {
      * @param type                            The type.
      */
     public CreditCard(
-            @JsonProperty("brand") String brand,
-            @JsonProperty("country") String country,
-            @JsonProperty("is_business") Boolean isBusiness,
-            @JsonProperty("is_issued_in_billing_address_country") Boolean isIssuedInBillingAddressCountry,
-            @JsonProperty("is_prepaid") Boolean isPrepaid,
-            @JsonProperty("is_virtual") Boolean isVirtual,
-            @JsonProperty("issuer") Issuer issuer,
-            @JsonProperty("type") String type
+        @JsonProperty("brand") String brand,
+        @JsonProperty("country") String country,
+        @JsonProperty("is_business") Boolean isBusiness,
+        @JsonProperty("is_issued_in_billing_address_country")
+        Boolean isIssuedInBillingAddressCountry,
+        @JsonProperty("is_prepaid") Boolean isPrepaid,
+        @JsonProperty("is_virtual") Boolean isVirtual,
+        @JsonProperty("issuer") Issuer issuer,
+        @JsonProperty("type") String type
     ) {
         this.brand = brand;
         this.country = country;

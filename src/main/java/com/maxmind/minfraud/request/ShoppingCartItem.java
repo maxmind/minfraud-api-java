@@ -55,7 +55,8 @@ public final class ShoppingCartItem extends AbstractModel {
          */
         public ShoppingCartItem.Builder quantity(int quantity) {
             if (quantity <= 0) {
-                throw new IllegalArgumentException("Expected positive quantity but received: " + quantity);
+                throw new IllegalArgumentException(
+                    "Expected positive quantity but received: " + quantity);
             }
             this.quantity = quantity;
             return this;

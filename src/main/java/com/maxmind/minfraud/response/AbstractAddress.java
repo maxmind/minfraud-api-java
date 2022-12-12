@@ -10,7 +10,8 @@ public abstract class AbstractAddress extends AbstractModel {
     private final Integer distanceToIpLocation;
     private final Boolean isInIpCountry;
 
-    protected AbstractAddress(Integer distanceToIpLocation, Boolean isInIpCountry, Boolean isPostalInCity, Double latitude, Double longitude) {
+    protected AbstractAddress(Integer distanceToIpLocation, Boolean isInIpCountry,
+                              Boolean isPostalInCity, Double latitude, Double longitude) {
         this.distanceToIpLocation = distanceToIpLocation;
         this.isInIpCountry = isInIpCountry;
         this.isPostalInCity = isPostalInCity;

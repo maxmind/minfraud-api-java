@@ -23,11 +23,11 @@ public final class Email extends AbstractModel {
      * @param firstSeen    When the email was first seen.
      */
     public Email(
-            @JsonProperty("domain") EmailDomain domain,
-            @JsonProperty("is_disposable") Boolean isDisposable,
-            @JsonProperty("is_free") Boolean isFree,
-            @JsonProperty("is_high_risk") Boolean isHighRisk,
-            @JsonProperty("first_seen") String firstSeen
+        @JsonProperty("domain") EmailDomain domain,
+        @JsonProperty("is_disposable") Boolean isDisposable,
+        @JsonProperty("is_free") Boolean isFree,
+        @JsonProperty("is_high_risk") Boolean isHighRisk,
+        @JsonProperty("first_seen") String firstSeen
     ) {
         this.domain = domain == null ? new EmailDomain() : domain;
         this.isDisposable = isDisposable;

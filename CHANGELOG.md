@@ -1,6 +1,21 @@
 CHANGELOG
 =========
 
+3.0.0
+------------------
+
+* This library is now a Java module.
+* Removed deprecated `last4Digits` method on `CreditCard.Builder` and
+  `getLast4Digits` method on `CreditCard`. Use `lastDigits` and
+  `getLastDigits` instead.
+* Removed deprecated `connectTimeout(int)`, `readTimeout(int)`, and
+  `proxy(Proxy)` on `WebServiceClient.Builder`. Use
+  `connectTimeout(Duration)`, `requestTimeout(Duration)`, and
+  `proxy(ProxySelector)` instead.
+* `WebServiceClient` no longer implements `Closeable` and the `Close`
+  method has been removed. This method was deprecated when the library
+  switched to using `java.net.http.HttpClient`.
+
 2.2.0 (2022-10-31)
 ------------------
 
@@ -62,9 +77,9 @@ CHANGELOG
   * `TRUSTLY`
   * `WINDCAVE`
 * `com.maxmind.minfraud.request.CreditCard.last4Digits` has been deprecated in
-   favor of `lastDigits` and will be removed in a future release. `lastDigits`
-   / `last4Digits` also now supports two digit values in addition to the
-   previous four digit values.
+  favor of `lastDigits` and will be removed in a future release. `lastDigits`
+  / `last4Digits` also now supports two digit values in addition to the
+  previous four digit values.
 * Eight digit `com.maxmind.minfraud.request.CreditCard.issuerIdNumber` inputs are
   now supported in addition to the previously accepted six digit `issuerIdNumber`.
   In most cases, you should send the last four digits for
@@ -281,24 +296,24 @@ CHANGELOG
 
 * Added support for custom inputs. These can be set up from your account portal.
 * Added support for new Device inputs. These are:
-    * `/device/session_age`
-    * `/device/session_id`
+  * `/device/session_age`
+  * `/device/session_id`
 * Added support for new Email outputs. These are:
-    * `/email/first_seen`
+  * `/email/first_seen`
 * The following payment processors were added to the `Payment.Processor` enum:
-    * `AMERICAN_EXPRESS_PAYMENT_GATEWAY`
-    * `BLUESNAP`
-    * `COMMDOO`
-    * `CUROPAYMENTS`
-    * `EXACT`
-    * `OCEANPAYMENT`
-    * `PAYMENTWALL`
-    * `PAYZA`
-    * `SECURETRADING`
-    * `SOLIDTRUST_PAY`
-    * `VANTIV`
-    * `VERICHECK`
-    * `VPOS`
+  * `AMERICAN_EXPRESS_PAYMENT_GATEWAY`
+  * `BLUESNAP`
+  * `COMMDOO`
+  * `CUROPAYMENTS`
+  * `EXACT`
+  * `OCEANPAYMENT`
+  * `PAYMENTWALL`
+  * `PAYZA`
+  * `SECURETRADING`
+  * `SOLIDTRUST_PAY`
+  * `VANTIV`
+  * `VERICHECK`
+  * `VPOS`
 
 1.4.0 (2017-02-22)
 ------------------
@@ -377,11 +392,11 @@ CHANGELOG
 ------------------
 
 * Added support for new minFraud Insights outputs. These are:
-    * `/credit_card/brand`
-    * `/credit_card/type`
-    * `/device/id`
-    * `/email/is_free`
-    * `/email/is_high_risk`
+  * `/credit_card/brand`
+  * `/credit_card/type`
+  * `/device/id`
+  * `/email/is_free`
+  * `/email/is_high_risk`
 * The `Warning.getInput()` method has been replaced by
   `Warning.getInputPointer()`, which returns a JSON Pointer rather than array.
 * The `ScoreResponse.getId()` and `InsightsResponse.getId()` methods now

@@ -1,15 +1,14 @@
 package com.maxmind.minfraud.request;
 
+import static org.junit.Assert.assertEquals;
+
 import com.maxmind.minfraud.request.TransactionReport.Builder;
 import com.maxmind.minfraud.request.TransactionReport.Tag;
-import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.UUID;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 public class TransactionReportTest {
 
@@ -92,24 +91,24 @@ public class TransactionReportTest {
     @Test
     public void testAllFields() throws Exception {
         final TransactionReport report = new TransactionReport.Builder(
-                InetAddress.getByName("1.1.1.1"), Tag.NOT_FRAUD
+            InetAddress.getByName("1.1.1.1"), Tag.NOT_FRAUD
         )
-                .chargebackCode("mycode")
-                .maxmindId("12345678")
-                .minfraudId(UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d"))
-                .notes("notes go here")
-                .transactionId("foo")
-                .build();
+            .chargebackCode("mycode")
+            .maxmindId("12345678")
+            .minfraudId(UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d"))
+            .notes("notes go here")
+            .transactionId("foo")
+            .build();
 
         final String expectedJSON = "{" +
-                "ip_address:'1.1.1.1'," +
-                "tag:'not_fraud'," +
-                "chargeback_code:'mycode'," +
-                "maxmind_id:'12345678'," +
-                "minfraud_id:'58fa38d8-4b87-458b-a22b-f00eda1aa20d'," +
-                "notes:'notes go here'," +
-                "transaction_id:'foo'" +
-                "}";
+            "ip_address:'1.1.1.1'," +
+            "tag:'not_fraud'," +
+            "chargeback_code:'mycode'," +
+            "maxmind_id:'12345678'," +
+            "minfraud_id:'58fa38d8-4b87-458b-a22b-f00eda1aa20d'," +
+            "notes:'notes go here'," +
+            "transaction_id:'foo'" +
+            "}";
 
         JSONAssert.assertEquals(expectedJSON, report.toJson(), true);
     }

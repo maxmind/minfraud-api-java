@@ -1,13 +1,13 @@
 package com.maxmind.minfraud.request;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import com.maxmind.minfraud.request.CreditCard.Builder;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(JUnitParamsRunner.class)
 public class CreditCardTest {
@@ -37,20 +37,11 @@ public class CreditCardTest {
     }
 
     @Test
-    public void testLast4Digits() {
-        CreditCard cc = new Builder().last4Digits("1234").build();
-        assertEquals("1234", cc.getLast4Digits());
-        assertEquals("1234", cc.getLastDigits());
-    }
-
-    @Test
     public void testLastDigits() {
         CreditCard cc = new Builder().lastDigits("1234").build();
-        assertEquals("1234", cc.getLast4Digits());
         assertEquals("1234", cc.getLastDigits());
 
         cc = new Builder().lastDigits("12").build();
-        assertEquals("12", cc.getLast4Digits());
         assertEquals("12", cc.getLastDigits());
     }
 
@@ -115,10 +106,10 @@ public class CreditCardTest {
 
     @Test(expected = IllegalArgumentException.class)
     @Parameters({"4485921507912924",
-            "432312",
-            "this is invalid",
-            "",
-            "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        "432312",
+        "this is invalid",
+        "",
+        "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     })
     public void testInvalidToken(String token) {
         new Builder().token(token).build();
@@ -126,8 +117,8 @@ public class CreditCardTest {
 
     @Test
     @Parameters({"t4485921507912924",
-            "a7f6%gf83fhAu",
-            "valid_token"
+        "a7f6%gf83fhAu",
+        "valid_token"
     })
     public void testValidToken(String token) {
         CreditCard cc = new Builder().token(token).build();
