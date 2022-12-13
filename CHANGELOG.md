@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-3.0.0
+3.0.0 (2022-12-12)
 ------------------
 
 * This library is now a Java module.
