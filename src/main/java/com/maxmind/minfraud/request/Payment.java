@@ -210,6 +210,7 @@ public final class Payment extends AbstractModel {
         PAYWAY,
         PAYZA,
         PINPAYMENTS,
+        PLACETOPAY,
         POSCONNECT,
         PRINCETON_PAYMENT_SOLUTIONS,
         PSIGATE,
