@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+3.1.0
+------------------
+
+* Added `PLACETOPAY` to the `Payment.Processor` enum.
+
 3.0.0 (2022-12-12)
 ------------------
 
