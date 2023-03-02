@@ -2,7 +2,7 @@
 layout: default
 title: MaxMind minFraud Score and Insights Java API
 language: java
-version: v3.0.0
+version: v3.1.0
 ---
 
 # MaxMind minFraud Score, Insights, and Factors Java API
@@ -23,7 +23,7 @@ To do this, add the dependency to your pom.xml:
     <dependency>
         <groupId>com.maxmind.minfraud</groupId>
         <artifactId>minfraud</artifactId>
-        <version>3.0.0</version>
+        <version>3.1.0</version>
     </dependency>
 ```
 
@@ -36,7 +36,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'com.maxmind.minfraud:minfraud:3.0.0'
+    compile 'com.maxmind.minfraud:minfraud:3.1.0'
 }
 ```
 
@@ -247,7 +247,7 @@ MaxMind encourages the use of this API, as data received through this channel
 is continually used to improve the accuracy of our fraud detection algorithms.
 
 To use the Report Transactions API, create a new `TransactionReport` object. An
-IP address and a valid tag are required arguments. Additional params may
+IP address and a valid tag are required arguments. Additional parameters may
 also be set, as documented below.
 
 If the report is successful, nothing is returned. If the report fails, an
@@ -293,6 +293,6 @@ This API uses [Semantic Versioning](https://semver.org/).
 
 ## Copyright and License ##
 
-This software is Copyright (c) 2015-2022 by MaxMind, Inc.
+This software is Copyright (c) 2015-2023 by MaxMind, Inc.
 
 This is free software, licensed under the Apache License, Version 2.0.
