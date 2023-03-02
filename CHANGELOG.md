@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-3.1.0
+3.1.0 (2023-03-02)
 ------------------
 
 * `com.maxmind.geoip2` is now a transitive dependency of this Java module.
