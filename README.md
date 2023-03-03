@@ -16,7 +16,7 @@ To do this, add the dependency to your pom.xml:
     <dependency>
         <groupId>com.maxmind.minfraud</groupId>
         <artifactId>minfraud</artifactId>
-        <version>3.0.0</version>
+        <version>3.1.0</version>
     </dependency>
 ```
 
@@ -29,7 +29,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'com.maxmind.minfraud:minfraud:3.0.0'
+    compile 'com.maxmind.minfraud:minfraud:3.1.0'
 }
 ```
 
@@ -240,7 +240,7 @@ MaxMind encourages the use of this API, as data received through this channel
 is continually used to improve the accuracy of our fraud detection algorithms.
 
 To use the Report Transactions API, create a new `TransactionReport` object. An
-IP address and a valid tag are required arguments. Additional params may
+IP address and a valid tag are required arguments. Additional parameters may
 also be set, as documented below.
 
 If the report is successful, nothing is returned. If the report fails, an

@@ -1,9 +1,10 @@
 CHANGELOG
 =========
 
-3.1.0
+3.1.0 (2023-03-02)
 ------------------
 
+* `com.maxmind.geoip2` is now a transitive dependency of this Java module.
 * Added `PLACETOPAY` to the `Payment.Processor` enum.
 
 3.0.0 (2022-12-12)
