@@ -54,8 +54,6 @@ public final class Device extends AbstractModel {
 
     /**
      * @return A UUID identifying the device associated with this IP address.
-     * Note that many devices cannot be uniquely identified because they are too
-     * common (for example, all iPhones of a given model and OS release).
      */
     public UUID getId() {
         return id;
