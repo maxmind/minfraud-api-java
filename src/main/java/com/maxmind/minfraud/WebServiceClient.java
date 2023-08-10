@@ -138,6 +138,11 @@ public final class WebServiceClient {
 
         /**
          * @param val The host to use.
+         * By default, the client connects to the production host. However,
+         * during testing and development, you can set this option to
+         * 'sandbox.maxmind.com' to use the Sandbox environment's host. The
+         * sandbox allows you to experiment with the API without affecting your
+         * production data.
          * @return Builder object
          */
         public WebServiceClient.Builder host(String val) {

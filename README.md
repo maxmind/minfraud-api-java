@@ -48,6 +48,12 @@ arguments. For example:
 WebServiceClient client = new WebServiceClient.Builder(6, "ABCD567890").build();
 ```
 
+If you would like to use the Sandbox environment, you can use the `host` method 
+that belongs to the Bulder. For example,
+```java
+WebServiceClient.Builder.host("sandbox.maxmind.com")
+```
+
 Then create a new `Transaction` object. This represents the transaction that
 you are sending to minFraud. The class is instantiated using an inner builder
 class, `Transaction.Builder`. Each builder method takes a corresponding
