@@ -94,6 +94,7 @@
       }
     ],
     "traits": {
+      "connection_type": "Cable/DSL",
       "domain": "in-addr.arpa",
       "ip_address": "152.216.7.110",
       "is_anonymous": true,
