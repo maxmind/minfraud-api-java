@@ -7,6 +7,7 @@ CHANGELOG
 * Updated `geoip2` to 4.1.0 to prevent exception when deserializing the
   new `Satellite` value to the `ConnectionType` enum. Pull request by
   Neal Zhu. GitHub #278.
+* Jackson was updated to 2.15.2.
 
 3.1.0 (2023-03-02)
 ------------------
