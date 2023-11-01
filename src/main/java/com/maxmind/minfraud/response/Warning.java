@@ -33,7 +33,7 @@ public final class Warning extends AbstractModel {
      * <li>BILLING_POSTAL_NOT_FOUND – the billing postal could not be found
      * in our database.</li>
      * <li>INPUT_INVALID – the value associated with the key does not meet
-     * the required constraints, e.g., “United States” in a field that
+     * the required constraints, e.g., "United States" in a field that
      * requires a two-letter country code.</li>
      * <li>INPUT_UNKNOWN – an unknown key was encountered in the request
      * body.</li>
