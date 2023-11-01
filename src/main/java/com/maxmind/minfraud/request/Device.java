@@ -50,7 +50,7 @@ public final class Device extends AbstractModel {
         }
 
         /**
-         * @param ua The HTTP “User-Agent” header of the browser used in
+         * @param ua The HTTP "User-Agent" header of the browser used in
          *           the transaction.
          * @return The builder object.
          */
@@ -60,7 +60,7 @@ public final class Device extends AbstractModel {
         }
 
         /**
-         * @param acceptLanguage The HTTP “Accept-Language” header of the
+         * @param acceptLanguage The HTTP "Accept-Language" header of the
          *                       device used in the transaction.
          * @return The builder object.
          */
