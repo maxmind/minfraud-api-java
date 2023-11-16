@@ -145,20 +145,9 @@ Add this to ~/.gnupg/gpg-agent.conf:
     you'll need to delete the release tag too:
     `git push origin :refs/tags/vx.y.z && git tag -d vx.y.z`.
 - If you get to this point, then a release is on GitHub.com and in the
-  staging repository on [Sonatype](https://oss.sonatype.org).
-- Go to [Sonatype](https://oss.sonatype.org) and log in.
-- On the left hand side, choose Staging repositories.
-- At the bottom you should see your staged release. It will be something
-  like "commmaxmind-xxxx". Click on that.
-- Near the top of the page there is a "Close" button. Click it.
-  - You have to close a staging release before you can release it.
-- Wait around 30 seconds. Click Refresh near the top of the page while
-  you wait. Eventually you should see the "Activity" line in the info
-  about your repository say something like it is complete.
-- Click Release near the top.
-  - This also takes a moment (you will see "operation in progress" again).
-    Refresh as usual. When it's done, you won't see the "commmaxmind-xxxx"
-    entry in the staging repositories any more.
+  staging repository on [Sonatype](https://oss.sonatype.org). The
+  nexus-staging-maven-plugin plugin should automatically close the staging
+  release as well as actually release it after.
 - You're done!
 - If you want to check things over, look at the commits on GitHub.com,
   including to the `gh-pages` branch and release tags, and do an artifact
