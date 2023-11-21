@@ -2,7 +2,10 @@ package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
-import org.apache.commons.codec.digest.DigestUtils;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Account related data for the minFraud request
@@ -46,8 +49,15 @@ public final class Account extends AbstractModel {
          * @return The builder object.
          */
         public Account.Builder username(String username) {
-            this.usernameMd5 = DigestUtils.md5Hex(username);
-            return this;
+            try {
+                MessageDigest d = MessageDigest.getInstance("MD5");
+                d.update(username.getBytes(StandardCharsets.UTF_8));
+                BigInteger i = new BigInteger(1, d.digest());
+                this.usernameMd5 = String.format("%032x", i);
+                return this;
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException("No MD5 algorithm for MessageDigest!", e);
+            }
         }
 
         /**

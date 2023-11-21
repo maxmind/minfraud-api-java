@@ -3,13 +3,17 @@ package com.maxmind.minfraud.request;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.validator.routines.DomainValidator;
-import org.apache.commons.validator.routines.EmailValidator;
+import java.math.BigInteger;
 import java.net.IDN;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.validator.routines.DomainValidator;
+import org.apache.commons.validator.routines.EmailValidator;
 
 /**
  * The email information for the transaction.
@@ -55,7 +59,7 @@ public final class Email extends AbstractModel {
 
         /**
          * The constructor for the builder.
-         *
+         * <p>
          * By default, validation will be enabled.
          */
         public Builder() {
@@ -77,7 +81,7 @@ public final class Email extends AbstractModel {
          * need to set the domain separately. The domain will be set to
          * the domain of the email address and the address field will be
          * set to the email address passed.
-         *
+         * <p>
          * The email address will be sent in plain text unless you also call
          * {@link #hashAddress()} to instead send it as an MD5 hash.
          *
@@ -88,7 +92,8 @@ public final class Email extends AbstractModel {
          */
         public Email.Builder address(String address) {
             if (enableValidation && !EmailValidator.getInstance().isValid(address)) {
-                throw new IllegalArgumentException("The email address " + address + " is not valid.");
+                throw new IllegalArgumentException(
+                    "The email address " + address + " is not valid.");
             }
 
             if (this.domain == null) {
@@ -103,8 +108,8 @@ public final class Email extends AbstractModel {
 
         /**
          * Send the email address as its MD5 hash.
-         *
-         * By default the email address set by {@link #address(String)} will be
+         * <p>
+         * By default, the email address set by {@link #address(String)} will be
          * sent in plain text. Enable sending it as an MD5 hash instead by
          * calling this method.
          *
@@ -150,7 +155,15 @@ public final class Email extends AbstractModel {
             return null;
         }
         if (hashAddress) {
-            return DigestUtils.md5Hex(cleanAddress(address));
+            String cleanAddress = cleanAddress(address);
+            try {
+                MessageDigest d = MessageDigest.getInstance("MD5");
+                d.update(cleanAddress.getBytes(StandardCharsets.UTF_8));
+                BigInteger i = new BigInteger(1, d.digest());
+                return String.format("%032x", i);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException("No MD5 algorithm for MessageDigest!", e);
+            }
         }
         return address;
     }

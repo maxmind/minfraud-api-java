@@ -3,7 +3,6 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.geoip2.record.Location;
-
 import java.time.ZonedDateTime;
 
 /**
@@ -14,16 +13,17 @@ public final class GeoIp2Location extends Location {
     private final String localTime;
 
     public GeoIp2Location(
-            @JsonProperty("accuracy_radius") Integer accuracyRadius,
-            @JsonProperty("average_income") Integer averageIncome,
-            @JsonProperty("latitude") Double latitude,
-            @JsonProperty("local_time") String localTime,
-            @JsonProperty("longitude") Double longitude,
-            @JsonProperty("metro_code") Integer metroCode,
-            @JsonProperty("population_density") Integer populationDensity,
-            @JsonProperty("time_zone") String timeZone
+        @JsonProperty("accuracy_radius") Integer accuracyRadius,
+        @JsonProperty("average_income") Integer averageIncome,
+        @JsonProperty("latitude") Double latitude,
+        @JsonProperty("local_time") String localTime,
+        @JsonProperty("longitude") Double longitude,
+        @JsonProperty("metro_code") Integer metroCode,
+        @JsonProperty("population_density") Integer populationDensity,
+        @JsonProperty("time_zone") String timeZone
     ) {
-        super(accuracyRadius, averageIncome, latitude, longitude, metroCode, populationDensity, timeZone);
+        super(accuracyRadius, averageIncome, latitude, longitude, metroCode, populationDensity,
+            timeZone);
         this.localTime = localTime;
     }
 

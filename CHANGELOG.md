@@ -4,6 +4,8 @@ CHANGELOG
 1.19.0 (2023-11-21)
 -------------------
 
+* Updated model classes with non-breaking changes from the 3.2.0
+  release.
 * Updated Jackson and `geoip2` dependencies.
 
 1.18.0 (2021-08-31)

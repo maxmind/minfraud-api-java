@@ -3,7 +3,6 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
-
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
@@ -13,7 +12,7 @@ import java.util.UUID;
  * In order to receive device output from minFraud Insights or minFraud
  * Factors, you must be using the Device Tracking Add-on.
  *
- * @see <a href="https://dev.maxmind.com/minfraud/device/">Device Tracking Add-on</a>
+ * @see <a href="https://dev.maxmind.com/minfraud/track-devices?lang=en">Device Tracking Add-on</a>
  */
 public final class Device extends AbstractModel {
     private final Double confidence;
@@ -22,26 +21,16 @@ public final class Device extends AbstractModel {
     private final String localTime;
 
     /**
-     * @deprecated This constructor only exists for backward compatibility
-     * and will be removed in the next major release.
-     *
      * @param confidence The device confidence.
-     * @param id The device ID.
-     * @param lastSeen When the device was last seen.
+     * @param id         The device ID.
+     * @param lastSeen   When the device was last seen.
+     * @param localTime  The local time of the device.
      */
     public Device(
-            Double confidence,
-            UUID id,
-            String lastSeen
-    ) {
-        this(confidence, id, lastSeen, null);
-    }
-
-    public Device(
-            @JsonProperty("confidence") Double confidence,
-            @JsonProperty("id") UUID id,
-            @JsonProperty("last_seen") String lastSeen,
-            @JsonProperty("local_time") String localTime
+        @JsonProperty("confidence") Double confidence,
+        @JsonProperty("id") UUID id,
+        @JsonProperty("last_seen") String lastSeen,
+        @JsonProperty("local_time") String localTime
     ) {
         this.confidence = confidence;
         this.id = id;
@@ -65,8 +54,6 @@ public final class Device extends AbstractModel {
 
     /**
      * @return A UUID identifying the device associated with this IP address.
-     * Note that many devices cannot be uniquely identified because they are too
-     * common (for example, all iPhones of a given model and OS release).
      */
     public UUID getId() {
         return id;

@@ -7,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public final class BillingAddress extends AbstractAddress {
     public BillingAddress(
-            @JsonProperty("distance_to_ip_location") Integer distanceToIpLocation,
-            @JsonProperty("is_in_ip_country") Boolean isInIpCountry,
-            @JsonProperty("is_postal_in_city") Boolean isPostalInCity,
-            @JsonProperty("latitude") Double latitude,
-            @JsonProperty("longitude") Double longitude
+        @JsonProperty("distance_to_ip_location") Integer distanceToIpLocation,
+        @JsonProperty("is_in_ip_country") Boolean isInIpCountry,
+        @JsonProperty("is_postal_in_city") Boolean isPostalInCity,
+        @JsonProperty("latitude") Double latitude,
+        @JsonProperty("longitude") Double longitude
     ) {
         super(distanceToIpLocation, isInIpCountry, isPostalInCity, latitude, longitude);
     }

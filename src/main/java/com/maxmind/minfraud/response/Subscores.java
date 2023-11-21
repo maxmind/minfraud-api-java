@@ -3,8 +3,8 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * This class contains subscores for many of the individual components that are
- * used to calculate the overall risk score.
+ * This class contains scores for many of the risk factors that are used to
+ * calculate the overall risk score.
  */
 public final class Subscores {
     private final Double avsResult;
@@ -230,8 +230,8 @@ public final class Subscores {
 
     /**
      * @return The risk associated with the email address local part (the part
-     *  of the email address before the @ symbol). If present, this is a value
-     *  in the range 0.01 to 99.
+     * of the email address before the @ symbol). If present, this is a value
+     * in the range 0.01 to 99.
      */
     @JsonProperty("email_local_part")
     public Double getEmailLocalPart() {

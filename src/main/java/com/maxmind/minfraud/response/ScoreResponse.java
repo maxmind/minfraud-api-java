@@ -2,7 +2,6 @@ package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,13 +20,13 @@ public class ScoreResponse extends AbstractModel {
     private final ScoreIpAddress ipAddress;
 
     public ScoreResponse(
-            @JsonProperty("disposition") Disposition disposition,
-            @JsonProperty("funds_remaining") Double fundsRemaining,
-            @JsonProperty("id") UUID id,
-            @JsonProperty("ip_address") ScoreIpAddress ipAddress,
-            @JsonProperty("queries_remaining") Integer queriesRemaining,
-            @JsonProperty("risk_score") Double riskScore,
-            @JsonProperty("warnings") List<Warning> warnings
+        @JsonProperty("disposition") Disposition disposition,
+        @JsonProperty("funds_remaining") Double fundsRemaining,
+        @JsonProperty("id") UUID id,
+        @JsonProperty("ip_address") ScoreIpAddress ipAddress,
+        @JsonProperty("queries_remaining") Integer queriesRemaining,
+        @JsonProperty("risk_score") Double riskScore,
+        @JsonProperty("warnings") List<Warning> warnings
     ) {
         this.disposition = disposition == null ? new Disposition() : disposition;
         this.fundsRemaining = fundsRemaining;
@@ -35,7 +34,8 @@ public class ScoreResponse extends AbstractModel {
         this.ipAddress = ipAddress == null ? new ScoreIpAddress() : ipAddress;
         this.queriesRemaining = queriesRemaining;
         this.riskScore = riskScore;
-        this.warnings = Collections.unmodifiableList(warnings == null ? new ArrayList<>() : warnings);
+        this.warnings =
+            Collections.unmodifiableList(warnings == null ? new ArrayList<>() : warnings);
     }
 
     /**
@@ -85,7 +85,7 @@ public class ScoreResponse extends AbstractModel {
      * indicates a higher risk of fraud. For example, a score of 20 indicates a
      * 20% chance that a transaction is fraudulent. We never return a risk score
      * of 0, since all transactions have the possibility of being fraudulent.
-     * Likewise we never return a risk score of 100.
+     * Likewise, we never return a risk score of 100.
      */
     @JsonProperty("risk_score")
     public final Double getRiskScore() {

@@ -2,7 +2,6 @@ package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
-
 import java.net.InetAddress;
 
 /**
@@ -90,7 +89,7 @@ public final class Device extends AbstractModel {
          */
         public Device.Builder sessionAge(Double sessionAge) {
             this.sessionAge =
-                    sessionAge;
+                sessionAge;
             return this;
         }
 

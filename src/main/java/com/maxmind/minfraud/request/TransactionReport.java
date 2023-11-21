@@ -2,7 +2,6 @@ package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
-
 import java.net.InetAddress;
 import java.util.UUID;
 
@@ -46,8 +45,8 @@ public final class TransactionReport extends AbstractModel {
          *
          * @param ipAddress The IP address associated with the device used
          *                  by the customer in the transaction.
-         * @param tag A string indicating the likelihood that a transaction may be
-         *           fraudulent.
+         * @param tag       A string indicating the likelihood that a transaction may be
+         *                  fraudulent.
          */
         public Builder(InetAddress ipAddress, Tag tag) {
             if (ipAddress == null) {
@@ -63,7 +62,7 @@ public final class TransactionReport extends AbstractModel {
 
         /**
          * @param chargebackCode A string which is provided by your payment processor
-         * indicating the reason for the chargeback.
+         *                       indicating the reason for the chargeback.
          * @return The builder object.
          */
         public TransactionReport.Builder chargebackCode(String chargebackCode) {
@@ -73,14 +72,15 @@ public final class TransactionReport extends AbstractModel {
 
         /**
          * @param maxmindId A unique eight character string identifying a minFraud
-         * Standard or Premium request. These IDs are returned in the maxmindID field
-         * of a response for a successful minFraud request. This field is not required,
-         * but you are encouraged to provide it, if possible.
+         *                  Standard or Premium request. These IDs are returned in the maxmindID field
+         *                  of a response for a successful minFraud request. This field is not required,
+         *                  but you are encouraged to provide it, if possible.
          * @return The builder object.
          */
         public TransactionReport.Builder maxmindId(String maxmindId) {
-            if (maxmindId.length() != 8 ) {
-                throw new IllegalArgumentException("maxmindId must be exactly 8 characters in length");
+            if (maxmindId.length() != 8) {
+                throw new IllegalArgumentException(
+                    "maxmindId must be exactly 8 characters in length");
             }
             this.maxmindId = maxmindId;
             return this;
@@ -88,10 +88,10 @@ public final class TransactionReport extends AbstractModel {
 
         /**
          * @param minfraudId A UUID that identifies a minFraud Score, minFraud Insights,
-         * or minFraud Factors request. This ID is returned via getId() in the
-         * Score, Insights or Factors response object. This field is not
-         * required, but you are encouraged to provide it if the request was
-         * made to one of these services.
+         *                   or minFraud Factors request. This ID is returned via getId() in the
+         *                   Score, Insights or Factors response object. This field is not
+         *                   required, but you are encouraged to provide it if the request was
+         *                   made to one of these services.
          * @return The builder object.
          */
         public TransactionReport.Builder minfraudId(UUID minfraudId) {

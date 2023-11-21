@@ -2,7 +2,6 @@ package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
-
 import java.time.LocalDate;
 
 /**
@@ -12,9 +11,13 @@ public final class EmailDomain extends AbstractModel {
     private final LocalDate firstSeen;
 
     public EmailDomain(
-            @JsonProperty("first_seen") LocalDate firstSeen
+        @JsonProperty("first_seen") LocalDate firstSeen
     ) {
         this.firstSeen = firstSeen;
+    }
+
+    public EmailDomain() {
+        this(null);
     }
 
     /**
