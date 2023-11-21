@@ -95,6 +95,7 @@
       }
     ],
     "traits": {
+      "connection_type": "Satellite",
       "domain": "in-addr.arpa",
       "ip_address": "152.216.7.110",
       "is_anonymous": true,

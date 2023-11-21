@@ -1,6 +1,7 @@
 package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.jr.ob.JSON;
+import com.maxmind.geoip2.model.ConnectionTypeResponse.ConnectionType;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -30,6 +31,7 @@ public class IpAddressTest extends AbstractOutputTest {
                         .put("local_time", time)
                         .end()
                         .startObjectField("traits")
+                        .put("connection_type", "Satellite")
                         .put("ip_address", "1.2.3.4")
                         .put("is_anonymous", true)
                         .put("is_anonymous_vpn", true)
@@ -46,6 +48,7 @@ public class IpAddressTest extends AbstractOutputTest {
         assertEquals("correct local time", time, address.getLocation().getLocalTime());
         assertEquals("1.2.0.0/16", address.getTraits().getNetwork().toString());
         assertTrue("isHighRisk", address.getCountry().isHighRisk());
+        assertEquals("getConnectionType", ConnectionType.SATELLITE, address.getTraits().getConnectionType());
         assertTrue("isAnonymous", address.getTraits().isAnonymous());
         assertTrue("isAnonymousVpn", address.getTraits().isAnonymousVpn());
         assertTrue("isHostingProvider", address.getTraits().isHostingProvider());
