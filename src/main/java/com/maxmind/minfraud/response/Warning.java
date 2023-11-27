@@ -65,7 +65,7 @@ public final class Warning extends AbstractModel {
      * @return This is a JSON Pointer to the input that the warning is
      * associated with. For instance, if the warning was about the billing
      * city, the value would be "/billing/city". See
-     * https://tools.ietf.org/html/rfc6901 for the JSON Pointer spec.
+     * <a href="https://tools.ietf.org/html/rfc6901">RFC 6901</a> for the JSON Pointer spec.
      */
     @JsonProperty("input_pointer")
     public String getInputPointer() {
