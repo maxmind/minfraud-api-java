@@ -462,9 +462,7 @@ public final class WebServiceClient {
     }
 
     private void exhaustBody(HttpResponse<InputStream> response) throws HttpException {
-        InputStream body = response.body();
-
-        try {
+        try (InputStream body = response.body()) {
             // Make sure we read the stream until the end so that
             // the connection can be reused.
             while (body.read() != -1) {
