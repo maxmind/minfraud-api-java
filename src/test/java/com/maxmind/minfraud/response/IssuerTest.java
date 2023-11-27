@@ -1,10 +1,10 @@
 package com.maxmind.minfraud.response;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.jr.ob.JSON;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class IssuerTest extends AbstractOutputTest {
 
@@ -25,9 +25,9 @@ public class IssuerTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals("bank name", "Bank", issuer.getName());
-        assertTrue("provided name matches", issuer.matchesProvidedName());
-        assertEquals("phone", phone, issuer.getPhoneNumber());
-        assertTrue("provided phone matches", issuer.matchesProvidedPhoneNumber());
+        assertEquals("Bank", issuer.getName(), "bank name");
+        assertTrue(issuer.matchesProvidedName(), "provided name matches");
+        assertEquals(phone, issuer.getPhoneNumber(), "phone");
+        assertTrue(issuer.matchesProvidedPhoneNumber(), "provided phone matches");
     }
 }

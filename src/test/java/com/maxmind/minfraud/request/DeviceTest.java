@@ -1,12 +1,12 @@
 package com.maxmind.minfraud.request;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.maxmind.minfraud.request.Device.Builder;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DeviceTest {
 

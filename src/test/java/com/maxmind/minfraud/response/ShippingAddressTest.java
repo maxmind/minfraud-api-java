@@ -1,10 +1,10 @@
 package com.maxmind.minfraud.response;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.fasterxml.jackson.jr.ob.JSON;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ShippingAddressTest extends AbstractAddressTest {
 
@@ -28,8 +28,11 @@ public class ShippingAddressTest extends AbstractAddressTest {
 
         this.testAddress(address);
 
-        assertFalse("is high risk", address.isHighRisk());
-        assertEquals("distance to billing address", Integer.valueOf(200),
-            address.getDistanceToBillingAddress());
+        assertFalse(address.isHighRisk(), "is high risk");
+        assertEquals(
+            Integer.valueOf(200),
+            address.getDistanceToBillingAddress(),
+            "distance to billing address"
+        );
     }
 }

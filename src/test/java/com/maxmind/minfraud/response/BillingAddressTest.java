@@ -1,7 +1,7 @@
 package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.jr.ob.JSON;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BillingAddressTest extends AbstractAddressTest {
 

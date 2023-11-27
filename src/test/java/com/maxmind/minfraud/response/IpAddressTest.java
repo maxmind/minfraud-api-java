@@ -1,11 +1,11 @@
 package com.maxmind.minfraud.response;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.jr.ob.JSON;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class IpAddressTest extends AbstractOutputTest {
 
@@ -46,22 +46,34 @@ public class IpAddressTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals("IP risk", Double.valueOf(99), address.getRisk());
-        assertEquals("correct local time", time, address.getLocation().getLocalTime());
+        assertEquals(Double.valueOf(99), address.getRisk(), "IP risk");
+        assertEquals(time, address.getLocation().getLocalTime(), "correct local time");
         assertEquals("1.2.0.0/16", address.getTraits().getNetwork().toString());
-        assertTrue("isAnonymous", address.getTraits().isAnonymous());
-        assertTrue("isAnonymousVpn", address.getTraits().isAnonymousVpn());
-        assertTrue("isHostingProvider", address.getTraits().isHostingProvider());
-        assertTrue("isPublicProxy", address.getTraits().isPublicProxy());
-        assertTrue("isTorExitNode", address.getTraits().isTorExitNode());
-        assertEquals("mobile country code", "310",
-            address.getTraits().getMobileCountryCode());
-        assertEquals("mobile network code", "004",
-            address.getTraits().getMobileNetworkCode());
-        assertEquals("IP risk reason code", "ANONYMOUS_IP",
-            address.getRiskReasons().get(0).getCode());
-        assertEquals("IP risk reason", "some reason",
-            address.getRiskReasons().get(0).getReason());
+        assertTrue(address.getTraits().isAnonymous(), "isAnonymous");
+        assertTrue(address.getTraits().isAnonymousVpn(), "isAnonymousVpn");
+        assertTrue(address.getTraits().isHostingProvider(), "isHostingProvider");
+        assertTrue(address.getTraits().isPublicProxy(), "isPublicProxy");
+        assertTrue(address.getTraits().isTorExitNode(), "isTorExitNode");
+        assertEquals(
+            "310",
+            address.getTraits().getMobileCountryCode(),
+            "mobile country code"
+        );
+        assertEquals(
+            "004",
+            address.getTraits().getMobileNetworkCode(),
+            "mobile network code"
+        );
+        assertEquals(
+            "ANONYMOUS_IP",
+            address.getRiskReasons().get(0).getCode(),
+            "IP risk reason code"
+        );
+        assertEquals(
+            "some reason",
+            address.getRiskReasons().get(0).getReason(),
+            "IP risk reason"
+        );
     }
 
     @Test

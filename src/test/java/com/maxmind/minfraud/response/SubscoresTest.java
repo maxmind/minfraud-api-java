@@ -1,9 +1,9 @@
 package com.maxmind.minfraud.response;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.fasterxml.jackson.jr.ob.JSON;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SubscoresTest extends AbstractOutputTest {
 
@@ -34,22 +34,28 @@ public class SubscoresTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals("avs_result", Double.valueOf(0.01), subscores.getAvsResult());
-        assertEquals("billing_address", Double.valueOf(0.02), subscores.getBillingAddress());
-        assertEquals("billing_address_distance_to_ip_location", Double.valueOf(0.03),
-            subscores.getBillingAddressDistanceToIpLocation());
-        assertEquals("browser", Double.valueOf(0.04), subscores.getBrowser());
-        assertEquals("chargeback", Double.valueOf(0.05), subscores.getChargeback());
-        assertEquals("country", Double.valueOf(0.06), subscores.getCountry());
-        assertEquals("country_mismatch", Double.valueOf(0.07), subscores.getCountryMismatch());
-        assertEquals("cvv_result", Double.valueOf(0.08), subscores.getCvvResult());
-        assertEquals("email_address", Double.valueOf(0.09), subscores.getEmailAddress());
-        assertEquals("email_domain", Double.valueOf(0.10), subscores.getEmailDomain());
-        assertEquals("issuer_id_number", Double.valueOf(0.13), subscores.getIssuerIdNumber());
-        assertEquals("order_amount", Double.valueOf(0.14), subscores.getOrderAmount());
-        assertEquals("phone_number", Double.valueOf(0.15), subscores.getPhoneNumber());
-        assertEquals("shipping_address_distance_to_ip_location", Double.valueOf(0.16),
-            subscores.getShippingAddressDistanceToIpLocation());
-        assertEquals("time_of_day", Double.valueOf(0.17), subscores.getTimeOfDay());
+        assertEquals(Double.valueOf(0.01), subscores.getAvsResult(), "avs_result");
+        assertEquals(Double.valueOf(0.02), subscores.getBillingAddress(), "billing_address");
+        assertEquals(
+            Double.valueOf(0.03),
+            subscores.getBillingAddressDistanceToIpLocation(),
+            "billing_address_distance_to_ip_location"
+        );
+        assertEquals(Double.valueOf(0.04), subscores.getBrowser(), "browser");
+        assertEquals(Double.valueOf(0.05), subscores.getChargeback(), "chargeback");
+        assertEquals(Double.valueOf(0.06), subscores.getCountry(), "country");
+        assertEquals(Double.valueOf(0.07), subscores.getCountryMismatch(), "country_mismatch");
+        assertEquals(Double.valueOf(0.08), subscores.getCvvResult(), "cvv_result");
+        assertEquals(Double.valueOf(0.09), subscores.getEmailAddress(), "email_address");
+        assertEquals(Double.valueOf(0.10), subscores.getEmailDomain(), "email_domain");
+        assertEquals(Double.valueOf(0.13), subscores.getIssuerIdNumber(), "issuer_id_number");
+        assertEquals(Double.valueOf(0.14), subscores.getOrderAmount(), "order_amount");
+        assertEquals(Double.valueOf(0.15), subscores.getPhoneNumber(), "phone_number");
+        assertEquals(
+            Double.valueOf(0.16),
+            subscores.getShippingAddressDistanceToIpLocation(),
+            "shipping_address_distance_to_ip_location"
+        );
+        assertEquals(Double.valueOf(0.17), subscores.getTimeOfDay(), "time_of_day");
     }
 }

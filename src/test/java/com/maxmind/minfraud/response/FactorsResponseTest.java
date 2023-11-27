@@ -1,10 +1,10 @@
 package com.maxmind.minfraud.response;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.fasterxml.jackson.jr.ob.JSON;
 import java.util.UUID;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class FactorsResponseTest extends AbstractOutputTest {
 
@@ -46,36 +46,95 @@ public class FactorsResponseTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals("avs_result", Double.valueOf(0.01), factors.getSubscores().getAvsResult());
-        assertEquals("billing_address", Double.valueOf(0.02),
-            factors.getSubscores().getBillingAddress());
-        assertEquals("billing_address_distance_to_ip_location", Double.valueOf(0.03),
-            factors.getSubscores().getBillingAddressDistanceToIpLocation());
-        assertEquals("browser", Double.valueOf(0.04), factors.getSubscores().getBrowser());
-        assertEquals("chargeback", Double.valueOf(0.05), factors.getSubscores().getChargeback());
-        assertEquals("country", Double.valueOf(0.06), factors.getSubscores().getCountry());
-        assertEquals("country_mismatch", Double.valueOf(0.07),
-            factors.getSubscores().getCountryMismatch());
-        assertEquals("cvv_result", Double.valueOf(0.08), factors.getSubscores().getCvvResult());
-        assertEquals("device", Double.valueOf(0.18), factors.getSubscores().getDevice());
-        assertEquals("email_address", Double.valueOf(0.09),
-            factors.getSubscores().getEmailAddress());
-        assertEquals("email_domain", Double.valueOf(0.10), factors.getSubscores().getEmailDomain());
-        assertEquals("email_local_part", Double.valueOf(0.19),
-            factors.getSubscores().getEmailLocalPart());
-        assertEquals("issuer_id_number", Double.valueOf(0.13),
-            factors.getSubscores().getIssuerIdNumber());
-        assertEquals("order_amount", Double.valueOf(0.14), factors.getSubscores().getOrderAmount());
-        assertEquals("phone_number", Double.valueOf(0.15), factors.getSubscores().getPhoneNumber());
-        assertEquals("shipping_address", Double.valueOf(0.2),
-            factors.getSubscores().getShippingAddress());
-        assertEquals("shipping_address_distance_to_ip_location", Double.valueOf(0.16),
-            factors.getSubscores().getShippingAddressDistanceToIpLocation());
-        assertEquals("time_of_day", Double.valueOf(0.17), factors.getSubscores().getTimeOfDay());
-        assertEquals("correct funnds remaining", Double.valueOf(1.20), factors.getFundsRemaining());
-        assertEquals("correct ID", UUID.fromString(id), factors.getId());
-        assertEquals("correct queries remaining", Integer.valueOf(123),
-            factors.getQueriesRemaining());
-        assertEquals("correct risk score", Double.valueOf(0.01), factors.getRiskScore());
+        assertEquals(
+            Double.valueOf(0.01),
+            factors.getSubscores().getAvsResult(),
+            "avs_result"
+        );
+        assertEquals(
+            Double.valueOf(0.02),
+            factors.getSubscores().getBillingAddress(),
+            "billing_address"
+        );
+        assertEquals(
+            Double.valueOf(0.03),
+            factors.getSubscores().getBillingAddressDistanceToIpLocation(),
+            "billing_address_distance_to_ip_location"
+        );
+        assertEquals(Double.valueOf(0.04), factors.getSubscores().getBrowser(), "browser");
+        assertEquals(Double.valueOf(0.05), factors.getSubscores().getChargeback(), "chargeback");
+        assertEquals(Double.valueOf(0.06), factors.getSubscores().getCountry(), "country");
+        assertEquals(
+            Double.valueOf(0.07),
+            factors.getSubscores().getCountryMismatch(),
+            "country_mismatch"
+        );
+        assertEquals(
+            Double.valueOf(0.08),
+            factors.getSubscores().getCvvResult(),
+            "cvv_result"
+        );
+        assertEquals(Double.valueOf(0.18), factors.getSubscores().getDevice(), "device");
+        assertEquals(
+            Double.valueOf(0.09),
+            factors.getSubscores().getEmailAddress(),
+            "email_address"
+        );
+        assertEquals(
+            Double.valueOf(0.10),
+            factors.getSubscores().getEmailDomain(),
+            "email_domain"
+        );
+        assertEquals(
+            Double.valueOf(0.19),
+            factors.getSubscores().getEmailLocalPart(),
+            "email_local_part"
+        );
+        assertEquals(
+            Double.valueOf(0.13),
+            factors.getSubscores().getIssuerIdNumber(),
+            "issuer_id_number"
+        );
+        assertEquals(
+            Double.valueOf(0.14),
+            factors.getSubscores().getOrderAmount(),
+            "order_amount"
+        );
+        assertEquals(
+            Double.valueOf(0.15),
+            factors.getSubscores().getPhoneNumber(),
+            "phone_number"
+        );
+        assertEquals(
+            Double.valueOf(0.2),
+            factors.getSubscores().getShippingAddress(),
+            "shipping_address"
+        );
+        assertEquals(
+            Double.valueOf(0.16),
+            factors.getSubscores().getShippingAddressDistanceToIpLocation(),
+            "shipping_address_distance_to_ip_location"
+        );
+        assertEquals(
+            Double.valueOf(0.17),
+            factors.getSubscores().getTimeOfDay(),
+            "time_of_day"
+        );
+        assertEquals(
+            Double.valueOf(1.20),
+            factors.getFundsRemaining(),
+            "correct funnds remaining"
+        );
+        assertEquals(UUID.fromString(id), factors.getId(), "correct ID");
+        assertEquals(
+            Integer.valueOf(123),
+            factors.getQueriesRemaining(),
+            "correct queries remaining"
+        );
+        assertEquals(
+            Double.valueOf(0.01),
+            factors.getRiskScore(),
+            "correct risk score"
+        );
     }
 }

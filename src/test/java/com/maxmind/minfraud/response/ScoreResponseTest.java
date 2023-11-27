@@ -1,10 +1,10 @@
 package com.maxmind.minfraud.response;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.fasterxml.jackson.jr.ob.JSON;
 import java.util.UUID;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ScoreResponseTest extends AbstractOutputTest {
 
@@ -35,12 +35,12 @@ public class ScoreResponseTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals("correct ID", UUID.fromString(id), score.getId());
-        assertEquals("correct funds remaining", Double.valueOf(1.20), score.getFundsRemaining());
-        assertEquals("queries remaining", Integer.valueOf(123), score.getQueriesRemaining());
-        assertEquals("risk score", Double.valueOf(0.01), score.getRiskScore());
-        assertEquals("disposition", "manual_review", score.getDisposition().getAction());
-        assertEquals("IP risk", Double.valueOf(0.02), score.getIpAddress().getRisk());
-        assertEquals("warning code", "INVALID_INPUT", score.getWarnings().get(0).getCode());
+        assertEquals(UUID.fromString(id), score.getId(), "correct ID");
+        assertEquals(Double.valueOf(1.20), score.getFundsRemaining(), "correct funds remaining");
+        assertEquals(Integer.valueOf(123), score.getQueriesRemaining(), "queries remaining");
+        assertEquals(Double.valueOf(0.01), score.getRiskScore(), "risk score");
+        assertEquals("manual_review", score.getDisposition().getAction(), "disposition");
+        assertEquals(Double.valueOf(0.02), score.getIpAddress().getRisk(), "IP risk");
+        assertEquals("INVALID_INPUT", score.getWarnings().get(0).getCode(), "warning code");
     }
 }

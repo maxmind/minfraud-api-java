@@ -1,9 +1,9 @@
 package com.maxmind.minfraud.exception;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class InvalidRequestExceptionTest {
 
@@ -13,8 +13,8 @@ public class InvalidRequestExceptionTest {
         String code = "INVALID_INPUT";
         int status = 400;
         InvalidRequestException e = new InvalidRequestException("message", code, status, uri, null);
-        assertEquals("correct code", code, e.getCode());
-        assertEquals("correct status", status, e.getHttpStatus());
-        assertEquals("correct URL", uri, e.getUri());
+        assertEquals(code, e.getCode(), "correct code");
+        assertEquals(status, e.getHttpStatus(), "correct status");
+        assertEquals(uri, e.getUri(), "correct URL");
     }
 }

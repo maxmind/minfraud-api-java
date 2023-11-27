@@ -1,9 +1,10 @@
 package com.maxmind.minfraud.request;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.maxmind.minfraud.request.AbstractLocation.Builder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public abstract class AbstractLocationTest {
     abstract Builder builder();
@@ -57,19 +58,28 @@ public abstract class AbstractLocationTest {
         assertEquals("US", loc.getCountry());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCountryThatIsTooLong() {
-        this.builder().country("USA").build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.builder().country("USA").build()
+        );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCountryWithNumbers() {
-        this.builder().country("U1").build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.builder().country("U1").build()
+        );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCountryInWrongCase() {
-        this.builder().country("us").build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.builder().country("us").build()
+        );
     }
 
     @Test
