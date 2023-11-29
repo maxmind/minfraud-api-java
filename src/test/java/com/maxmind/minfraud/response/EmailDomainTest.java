@@ -1,10 +1,10 @@
 package com.maxmind.minfraud.response;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.fasterxml.jackson.jr.ob.JSON;
 import java.time.LocalDate;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class EmailDomainTest extends AbstractOutputTest {
 

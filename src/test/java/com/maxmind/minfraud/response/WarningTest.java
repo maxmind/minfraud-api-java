@@ -1,9 +1,9 @@
 package com.maxmind.minfraud.response;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.fasterxml.jackson.jr.ob.JSON;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class WarningTest extends AbstractOutputTest {
 
@@ -25,9 +25,9 @@ public class WarningTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals("code", code, warning.getCode());
-        assertEquals("warning message", msg, warning.getWarning());
-        assertEquals("input_pointer", pointer, warning.getInputPointer());
+        assertEquals(code, warning.getCode(), "code");
+        assertEquals(msg, warning.getWarning(), "warning message");
+        assertEquals(pointer, warning.getInputPointer(), "input_pointer");
     }
 
 }

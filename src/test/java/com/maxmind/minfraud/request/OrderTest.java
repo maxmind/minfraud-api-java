@@ -1,12 +1,13 @@
 package com.maxmind.minfraud.request;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.maxmind.minfraud.request.Order.Builder;
 import java.math.BigDecimal;
 import java.net.URI;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class OrderTest {
 
@@ -28,25 +29,37 @@ public class OrderTest {
         assertEquals("USD", order.getCurrency());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCurrencyWithDigits() {
-        new Builder().currency("US1").build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new Builder().currency("US1").build()
+        );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCurrencyThatIsTooShort() {
-        new Builder().currency("US").build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new Builder().currency("US").build()
+        );
     }
 
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCurrencyThatIsTooLong() {
-        new Builder().currency("USDE").build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new Builder().currency("USDE").build()
+        );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCurrencyInWrongCase() {
-        new Builder().currency("usd").build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new Builder().currency("usd").build()
+        );
     }
 
     @Test

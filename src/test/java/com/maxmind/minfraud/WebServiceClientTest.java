@@ -5,10 +5,9 @@ import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching;
-import static com.github.tomakehurst.wiremock.client.WireMock.verify;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static com.jcabi.matchers.RegexMatchers.matchesPattern;
 import static com.maxmind.minfraud.request.RequestTestHelper.fullTransaction;
 import static com.maxmind.minfraud.request.RequestTestHelper.fullTransactionEmailMd5;
@@ -17,12 +16,13 @@ import static com.maxmind.minfraud.request.RequestTestHelper.readJsonFile;
 import static com.maxmind.minfraud.request.RequestTestHelper.verifyRequestFor;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringStartsWith.startsWith;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
+import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import com.maxmind.minfraud.exception.AuthenticationException;
 import com.maxmind.minfraud.exception.HttpException;
 import com.maxmind.minfraud.exception.InsufficientFundsException;
@@ -39,17 +39,18 @@ import com.maxmind.minfraud.response.IpRiskReason;
 import com.maxmind.minfraud.response.ScoreResponse;
 import java.net.InetAddress;
 import java.util.List;
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.skyscreamer.jsonassert.JSONAssert;
 
-@RunWith(JUnitParamsRunner.class)
+@WireMockTest
 public class WebServiceClientTest {
-    @Rule
-    public final WireMockRule wireMockRule = new WireMockRule(0); // 0 picks random port
+    @RegisterExtension
+    static WireMockExtension wireMock = WireMockExtension.newInstance()
+        .options(wireMockConfig().dynamicPort().dynamicHttpsPort())
+        .build();
 
     @Test
     public void testReportTransaction() throws Exception {
@@ -68,7 +69,7 @@ public class WebServiceClientTest {
         ScoreResponse response = client.score(request);
 
         JSONAssert.assertEquals(responseContent, response.toJson(), true);
-        verifyRequestFor("score", "full-request");
+        verifyRequestFor(wireMock, "score", "full-request");
     }
 
     @Test
@@ -79,7 +80,7 @@ public class WebServiceClientTest {
         ScoreResponse response = client.score(request);
 
         JSONAssert.assertEquals(responseContent, response.toJson(), true);
-        verifyRequestFor("score", "full-request-email-md5");
+        verifyRequestFor(wireMock, "score", "full-request-email-md5");
     }
 
     @Test
@@ -93,16 +94,19 @@ public class WebServiceClientTest {
         // object, most notably the "name" field in the GeoIP2 InsightsResponse subobjects.
         // We cannot change this as it would be a breaking change to the GeoIP2 API.
         JSONAssert.assertEquals(responseContent, response.toJson(), false);
-        verifyRequestFor("insights", "full-request");
+        verifyRequestFor(wireMock, "insights", "full-request");
         assertTrue(
-            "response.getIpAddress().getCountry().isInEuropeanUnion() does not return true",
-            response.getIpAddress().getCountry().isInEuropeanUnion());
+            response.getIpAddress().getCountry().isInEuropeanUnion(),
+            "response.getIpAddress().getCountry().isInEuropeanUnion() does not return true"
+        );
         assertFalse(
-            "response.getIpAddress().getRegisteredCountry().isInEuropeanUnion() does not return false",
-            response.getIpAddress().getRegisteredCountry().isInEuropeanUnion());
+            response.getIpAddress().getRegisteredCountry().isInEuropeanUnion(),
+            "response.getIpAddress().getRegisteredCountry().isInEuropeanUnion() does not return false"
+        );
         assertTrue(
-            "response.getIpAddress().getRepresentedCountry().isInEuropeanUnion() does not return true",
-            response.getIpAddress().getRepresentedCountry().isInEuropeanUnion());
+            response.getIpAddress().getRepresentedCountry().isInEuropeanUnion(),
+            "response.getIpAddress().getRepresentedCountry().isInEuropeanUnion() does not return true"
+        );
         assertEquals("2018-04-05T15:34:40-07:00", response.getDevice().getLocalTime());
 
         assertEquals("152.216.7.110", response.getIpAddress().getTraits().getIpAddress());
@@ -113,9 +117,12 @@ public class WebServiceClientTest {
 
         List<IpRiskReason> reasons = response.getIpAddress().getRiskReasons();
 
-        assertEquals("two IP risk reasons", 2, reasons.size());
-        assertEquals("second IP risk reason code", "MINFRAUD_NETWORK_ACTIVITY",
-            reasons.get(1).getCode());
+        assertEquals(2, reasons.size(), "two IP risk reasons");
+        assertEquals(
+            "MINFRAUD_NETWORK_ACTIVITY",
+            reasons.get(1).getCode(),
+            "second IP risk reason code"
+        );
     }
 
     @Test
@@ -129,16 +136,19 @@ public class WebServiceClientTest {
         // object, most notably the "name" field in the GeoIP2 InsightsResponse subobjects.
         // We cannot change this as it would be a breaking change to the GeoIP2 API.
         JSONAssert.assertEquals(responseContent, response.toJson(), false);
-        verifyRequestFor("factors", "full-request");
+        verifyRequestFor(wireMock, "factors", "full-request");
         assertTrue(
-            "response.getIpAddress().getCountry().isInEuropeanUnion() does not return true",
-            response.getIpAddress().getCountry().isInEuropeanUnion());
+            response.getIpAddress().getCountry().isInEuropeanUnion(),
+            "response.getIpAddress().getCountry().isInEuropeanUnion() does not return true"
+        );
         assertTrue(
-            "response.getIpAddress().getRegisteredCountry().isInEuropeanUnion() does not return true",
-            response.getIpAddress().getRegisteredCountry().isInEuropeanUnion());
+            response.getIpAddress().getRegisteredCountry().isInEuropeanUnion(),
+            "response.getIpAddress().getRegisteredCountry().isInEuropeanUnion() does not return true"
+        );
         assertFalse(
-            "response.getIpAddress().getRepresentedCountry().isInEuropeanUnion() does not return false",
-            response.getIpAddress().getRepresentedCountry().isInEuropeanUnion());
+            response.getIpAddress().getRepresentedCountry().isInEuropeanUnion(),
+            "response.getIpAddress().getRepresentedCountry().isInEuropeanUnion() does not return false"
+        );
 
 
         assertEquals("152.216.7.110", response.getIpAddress().getTraits().getIpAddress());
@@ -158,7 +168,7 @@ public class WebServiceClientTest {
         ).build();
         client.insights(request);
 
-        verify(postRequestedFor(urlMatching("/minfraud/v2.0/insights"))
+        wireMock.verify(postRequestedFor(urlMatching("/minfraud/v2.0/insights"))
             .withRequestBody(equalToJson(
                 "{\"device\":{\"ip_address\":\"1.1.1.1\"},\"shipping\":{\"first_name\":\"Allan dias á s maia\"}}")));
     }
@@ -195,8 +205,8 @@ public class WebServiceClientTest {
 
     }
 
-    @Test
-    @Parameters({"ACCOUNT_ID_REQUIRED",
+    @ParameterizedTest
+    @ValueSource(strings = {"ACCOUNT_ID_REQUIRED",
         "AUTHORIZATION_INVALID",
         "LICENSE_KEY_REQUIRED",
         "USER_ID_REQUIRED"})
@@ -334,7 +344,7 @@ public class WebServiceClientTest {
 
     private WebServiceClient createClient(String service, int status, String contentType,
                                           String responseContent) {
-        stubFor(post(urlEqualTo("/minfraud/v2.0/" + service))
+        wireMock.stubFor(post(urlEqualTo("/minfraud/v2.0/" + service))
             .withHeader("Accept", equalTo("application/json"))
             .willReturn(aResponse()
                 .withStatus(status)
@@ -343,7 +353,7 @@ public class WebServiceClientTest {
 
         return new WebServiceClient.Builder(6, "0123456789")
             .host("localhost")
-            .port(this.wireMockRule.port())
+            .port(wireMock.getPort())
             .disableHttps()
             .build();
     }

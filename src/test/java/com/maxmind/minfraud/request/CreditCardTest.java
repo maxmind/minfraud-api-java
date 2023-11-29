@@ -1,15 +1,14 @@
 package com.maxmind.minfraud.request;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.maxmind.minfraud.request.CreditCard.Builder;
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
-@RunWith(JUnitParamsRunner.class)
 public class CreditCardTest {
 
     @Test
@@ -21,19 +20,28 @@ public class CreditCardTest {
         assertEquals("12345678", cc.getIssuerIdNumber());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIssuerIdNumberThatIsTooLong() {
-        new Builder().issuerIdNumber("1234567").build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new Builder().issuerIdNumber("1234567").build()
+        );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIssuerIdNumberThatIsTooShort() {
-        new Builder().issuerIdNumber("12345").build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new Builder().issuerIdNumber("12345").build()
+        );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIssuerIdNumberThatHasLetters() {
-        new Builder().issuerIdNumber("12345a").build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new Builder().issuerIdNumber("12345a").build()
+        );
     }
 
     @Test
@@ -45,19 +53,29 @@ public class CreditCardTest {
         assertEquals("12", cc.getLastDigits());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testLastDigitsThatIsTooLong() {
-        new Builder().lastDigits("12345").build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new Builder().lastDigits("12345").build()
+        );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testLastDigitsThatIsTooShort() {
-        new Builder().lastDigits("123").build();
+
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new Builder().lastDigits("123").build()
+        );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testLastDigitsThatHasLetters() {
-        new Builder().lastDigits("123a").build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new Builder().lastDigits("123a").build()
+        );
     }
 
     @Test
@@ -86,10 +104,13 @@ public class CreditCardTest {
         assertEquals(country, cc.getCountry());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    @Parameters({"ca", "USA", "C1"})
+    @ParameterizedTest
+    @ValueSource(strings = {"ca", "USA", "C1"})
     public void testInvalidCountry(String country) {
-        new Builder().country(country).build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new Builder().country(country).build()
+        );
     }
 
     @Test
@@ -104,19 +125,22 @@ public class CreditCardTest {
         assertEquals(Character.valueOf('N'), cc.getCvvResult());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    @Parameters({"4485921507912924",
+    @ParameterizedTest
+    @ValueSource(strings = {"4485921507912924",
         "432312",
         "this is invalid",
         "",
         "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     })
     public void testInvalidToken(String token) {
-        new Builder().token(token).build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new Builder().token(token).build()
+        );
     }
 
-    @Test
-    @Parameters({"t4485921507912924",
+    @ParameterizedTest
+    @ValueSource(strings = {"t4485921507912924",
         "a7f6%gf83fhAu",
         "valid_token"
     })

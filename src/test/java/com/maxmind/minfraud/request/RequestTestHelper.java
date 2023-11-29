@@ -4,8 +4,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.matching;
 import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching;
-import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 
+import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
 import com.maxmind.minfraud.request.TransactionReport.Tag;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -159,11 +159,11 @@ public class RequestTestHelper {
         return Files.readString(Paths.get(resource.toURI()));
     }
 
-    public static void verifyRequestFor(String service, String jsonFile)
+    public static void verifyRequestFor(WireMockExtension wireMock, String service, String jsonFile)
         throws IOException, URISyntaxException {
         String requestBody = readJsonFile(jsonFile);
 
-        verify(postRequestedFor(urlMatching("/minfraud/v2.0/" + service))
+        wireMock.verify(postRequestedFor(urlMatching("/minfraud/v2.0/" + service))
             .withRequestBody(equalToJson(requestBody))
             .withHeader("Content-Type", matching("application/json; charset=UTF-8")));
     }

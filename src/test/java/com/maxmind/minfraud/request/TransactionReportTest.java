@@ -1,13 +1,14 @@
 package com.maxmind.minfraud.request;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.maxmind.minfraud.request.TransactionReport.Builder;
 import com.maxmind.minfraud.request.TransactionReport.Tag;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.UUID;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 public class TransactionReportTest {
@@ -20,14 +21,20 @@ public class TransactionReportTest {
         tag = Tag.NOT_FRAUD;
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testInvalidIPAddress() {
-        new Builder(null, tag).maxmindId("123456789").build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new Builder(null, tag).maxmindId("123456789").build()
+        );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testInvalidTag() {
-        new Builder(ip, null).maxmindId("123456789").build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new Builder(ip, null).maxmindId("123456789").build()
+        );
     }
 
     @Test
@@ -49,14 +56,20 @@ public class TransactionReportTest {
         assertEquals(code, report.getChargebackCode());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testTooLongMaxmindId() {
-        new Builder(ip, tag).maxmindId("123456789").build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new Builder(ip, tag).maxmindId("123456789").build()
+        );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testTooShortMaxmindId() {
-        new Builder(ip, tag).maxmindId("1234567").build();
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new Builder(ip, tag).maxmindId("1234567").build()
+        );
     }
 
     @Test

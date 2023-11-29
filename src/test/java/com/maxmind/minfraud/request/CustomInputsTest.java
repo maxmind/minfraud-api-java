@@ -1,9 +1,10 @@
 package com.maxmind.minfraud.request;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CustomInputsTest {
     @Test
@@ -25,34 +26,52 @@ public class CustomInputsTest {
         assertEquals(true, inputs.get("bool_input"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testInvalidKey() {
-        new CustomInputs.Builder().put("InvalidKey", 1);
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new CustomInputs.Builder().put("InvalidKey", 1)
+        );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testStringThatIsTooLong() {
-        new CustomInputs.Builder().put("string",
-            new String(new char[256]).replace('\0', 'x'));
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new CustomInputs.Builder().put("string",
+                new String(new char[256]).replace('\0', 'x'))
+        );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testStringWithNewLine() {
-        new CustomInputs.Builder().put("string", "test\n");
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new CustomInputs.Builder().put("string", "test\n")
+        );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testTooLargeLong() {
-        new CustomInputs.Builder().put("long", 10_000_000_000_000L);
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new CustomInputs.Builder().put("long", 10_000_000_000_000L)
+        );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testTooSmallLong() {
-        new CustomInputs.Builder().put("long", -10_000_000_000_000L);
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new CustomInputs.Builder().put("long", -10_000_000_000_000L)
+        );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testTooLargeDouble() {
-        new CustomInputs.Builder().put("double", 1e13);
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new CustomInputs.Builder().put("double", 1e13)
+        );
     }
 }
