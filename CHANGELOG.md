@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+3.3.0 (2023-12-05)
+------------------
+
+* Updated `geoip2` dependency to version that includes the `isAnycast` method
+  on `com.maxmind.geoip2.record.Traits`. This returns `true` if the IP
+  address belongs to an [anycast network](https://en.wikipedia.org/wiki/Anycast).
+  This is available in minFraud Insights and Factors.
+
 3.2.0 (2023-10-27)
 ------------------
 

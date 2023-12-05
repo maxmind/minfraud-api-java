@@ -4,7 +4,7 @@
 
     <groupId>com.maxmind.minfraud</groupId>
     <artifactId>minfraud</artifactId>
-    <version>3.2.1-SNAPSHOT</version>
+    <version>3.3.1-SNAPSHOT</version>
     <name>MaxMind minFraud Score, Insights, Factors and Report Transaction API</name>
     <description>MaxMind minFraud Score, Insights, Factors and Report Transaction API</description>
     <url>http://dev.maxmind.com/minfraud</url>
@@ -23,7 +23,8 @@
         <url>https://github.com/maxmind/minfraud-api-java</url>
         <connection>scm:git:git://github.com:maxmind/minfraud-api-java.git</connection>
         <developerConnection>scm:git:git@github.com:maxmind/minfraud-api-java.git</developerConnection>
-    </scm>
+      <tag>HEAD</tag>
+  </scm>
     <issueManagement>
         <url>https://github.com/maxmind/minfraud-api-java/issues</url>
         <system>GitHub</system>
@@ -59,7 +60,7 @@
         <dependency>
             <groupId>com.maxmind.geoip2</groupId>
             <artifactId>geoip2</artifactId>
-            <version>4.1.0</version>
+            <version>4.2.0</version>
         </dependency>
         <dependency>
             <groupId>commons-validator</groupId>
