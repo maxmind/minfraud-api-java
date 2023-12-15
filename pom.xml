@@ -176,6 +176,9 @@
                 <configuration>
                     <show>public</show>
                     <source>11</source>
+                    <sourceFileExcludes>
+                    <exclude>**/PaymentProcessorsList.java</exclude>
+                    </sourceFileExcludes>
                 </configuration>
             </plugin>
             <plugin>

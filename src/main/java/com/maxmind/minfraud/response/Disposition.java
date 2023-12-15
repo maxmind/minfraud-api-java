@@ -11,6 +11,12 @@ public final class Disposition extends AbstractModel {
     private final String reason;
     private final String ruleLabel;
 
+    /** 
+     * Constructor for {@code Disposition}.
+     * @param action action
+     * @param reason reason
+     * @param ruleLabel rule label
+    */ 
     public Disposition(
         @JsonProperty("action") String action,
         @JsonProperty("reason") String reason,
@@ -21,6 +27,9 @@ public final class Disposition extends AbstractModel {
         this.ruleLabel = ruleLabel;
     }
 
+    /** 
+     * constructor for {@code Disposition}.
+    */
     public Disposition() {
         this(null, null, null);
     }

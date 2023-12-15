@@ -8,12 +8,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public final class ScoreIpAddress implements IpAddressInterface {
     private final Double risk;
 
+    /**
+     * @param risk The risk associated with the IP address. 
+     */
     public ScoreIpAddress(
         @JsonProperty("risk") Double risk
     ) {
         this.risk = risk;
     }
-
+  
+    /**
+     * Constructor for {@code EmailDomain}.
+     */
     public ScoreIpAddress() {
         this(null);
     }

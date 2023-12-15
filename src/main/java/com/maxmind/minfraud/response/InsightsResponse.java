@@ -14,7 +14,22 @@ public class InsightsResponse extends ScoreResponse {
     private final Email email;
     private final ShippingAddress shippingAddress;
     private final BillingAddress billingAddress;
-
+   
+    /**
+     * Constructor for {@code InsightsResponse}.
+     * @param billingAddress billing address
+     * @param creditCard credit card
+     * @param device device
+     * @param disposition disposition
+     * @param email email
+     * @param fundsRemaining funds remaining
+     * @param id id
+     * @param ipAddress ip address
+     * @param queriesRemaining queries remaining
+     * @param riskScore risk score
+     * @param shippingAddress shipping address
+     * @param warnings warnings
+     */
     public InsightsResponse(
         @JsonProperty("billing_address") BillingAddress billingAddress,
         @JsonProperty("credit_card") CreditCard creditCard,

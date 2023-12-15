@@ -12,6 +12,12 @@ public final class Issuer extends AbstractModel {
     private final String phoneNumber;
     private final Boolean matchesProvidedPhoneNumber;
 
+    /**
+     * @param matchesProvidedName This is true if the name matches the name provided.
+     * @param matchesProvidedPhoneNumber This is true if the phone number matches the one provided.
+     * @param name The name of the bank which issued the credit card.
+     * @param phoneNumber The phone number of the bank which issued the credit card.
+     */
     public Issuer(
         @JsonProperty("matches_provided_name") Boolean matchesProvidedName,
         @JsonProperty("matches_provided_phone_number") Boolean matchesProvidedPhoneNumber,
@@ -24,6 +30,9 @@ public final class Issuer extends AbstractModel {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * Constructor for {@code Issuer}. 
+     */
     public Issuer() {
         this(null, null, null, null);
     }

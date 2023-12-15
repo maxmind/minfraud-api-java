@@ -2,6 +2,9 @@ package com.maxmind.minfraud;
 
 import java.io.IOException;
 
+/**
+ * This {@code AbstractModel} is the base class for all model classes.
+ */
 public abstract class AbstractModel {
     /**
      * @return JSON representation of this object.

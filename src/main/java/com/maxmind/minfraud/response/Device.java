@@ -38,6 +38,9 @@ public final class Device extends AbstractModel {
         this.localTime = localTime;
     }
 
+    /**
+     * Constructor for {@code Device}.
+     */
     public Device() {
         this(null, null, null, null);
     }

@@ -10,8 +10,17 @@ import java.net.URL;
  * but the request sent was invalid in some way.
  */
 public class InvalidRequestException extends MinFraudException {
+    /**
+     * code
+     */
     private final String code;
+    /**
+     * httpStatus
+     */
     private final int httpStatus;
+    /**
+     * uri
+     */
     private final URI uri;
 
     /**

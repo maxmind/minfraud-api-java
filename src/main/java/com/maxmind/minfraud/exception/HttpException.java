@@ -11,7 +11,13 @@ import java.net.URL;
  * MinFraudException.
  */
 public final class HttpException extends IOException {
+    /**
+     * httpStatus 
+     */
     private final int httpStatus;
+    /**
+     * uri
+     */
     private final URI uri;
 
     /**

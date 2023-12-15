@@ -1,3 +1,6 @@
+/**
+ * This module provides an API for the minFraud Score, Insights, and Factors web.
+ * */ 
 module com.maxmind.minfraud {
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.core;

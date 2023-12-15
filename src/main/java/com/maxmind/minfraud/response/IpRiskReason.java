@@ -10,6 +10,11 @@ public final class IpRiskReason extends AbstractModel {
     private final String code;
     private final String reason;
 
+    /**
+     * @param code   The reason code.
+     * @param reason This field provides a human-readable explanation of the
+     *               reason. 
+     */
     public IpRiskReason(
         @JsonProperty("code") String code,
         @JsonProperty("reason") String reason

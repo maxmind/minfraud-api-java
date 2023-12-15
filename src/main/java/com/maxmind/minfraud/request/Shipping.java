@@ -39,19 +39,25 @@ public final class Shipping extends AbstractLocation {
         }
     }
 
+    /**
+     * @return The shipping delivery speed for the order.
+     */
     @JsonProperty("delivery_speed")
     public DeliverySpeed getDeliverySpeed() {
         return deliverySpeed;
     }
 
-
     /**
      * Enumerated delivery speeds.
      */
     public enum DeliverySpeed {
+        /** Same day */
         SAME_DAY,
+        /** Overnight */
         OVERNIGHT,
+        /** Expedited */
         EXPEDITED,
+        /** Standard */
         STANDARD;
 
         public String toString() {

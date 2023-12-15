@@ -23,6 +23,7 @@ public final class IpAddress extends InsightsResponse implements IpAddressInterf
     private final List<IpRiskReason> riskReasons;
 
     /**
+     * Constructor for {@code IpAddress}
      * @param city               The city information.
      * @param continent          The continent information.
      * @param country            The country information.
@@ -30,7 +31,8 @@ public final class IpAddress extends InsightsResponse implements IpAddressInterf
      * @param maxmind            MaxMind-specific information.
      * @param postal             The postal information.
      * @param registeredCountry  The information about the country where the IP was registered.
-     * @param representedCountry The represented country, e.g., for military bases in other countries.
+     * @param representedCountry The represented country, e.g., for military bases in other
+     * countries.
      * @param risk               The IP risk.
      * @param riskReasons        The reasons for the IP risk.
      * @param subdivisions       The list of subdivisions.
@@ -58,8 +60,12 @@ public final class IpAddress extends InsightsResponse implements IpAddressInterf
             Collections.unmodifiableList(riskReasons == null ? new ArrayList<>() : riskReasons);
     }
 
+    /**
+     * Constructor for {@code IpAddress}. 
+     */ 
     public IpAddress() {
-        this(null, null, null, null, null, null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null,
+            null, null, null, null, null, null);
     }
 
     /**

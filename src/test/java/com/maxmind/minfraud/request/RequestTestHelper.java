@@ -101,7 +101,7 @@ public class RequestTestHelper {
                     .build()
             ).payment(
                 new Payment.Builder()
-                    .processor(Payment.Processor.STRIPE)
+                    .processor(PaymentProcessorsList.STRIPE)
                     .wasAuthorized(false)
                     .declineCode("invalid number")
                     .build()
