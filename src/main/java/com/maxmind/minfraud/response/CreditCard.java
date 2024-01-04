@@ -48,7 +48,7 @@ public final class CreditCard extends AbstractModel {
     }
 
     /**
-     * constructor for {@code CreditCard}.
+     * Constructor for {@code CreditCard}.
      */
     public CreditCard() {
         this(null, null, null, null, null, null, null, null);

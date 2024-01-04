@@ -37,7 +37,7 @@ public final class Email extends AbstractModel {
     }
     
     /**
-     * constructor for {@code Email}.
+     * Constructor for {@code Email}.
      */
     public Email() {
         this(null, null, null, null, null);

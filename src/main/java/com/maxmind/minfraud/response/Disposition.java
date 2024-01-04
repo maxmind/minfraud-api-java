@@ -28,7 +28,7 @@ public final class Disposition extends AbstractModel {
     }
 
     /** 
-     * constructor for {@code Disposition}.
+     * Constructor for {@code Disposition}.
     */
     public Disposition() {
         this(null, null, null);
