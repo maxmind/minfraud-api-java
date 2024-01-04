@@ -35,10 +35,7 @@ public abstract class AbstractLocation extends AbstractModel {
         phoneCountryCode = builder.phoneCountryCode;
     }
 
-    /**
-     * {@code Builder} creates instances of the parent class from values set
-     * by the builder's methods.
-     */
+
     @SuppressWarnings("unchecked")
     abstract static class Builder<T extends AbstractLocation.Builder> {
         private static final Pattern COUNTRY_CODE_PATTERN = Pattern.compile("^[A-Z]{2}$");
