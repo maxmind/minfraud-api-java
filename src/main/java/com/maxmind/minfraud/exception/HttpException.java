@@ -11,15 +11,9 @@ import java.net.URL;
  * MinFraudException.
  */
 public final class HttpException extends IOException {
-    /**
-     * httpStatus 
-     */
     private final int httpStatus;
-    /**
-     * uri
-     */
     private final URI uri;
-
+    
     /**
      * @param message    A message describing the reason why the exception was thrown.
      * @param httpStatus The HTTP status of the response that caused the exception.
