@@ -7,7 +7,7 @@ import com.maxmind.minfraud.AbstractModel;
  * The payment information for the transaction.
  */
 public final class Payment extends AbstractModel {
-    private final PaymentProcessorsList processor;
+    private final Processor processor;
     private final Boolean wasAuthorized;
     private final String declineCode;
 
@@ -22,7 +22,7 @@ public final class Payment extends AbstractModel {
      * from values set by the builder's methods.
      */
     public static final class Builder {
-        PaymentProcessorsList processor;
+        Processor processor;
         Boolean wasAuthorized;
         String declineCode;
 
@@ -30,7 +30,7 @@ public final class Payment extends AbstractModel {
          * @param processor The payment processor used for the transaction.
          * @return The builder object.
          */
-        public Payment.Builder processor(PaymentProcessorsList processor) {
+        public Payment.Builder processor(Processor processor) {
             this.processor = processor;
             return this;
         }
@@ -70,7 +70,7 @@ public final class Payment extends AbstractModel {
      * @return The payment processor.
      */
     @JsonProperty("processor")
-    public PaymentProcessorsList getProcessor() {
+    public Processor getProcessor() {
         return processor;
     }
 
@@ -89,5 +89,170 @@ public final class Payment extends AbstractModel {
     public String getDeclineCode() {
         return declineCode;
     }
-}
+    
+    /** 
+     * Enumeration of payment processors
+     */
+    public enum Processor {
+        // These should exactly match the mF2 request enum value except they
+        // should be all uppercase.
+        ADYEN,
+        AFFIRM,
+        AFTERPAY,
+        ALTAPAY,
+        AMAZON_PAYMENTS,
+        AMERICAN_EXPRESS_PAYMENT_GATEWAY,
+        APPLE_PAY,
+        APS_PAYMENTS,
+        AUTHORIZENET,
+        BALANCED,
+        BEANSTREAM,
+        BLUEPAY,
+        BLUESNAP,
+        BOACOMPRA,
+        BOKU,
+        BPOINT,
+        BRAINTREE,
+        CARDKNOX,
+        CARDPAY,
+        CASHFREE,
+        CCAVENUE,
+        CCNOW,
+        CETELEM,
+        CHASE_PAYMENTECH,
+        CHECKOUT_COM,
+        CIELO,
+        COLLECTOR,
+        COMMDOO,
+        COMPROPAGO,
+        CONCEPT_PAYMENTS,
+        CONEKTA,
+        COREGATEWAY,
+        CREDITGUARD,
+        CREDORAX,
+        CT_PAYMENTS,
+        CUENTADIGITAL,
+        CUROPAYMENTS,
+        CYBERSOURCE,
+        DALENYS,
+        DALPAY,
+        DATACAP,
+        DATACASH,
+        DIBS,
+        DIGITAL_RIVER,
+        DLOCAL,
+        DOTPAY,
+        EBS,
+        ECOMM365,
+        ECOMMPAY,
+        ELAVON,
+        EMERCHANTPAY,
+        EPAY,
+        EPROCESSING_NETWORK,
+        EPX,
+        EWAY,
+        EXACT,
+        FIRST_ATLANTIC_COMMERCE,
+        FIRST_DATA,
+        FISERV,
+        G2A_PAY,
+        GLOBAL_PAYMENTS,
+        GOCARDLESS,
+        GOOGLE_PAY,
+        HEARTLAND,
+        HIPAY,
+        INGENICO,
+        INTERAC,
+        INTERNETSECURE,
+        INTUIT_QUICKBOOKS_PAYMENTS,
+        IUGU,
+        KLARNA,
+        KOMOJU,
+        LEMON_WAY,
+        MASTERCARD_PAYMENT_GATEWAY,
+        MERCADOPAGO,
+        MERCANET,
+        MERCHANT_ESOLUTIONS,
+        MIRJEH,
+        MOLLIE,
+        MONERIS_SOLUTIONS,
+        NEOPAY,
+        NEOSURF,
+        NMI,
+        OCEANPAYMENT,
+        ONEY,
+        ONPAY,
+        OPENBUCKS,
+        OPENPAYMX,
+        OPTIMAL_PAYMENTS,
+        ORANGEPAY,
+        OTHER,
+        PACNET_SERVICES,
+        PAYEEZY,
+        PAYFAST,
+        PAYGATE,
+        PAYLIKE,
+        PAYMENT_EXPRESS,
+        PAYMENTWALL,
+        PAYONE,
+        PAYPAL,
+        PAYPLUS,
+        PAYSAFECARD,
+        PAYSERA,
+        PAYSTATION,
+        PAYTM,
+        PAYTRACE,
+        PAYTRAIL,
+        PAYTURE,
+        PAYU,
+        PAYULATAM,
+        PAYVISION,
+        PAYWAY,
+        PAYZA,
+        PINPAYMENTS,
+        PLACETOPAY,
+        POSCONNECT,
+        PRINCETON_PAYMENT_SOLUTIONS,
+        PSIGATE,
+        QIWI,
+        QUICKPAY,
+        RABERIL,
+        RAZORPAY,
+        REDE,
+        REDPAGOS,
+        REWARDSPAY,
+        SAFECHARGE,
+        SAGEPAY,
+        SECURETRADING,
+        SHOPIFY_PAYMENTS,
+        SIMPLIFY_COMMERCE,
+        SKRILL,
+        SMARTCOIN,
+        SMARTDEBIT,
+        SOLIDTRUST_PAY,
+        SPS_DECIDIR,
+        STRIPE,
+        SYNAPSEFI,
+        SYSTEMPAY,
+        TELERECARGAS,
+        TOWAH,
+        TRANSACT_PRO,
+        TRUSTLY,
+        TSYS,
+        USA_EPAY,
+        VANTIV,
+        VEREPAY,
+        VERICHECK,
+        VINDICIA,
+        VIRTUAL_CARD_SERVICES,
+        VME,
+        VPOS,
+        WINDCAVE,
+        WIRECARD,
+        WORLDPAY;
 
+        public String toString() {
+            return this.name().toLowerCase();
+        }
+    }
+}

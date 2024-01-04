@@ -4,15 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.maxmind.minfraud.request.Payment.Builder;
-import com.maxmind.minfraud.request.PaymentProcessorsList;
+import com.maxmind.minfraud.request.Payment.Processor;
 import org.junit.jupiter.api.Test;
 
 public class PaymentTest {
 
     @Test
     public void testProcessor() {
-        Payment payment = new Builder().processor(PaymentProcessorsList.ADYEN).build();
-        assertEquals(PaymentProcessorsList.ADYEN, payment.getProcessor());
+        Payment payment = new Builder().processor(Processor.ADYEN).build();
+        assertEquals(Processor.ADYEN, payment.getProcessor());
     }
 
     @Test
