@@ -14,7 +14,7 @@ public final class Disposition extends AbstractModel {
     /** 
      * Constructor for {@code Disposition}.
      *
-     * @param action action
+     * @param action the disposition action
      * @param reason reason
      * @param ruleLabel rule label
     */ 

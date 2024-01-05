@@ -8,7 +8,7 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 
 /**
- * This class contains information about a particular event.
+ * This class contains general information related to the event being scored.
  */
 public final class Event extends AbstractModel {
 
@@ -159,19 +159,19 @@ public final class Event extends AbstractModel {
          */
         PAYOUT_CHANGE,
         /**
-         * A purchase was made by the account
+         * A purchase was made
          */
         PURCHASE,
         /** 
-         * A recurring purchase was made by the account
+         * A recurring purchase was made
          */
         RECURRING_PURCHASE,
         /** 
-         * A referral was made by the account
+         * A referral was made
          */
         REFERRAL,
         /** 
-         * A survey was completed by the account
+         * A survey was completed
          */
         SURVEY;
 
