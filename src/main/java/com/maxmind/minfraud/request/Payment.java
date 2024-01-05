@@ -89,8 +89,8 @@ public final class Payment extends AbstractModel {
     public String getDeclineCode() {
         return declineCode;
     }
-    
-    /** 
+
+    /**
      * Enumeration of payment processors
      */
     public enum Processor {

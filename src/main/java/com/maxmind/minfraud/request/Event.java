@@ -180,5 +180,3 @@ public final class Event extends AbstractModel {
         }
     }
 }
-
-

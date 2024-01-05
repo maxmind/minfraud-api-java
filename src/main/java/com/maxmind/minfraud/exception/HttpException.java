@@ -13,7 +13,7 @@ import java.net.URL;
 public final class HttpException extends IOException {
     private final int httpStatus;
     private final URI uri;
-    
+
     /**
      * @param message    A message describing the reason why the exception was thrown.
      * @param httpStatus The HTTP status of the response that caused the exception.
