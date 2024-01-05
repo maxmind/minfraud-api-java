@@ -12,6 +12,7 @@ public final class EmailDomain extends AbstractModel {
 
     /**
      * Constructor for {@code EmailDomain}.
+     *
      * @param firstSeen A date to identify the date an email domain was first
      * seen by MaxMind.
      */

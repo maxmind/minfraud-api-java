@@ -21,6 +21,7 @@ public class ScoreResponse extends AbstractModel {
 
     /**
      * Constructor for {@code ScoreResponse}.
+     *
      * @param disposition The disposition set by your custom rules.
      * @param fundsRemaining The approximate US dollar value of the funds.
      * @param id This is a UUID that identifies the minFraud request.

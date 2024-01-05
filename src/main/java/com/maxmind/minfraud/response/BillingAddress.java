@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public final class BillingAddress extends AbstractAddress {
     /**
      * Constructor for {@code BillingAddress}.
+     *
      * @param distanceToIpLocation The distance in kilometers from the billing
      * address to the IP location.
      * @param isInIpCountry This is true if the billing address is in the IP

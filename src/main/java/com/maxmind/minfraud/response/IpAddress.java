@@ -24,6 +24,7 @@ public final class IpAddress extends InsightsResponse implements IpAddressInterf
 
     /**
      * Constructor for {@code IpAddress}
+     *
      * @param city               The city information.
      * @param continent          The continent information.
      * @param country            The country information.

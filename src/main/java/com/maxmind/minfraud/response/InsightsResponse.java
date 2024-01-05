@@ -17,6 +17,7 @@ public class InsightsResponse extends ScoreResponse {
    
     /**
      * Constructor for {@code InsightsResponse}.
+     *
      * @param billingAddress billing address
      * @param creditCard credit card
      * @param device device

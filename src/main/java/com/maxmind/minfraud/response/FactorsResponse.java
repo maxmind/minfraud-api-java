@@ -14,6 +14,7 @@ public final class FactorsResponse extends InsightsResponse {
     
     /**
      * Constructor for {@code FactorsResponse}.
+     *
      * @param billingAddress The {@code BillingAddress} model object.
      * @param creditCard The {@code CreditCard} model object.
      * @param device The {@code Device} model object.

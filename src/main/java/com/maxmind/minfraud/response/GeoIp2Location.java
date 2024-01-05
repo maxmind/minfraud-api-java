@@ -14,6 +14,7 @@ public final class GeoIp2Location extends Location {
 
     /**
      * Constructor for {@code EmailDomain}.
+     *
      * @param accuracyRadius The approximate accuracy radius in kilometers.
      * @param averageIncome The average income in US dollars associated with the IP address.
      * @param latitude The approximate latitude of the location associated with the IP address.

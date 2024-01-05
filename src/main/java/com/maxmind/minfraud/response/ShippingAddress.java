@@ -11,6 +11,7 @@ public final class ShippingAddress extends AbstractAddress {
 
     /**
      * Constructor for {@code EmailDomain}.
+     *
      * @param distanceToBillingAddress The distance in kilometers from the shipping address to the
      * billing address.
      * @param distanceToIpLocation The distance in kilometers from the shipping address to the IP
