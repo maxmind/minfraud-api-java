@@ -29,7 +29,7 @@ public final class BillingAddress extends AbstractAddress {
     }
 
     /** 
-    * constructor for {@code BillingAddress}.
+    * Constructor for {@code BillingAddress}.
     */
     public BillingAddress() {
         this(null, null, null, null, null);

@@ -13,6 +13,8 @@ public final class Issuer extends AbstractModel {
     private final Boolean matchesProvidedPhoneNumber;
 
     /**
+     * Constructor for {@code Issuer}. 
+     *
      * @param matchesProvidedName This is true if the name matches the name provided.
      * @param matchesProvidedPhoneNumber This is true if the phone number matches the one provided.
      * @param name The name of the bank which issued the credit card.

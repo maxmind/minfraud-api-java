@@ -89,7 +89,7 @@ public final class Subscores {
     }
 
     /**
-     * Constructor for {@code EmailDomain}.
+     * Constructor for {@code Subscores}.
      */ 
     public Subscores() {
         this(null, null, null, null, null, null, null, null, null, null, null, null,

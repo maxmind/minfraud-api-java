@@ -9,6 +9,8 @@ public final class ScoreIpAddress implements IpAddressInterface {
     private final Double risk;
 
     /**
+     * Constructor for {@code ScoreResponse}.
+     *
      * @param risk The risk associated with the IP address. 
      */
     public ScoreIpAddress(
@@ -18,7 +20,7 @@ public final class ScoreIpAddress implements IpAddressInterface {
     }
   
     /**
-     * Constructor for {@code EmailDomain}.
+     * Constructor for {@code ScoreResponse}.
      */
     public ScoreIpAddress() {
         this(null);
