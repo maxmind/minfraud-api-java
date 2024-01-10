@@ -38,6 +38,8 @@ public abstract class AbstractLocation extends AbstractModel {
     /**
      * {@code Builder} creates instances of the parent class from values set
      * by the builder's methods.
+     *
+     * @param <T> the builder class
      */
     @SuppressWarnings("unchecked")
     abstract static class Builder<T extends AbstractLocation.Builder> {

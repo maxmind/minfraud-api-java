@@ -35,7 +35,10 @@ public final class Email extends AbstractModel {
         this.isHighRisk = isHighRisk;
         this.firstSeen = firstSeen;
     }
-
+    
+    /**
+     * Constructor for {@code Email}.
+     */
     public Email() {
         this(null, null, null, null, null);
     }

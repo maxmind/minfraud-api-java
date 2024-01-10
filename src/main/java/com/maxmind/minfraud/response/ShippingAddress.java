@@ -9,6 +9,21 @@ public final class ShippingAddress extends AbstractAddress {
     private final Boolean isHighRisk;
     private final Integer distanceToBillingAddress;
 
+    /**
+     * Constructor for {@code ShippingAddress}.
+     *
+     * @param distanceToBillingAddress The distance in kilometers from the shipping address to the
+     * billing address.
+     * @param distanceToIpLocation The distance in kilometers from the shipping address to the IP
+     * location.
+     * @param isHighRisk This is true if the shipping address is associated with fraudulent
+     * transactions.
+     * @param isInIpCountry This is true if the shipping address is in the IP country.
+     * @param isPostalInCity This is true if the shipping postal code is in the city for the
+     * IP location.
+     * @param latitude The latitude associated with the IP address.
+     * @param longitude The longitude associated with the IP address.
+     */
     public ShippingAddress(
         @JsonProperty("distance_to_billing_address") Integer distanceToBillingAddress,
         @JsonProperty("distance_to_ip_location") Integer distanceToIpLocation,
@@ -23,6 +38,9 @@ public final class ShippingAddress extends AbstractAddress {
         this.isHighRisk = isHighRisk;
     }
 
+    /**
+     * Constructor for {@code ShippingAddress}.
+     */
     public ShippingAddress() {
         this(null, null, null, null, null, null, null);
     }

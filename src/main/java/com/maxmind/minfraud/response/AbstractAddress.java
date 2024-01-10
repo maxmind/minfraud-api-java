@@ -3,6 +3,10 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
 
+/**
+ * This class contains minFraud response data related to the
+ * shipping and billing address.
+ */
 public abstract class AbstractAddress extends AbstractModel {
     private final Boolean isPostalInCity;
     private final Double latitude;

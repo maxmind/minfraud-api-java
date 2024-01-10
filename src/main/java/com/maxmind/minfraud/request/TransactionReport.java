@@ -186,9 +186,13 @@ public final class TransactionReport extends AbstractModel {
      * The enumerated tag types.
      */
     public enum Tag {
+        /** Not Fraud */
         NOT_FRAUD,
+        /** Suspected Fraud */
         SUSPECTED_FRAUD,
+        /** Spam or Abuse */
         SPAM_OR_ABUSE,
+        /** Chargeback */
         CHARGEBACK;
 
         public String toString() {

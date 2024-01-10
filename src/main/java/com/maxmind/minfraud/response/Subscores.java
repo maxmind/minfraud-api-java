@@ -88,6 +88,9 @@ public final class Subscores {
         this.timeOfDay = timeOfDay;
     }
 
+    /**
+     * Constructor for {@code Subscores}.
+     */ 
     public Subscores() {
         this(null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null);

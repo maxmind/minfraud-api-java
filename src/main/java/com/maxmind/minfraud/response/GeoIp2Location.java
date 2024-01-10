@@ -12,6 +12,20 @@ import java.time.ZonedDateTime;
 public final class GeoIp2Location extends Location {
     private final String localTime;
 
+    /**
+     * Constructor for {@code EmailDomain}.
+     *
+     * @param accuracyRadius The approximate accuracy radius in kilometers.
+     * @param averageIncome The average income in US dollars associated with the IP address.
+     * @param latitude The approximate latitude of the location associated with the IP address.
+     * @param localTime The date and time of the transaction in the time zone associated with
+     * the IP address.
+     * @param longitude The approximate longitude of the location associated with the IP address.
+     * @param metroCode The metro code of the location if the location is in the US.
+     * @param populationDensity The estimated population per square kilometer associated with
+     * the IP address.
+     * @param timeZone The time zone associated with the location.
+     */
     public GeoIp2Location(
         @JsonProperty("accuracy_radius") Integer accuracyRadius,
         @JsonProperty("average_income") Integer averageIncome,
@@ -27,6 +41,9 @@ public final class GeoIp2Location extends Location {
         this.localTime = localTime;
     }
 
+    /**
+     * Constructor for {@code GeoIp2Location}
+     */
     public GeoIp2Location() {
         this(null, null, null, null, null, null, null, null);
     }

@@ -10,12 +10,21 @@ import java.time.LocalDate;
 public final class EmailDomain extends AbstractModel {
     private final LocalDate firstSeen;
 
+    /**
+     * Constructor for {@code EmailDomain}.
+     *
+     * @param firstSeen A date to identify the date an email domain was first
+     * seen by MaxMind.
+     */
     public EmailDomain(
         @JsonProperty("first_seen") LocalDate firstSeen
     ) {
         this.firstSeen = firstSeen;
     }
 
+    /**
+     * Constructor for {@code EmailDomain}.
+     */
     public EmailDomain() {
         this(null);
     }

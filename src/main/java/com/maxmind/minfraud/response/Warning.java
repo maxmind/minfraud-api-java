@@ -11,6 +11,13 @@ public final class Warning extends AbstractModel {
     private final String warning;
     private final String inputPointer;
 
+    /**
+     * Constructor for {@code Warning}.
+     *
+     * @param code The warning code.
+     * @param warning The warning message.
+     * @param inputPointer The JSON Pointer to the input that the warning is associated with.
+     */
     public Warning(
         @JsonProperty("code") String code,
         @JsonProperty("warning") String warning,

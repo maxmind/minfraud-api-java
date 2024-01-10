@@ -7,6 +7,9 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
 
+/**
+ * This class contains general information related to the event being scored.
+ */
 public final class Event extends AbstractModel {
 
     private final String transactionId;
@@ -135,14 +138,41 @@ public final class Event extends AbstractModel {
      * The enumerated event types.
      */
     public enum Type {
+        /** 
+         * The account was created
+         */
         ACCOUNT_CREATION,
+        /** 
+         * The account was logged into
+         */
         ACCOUNT_LOGIN,
+        /** 
+         * The account email was changed
+         */
         EMAIL_CHANGE,
+        /** 
+         * The account password was reset
+         */
         PASSWORD_RESET,
+        /** 
+         * The account payout was changed
+         */
         PAYOUT_CHANGE,
+        /**
+         * A purchase was made
+         */
         PURCHASE,
+        /** 
+         * A recurring purchase was made
+         */
         RECURRING_PURCHASE,
+        /** 
+         * A referral was made
+         */
         REFERRAL,
+        /** 
+         * A survey was completed
+         */
         SURVEY;
 
         public String toString() {

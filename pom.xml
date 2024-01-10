@@ -176,6 +176,7 @@
                 <configuration>
                     <show>public</show>
                     <source>11</source>
+                    <doclint>-missing</doclint> 
                 </configuration>
             </plugin>
             <plugin>

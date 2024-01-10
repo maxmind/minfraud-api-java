@@ -19,6 +19,17 @@ public class ScoreResponse extends AbstractModel {
     private final List<Warning> warnings;
     private final ScoreIpAddress ipAddress;
 
+    /**
+     * Constructor for {@code ScoreResponse}.
+     *
+     * @param disposition The disposition set by your custom rules.
+     * @param fundsRemaining The approximate US dollar value of the funds.
+     * @param id This is a UUID that identifies the minFraud request.
+     * @param ipAddress The {@code IpAddress} model object.
+     * @param queriesRemaining The number of queries remaining.
+     * @param riskScore The risk score.
+     * @param warnings An list containing warning objects.
+     */
     public ScoreResponse(
         @JsonProperty("disposition") Disposition disposition,
         @JsonProperty("funds_remaining") Double fundsRemaining,
