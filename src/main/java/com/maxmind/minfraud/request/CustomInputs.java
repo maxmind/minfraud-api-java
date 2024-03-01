@@ -19,8 +19,8 @@ public final class CustomInputs extends AbstractModel {
     }
 
     /**
-     * {@code Builder} creates instances of {@code CustomInputs}
-     * from values set by the builder's methods.
+     * {@code Builder} creates instances of {@code CustomInputs} from values set by the builder's
+     * methods.
      */
     public static class Builder {
         private static final long NUM_MAX = 10_000_000_000_000L;
@@ -31,10 +31,9 @@ public final class CustomInputs extends AbstractModel {
         /**
          * Add a string custom input.
          *
-         * @param key   The key for the custom input as defined on your account
-         *              portal.
-         * @param value The custom input value. Must be less than 256 characters
-         *              and must not contain new lines.
+         * @param key   The key for the custom input as defined on your account portal.
+         * @param value The custom input value. Must be less than 256 characters and must not
+         *              contain new lines.
          * @return The builder object.
          * @throws IllegalArgumentException when the key or value are invalid.
          */
@@ -52,10 +51,8 @@ public final class CustomInputs extends AbstractModel {
         /**
          * Add a numeric custom input.
          *
-         * @param key   The key for the custom input as defined on your account
-         *              portal.
-         * @param value The custom input value. Must be between -10^13 and 10^13
-         *              exclusive.
+         * @param key   The key for the custom input as defined on your account portal.
+         * @param value The custom input value. Must be between -10^13 and 10^13 exclusive.
          * @return The builder object.
          * @throws IllegalArgumentException when the key or value are invalid.
          */
@@ -75,8 +72,7 @@ public final class CustomInputs extends AbstractModel {
         /**
          * Add a boolean custom input.
          *
-         * @param key   The key for the custom input as defined on your account
-         *              portal.
+         * @param key   The key for the custom input as defined on your account portal.
          * @param value The custom input value.
          * @return The builder object.
          * @throws IllegalArgumentException when the key or value are invalid.
@@ -88,8 +84,7 @@ public final class CustomInputs extends AbstractModel {
         }
 
         /**
-         * @return An instance of {@code CustomInputs} created from the
-         * fields set on this builder.
+         * @return An instance of {@code CustomInputs} created from the fields set on this builder.
          */
         public CustomInputs build() {
             return new CustomInputs(this);

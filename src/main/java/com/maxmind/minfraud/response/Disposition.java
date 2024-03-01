@@ -11,13 +11,13 @@ public final class Disposition extends AbstractModel {
     private final String reason;
     private final String ruleLabel;
 
-    /** 
+    /**
      * Constructor for {@code Disposition}.
      *
-     * @param action the disposition action
-     * @param reason reason
+     * @param action    the disposition action
+     * @param reason    reason
      * @param ruleLabel rule label
-    */ 
+     */
     public Disposition(
         @JsonProperty("action") String action,
         @JsonProperty("reason") String reason,
@@ -28,18 +28,17 @@ public final class Disposition extends AbstractModel {
         this.ruleLabel = ruleLabel;
     }
 
-    /** 
+    /**
      * Constructor for {@code Disposition}.
-    */
+     */
     public Disposition() {
         this(null, null, null);
     }
 
     /**
-     * @return A {@code String} with the action to take on the transaction as
-     * defined by your custom rules. The current set of values are
-     * "accept", "manual_review", "reject" and "test". If you do not have
-     * custom rules set up, {@code null} will be returned.
+     * @return A {@code String} with the action to take on the transaction as defined by your custom
+     *     rules. The current set of values are "accept", "manual_review", "reject" and "test". If
+     *     you do not have custom rules set up, {@code null} will be returned.
      */
     @JsonProperty("action")
     public String getAction() {
@@ -47,9 +46,9 @@ public final class Disposition extends AbstractModel {
     }
 
     /**
-     * @return A {@code String} with the reason for the action. The current
-     * possible values are "custom_rule" and "default". If you do not have
-     * custom rules set up, {@code null} will be returned.
+     * @return A {@code String} with the reason for the action. The current possible values are
+     *     "custom_rule" and "default". If you do not have custom rules set up, {@code null} will be
+     *     returned.
      */
     @JsonProperty("reason")
     public String getReason() {
@@ -57,10 +56,9 @@ public final class Disposition extends AbstractModel {
     }
 
     /**
-     * @return A {@code String} with the label of the custom rule that was
-     * triggered. If you do not have custom rules set up, the triggered
-     * custom rule does not have a label, or no custom rule was triggered,
-     * {@code null} will be returned.
+     * @return A {@code String} with the label of the custom rule that was triggered. If you do not
+     *     have custom rules set up, the triggered custom rule does not have a label, or no custom
+     *     rule was triggered, {@code null} will be returned.
      */
     @JsonProperty("rule_label")
     public String getRuleLabel() {

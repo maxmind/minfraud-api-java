@@ -36,8 +36,8 @@ public final class Transaction extends AbstractModel {
     }
 
     /**
-     * {@code Builder} creates instances of the parent class from values set
-     * by the builder's methods.
+     * {@code Builder} creates instances of the parent class from values set by the builder's
+     * methods.
      */
     public static class Builder {
         Account account;
@@ -169,8 +169,7 @@ public final class Transaction extends AbstractModel {
         }
 
         /**
-         * @return An instance of {@code Transaction} created from the
-         * fields set on this builder.
+         * @return An instance of {@code Transaction} created from the fields set on this builder.
          */
         public Transaction build() {
             return new Transaction(this);

@@ -6,8 +6,7 @@ import com.maxmind.geoip2.record.Location;
 import java.time.ZonedDateTime;
 
 /**
- * This class contains minFraud response data related to the GeoIP2 Insights
- * location.
+ * This class contains minFraud response data related to the GeoIP2 Insights location.
  */
 public final class GeoIp2Location extends Location {
     private final String localTime;
@@ -15,16 +14,18 @@ public final class GeoIp2Location extends Location {
     /**
      * Constructor for {@code EmailDomain}.
      *
-     * @param accuracyRadius The approximate accuracy radius in kilometers.
-     * @param averageIncome The average income in US dollars associated with the IP address.
-     * @param latitude The approximate latitude of the location associated with the IP address.
-     * @param localTime The date and time of the transaction in the time zone associated with
-     * the IP address.
-     * @param longitude The approximate longitude of the location associated with the IP address.
-     * @param metroCode The metro code of the location if the location is in the US.
-     * @param populationDensity The estimated population per square kilometer associated with
-     * the IP address.
-     * @param timeZone The time zone associated with the location.
+     * @param accuracyRadius    The approximate accuracy radius in kilometers.
+     * @param averageIncome     The average income in US dollars associated with the IP address.
+     * @param latitude          The approximate latitude of the location associated with the IP
+     *                          address.
+     * @param localTime         The date and time of the transaction in the time zone associated
+     *                          with the IP address.
+     * @param longitude         The approximate longitude of the location associated with the IP
+     *                          address.
+     * @param metroCode         The metro code of the location if the location is in the US.
+     * @param populationDensity The estimated population per square kilometer associated with the IP
+     *                          address.
+     * @param timeZone          The time zone associated with the location.
      */
     public GeoIp2Location(
         @JsonProperty("accuracy_radius") Integer accuracyRadius,
@@ -49,10 +50,9 @@ public final class GeoIp2Location extends Location {
     }
 
     /**
-     * @return The date and time of the transaction in the time zone associated
-     * with the IP address. The value is formatted according to RFC 3339. For
-     * instance, the local time in Boston might be returned as
-     * "2015-04-27T19:17:24-04:00".
+     * @return The date and time of the transaction in the time zone associated with the IP address.
+     *     The value is formatted according to RFC 3339. For instance, the local time in Boston
+     *     might be returned as "2015-04-27T19:17:24-04:00".
      */
     @JsonProperty("local_time")
     public String getLocalTime() {
@@ -60,8 +60,8 @@ public final class GeoIp2Location extends Location {
     }
 
     /**
-     * @return The date and time of the transaction in the time zone associated
-     * with the IP address as a {@code ZonedDateTime}.
+     * @return The date and time of the transaction in the time zone associated with the IP address
+     *     as a {@code ZonedDateTime}.
      */
     @JsonIgnore
     public ZonedDateTime getLocalDateTime() {

@@ -13,16 +13,16 @@ public final class ShippingAddress extends AbstractAddress {
      * Constructor for {@code ShippingAddress}.
      *
      * @param distanceToBillingAddress The distance in kilometers from the shipping address to the
-     * billing address.
-     * @param distanceToIpLocation The distance in kilometers from the shipping address to the IP
-     * location.
-     * @param isHighRisk This is true if the shipping address is associated with fraudulent
-     * transactions.
-     * @param isInIpCountry This is true if the shipping address is in the IP country.
-     * @param isPostalInCity This is true if the shipping postal code is in the city for the
-     * IP location.
-     * @param latitude The latitude associated with the IP address.
-     * @param longitude The longitude associated with the IP address.
+     *                                 billing address.
+     * @param distanceToIpLocation     The distance in kilometers from the shipping address to the
+     *                                 IP location.
+     * @param isHighRisk               This is true if the shipping address is associated with
+     *                                 fraudulent transactions.
+     * @param isInIpCountry            This is true if the shipping address is in the IP country.
+     * @param isPostalInCity           This is true if the shipping postal code is in the city for
+     *                                 the IP location.
+     * @param latitude                 The latitude associated with the IP address.
+     * @param longitude                The longitude associated with the IP address.
      */
     public ShippingAddress(
         @JsonProperty("distance_to_billing_address") Integer distanceToBillingAddress,
@@ -46,10 +46,9 @@ public final class ShippingAddress extends AbstractAddress {
     }
 
     /**
-     * @return This returns true if the shipping address is an address
-     * associated with fraudulent transactions. It returns false when the
-     * address is not associated with increased risk. If the address could not
-     * be parsed or was not provided, null is returned.
+     * @return This returns true if the shipping address is an address associated with fraudulent
+     *     transactions. It returns false when the address is not associated with increased risk. If
+     *     the address could not be parsed or was not provided, null is returned.
      */
     @JsonProperty("is_high_risk")
     public Boolean isHighRisk() {
@@ -57,8 +56,7 @@ public final class ShippingAddress extends AbstractAddress {
     }
 
     /**
-     * @return The distance in kilometers from the shipping address to billing
-     * address.
+     * @return The distance in kilometers from the shipping address to billing address.
      */
     @JsonProperty("distance_to_billing_address")
     public Integer getDistanceToBillingAddress() {

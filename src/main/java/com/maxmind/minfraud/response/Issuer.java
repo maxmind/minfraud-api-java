@@ -13,12 +13,12 @@ public final class Issuer extends AbstractModel {
     private final Boolean matchesProvidedPhoneNumber;
 
     /**
-     * Constructor for {@code Issuer}. 
+     * Constructor for {@code Issuer}.
      *
-     * @param matchesProvidedName This is true if the name matches the name provided.
+     * @param matchesProvidedName        This is true if the name matches the name provided.
      * @param matchesProvidedPhoneNumber This is true if the phone number matches the one provided.
-     * @param name The name of the bank which issued the credit card.
-     * @param phoneNumber The phone number of the bank which issued the credit card.
+     * @param name                       The name of the bank which issued the credit card.
+     * @param phoneNumber                The phone number of the bank which issued the credit card.
      */
     public Issuer(
         @JsonProperty("matches_provided_name") Boolean matchesProvidedName,
@@ -33,7 +33,7 @@ public final class Issuer extends AbstractModel {
     }
 
     /**
-     * Constructor for {@code Issuer}. 
+     * Constructor for {@code Issuer}.
      */
     public Issuer() {
         this(null, null, null, null);
@@ -47,11 +47,10 @@ public final class Issuer extends AbstractModel {
     }
 
     /**
-     * @return This returns true if the name matches the name provided in the
-     * request for the card issuer. It returns false if the name does not match.
-     * It returns null if either no name or issuer ID number (IIN) was provided
-     * in the request or if MaxMind does not have a name associated with the
-     * IIN.
+     * @return This returns true if the name matches the name provided in the request for the card
+     *     issuer. It returns false if the name does not match. It returns null if either no name or
+     *     issuer ID number (IIN) was provided in the request or if MaxMind does not have a name
+     *     associated with the IIN.
      */
     @JsonProperty("matches_provided_name")
     public Boolean matchesProvidedName() {
@@ -59,8 +58,8 @@ public final class Issuer extends AbstractModel {
     }
 
     /**
-     * @return The phone number of the bank which issued the credit card. In
-     * some cases the phone number we return may be out of date.
+     * @return The phone number of the bank which issued the credit card. In some cases the phone
+     *     number we return may be out of date.
      */
     @JsonProperty("phone_number")
     public String getPhoneNumber() {
@@ -68,11 +67,10 @@ public final class Issuer extends AbstractModel {
     }
 
     /**
-     * @return This returns true if the phone number matches the number provided
-     * in the request for the card issuer. It returns false if the number does
-     * not match. It returns null if either no phone number or issuer ID number
-     * (IIN) was provided in the request or if MaxMind does not have a phone
-     * number associated with the IIN.
+     * @return This returns true if the phone number matches the number provided in the request for
+     *     the card issuer. It returns false if the number does not match. It returns null if either
+     *     no phone number or issuer ID number (IIN) was provided in the request or if MaxMind does
+     *     not have a phone number associated with the IIN.
      */
     @JsonProperty("matches_provided_phone_number")
     public Boolean matchesProvidedPhoneNumber() {

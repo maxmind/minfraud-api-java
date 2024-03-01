@@ -5,8 +5,7 @@ import com.maxmind.minfraud.AbstractModel;
 import java.util.regex.Pattern;
 
 /**
- * This class represents the shared location behavior between
- * Billing and Shipping.
+ * This class represents the shared location behavior between Billing and Shipping.
  */
 public abstract class AbstractLocation extends AbstractModel {
     private final String firstName;
@@ -36,8 +35,8 @@ public abstract class AbstractLocation extends AbstractModel {
     }
 
     /**
-     * {@code Builder} creates instances of the parent class from values set
-     * by the builder's methods.
+     * {@code Builder} creates instances of the parent class from values set by the builder's
+     * methods.
      *
      * @param <T> the builder class
      */
@@ -112,8 +111,7 @@ public abstract class AbstractLocation extends AbstractModel {
         }
 
         /**
-         * @param code The ISO 3166-2 subdivision code for the region
-         *             associated with the address
+         * @param code The ISO 3166-2 subdivision code for the region associated with the address
          * @return The builder object.
          */
         public final T region(String code) {
@@ -122,11 +120,10 @@ public abstract class AbstractLocation extends AbstractModel {
         }
 
         /**
-         * @param code The ISO 3166-1 alpha-2 country code for the country
-         *             associated with the address (e.g, "US")
+         * @param code The ISO 3166-1 alpha-2 country code for the country associated with the
+         *             address (e.g, "US")
          * @return The builder object.
-         * @throws IllegalArgumentException when code is not a two-letter
-         *                                  country code.
+         * @throws IllegalArgumentException when code is not a two-letter country code.
          */
         public final T country(String code) {
             if (!COUNTRY_CODE_PATTERN.matcher(code).matches()) {
@@ -253,8 +250,7 @@ public abstract class AbstractLocation extends AbstractModel {
     }
 
     /**
-     * @return The phone number country code associated with the
-     * address
+     * @return The phone number country code associated with the address
      */
     @JsonProperty("phone_country_code")
     public final String getPhoneCountryCode() {

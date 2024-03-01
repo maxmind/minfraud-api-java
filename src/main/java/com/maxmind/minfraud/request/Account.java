@@ -20,20 +20,18 @@ public final class Account extends AbstractModel {
     }
 
     /**
-     * {@code Builder} creates instances of {@code Account}
-     * from values set by the builder's methods.
+     * {@code Builder} creates instances of {@code Account} from values set by the builder's
+     * methods.
      */
     public static final class Builder {
         String userId;
         String usernameMd5;
 
         /**
-         * @param id A unique user ID associated with the end-user in your
-         *           system. If your system allows the login name for the
-         *           account to be changed, this should not be the login
-         *           name for the account, but rather should be an internal
-         *           ID that does not change. This is not your MaxMind user
-         *           ID.
+         * @param id A unique user ID associated with the end-user in your system. If your system
+         *           allows the login name for the account to be changed, this should not be the
+         *           login name for the account, but rather should be an internal ID that does not
+         *           change. This is not your MaxMind user ID.
          * @return The builder object.
          */
         public Account.Builder userId(String id) {
@@ -44,8 +42,8 @@ public final class Account extends AbstractModel {
         /**
          * @param username The username associated with the account. This is
          *                 <em>not</em> the MD5 of username. This method
-         *                 automatically runs {@code DigestUtils.md5Hex}
-         *                 on the string passed to it.
+         *                 automatically runs {@code DigestUtils.md5Hex} on the string passed to
+         *                 it.
          * @return The builder object.
          */
         public Account.Builder username(String username) {
@@ -61,8 +59,7 @@ public final class Account extends AbstractModel {
         }
 
         /**
-         * @return An instance of {@code Account} created from the
-         * fields set on this builder.
+         * @return An instance of {@code Account} created from the fields set on this builder.
          */
         public Account build() {
             return new Account(this);

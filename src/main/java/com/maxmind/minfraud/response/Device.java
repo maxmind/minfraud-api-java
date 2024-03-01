@@ -9,8 +9,8 @@ import java.util.UUID;
 /**
  * This class contains minFraud response data related to the device.
  * <p>
- * In order to receive device output from minFraud Insights or minFraud
- * Factors, you must be using the Device Tracking Add-on.
+ * In order to receive device output from minFraud Insights or minFraud Factors, you must be using
+ * the Device Tracking Add-on.
  *
  * @see <a href="https://dev.maxmind.com/minfraud/track-devices?lang=en">Device Tracking Add-on</a>
  */
@@ -46,10 +46,9 @@ public final class Device extends AbstractModel {
     }
 
     /**
-     * @return a number representing the confidence that the device ID refers
-     * to a unique device as opposed to a cluster of similar devices. A
-     * confidence of 0.01 indicates very low confidence that the device is
-     * unique, whereas 99 indicates very high confidence.
+     * @return a number representing the confidence that the device ID refers to a unique device as
+     *     opposed to a cluster of similar devices. A confidence of 0.01 indicates very low
+     *     confidence that the device is unique, whereas 99 indicates very high confidence.
      */
     public Double getConfidence() {
         return confidence;
@@ -63,8 +62,7 @@ public final class Device extends AbstractModel {
     }
 
     /**
-     * @return The date and time of the last sighting of the device. This is an
-     * RFC 3339 date-time.
+     * @return The date and time of the last sighting of the device. This is an RFC 3339 date-time.
      */
     @JsonProperty("last_seen")
     public String getLastSeen() {
@@ -72,8 +70,7 @@ public final class Device extends AbstractModel {
     }
 
     /**
-     * @return The date and time of the last sighting of the device as a
-     * {@code ZonedDateTime}.
+     * @return The date and time of the last sighting of the device as a {@code ZonedDateTime}.
      */
     @JsonIgnore
     public ZonedDateTime getLastSeenDateTime() {
@@ -84,8 +81,8 @@ public final class Device extends AbstractModel {
     }
 
     /**
-     * @return The date and time of the transaction at the UTC offset
-     * associated with the device. This is an RFC 3339 date-time.
+     * @return The date and time of the transaction at the UTC offset associated with the device.
+     *     This is an RFC 3339 date-time.
      */
     @JsonProperty("local_time")
     public String getLocalTime() {
@@ -93,8 +90,8 @@ public final class Device extends AbstractModel {
     }
 
     /**
-     * @return The date and time of the transaction at the UTC offset
-     * associated with the device as a {@code ZonedDateTime}.
+     * @return The date and time of the transaction at the UTC offset associated with the device as
+     *     a {@code ZonedDateTime}.
      */
     @JsonIgnore
     public ZonedDateTime getLocalDateTime() {

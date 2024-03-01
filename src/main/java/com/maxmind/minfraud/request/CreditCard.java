@@ -33,8 +33,8 @@ public final class CreditCard extends AbstractModel {
     }
 
     /**
-     * {@code Builder} creates instances of the parent {@code CreditCard}
-     * from values set by the builder's methods.
+     * {@code Builder} creates instances of the parent {@code CreditCard} from values set by the
+     * builder's methods.
      */
     public static final class Builder {
         private static final Pattern COUNTRY_CODE_PATTERN = Pattern.compile("^[A-Z]{2}$");
@@ -56,12 +56,10 @@ public final class CreditCard extends AbstractModel {
         Boolean was3dSecureSuccessful;
 
         /**
-         * @param number The issuer ID number for the credit card. This is the
-         *               first 6 or 8 digits of the credit card number. It
-         *               identifies the issuing bank.
+         * @param number The issuer ID number for the credit card. This is the first 6 or 8 digits
+         *               of the credit card number. It identifies the issuing bank.
          * @return The builder object.
-         * @throws IllegalArgumentException when number is not a six digit
-         *                                  string.
+         * @throws IllegalArgumentException when number is not a six digit string.
          */
         public CreditCard.Builder issuerIdNumber(String number) {
             if (!IIN_PATTERN.matcher(number).matches()) {
@@ -75,8 +73,7 @@ public final class CreditCard extends AbstractModel {
         /**
          * @param digits The last two or four digits of the credit card number.
          * @return The builder object.
-         * @throws IllegalArgumentException when number is not a two or four digit
-         *                                  string.
+         * @throws IllegalArgumentException when number is not a two or four digit string.
          */
         public CreditCard.Builder lastDigits(String digits) {
             if (!LAST_DIGITS_PATTERN.matcher(digits).matches()) {
@@ -97,8 +94,7 @@ public final class CreditCard extends AbstractModel {
         }
 
         /**
-         * @param code The phone country code for the issuing bank as provided
-         *             by the end user.
+         * @param code The phone country code for the issuing bank as provided by the end user.
          * @return The builder object.
          */
         public CreditCard.Builder bankPhoneCountryCode(String code) {
@@ -107,8 +103,8 @@ public final class CreditCard extends AbstractModel {
         }
 
         /**
-         * @param number The phone number, without the country code, for the
-         *               issuing bank as provided by the end user.
+         * @param number The phone number, without the country code, for the issuing bank as
+         *               provided by the end user.
          * @return The builder object.
          */
         public CreditCard.Builder bankPhoneNumber(String number) {
@@ -117,14 +113,12 @@ public final class CreditCard extends AbstractModel {
         }
 
         /**
-         * @param code The two character ISO 3166-1 alpha-2 country code where
-         *             the issuer of the card is located. This may be passed
-         *             instead of issuerIdNumber if you do not wish to pass
-         *             partial account numbers, or if your payment processor
-         *             does not provide them.
+         * @param code The two character ISO 3166-1 alpha-2 country code where the issuer of the
+         *             card is located. This may be passed instead of issuerIdNumber if you do not
+         *             wish to pass partial account numbers, or if your payment processor does not
+         *             provide them.
          * @return The builder object.
-         * @throws IllegalArgumentException when code is not a two-letter
-         *                                  country code.
+         * @throws IllegalArgumentException when code is not a two-letter country code.
          */
         public CreditCard.Builder country(String code) {
             if (!COUNTRY_CODE_PATTERN.matcher(code).matches()) {
@@ -136,9 +130,8 @@ public final class CreditCard extends AbstractModel {
         }
 
         /**
-         * @param code The address verification system (AVS) check result, as
-         *             returned to you by the credit card processor. The
-         *             minFraud service supports the standard AVS codes.
+         * @param code The address verification system (AVS) check result, as returned to you by the
+         *             credit card processor. The minFraud service supports the standard AVS codes.
          * @return The builder object.
          */
         public CreditCard.Builder avsResult(Character code) {
@@ -147,8 +140,7 @@ public final class CreditCard extends AbstractModel {
         }
 
         /**
-         * @param code The card verification value (CVV) code as provided
-         *             by the payment processor.
+         * @param code The card verification value (CVV) code as provided by the payment processor.
          * @return The builder object.
          */
         public CreditCard.Builder cvvResult(Character code) {
@@ -157,14 +149,12 @@ public final class CreditCard extends AbstractModel {
         }
 
         /**
-         * @param token A token uniquely identifying the card. The token
-         *              should consist of non-space printable ASCII
-         *              characters. If the token is all digits, it must be
-         *              more than 19 characters long. The token must not be a
-         *              primary account number (PAN) or a simple
-         *              transformation of it. If you have a valid token that
-         *              looks like a PAN but is not one, you may prefix that
-         *              token with a fixed string, e.g., "token-".
+         * @param token A token uniquely identifying the card. The token should consist of non-space
+         *              printable ASCII characters. If the token is all digits, it must be more than
+         *              19 characters long. The token must not be a primary account number (PAN) or
+         *              a simple transformation of it. If you have a valid token that looks like a
+         *              PAN but is not one, you may prefix that token with a fixed string, e.g.,
+         *              "token-".
          * @return The builder object.
          * @throws IllegalArgumentException when the token is invalid.
          */
@@ -179,16 +169,13 @@ public final class CreditCard extends AbstractModel {
         }
 
         /**
-         * @param wasSuccessful An indication of whether or not the outcome of
-         *                      3D-Secure verification (e.g. Safekey,
-         *                      SecureCode, Verified by Visa)  was successful,
-         *                      as provided by the end user. {@code true} if
-         *                      customer verification was successful, or
-         *                      {@code false} if the customer failed
-         *                      verification. If 3-D Secure verification was not
-         *                      used, was unavailable, or resulted in another
-         *                      outcome other than success or failure, do not
-         *                      use this method.
+         * @param wasSuccessful An indication of whether or not the outcome of 3D-Secure
+         *                      verification (e.g. Safekey, SecureCode, Verified by Visa)  was
+         *                      successful, as provided by the end user. {@code true} if customer
+         *                      verification was successful, or {@code false} if the customer failed
+         *                      verification. If 3-D Secure verification was not used, was
+         *                      unavailable, or resulted in another outcome other than success or
+         *                      failure, do not use this method.
          * @return The builder object.
          */
         public CreditCard.Builder was3dSecureSuccessful(Boolean wasSuccessful) {
@@ -197,8 +184,7 @@ public final class CreditCard extends AbstractModel {
         }
 
         /**
-         * @return An instance of {@code CreditCard} created from the
-         * fields set on this builder.
+         * @return An instance of {@code CreditCard} created from the fields set on this builder.
          */
         public CreditCard build() {
             return new CreditCard(this);
@@ -230,8 +216,7 @@ public final class CreditCard extends AbstractModel {
     }
 
     /**
-     * @return The phone country code for the issuing bank as provided by
-     * the end user.
+     * @return The phone country code for the issuing bank as provided by the end user.
      */
     @JsonProperty("bank_phone_country_code")
     public String getBankPhoneCountryCode() {
@@ -239,8 +224,8 @@ public final class CreditCard extends AbstractModel {
     }
 
     /**
-     * @return The phone number, without the country code, for the issuing
-     * bank as provided by the end user.
+     * @return The phone number, without the country code, for the issuing bank as provided by the
+     *     end user.
      */
     @JsonProperty("bank_phone_number")
     public String getBankPhoneNumber() {
@@ -248,8 +233,8 @@ public final class CreditCard extends AbstractModel {
     }
 
     /**
-     * @return The two character ISO 3166-1 alpha-2 country code where the
-     * issuer of the card is located.
+     * @return The two character ISO 3166-1 alpha-2 country code where the issuer of the card is
+     *     located.
      */
     @JsonProperty("country")
     public String getCountry() {
@@ -257,9 +242,8 @@ public final class CreditCard extends AbstractModel {
     }
 
     /**
-     * @return The address verification system (AVS) check result, as
-     * returned to you by the credit card processor. The minFraud service
-     * supports the standard AVS codes.
+     * @return The address verification system (AVS) check result, as returned to you by the credit
+     *     card processor. The minFraud service supports the standard AVS codes.
      */
     @JsonProperty("avs_result")
     public Character getAvsResult() {
@@ -267,8 +251,7 @@ public final class CreditCard extends AbstractModel {
     }
 
     /**
-     * @return The card verification value (CVV) code as provided by the
-     * payment processor.
+     * @return The card verification value (CVV) code as provided by the payment processor.
      */
     @JsonProperty("cvv_result")
     public Character getCvvResult() {
@@ -284,13 +267,11 @@ public final class CreditCard extends AbstractModel {
     }
 
     /**
-     * @return An indication of whether or not the outcome of 3D-Secure
-     * verification (e.g. Safekey, SecureCode, Verified by Visa) was
-     * successful, as provided by the end user. {@code true} if customer
-     * verification was successful, or {@code false} if the customer
-     * failed verification. {@code null} if 3-D Secure verification was
-     * not used, was unavailable, or resulted in another outcome other
-     * than success or failure.
+     * @return An indication of whether or not the outcome of 3D-Secure verification (e.g. Safekey,
+     *     SecureCode, Verified by Visa) was successful, as provided by the end user. {@code true}
+     *     if customer verification was successful, or {@code false} if the customer failed
+     *     verification. {@code null} if 3-D Secure verification was not used, was unavailable, or
+     *     resulted in another outcome other than success or failure.
      */
     @JsonProperty("was_3d_secure_successful")
     public Boolean getWas3dSecureSuccessful() {

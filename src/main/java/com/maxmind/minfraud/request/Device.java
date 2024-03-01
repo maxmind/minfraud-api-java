@@ -23,8 +23,8 @@ public final class Device extends AbstractModel {
     }
 
     /**
-     * {@code Builder} creates instances of {@code Device}
-     * from values set by the builder's methods.
+     * {@code Builder} creates instances of {@code Device} from values set by the builder's
+     * methods.
      */
     public static final class Builder {
         InetAddress ipAddress;
@@ -42,16 +42,15 @@ public final class Device extends AbstractModel {
         /**
          * Constructor for the {@code Device.Builder} class
          *
-         * @param ipAddress The IP address associated with the device used
-         *                  by the customer in the transaction.
+         * @param ipAddress The IP address associated with the device used by the customer in the
+         *                  transaction.
          */
         public Builder(InetAddress ipAddress) {
             this.ipAddress = ipAddress;
         }
 
         /**
-         * @param ua The HTTP "User-Agent" header of the browser used in
-         *           the transaction.
+         * @param ua The HTTP "User-Agent" header of the browser used in the transaction.
          * @return The builder object.
          */
         public Device.Builder userAgent(String ua) {
@@ -60,8 +59,8 @@ public final class Device extends AbstractModel {
         }
 
         /**
-         * @param acceptLanguage The HTTP "Accept-Language" header of the
-         *                       device used in the transaction.
+         * @param acceptLanguage The HTTP "Accept-Language" header of the device used in the
+         *                       transaction.
          * @return The builder object.
          */
         public Device.Builder acceptLanguage(String acceptLanguage) {
@@ -70,8 +69,8 @@ public final class Device extends AbstractModel {
         }
 
         /**
-         * @param ipAddress The IP address associated with the device used
-         *                  by the customer in the transaction.
+         * @param ipAddress The IP address associated with the device used by the customer in the
+         *                  transaction.
          * @return The builder object.
          */
         public Device.Builder ipAddress(InetAddress ipAddress) {
@@ -80,11 +79,9 @@ public final class Device extends AbstractModel {
         }
 
         /**
-         * @param sessionAge The number of seconds between the creation of the
-         *                   user's session and the time of the transaction.
-         *                   Note that session_age is not the duration of the
-         *                   current visit, but the time since the start of the
-         *                   first visit.
+         * @param sessionAge The number of seconds between the creation of the user's session and
+         *                   the time of the transaction. Note that session_age is not the duration
+         *                   of the current visit, but the time since the start of the first visit.
          * @return The builder object.
          */
         public Device.Builder sessionAge(Double sessionAge) {
@@ -94,9 +91,8 @@ public final class Device extends AbstractModel {
         }
 
         /**
-         * @param sessionId A string up to 255 characters in length. This is
-         *                  an ID which uniquely identifies a visitor's
-         *                  session on the site.
+         * @param sessionId A string up to 255 characters in length. This is an ID which uniquely
+         *                  identifies a visitor's session on the site.
          * @return The builder object.
          */
         public Device.Builder sessionId(String sessionId) {
@@ -105,8 +101,7 @@ public final class Device extends AbstractModel {
         }
 
         /**
-         * @return An instance of {@code Device} created from the
-         * fields set on this builder.
+         * @return An instance of {@code Device} created from the fields set on this builder.
          */
         public Device build() {
             return new Device(this);
