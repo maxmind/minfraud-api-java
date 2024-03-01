@@ -171,6 +171,9 @@ public final class Event extends AbstractModel {
          */
         SURVEY;
 
+        /**
+         * @return a string representation of the object.
+         */
         public String toString() {
             return this.name().toLowerCase();
         }

@@ -203,6 +203,9 @@ public final class TransactionReport extends AbstractModel {
          */
         CHARGEBACK;
 
+        /**
+         * @return a string representation of the object.
+         */
         public String toString() {
             return this.name().toLowerCase();
         }

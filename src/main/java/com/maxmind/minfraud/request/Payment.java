@@ -251,6 +251,9 @@ public final class Payment extends AbstractModel {
         WIRECARD,
         WORLDPAY;
 
+        /**
+         * @return a string representation of the object.
+         */
         public String toString() {
             return this.name().toLowerCase();
         }
