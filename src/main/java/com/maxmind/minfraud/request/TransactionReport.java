@@ -28,8 +28,8 @@ public final class TransactionReport extends AbstractModel {
     }
 
     /**
-     * {@code Builder} creates instances of {@code TransactionReport}
-     * from values set by the builder's methods.
+     * {@code Builder} creates instances of {@code TransactionReport} from values set by the
+     * builder's methods.
      */
     public static final class Builder {
         InetAddress ipAddress;
@@ -43,8 +43,8 @@ public final class TransactionReport extends AbstractModel {
         /**
          * The constructor for the {@code TransactionReport.Builder} class
          *
-         * @param ipAddress The IP address associated with the device used
-         *                  by the customer in the transaction.
+         * @param ipAddress The IP address associated with the device used by the customer in the
+         *                  transaction.
          * @param tag       A string indicating the likelihood that a transaction may be
          *                  fraudulent.
          */
@@ -61,8 +61,8 @@ public final class TransactionReport extends AbstractModel {
         }
 
         /**
-         * @param chargebackCode A string which is provided by your payment processor
-         *                       indicating the reason for the chargeback.
+         * @param chargebackCode A string which is provided by your payment processor indicating the
+         *                       reason for the chargeback.
          * @return The builder object.
          */
         public TransactionReport.Builder chargebackCode(String chargebackCode) {
@@ -71,9 +71,9 @@ public final class TransactionReport extends AbstractModel {
         }
 
         /**
-         * @param maxmindId A unique eight character string identifying a minFraud
-         *                  Standard or Premium request. These IDs are returned in the maxmindID field
-         *                  of a response for a successful minFraud request. This field is not required,
+         * @param maxmindId A unique eight character string identifying a minFraud Standard or
+         *                  Premium request. These IDs are returned in the maxmindID field of a
+         *                  response for a successful minFraud request. This field is not required,
          *                  but you are encouraged to provide it, if possible.
          * @return The builder object.
          */
@@ -87,11 +87,11 @@ public final class TransactionReport extends AbstractModel {
         }
 
         /**
-         * @param minfraudId A UUID that identifies a minFraud Score, minFraud Insights,
-         *                   or minFraud Factors request. This ID is returned via getId() in the
-         *                   Score, Insights or Factors response object. This field is not
-         *                   required, but you are encouraged to provide it if the request was
-         *                   made to one of these services.
+         * @param minfraudId A UUID that identifies a minFraud Score, minFraud Insights, or minFraud
+         *                   Factors request. This ID is returned via getId() in the Score, Insights
+         *                   or Factors response object. This field is not required, but you are
+         *                   encouraged to provide it if the request was made to one of these
+         *                   services.
          * @return The builder object.
          */
         public TransactionReport.Builder minfraudId(UUID minfraudId) {
@@ -118,8 +118,8 @@ public final class TransactionReport extends AbstractModel {
         }
 
         /**
-         * @return An instance of {@code TransactionReport} created from the
-         * fields set on this builder.
+         * @return An instance of {@code TransactionReport} created from the fields set on this
+         *     builder.
          */
         public TransactionReport build() {
             return new TransactionReport(this);
@@ -186,15 +186,26 @@ public final class TransactionReport extends AbstractModel {
      * The enumerated tag types.
      */
     public enum Tag {
-        /** Not Fraud */
+        /**
+         * Not Fraud
+         */
         NOT_FRAUD,
-        /** Suspected Fraud */
+        /**
+         * Suspected Fraud
+         */
         SUSPECTED_FRAUD,
-        /** Spam or Abuse */
+        /**
+         * Spam or Abuse
+         */
         SPAM_OR_ABUSE,
-        /** Chargeback */
+        /**
+         * Chargeback
+         */
         CHARGEBACK;
 
+        /**
+         * @return a string representation of the object.
+         */
         public String toString() {
             return this.name().toLowerCase();
         }

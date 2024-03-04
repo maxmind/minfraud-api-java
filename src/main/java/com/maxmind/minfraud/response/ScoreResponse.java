@@ -22,13 +22,13 @@ public class ScoreResponse extends AbstractModel {
     /**
      * Constructor for {@code ScoreResponse}.
      *
-     * @param disposition The disposition set by your custom rules.
-     * @param fundsRemaining The approximate US dollar value of the funds.
-     * @param id This is a UUID that identifies the minFraud request.
-     * @param ipAddress The {@code IpAddress} model object.
+     * @param disposition      The disposition set by your custom rules.
+     * @param fundsRemaining   The approximate US dollar value of the funds.
+     * @param id               This is a UUID that identifies the minFraud request.
+     * @param ipAddress        The {@code IpAddress} model object.
      * @param queriesRemaining The number of queries remaining.
-     * @param riskScore The risk score.
-     * @param warnings An list containing warning objects.
+     * @param riskScore        The risk score.
+     * @param warnings         An list containing warning objects.
      */
     public ScoreResponse(
         @JsonProperty("disposition") Disposition disposition,
@@ -59,8 +59,7 @@ public class ScoreResponse extends AbstractModel {
 
 
     /**
-     * @return The approximate US dollar value of the funds remaining on your
-     * MaxMind account.
+     * @return The approximate US dollar value of the funds remaining on your MaxMind account.
      */
     @JsonProperty("funds_remaining")
     public final Double getFundsRemaining() {
@@ -83,8 +82,8 @@ public class ScoreResponse extends AbstractModel {
     }
 
     /**
-     * @return The approximate number of queries remaining for this service
-     * before your account runs out of funds.
+     * @return The approximate number of queries remaining for this service before your account runs
+     *     out of funds.
      */
     @JsonProperty("queries_remaining")
     public final Integer getQueriesRemaining() {
@@ -92,11 +91,10 @@ public class ScoreResponse extends AbstractModel {
     }
 
     /**
-     * @return This returns the risk score, from 0.01 to 99. A higher score
-     * indicates a higher risk of fraud. For example, a score of 20 indicates a
-     * 20% chance that a transaction is fraudulent. We never return a risk score
-     * of 0, since all transactions have the possibility of being fraudulent.
-     * Likewise, we never return a risk score of 100.
+     * @return This returns the risk score, from 0.01 to 99. A higher score indicates a higher risk
+     *     of fraud. For example, a score of 20 indicates a 20% chance that a transaction is
+     *     fraudulent. We never return a risk score of 0, since all transactions have the
+     *     possibility of being fraudulent. Likewise, we never return a risk score of 100.
      */
     @JsonProperty("risk_score")
     public final Double getRiskScore() {
@@ -104,10 +102,9 @@ public class ScoreResponse extends AbstractModel {
     }
 
     /**
-     * @return An unmodifiable list containing warning objects that detail
-     * issues with the request such as invalid or unknown inputs. It is
-     * highly recommended that you check this list for issues when integrating
-     * the web service.
+     * @return An unmodifiable list containing warning objects that detail issues with the request
+     *     such as invalid or unknown inputs. It is highly recommended that you check this list for
+     *     issues when integrating the web service.
      */
     public final List<Warning> getWarnings() {
         return warnings;

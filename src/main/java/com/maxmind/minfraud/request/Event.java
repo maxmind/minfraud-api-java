@@ -25,8 +25,7 @@ public final class Event extends AbstractModel {
     }
 
     /**
-     * {@code Builder} creates instances of {@code Event}
-     * from values set by the builder's methods.
+     * {@code Builder} creates instances of {@code Event} from values set by the builder's methods.
      */
     public static final class Builder {
         String transactionId;
@@ -35,10 +34,9 @@ public final class Event extends AbstractModel {
         Type type;
 
         /**
-         * @param id Your internal ID for the transaction. We can use this to
-         *           locate a specific transaction in our logs, and it will
-         *           also show up in email alerts and notifications from us to
-         *           you.
+         * @param id Your internal ID for the transaction. We can use this to locate a specific
+         *           transaction in our logs, and it will also show up in email alerts and
+         *           notifications from us to you.
          * @return The builder object.
          */
         public Event.Builder transactionId(String id) {
@@ -47,10 +45,9 @@ public final class Event extends AbstractModel {
         }
 
         /**
-         * @param id Your internal ID for the shop, affiliate, or merchant
-         *           this order is coming from. Required for minFraud users
-         *           who are resellers, payment providers, gateways and
-         *           affiliate networks.
+         * @param id Your internal ID for the shop, affiliate, or merchant this order is coming
+         *           from. Required for minFraud users who are resellers, payment providers,
+         *           gateways and affiliate networks.
          * @return The builder object.
          */
         public Event.Builder shopId(String id) {
@@ -86,8 +83,7 @@ public final class Event extends AbstractModel {
         }
 
         /**
-         * @return An instance of {@code Event} created from the
-         * fields set on this builder.
+         * @return An instance of {@code Event} created from the fields set on this builder.
          */
         public Event build() {
             return new Event(this);
@@ -138,23 +134,23 @@ public final class Event extends AbstractModel {
      * The enumerated event types.
      */
     public enum Type {
-        /** 
+        /**
          * The account was created
          */
         ACCOUNT_CREATION,
-        /** 
+        /**
          * The account was logged into
          */
         ACCOUNT_LOGIN,
-        /** 
+        /**
          * The account email was changed
          */
         EMAIL_CHANGE,
-        /** 
+        /**
          * The account password was reset
          */
         PASSWORD_RESET,
-        /** 
+        /**
          * The account payout was changed
          */
         PAYOUT_CHANGE,
@@ -162,19 +158,22 @@ public final class Event extends AbstractModel {
          * A purchase was made
          */
         PURCHASE,
-        /** 
+        /**
          * A recurring purchase was made
          */
         RECURRING_PURCHASE,
-        /** 
+        /**
          * A referral was made
          */
         REFERRAL,
-        /** 
+        /**
          * A survey was completed
          */
         SURVEY;
 
+        /**
+         * @return a string representation of the object.
+         */
         public String toString() {
             return this.name().toLowerCase();
         }

@@ -14,8 +14,8 @@ public final class Shipping extends AbstractLocation {
     }
 
     /**
-     * {@code Builder} creates instances of {@code Shipping}
-     * from values set by the builder's methods.
+     * {@code Builder} creates instances of {@code Shipping} from values set by the builder's
+     * methods.
      */
     public static final class Builder extends AbstractLocation.Builder<Shipping.Builder> {
         DeliverySpeed deliverySpeed;
@@ -30,8 +30,7 @@ public final class Shipping extends AbstractLocation {
         }
 
         /**
-         * @return An instance of {@code Shipping} created from the
-         * fields set on this builder.
+         * @return An instance of {@code Shipping} created from the fields set on this builder.
          */
         @Override
         public Shipping build() {
@@ -51,15 +50,26 @@ public final class Shipping extends AbstractLocation {
      * Enumerated delivery speeds.
      */
     public enum DeliverySpeed {
-        /** Same day */
+        /**
+         * Same day
+         */
         SAME_DAY,
-        /** Overnight */
+        /**
+         * Overnight
+         */
         OVERNIGHT,
-        /** Expedited */
+        /**
+         * Expedited
+         */
         EXPEDITED,
-        /** Standard */
+        /**
+         * Standard
+         */
         STANDARD;
 
+        /**
+         * @return a string representation of the object.
+         */
         public String toString() {
             return this.name().toLowerCase();
         }

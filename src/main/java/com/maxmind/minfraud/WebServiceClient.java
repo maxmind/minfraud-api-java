@@ -75,16 +75,14 @@ public final class WebServiceClient {
 
     /**
      * <p>
-     * {@code Builder} creates instances of {@code WebServiceClient}
-     * from values set by the methods.
+     * {@code Builder} creates instances of {@code WebServiceClient} from values set by the
+     * methods.
      * </p>
      * <p>
-     * This example shows how to create a {@code WebServiceClient} object
-     * with the {@code Builder}:
+     * This example shows how to create a {@code WebServiceClient} object with the {@code Builder}:
      * </p>
      * <p>
-     * WebServiceClient client = new
-     * WebServiceClient.Builder(12,"licensekey").host
+     * WebServiceClient client = new WebServiceClient.Builder(12,"licensekey").host
      * ("geoip.maxmind.com").build();
      * </p>
      * <p>
@@ -116,8 +114,8 @@ public final class WebServiceClient {
         }
 
         /**
-         * @param val Timeout duration to establish a connection to the web
-         *            service. There is no timeout by default.
+         * @param val Timeout duration to establish a connection to the web service. There is no
+         *            timeout by default.
          * @return Builder object
          */
         public WebServiceClient.Builder connectTimeout(Duration val) {
@@ -137,12 +135,10 @@ public final class WebServiceClient {
         }
 
         /**
-         * @param val The host to use.
-         * By default, the client connects to the production host. However,
-         * during testing and development, you can set this option to
-         * 'sandbox.maxmind.com' to use the Sandbox environment's host. The
-         * sandbox allows you to experiment with the API without affecting your
-         * production data.
+         * @param val The host to use. By default, the client connects to the production host.
+         *            However, during testing and development, you can set this option to
+         *            'sandbox.maxmind.com' to use the Sandbox environment's host. The sandbox
+         *            allows you to experiment with the API without affecting your production data.
          * @return Builder object
          */
         public WebServiceClient.Builder host(String val) {
@@ -160,8 +156,8 @@ public final class WebServiceClient {
         }
 
         /**
-         * @param val List of locale codes to use in name property from most
-         *            preferred to least preferred.
+         * @param val List of locale codes to use in name property from most preferred to least
+         *            preferred.
          * @return Builder object
          */
         public WebServiceClient.Builder locales(List<String> val) {
@@ -194,8 +190,8 @@ public final class WebServiceClient {
 
 
         /**
-         * @return an instance of {@code WebServiceClient} created from the
-         * fields set on this builder.
+         * @return an instance of {@code WebServiceClient} created from the fields set on this
+         *     builder.
          */
         public WebServiceClient build() {
             return new WebServiceClient(this);
@@ -203,22 +199,17 @@ public final class WebServiceClient {
     }
 
     /**
-     * Make a minFraud Factors request to the web service using the transaction
-     * request object passed to the method.
+     * Make a minFraud Factors request to the web service using the transaction request object
+     * passed to the method.
      *
      * @param transaction A transaction request object.
      * @return An Factors model object
-     * @throws InsufficientFundsException  when there are insufficient funds on
-     *                                     the account.
+     * @throws InsufficientFundsException  when there are insufficient funds on the account.
      * @throws AuthenticationException     when there is a problem authenticating.
-     * @throws InvalidRequestException     when the request is invalid for some
-     *                                     other reason.
-     * @throws PermissionRequiredException when permission is required to use the
-     *                                     service.
-     * @throws MinFraudException           when the web service returns unexpected
-     *                                     content.
-     * @throws HttpException               when the web service returns an unexpected
-     *                                     response.
+     * @throws InvalidRequestException     when the request is invalid for some other reason.
+     * @throws PermissionRequiredException when permission is required to use the service.
+     * @throws MinFraudException           when the web service returns unexpected content.
+     * @throws HttpException               when the web service returns an unexpected response.
      * @throws IOException                 when some other IO error occurs.
      */
     public FactorsResponse factors(Transaction transaction) throws IOException,
@@ -228,22 +219,17 @@ public final class WebServiceClient {
     }
 
     /**
-     * Make a minFraud Insights request to the web service using the transaction
-     * request object passed to the method.
+     * Make a minFraud Insights request to the web service using the transaction request object
+     * passed to the method.
      *
      * @param transaction A transaction request object.
      * @return An Insights model object
-     * @throws InsufficientFundsException  when there are insufficient funds on
-     *                                     the account.
+     * @throws InsufficientFundsException  when there are insufficient funds on the account.
      * @throws AuthenticationException     when there is a problem authenticating.
-     * @throws InvalidRequestException     when the request is invalid for some
-     *                                     other reason.
-     * @throws PermissionRequiredException when permission is required to use the
-     *                                     service.
-     * @throws MinFraudException           when the web service returns unexpected
-     *                                     content.
-     * @throws HttpException               when the web service returns an unexpected
-     *                                     response.
+     * @throws InvalidRequestException     when the request is invalid for some other reason.
+     * @throws PermissionRequiredException when permission is required to use the service.
+     * @throws MinFraudException           when the web service returns unexpected content.
+     * @throws HttpException               when the web service returns an unexpected response.
      * @throws IOException                 when some other IO error occurs.
      */
     public InsightsResponse insights(Transaction transaction) throws IOException,
@@ -253,22 +239,17 @@ public final class WebServiceClient {
     }
 
     /**
-     * Make a minFraud Score request to the web service using the transaction
-     * request object passed to the method.
+     * Make a minFraud Score request to the web service using the transaction request object passed
+     * to the method.
      *
      * @param transaction A transaction request object.
      * @return An Score model object
-     * @throws InsufficientFundsException  when there are insufficient funds on
-     *                                     the account.
+     * @throws InsufficientFundsException  when there are insufficient funds on the account.
      * @throws AuthenticationException     when there is a problem authenticating.
-     * @throws InvalidRequestException     when the request is invalid for some
-     *                                     other reason.
-     * @throws PermissionRequiredException when permission is required to use the
-     *                                     service.
-     * @throws MinFraudException           when the web service returns unexpected
-     *                                     content.
-     * @throws HttpException               when the web service returns an unexpected
-     *                                     response.
+     * @throws InvalidRequestException     when the request is invalid for some other reason.
+     * @throws PermissionRequiredException when permission is required to use the service.
+     * @throws MinFraudException           when the web service returns unexpected content.
+     * @throws HttpException               when the web service returns an unexpected response.
      * @throws IOException                 when some other IO error occurs.
      */
     public ScoreResponse score(Transaction transaction) throws IOException,
@@ -278,21 +259,16 @@ public final class WebServiceClient {
     }
 
     /**
-     * Make a Report Transaction request to the web service using the TransactionReport
-     * request object passed to the method.
+     * Make a Report Transaction request to the web service using the TransactionReport request
+     * object passed to the method.
      *
      * @param transaction A TransactionReport request object.
-     * @throws InsufficientFundsException  when there are insufficient funds on
-     *                                     the account.
+     * @throws InsufficientFundsException  when there are insufficient funds on the account.
      * @throws AuthenticationException     when there is a problem authenticating.
-     * @throws InvalidRequestException     when the request is invalid for some
-     *                                     other reason.
-     * @throws PermissionRequiredException when permission is required to use the
-     *                                     service.
-     * @throws MinFraudException           when the web service returns unexpected
-     *                                     content.
-     * @throws HttpException               when the web service returns an unexpected
-     *                                     response.
+     * @throws InvalidRequestException     when the request is invalid for some other reason.
+     * @throws PermissionRequiredException when permission is required to use the service.
+     * @throws MinFraudException           when the web service returns unexpected content.
+     * @throws HttpException               when the web service returns an unexpected response.
      * @throws IOException                 when some other IO error occurs.
      */
     public void reportTransaction(TransactionReport transaction) throws IOException,

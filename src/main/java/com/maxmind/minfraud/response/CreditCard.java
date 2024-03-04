@@ -69,20 +69,18 @@ public final class CreditCard extends AbstractModel {
     }
 
     /**
-     * @return The two letter <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">
-     * ISO 3166-1 alpha-2</a> country code associated with the location
-     * of the majority of customers using this credit card as determined
-     * by their billing address. In cases where the location of customers
-     * is highly mixed, this defaults to the country of the bank issuing
-     * the card.
+     * @return The two letter <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2"> ISO 3166-1
+     *     alpha-2</a> country code associated with the location of the majority of customers using
+     *     this credit card as determined by their billing address. In cases where the location of
+     *     customers is highly mixed, this defaults to the country of the bank issuing the card.
      */
     public String getCountry() {
         return country;
     }
 
     /**
-     * @return True if the card is a business card. False if not a business
-     * card. If the IIN was not provided or is unknown, null will be returned.
+     * @return True if the card is a business card. False if not a business card. If the IIN was not
+     *     provided or is unknown, null will be returned.
      */
     @JsonProperty("is_business")
     public Boolean isBusiness() {
@@ -90,10 +88,9 @@ public final class CreditCard extends AbstractModel {
     }
 
     /**
-     * @return True if the country of the billing address matches the country
-     * of the majority of customers using that IIN. In cases where the
-     * location of customers is highly mixed, the match is to the country of
-     * the bank issuing the card.
+     * @return True if the country of the billing address matches the country of the majority of
+     *     customers using that IIN. In cases where the location of customers is highly mixed, the
+     *     match is to the country of the bank issuing the card.
      */
     @JsonProperty("is_issued_in_billing_address_country")
     public Boolean isIssuedInBillingAddressCountry() {
@@ -101,8 +98,8 @@ public final class CreditCard extends AbstractModel {
     }
 
     /**
-     * @return True if the card is a prepaid card. False if not prepaid. If
-     * the IIN was not provided or is unknown, null will be returned.
+     * @return True if the card is a prepaid card. False if not prepaid. If the IIN was not provided
+     *     or is unknown, null will be returned.
      */
     @JsonProperty("is_prepaid")
     public Boolean isPrepaid() {
@@ -110,8 +107,8 @@ public final class CreditCard extends AbstractModel {
     }
 
     /**
-     * @return True if the card is a virtual card. False if not virtual. If the
-     * IIN was not provided or is unknown, null will be returned.
+     * @return True if the card is a virtual card. False if not virtual. If the IIN was not provided
+     *     or is unknown, null will be returned.
      */
     @JsonProperty("is_virtual")
     public Boolean isVirtual() {

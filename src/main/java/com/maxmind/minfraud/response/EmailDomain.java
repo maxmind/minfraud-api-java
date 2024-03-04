@@ -13,8 +13,7 @@ public final class EmailDomain extends AbstractModel {
     /**
      * Constructor for {@code EmailDomain}.
      *
-     * @param firstSeen A date to identify the date an email domain was first
-     * seen by MaxMind.
+     * @param firstSeen A date to identify the date an email domain was first seen by MaxMind.
      */
     public EmailDomain(
         @JsonProperty("first_seen") LocalDate firstSeen
@@ -30,8 +29,7 @@ public final class EmailDomain extends AbstractModel {
     }
 
     /**
-     * @return A date to identify the date an email domain was first
-     * seen by MaxMind.
+     * @return A date to identify the date an email domain was first seen by MaxMind.
      */
     @JsonProperty("first_seen")
     public LocalDate getFirstSeen() {

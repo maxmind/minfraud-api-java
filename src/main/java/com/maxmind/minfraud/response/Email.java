@@ -35,7 +35,7 @@ public final class Email extends AbstractModel {
         this.isHighRisk = isHighRisk;
         this.firstSeen = firstSeen;
     }
-    
+
     /**
      * Constructor for {@code Email}.
      */
@@ -51,8 +51,8 @@ public final class Email extends AbstractModel {
     }
 
     /**
-     * @return Whether the email address is from a disposable email provider.
-     * If no email address was passed, this will be {@code null}.
+     * @return Whether the email address is from a disposable email provider. If no email address
+     *     was passed, this will be {@code null}.
      */
     @JsonProperty("is_disposable")
     public Boolean isDisposable() {
@@ -62,8 +62,8 @@ public final class Email extends AbstractModel {
     /**
      * /**
      *
-     * @return Whether the email address is from a free email provider such as
-     * Gmail. If no email address was passed, this will be {@code null}.
+     * @return Whether the email address is from a free email provider such as Gmail. If no email
+     *     address was passed, this will be {@code null}.
      */
     @JsonProperty("is_free")
     public Boolean isFree() {
@@ -71,8 +71,8 @@ public final class Email extends AbstractModel {
     }
 
     /**
-     * @return Whether the email address is associated with fraud. If no email
-     * address was passed, this will be {@code null}.
+     * @return Whether the email address is associated with fraud. If no email address was passed,
+     *     this will be {@code null}.
      */
     @JsonProperty("is_high_risk")
     public Boolean isHighRisk() {
@@ -80,9 +80,8 @@ public final class Email extends AbstractModel {
     }
 
     /**
-     * @return A date string (e.g. 2017-04-24) to identify the date an email
-     * address was first seen by MaxMind. This is expressed using the
-     * ISO 8601 date format.
+     * @return A date string (e.g. 2017-04-24) to identify the date an email address was first seen
+     *     by MaxMind. This is expressed using the ISO 8601 date format.
      */
     @JsonProperty("first_seen")
     public String getFirstSeen() {
@@ -90,8 +89,7 @@ public final class Email extends AbstractModel {
     }
 
     /**
-     * @return A date to identify the date an email address was first seen by
-     * MaxMind.
+     * @return A date to identify the date an email address was first seen by MaxMind.
      */
     @JsonIgnore
     public LocalDate getFirstSeenDate() {

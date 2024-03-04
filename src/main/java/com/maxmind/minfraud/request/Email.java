@@ -46,8 +46,7 @@ public final class Email extends AbstractModel {
     }
 
     /**
-     * {@code Builder} creates instances of {@code Email}
-     * from values set by the builder's methods.
+     * {@code Builder} creates instances of {@code Email} from values set by the builder's methods.
      */
     public static final class Builder {
         private final boolean enableValidation;
@@ -74,19 +73,17 @@ public final class Email extends AbstractModel {
         }
 
         /**
-         * Set the email address and domain fields for the request. If
-         * you set the email address from this method, you do <em>not</em>
-         * need to set the domain separately. The domain will be set to
-         * the domain of the email address and the address field will be
-         * set to the email address passed.
+         * Set the email address and domain fields for the request. If you set the email address
+         * from this method, you do <em>not</em> need to set the domain separately. The domain will
+         * be set to the domain of the email address and the address field will be set to the email
+         * address passed.
          * <p>
-         * The email address will be sent in plain text unless you also call
-         * {@link #hashAddress()} to instead send it as an MD5 hash.
+         * The email address will be sent in plain text unless you also call {@link #hashAddress()}
+         * to instead send it as an MD5 hash.
          *
          * @param address The valid email address used in the transaction.
          * @return The builder object.
-         * @throws IllegalArgumentException when address is not a valid email
-         *                                  address.
+         * @throws IllegalArgumentException when address is not a valid email address.
          */
         public Email.Builder address(String address) {
             if (enableValidation && !EmailValidator.getInstance().isValid(address)) {
@@ -107,9 +104,8 @@ public final class Email extends AbstractModel {
         /**
          * Send the email address as its MD5 hash.
          * <p>
-         * By default, the email address set by {@link #address(String)} will be
-         * sent in plain text. Enable sending it as an MD5 hash instead by
-         * calling this method.
+         * By default, the email address set by {@link #address(String)} will be sent in plain text.
+         * Enable sending it as an MD5 hash instead by calling this method.
          *
          * @return The builder object.
          */
@@ -119,8 +115,8 @@ public final class Email extends AbstractModel {
         }
 
         /**
-         * @param domain The domain of the email address. This only needs
-         *               to be set if the email address is not set.
+         * @param domain The domain of the email address. This only needs to be set if the email
+         *               address is not set.
          * @return The builder object.
          * @throws IllegalArgumentException when domain is not a valid domain.
          */
@@ -133,8 +129,7 @@ public final class Email extends AbstractModel {
         }
 
         /**
-         * @return An instance of {@code Email} created from the
-         * fields set on this builder.
+         * @return An instance of {@code Email} created from the fields set on this builder.
          */
         public Email build() {
             return new Email(this);
@@ -142,10 +137,9 @@ public final class Email extends AbstractModel {
     }
 
     /**
-     * @return The email address field to use in the transaction. This will be
-     * a valid email address if you used {@link Builder#address(String)}, an MD5
-     * hash if you used {@link Builder#hashAddress()} as well, or null if you
-     * did not set an email address.
+     * @return The email address field to use in the transaction. This will be a valid email address
+     *     if you used {@link Builder#address(String)}, an MD5 hash if you used
+     *     {@link Builder#hashAddress()} as well, or null if you did not set an email address.
      */
     @JsonProperty("address")
     public String getAddress() {

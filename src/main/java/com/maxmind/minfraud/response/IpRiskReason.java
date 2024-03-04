@@ -11,11 +11,10 @@ public final class IpRiskReason extends AbstractModel {
     private final String reason;
 
     /**
-     * Constructor for {@code IpRiskReason}. 
+     * Constructor for {@code IpRiskReason}.
      *
      * @param code   The reason code.
-     * @param reason This field provides a human-readable explanation of the
-     *               reason. 
+     * @param reason This field provides a human-readable explanation of the reason.
      */
     public IpRiskReason(
         @JsonProperty("code") String code,
@@ -26,12 +25,12 @@ public final class IpRiskReason extends AbstractModel {
     }
 
     /**
-     * This provides a machine-readable code identifying the reason. Although
-     * more codes may be added in the future, the current codes are:
+     * This provides a machine-readable code identifying the reason. Although more codes may be
+     * added in the future, the current codes are:
      * <dl>
      *     <dt>ANONYMOUS_IP</dt>
      *     <dd>The IP address belongs to an anonymous network. See the
-     *     object at <code>.IPAddress.Traits</code> for more details.</dd>
+     *     object at {@code .IPAddress.Traits} for more details.</dd>
      *
      *     <dt>BILLING_POSTAL_VELOCITY</dt>
      *     <dd>Many different billing postal codes have been seen on
@@ -64,8 +63,8 @@ public final class IpRiskReason extends AbstractModel {
     }
 
     /**
-     * @return This field provides a human-readable explanation of the reason.
-     * The description may change at any time and should not be matched against.
+     * @return This field provides a human-readable explanation of the reason. The description may
+     *     change at any time and should not be matched against.
      */
     public String getReason() {
         return this.reason;

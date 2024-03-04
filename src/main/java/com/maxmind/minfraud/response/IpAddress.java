@@ -33,7 +33,7 @@ public final class IpAddress extends InsightsResponse implements IpAddressInterf
      * @param postal             The postal information.
      * @param registeredCountry  The information about the country where the IP was registered.
      * @param representedCountry The represented country, e.g., for military bases in other
-     * countries.
+     *                           countries.
      * @param risk               The IP risk.
      * @param riskReasons        The reasons for the IP risk.
      * @param subdivisions       The list of subdivisions.
@@ -62,8 +62,8 @@ public final class IpAddress extends InsightsResponse implements IpAddressInterf
     }
 
     /**
-     * Constructor for {@code IpAddress}. 
-     */ 
+     * Constructor for {@code IpAddress}.
+     */
     public IpAddress() {
         this(null, null, null, null, null, null,
             null, null, null, null, null, null);
@@ -79,17 +79,17 @@ public final class IpAddress extends InsightsResponse implements IpAddressInterf
 
 
     /**
-     * @return The risk associated with the IP address. The value ranges from
-     * 0.01 to 99. A higher score indicates a higher risk.
+     * @return The risk associated with the IP address. The value ranges from 0.01 to 99. A higher
+     *     score indicates a higher risk.
      */
     public Double getRisk() {
         return risk;
     }
 
     /**
-     * @return An unmodifiable list containing risk reason objects that identify
-     * the reasons why the IP address received the associated risk. This will
-     * be an empty list if there are no reasons.
+     * @return An unmodifiable list containing risk reason objects that identify the reasons why the
+     *     IP address received the associated risk. This will be an empty list if there are no
+     *     reasons.
      */
     @JsonProperty("risk_reasons")
     public List<IpRiskReason> getRiskReasons() {

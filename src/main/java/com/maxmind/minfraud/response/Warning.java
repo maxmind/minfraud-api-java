@@ -14,8 +14,8 @@ public final class Warning extends AbstractModel {
     /**
      * Constructor for {@code Warning}.
      *
-     * @param code The warning code.
-     * @param warning The warning message.
+     * @param code         The warning code.
+     * @param warning      The warning message.
      * @param inputPointer The JSON Pointer to the input that the warning is associated with.
      */
     public Warning(
@@ -29,8 +29,8 @@ public final class Warning extends AbstractModel {
     }
 
     /**
-     * This provides a machine-readable code identifying the warning. Although
-     * more codes may be added in the future, the current codes are:
+     * This provides a machine-readable code identifying the warning. Although more codes may be
+     * added in the future, the current codes are:
      *
      * <ul>
      * <li>BILLING_CITY_NOT_FOUND – the billing city could not be found in
@@ -61,18 +61,18 @@ public final class Warning extends AbstractModel {
     }
 
     /**
-     * @return This field provides a human-readable explanation of the warning.
-     * The description may change at any time and should not be matched against.
+     * @return This field provides a human-readable explanation of the warning. The description may
+     *     change at any time and should not be matched against.
      */
     public String getWarning() {
         return this.warning;
     }
 
     /**
-     * @return This is a JSON Pointer to the input that the warning is
-     * associated with. For instance, if the warning was about the billing
-     * city, the value would be "/billing/city". See
-     * <a href="https://tools.ietf.org/html/rfc6901">RFC 6901</a> for the JSON Pointer spec.
+     * @return This is a JSON Pointer to the input that the warning is associated with. For
+     *     instance, if the warning was about the billing city, the value would be "/billing/city".
+     *     See
+     *     <a href="https://tools.ietf.org/html/rfc6901">RFC 6901</a> for the JSON Pointer spec.
      */
     @JsonProperty("input_pointer")
     public String getInputPointer() {

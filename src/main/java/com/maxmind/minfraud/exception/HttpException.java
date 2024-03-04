@@ -6,9 +6,8 @@ import java.net.URI;
 import java.net.URL;
 
 /**
- * This class represents an HTTP transport error. This is not an error returned
- * by the web service itself. As such, it is a IOException instead of a
- * MinFraudException.
+ * This class represents an HTTP transport error. This is not an error returned by the web service
+ * itself. As such, it is a IOException instead of a MinFraudException.
  */
 public final class HttpException extends IOException {
     private final int httpStatus;

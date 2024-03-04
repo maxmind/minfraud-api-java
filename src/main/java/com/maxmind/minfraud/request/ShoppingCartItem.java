@@ -21,8 +21,8 @@ public final class ShoppingCartItem extends AbstractModel {
     }
 
     /**
-     * {@code Builder} creates instances of {@code ShippingCartItem}
-     * from values set by the builder's methods.
+     * {@code Builder} creates instances of {@code ShippingCartItem} from values set by the
+     * builder's methods.
      */
     public static final class Builder {
         String category;
@@ -63,8 +63,8 @@ public final class ShoppingCartItem extends AbstractModel {
         }
 
         /**
-         * @param price The per-unit price of the item in the shopping cart. This
-         *              should use the same currency as the order currency.
+         * @param price The per-unit price of the item in the shopping cart. This should use the
+         *              same currency as the order currency.
          * @return The builder object.
          */
         public ShoppingCartItem.Builder price(BigDecimal price) {
@@ -73,8 +73,8 @@ public final class ShoppingCartItem extends AbstractModel {
         }
 
         /**
-         * @param price The price of the item in the shopping cart. This
-         *              should be the same currency as the order currency.
+         * @param price The price of the item in the shopping cart. This should be the same currency
+         *              as the order currency.
          * @return The builder object.
          */
         public ShoppingCartItem.Builder price(Double price) {
@@ -83,8 +83,8 @@ public final class ShoppingCartItem extends AbstractModel {
         }
 
         /**
-         * @return An instance of {@code ShoppingCartItem} created from the
-         * fields set on this builder.
+         * @return An instance of {@code ShoppingCartItem} created from the fields set on this
+         *     builder.
          */
         public ShoppingCartItem build() {
             return new ShoppingCartItem(this);

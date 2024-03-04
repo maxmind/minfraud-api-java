@@ -9,13 +9,12 @@ public final class Billing extends AbstractLocation {
     }
 
     /**
-     * {@code Builder} creates instances of {@code Billing}
-     * from values set by the builder's methods.
+     * {@code Builder} creates instances of {@code Billing} from values set by the builder's
+     * methods.
      */
     public static final class Builder extends AbstractLocation.Builder<Billing.Builder> {
         /**
-         * @return An instance of {@code Billing} created from the
-         * fields set on this builder.
+         * @return An instance of {@code Billing} created from the fields set on this builder.
          */
         @Override
         public Billing build() {

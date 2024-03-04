@@ -11,23 +11,23 @@ public final class FactorsResponse extends InsightsResponse {
 
     private final Subscores subscores;
 
-    
+
     /**
      * Constructor for {@code FactorsResponse}.
      *
-     * @param billingAddress The {@code BillingAddress} model object.
-     * @param creditCard The {@code CreditCard} model object.
-     * @param device The {@code Device} model object.
-     * @param disposition The {@code Disposition} model object.
-     * @param email The {@code Email} model object.
-     * @param fundsRemaining The approximate US dollar value of the funds.
-     * @param id This is a UUID that identifies the minFraud request.
-     * @param ipAddress The {@code IpAddress} model object.
+     * @param billingAddress   The {@code BillingAddress} model object.
+     * @param creditCard       The {@code CreditCard} model object.
+     * @param device           The {@code Device} model object.
+     * @param disposition      The {@code Disposition} model object.
+     * @param email            The {@code Email} model object.
+     * @param fundsRemaining   The approximate US dollar value of the funds.
+     * @param id               This is a UUID that identifies the minFraud request.
+     * @param ipAddress        The {@code IpAddress} model object.
      * @param queriesRemaining The number of queries remaining.
-     * @param riskScore The risk score.
-     * @param shippingAddress The {@code ShippingAddress} model object.
-     * @param subscores The {@code Subscores} model object.
-     * @param warnings An list containing warning objects.
+     * @param riskScore        The risk score.
+     * @param shippingAddress  The {@code ShippingAddress} model object.
+     * @param subscores        The {@code Subscores} model object.
+     * @param warnings         An list containing warning objects.
      */
     public FactorsResponse(
         @JsonProperty("billing_address") BillingAddress billingAddress,
@@ -51,8 +51,7 @@ public final class FactorsResponse extends InsightsResponse {
     }
 
     /**
-     * @return The {@code Subscores} model object containing the risk factor
-     * scores.
+     * @return The {@code Subscores} model object containing the risk factor scores.
      */
     @JsonProperty("subscores")
     public Subscores getSubscores() {

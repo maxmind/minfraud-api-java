@@ -31,8 +31,7 @@ public final class Order extends AbstractModel {
     }
 
     /**
-     * {@code Builder} creates instances of {@code Order}
-     * from values set by the builder's methods.
+     * {@code Builder} creates instances of {@code Order} from values set by the builder's methods.
      */
     public static final class Builder {
         private static final Pattern CURRENCY_CODE_PATTERN = Pattern.compile("^[A-Z]{3}$");
@@ -65,11 +64,10 @@ public final class Order extends AbstractModel {
         }
 
         /**
-         * @param code The ISO 4217 currency code for the currency used in the
-         *             transaction.
+         * @param code The ISO 4217 currency code for the currency used in the transaction.
          * @return The builder object.
-         * @throws IllegalArgumentException when currency is not a valid
-         *                                  three-letter currency code.
+         * @throws IllegalArgumentException when currency is not a valid three-letter currency
+         *                                  code.
          */
         public Order.Builder currency(String code) {
             if (!CURRENCY_CODE_PATTERN.matcher(code).matches()) {
@@ -80,9 +78,8 @@ public final class Order extends AbstractModel {
         }
 
         /**
-         * @param code The discount code applied to the transaction. If
-         *             multiple discount codes were used, please
-         *             separate them with a comma.
+         * @param code The discount code applied to the transaction. If multiple discount codes were
+         *             used, please separate them with a comma.
          * @return The builder object.
          */
         public Order.Builder discountCode(String code) {
@@ -118,8 +115,7 @@ public final class Order extends AbstractModel {
         }
 
         /**
-         * @param id The ID of the sub-affiliate where the order is coming
-         *           from.
+         * @param id The ID of the sub-affiliate where the order is coming from.
          * @return The builder object.
          */
         public Order.Builder subaffiliateId(String id) {
@@ -137,8 +133,7 @@ public final class Order extends AbstractModel {
         }
 
         /**
-         * @return An instance of {@code Order} created from the
-         * fields set on this builder.
+         * @return An instance of {@code Order} created from the fields set on this builder.
          */
         public Order build() {
             return new Order(this);

@@ -5,9 +5,9 @@ import java.net.URI;
 import java.net.URL;
 
 /**
- * This class represents a non-specific error returned by MaxMind's minFraud web
- * service. This occurs when the web service is up and responding to requests,
- * but the request sent was invalid in some way.
+ * This class represents a non-specific error returned by MaxMind's minFraud web service. This
+ * occurs when the web service is up and responding to requests, but the request sent was invalid in
+ * some way.
  */
 public class InvalidRequestException extends MinFraudException {
     private final String code;
@@ -49,8 +49,8 @@ public class InvalidRequestException extends MinFraudException {
     }
 
     /**
-     * @return The integer HTTP status returned by the MaxMind web service. Will be 0 if
-     * it was not set at throw time.
+     * @return The integer HTTP status returned by the MaxMind web service. Will be 0 if it was not
+     *     set at throw time.
      */
     public final int getHttpStatus() {
         return httpStatus;

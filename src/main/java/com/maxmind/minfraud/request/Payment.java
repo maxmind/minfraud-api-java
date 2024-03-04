@@ -18,8 +18,8 @@ public final class Payment extends AbstractModel {
     }
 
     /**
-     * {@code Builder} creates instances of {@code Payment}
-     * from values set by the builder's methods.
+     * {@code Builder} creates instances of {@code Payment} from values set by the builder's
+     * methods.
      */
     public static final class Builder {
         Processor processor;
@@ -36,9 +36,9 @@ public final class Payment extends AbstractModel {
         }
 
         /**
-         * @param wasAuthorized The authorization outcome from the payment
-         *                      processor. If the transaction has not yet been
-         *                      approved or denied, do not include this field.
+         * @param wasAuthorized The authorization outcome from the payment processor. If the
+         *                      transaction has not yet been approved or denied, do not include this
+         *                      field.
          * @return The builder object.
          */
         public Payment.Builder wasAuthorized(boolean wasAuthorized) {
@@ -47,9 +47,8 @@ public final class Payment extends AbstractModel {
         }
 
         /**
-         * @param declineCode The decline code as provided by your payment
-         *                    processor. If the transaction was not declined,
-         *                    do not include this field.
+         * @param declineCode The decline code as provided by your payment processor. If the
+         *                    transaction was not declined, do not include this field.
          * @return The builder object.
          */
         public Payment.Builder declineCode(String declineCode) {
@@ -58,8 +57,7 @@ public final class Payment extends AbstractModel {
         }
 
         /**
-         * @return an instance of {@code Payment} created from the
-         * fields set on this builder.
+         * @return an instance of {@code Payment} created from the fields set on this builder.
          */
         public Payment build() {
             return new Payment(this);
@@ -253,6 +251,9 @@ public final class Payment extends AbstractModel {
         WIRECARD,
         WORLDPAY;
 
+        /**
+         * @return a string representation of the object.
+         */
         public String toString() {
             return this.name().toLowerCase();
         }
