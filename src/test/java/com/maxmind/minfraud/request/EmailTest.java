@@ -207,6 +207,10 @@ public class EmailTest {
         e = new Builder(false).address("foo@example.cam").hashAddress().build();
         assertEquals(toMD5("foo@example.com"), e.getAddress(), "MD5");
         assertEquals("example.cam", e.getDomain(), "domain");
+
+        e = new Builder(false).address("foo@10000gmail.com").hashAddress().build();
+        assertEquals(toMD5("foo@gmail.com"), e.getAddress(), "MD5");
+        assertEquals("10000gmail.com", e.getDomain(), "domain");
     }
 
     private String toMD5(String s) throws NoSuchAlgorithmException {
