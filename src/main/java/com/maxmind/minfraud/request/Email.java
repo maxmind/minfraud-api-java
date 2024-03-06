@@ -196,6 +196,10 @@ public final class Email extends AbstractModel {
             localPart = localPart.substring(0, stopCharIndex);
         }
 
+        if (domain.equals("gmail.com")) {
+            localPart = localPart.replace(".", "");
+        }
+
         return localPart + "@" + domain;
     }
 
