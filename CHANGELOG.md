@@ -13,6 +13,10 @@ CHANGELOG
 * Fastmail alias subdomain email addresses are now normalized when
   `hashAddress` is used. For example, `alias@user.fastmail.com` will become
   `user@fastmail.com`.
+* Additional `yahoo.com` email addresses now have aliases removed from
+  their local part when `hashAddress` is used. For example,
+  `foo-bar@yahoo.com` will become `foo@yahoo.com` for additional
+  `yahoo.com` domains.
 
 3.3.0 (2023-12-05)
 ------------------

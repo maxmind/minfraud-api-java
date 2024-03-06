@@ -24,6 +24,7 @@ public final class Email extends AbstractModel {
     private static final Map<String, String> typoDomains;
     private static final Map<String, String> equivalentDomains;
     private static final Map<String, Boolean> fastmailDomains;
+    private static final Map<String, Boolean> yahooDomains;
 
     static {
         HashMap<String, String> typoDomainsMap = new HashMap<>() {{
@@ -172,6 +173,63 @@ public final class Email extends AbstractModel {
                 put("your-mail.com", true);
             }};
         fastmailDomains = Collections.unmodifiableMap(fastmailDomainsMap);
+
+        HashMap<String, Boolean> yahooDomainsMap = new HashMap<>() {{
+                put("y7mail.com", true);
+                put("yahoo.at", true);
+                put("yahoo.be", true);
+                put("yahoo.bg", true);
+                put("yahoo.ca", true);
+                put("yahoo.cl", true);
+                put("yahoo.co.id", true);
+                put("yahoo.co.il", true);
+                put("yahoo.co.in", true);
+                put("yahoo.co.kr", true);
+                put("yahoo.co.nz", true);
+                put("yahoo.co.th", true);
+                put("yahoo.co.uk", true);
+                put("yahoo.co.za", true);
+                put("yahoo.com", true);
+                put("yahoo.com.ar", true);
+                put("yahoo.com.au", true);
+                put("yahoo.com.br", true);
+                put("yahoo.com.co", true);
+                put("yahoo.com.hk", true);
+                put("yahoo.com.hr", true);
+                put("yahoo.com.mx", true);
+                put("yahoo.com.my", true);
+                put("yahoo.com.pe", true);
+                put("yahoo.com.ph", true);
+                put("yahoo.com.sg", true);
+                put("yahoo.com.tr", true);
+                put("yahoo.com.tw", true);
+                put("yahoo.com.ua", true);
+                put("yahoo.com.ve", true);
+                put("yahoo.com.vn", true);
+                put("yahoo.cz", true);
+                put("yahoo.de", true);
+                put("yahoo.dk", true);
+                put("yahoo.ee", true);
+                put("yahoo.es", true);
+                put("yahoo.fi", true);
+                put("yahoo.fr", true);
+                put("yahoo.gr", true);
+                put("yahoo.hu", true);
+                put("yahoo.ie", true);
+                put("yahoo.in", true);
+                put("yahoo.it", true);
+                put("yahoo.lt", true);
+                put("yahoo.lv", true);
+                put("yahoo.nl", true);
+                put("yahoo.no", true);
+                put("yahoo.pl", true);
+                put("yahoo.pt", true);
+                put("yahoo.ro", true);
+                put("yahoo.se", true);
+                put("yahoo.sk", true);
+                put("ymail.com", true);
+            }};
+        yahooDomains = Collections.unmodifiableMap(yahooDomainsMap);
     }
 
     private Email(Email.Builder builder) {
@@ -309,7 +367,7 @@ public final class Email extends AbstractModel {
         domain = cleanDomain(domain);
 
         int stopChar;
-        if (domain.equals("yahoo.com")) {
+        if (yahooDomains.containsKey(domain)) {
             stopChar = '-';
         } else {
             stopChar = '+';
