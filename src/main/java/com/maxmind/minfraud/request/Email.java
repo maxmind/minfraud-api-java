@@ -413,6 +413,7 @@ public final class Email extends AbstractModel {
 
         domain = domain.replaceAll("(?:\\.com){2,}$", ".com");
         domain = domain.replaceAll("\\.com[^.]+$", ".com");
+        domain = domain.replaceAll("(?:\\.(?:com|c[a-z]{1,2}m|co[ln]|[dsvx]o[mn]|))$", ".com");
 
         if (typoDomains.containsKey(domain)) {
             domain = typoDomains.get(domain);
