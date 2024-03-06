@@ -7,6 +7,7 @@ import java.net.IDN;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,7 @@ public final class Email extends AbstractModel {
     private final String domain;
     private static final Map<String, String> typoDomains;
     private static final Map<String, String> equivalentDomains;
+    private static final Map<String, Boolean> fastmailDomains;
 
     static {
         HashMap<String, String> typoDomainsMap = new HashMap<>() {{
@@ -34,8 +36,8 @@ public final class Email extends AbstractModel {
             put("gmil.com", "gmail.com");
             put("yahoogmail.com", "gmail.com");
             // outlook.com
-            put("putlook.com", "outlook.com");
-        }};
+                put("putlook.com", "outlook.com");
+            }};
         typoDomains = Collections.unmodifiableMap(typoDomainsMap);
 
         HashMap<String, String> equivalentDomainsMap = new HashMap<>() {{
@@ -49,6 +51,127 @@ public final class Email extends AbstractModel {
                 put("ya.ru", "yandex.ru");
             }};
         equivalentDomains = Collections.unmodifiableMap(equivalentDomainsMap);
+
+        HashMap<String, Boolean> fastmailDomainsMap = new HashMap<>() {{
+                put("123mail.org", true);
+                put("150mail.com", true);
+                put("150ml.com", true);
+                put("16mail.com", true);
+                put("2-mail.com", true);
+                put("4email.net", true);
+                put("50mail.com", true);
+                put("airpost.net", true);
+                put("allmail.net", true);
+                put("bestmail.us", true);
+                put("cluemail.com", true);
+                put("elitemail.org", true);
+                put("emailcorner.net", true);
+                put("emailengine.net", true);
+                put("emailengine.org", true);
+                put("emailgroups.net", true);
+                put("emailplus.org", true);
+                put("emailuser.net", true);
+                put("eml.cc", true);
+                put("f-m.fm", true);
+                put("fast-email.com", true);
+                put("fast-mail.org", true);
+                put("fastem.com", true);
+                put("fastemail.us", true);
+                put("fastemailer.com", true);
+                put("fastest.cc", true);
+                put("fastimap.com", true);
+                put("fastmail.cn", true);
+                put("fastmail.co.uk", true);
+                put("fastmail.com", true);
+                put("fastmail.com.au", true);
+                put("fastmail.de", true);
+                put("fastmail.es", true);
+                put("fastmail.fm", true);
+                put("fastmail.fr", true);
+                put("fastmail.im", true);
+                put("fastmail.in", true);
+                put("fastmail.jp", true);
+                put("fastmail.mx", true);
+                put("fastmail.net", true);
+                put("fastmail.nl", true);
+                put("fastmail.org", true);
+                put("fastmail.se", true);
+                put("fastmail.to", true);
+                put("fastmail.tw", true);
+                put("fastmail.uk", true);
+                put("fastmail.us", true);
+                put("fastmailbox.net", true);
+                put("fastmessaging.com", true);
+                put("fea.st", true);
+                put("fmail.co.uk", true);
+                put("fmailbox.com", true);
+                put("fmgirl.com", true);
+                put("fmguy.com", true);
+                put("ftml.net", true);
+                put("h-mail.us", true);
+                put("hailmail.net", true);
+                put("imap-mail.com", true);
+                put("imap.cc", true);
+                put("imapmail.org", true);
+                put("inoutbox.com", true);
+                put("internet-e-mail.com", true);
+                put("internet-mail.org", true);
+                put("internetemails.net", true);
+                put("internetmailing.net", true);
+                put("jetemail.net", true);
+                put("justemail.net", true);
+                put("letterboxes.org", true);
+                put("mail-central.com", true);
+                put("mail-page.com", true);
+                put("mailandftp.com", true);
+                put("mailas.com", true);
+                put("mailbolt.com", true);
+                put("mailc.net", true);
+                put("mailcan.com", true);
+                put("mailforce.net", true);
+                put("mailftp.com", true);
+                put("mailhaven.com", true);
+                put("mailingaddress.org", true);
+                put("mailite.com", true);
+                put("mailmight.com", true);
+                put("mailnew.com", true);
+                put("mailsent.net", true);
+                put("mailservice.ms", true);
+                put("mailup.net", true);
+                put("mailworks.org", true);
+                put("ml1.net", true);
+                put("mm.st", true);
+                put("myfastmail.com", true);
+                put("mymacmail.com", true);
+                put("nospammail.net", true);
+                put("ownmail.net", true);
+                put("petml.com", true);
+                put("postinbox.com", true);
+                put("postpro.net", true);
+                put("proinbox.com", true);
+                put("promessage.com", true);
+                put("realemail.net", true);
+                put("reallyfast.biz", true);
+                put("reallyfast.info", true);
+                put("rushpost.com", true);
+                put("sent.as", true);
+                put("sent.at", true);
+                put("sent.com", true);
+                put("speedpost.net", true);
+                put("speedymail.org", true);
+                put("ssl-mail.com", true);
+                put("swift-mail.com", true);
+                put("the-fastest.net", true);
+                put("the-quickest.com", true);
+                put("theinternetemail.com", true);
+                put("veryfast.biz", true);
+                put("veryspeedy.net", true);
+                put("warpmail.net", true);
+                put("xsmail.com", true);
+                put("yepmail.net", true);
+                put("your-mail.com", true);
+            }};
+        fastmailDomains = Collections.unmodifiableMap(fastmailDomainsMap);
     }
 
     private Email(Email.Builder builder) {
@@ -198,6 +321,20 @@ public final class Email extends AbstractModel {
 
         if (domain.equals("gmail.com")) {
             localPart = localPart.replace(".", "");
+        }
+
+        String[] domainParts = domain.split("\\.");
+        if (domainParts.length > 2) {
+            String possibleDomain = String.join(
+                ".",
+                Arrays.copyOfRange(domainParts, 1, domainParts.length)
+            );
+            if (fastmailDomains.containsKey(possibleDomain)) {
+                domain = possibleDomain;
+                if (!localPart.equals("")) {
+                    localPart = domainParts[0];
+                }
+            }
         }
 
         return localPart + "@" + domain;

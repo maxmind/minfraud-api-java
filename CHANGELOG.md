@@ -10,6 +10,9 @@ CHANGELOG
 * Periods are now removed from `gmail.com` email address local parts when
   `hashAddress` is used. For example, `f.o.o@gmail.com` will become
   `foo@gmail.com`.
+* Fastmail alias subdomain email addresses are now normalized when
+  `hashAddress` is used. For example, `alias@user.fastmail.com` will become
+  `user@fastmail.com`.
 
 3.3.0 (2023-12-05)
 ------------------
