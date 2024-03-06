@@ -411,6 +411,8 @@ public final class Email extends AbstractModel {
 
         domain = IDN.toASCII(domain);
 
+        domain = domain.replaceAll("(?:\\.com){2,}$", ".com");
+
         if (typoDomains.containsKey(domain)) {
             domain = typoDomains.get(domain);
         }
