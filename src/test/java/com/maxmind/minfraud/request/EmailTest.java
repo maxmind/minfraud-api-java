@@ -5,6 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.maxmind.minfraud.request.Email.Builder;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
@@ -89,7 +93,7 @@ public class EmailTest {
     }
 
     @Test
-    public void testNormalizing() {
+    public void testNormalizing() throws NoSuchAlgorithmException {
         Email e;
 
         e = new Builder().address("test@maxmind.com").hashAddress().build();
@@ -171,6 +175,17 @@ public class EmailTest {
         e = new Builder(false).address("test@.").hashAddress().build();
         assertEquals("246a848af2f8394e3adbc738dbe43720", e.getAddress(), "MD5");
         assertEquals(".", e.getDomain(), "domain");
+
+        e = new Builder(false).address("foo@googlemail.com").hashAddress().build();
+        assertEquals(toMD5("foo@gmail.com"), e.getAddress(), "MD5");
+        assertEquals("googlemail.com", e.getDomain(), "domain");
+    }
+
+    private String toMD5(String s) throws NoSuchAlgorithmException {
+        MessageDigest d = MessageDigest.getInstance("MD5");
+        d.update(s.getBytes(StandardCharsets.UTF_8));
+        BigInteger i = new BigInteger(1, d.digest());
+        return String.format("%032x", i);
     }
 
     @Test

@@ -21,9 +21,10 @@ public final class Email extends AbstractModel {
     private final boolean hashAddress;
     private final String domain;
     private static final Map<String, String> typoDomains;
+    private static final Map<String, String> equivalentDomains;
 
     static {
-        HashMap<String, String> m = new HashMap<>() {{
+        HashMap<String, String> typoDomainsMap = new HashMap<>() {{
             // gmail.com
             put("35gmai.com", "gmail.com");
             put("636gmail.com", "gmail.com");
@@ -35,8 +36,19 @@ public final class Email extends AbstractModel {
             // outlook.com
             put("putlook.com", "outlook.com");
         }};
+        typoDomains = Collections.unmodifiableMap(typoDomainsMap);
 
-        typoDomains = Collections.unmodifiableMap(m);
+        HashMap<String, String> equivalentDomainsMap = new HashMap<>() {{
+                put("googlemail.com", "gmail.com");
+                put("pm.me", "protonmail.com");
+                put("proton.me", "protonmail.com");
+                put("yandex.by", "yandex.ru");
+                put("yandex.com", "yandex.ru");
+                put("yandex.kz", "yandex.ru");
+                put("yandex.ua", "yandex.ru");
+                put("ya.ru", "yandex.ru");
+            }};
+        equivalentDomains = Collections.unmodifiableMap(equivalentDomainsMap);
     }
 
     private Email(Email.Builder builder) {
@@ -202,6 +214,10 @@ public final class Email extends AbstractModel {
 
         if (typoDomains.containsKey(domain)) {
             domain = typoDomains.get(domain);
+        }
+
+        if (equivalentDomains.containsKey(domain)) {
+            domain = equivalentDomains.get(domain);
         }
 
         return domain;

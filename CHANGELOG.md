@@ -5,6 +5,8 @@ CHANGELOG
 ------------------
 
 * Added `PXP_FINANCIAL` and `TRUSTPAY` to the `Payment.Processor` enum.
+* Equivalent domain names are now normalized when `hashAddress` is used.
+  For example, `googlemail.com` will become `gmail.com`.
 
 3.3.0 (2023-12-05)
 ------------------
