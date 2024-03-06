@@ -29,13 +29,16 @@ public final class Email extends AbstractModel {
     static {
         HashMap<String, String> typoDomainsMap = new HashMap<>() {{
             // gmail.com
-            put("35gmai.com", "gmail.com");
-            put("636gmail.com", "gmail.com");
+            put("gmai.com", "gmail.com");
             put("gamil.com", "gmail.com");
-            put("gmail.comu", "gmail.com");
+            put("gmali.com", "gmail.com");
             put("gmial.com", "gmail.com");
             put("gmil.com", "gmail.com");
-            put("yahoogmail.com", "gmail.com");
+            put("gmaill.com", "gmail.com");
+            put("gmailm.com", "gmail.com");
+                put("gmailo.com", "gmail.com");
+                put("gmailyhoo.com", "gmail.com");
+                put("yahoogmail.com", "gmail.com");
             // outlook.com
                 put("putlook.com", "outlook.com");
             }};
