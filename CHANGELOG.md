@@ -5,6 +5,31 @@ CHANGELOG
 ------------------
 
 * Added `PXP_FINANCIAL` and `TRUSTPAY` to the `Payment.Processor` enum.
+* Equivalent domain names are now normalized when `hashAddress` is used.
+  For example, `googlemail.com` will become `gmail.com`.
+* Periods are now removed from `gmail.com` email address local parts when
+  `hashAddress` is used. For example, `f.o.o@gmail.com` will become
+  `foo@gmail.com`.
+* Fastmail alias subdomain email addresses are now normalized when
+  `hashAddress` is used. For example, `alias@user.fastmail.com` will become
+  `user@fastmail.com`.
+* Additional `yahoo.com` email addresses now have aliases removed from
+  their local part when `hashAddress` is used. For example,
+  `foo-bar@yahoo.com` will become `foo@yahoo.com` for additional
+  `yahoo.com` domains.
+* Duplicate `.com`s are now removed from email domain names when
+  `hashAddress` is used. For example, `example.com.com` will become
+  `example.com`.
+* Extraneous characters after `.com` are now removed from email domain
+  names when `hashAddress` is used. For example, `example.comfoo` will
+  become `example.com`.
+* Certain `.com` typos are now normalized to `.com` when `hashAddress` is
+  used. For example, `example.cam` will become `example.com`.
+* Additional `gmail.com` domain names with leading digits are now
+  normalized when `hashAddress` is used. For example, `100gmail.com` will
+  become `gmail.com`.
+* Additional `gmail.com` typos are now normalized when `hashAddress` is
+  used. For example, `gmali.com` will become `gmail.com`.
 
 3.3.0 (2023-12-05)
 ------------------
