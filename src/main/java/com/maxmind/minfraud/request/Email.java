@@ -22,6 +22,7 @@ public final class Email extends AbstractModel {
     private final boolean hashAddress;
     private final String domain;
     private static final Map<String, String> typoDomains;
+    private static final Map<String, String> typoTlds;
     private static final Map<String, String> equivalentDomains;
     private static final Map<String, Boolean> fastmailDomains;
     private static final Map<String, Boolean> yahooDomains;
@@ -43,6 +44,55 @@ public final class Email extends AbstractModel {
                 put("putlook.com", "outlook.com");
             }};
         typoDomains = Collections.unmodifiableMap(typoDomainsMap);
+
+        HashMap<String, String> typoTldsMap = new HashMap<>() {{
+                put("comm", "com");
+                put("commm", "com");
+                put("commmm", "com");
+                put("comn", "com");
+
+                put("cbm", "com");
+                put("ccm", "com");
+                put("cdm", "com");
+                put("cem", "com");
+                put("cfm", "com");
+                put("cgm", "com");
+                put("chm", "com");
+                put("cim", "com");
+                put("cjm", "com");
+                put("ckm", "com");
+                put("clm", "com");
+                put("cmm", "com");
+                put("cnm", "com");
+                put("cpm", "com");
+                put("cqm", "com");
+                put("crm", "com");
+                put("csm", "com");
+                put("ctm", "com");
+                put("cum", "com");
+                put("cvm", "com");
+                put("cwm", "com");
+                put("cxm", "com");
+                put("cym", "com");
+                put("czm", "com");
+
+                put("col", "com");
+                put("con", "com");
+
+                put("dom", "com");
+                put("don", "com");
+                put("som", "com");
+                put("son", "com");
+                put("vom", "com");
+                put("von", "com");
+                put("xom", "com");
+                put("xon", "com");
+
+                put("clam", "com");
+                put("colm", "com");
+                put("comcom", "com");
+            }};
+        typoTlds = Collections.unmodifiableMap(typoTldsMap);
 
         HashMap<String, String> equivalentDomainsMap = new HashMap<>() {{
                 put("googlemail.com", "gmail.com");
@@ -415,9 +465,15 @@ public final class Email extends AbstractModel {
         domain = IDN.toASCII(domain);
 
         domain = domain.replaceAll("(?:\\.com){2,}$", ".com");
-        domain = domain.replaceAll("\\.com[^.]+$", ".com");
-        domain = domain.replaceAll("(?:\\.(?:com|c[a-z]{1,2}m|co[ln]|[dsvx]o[mn]|))$", ".com");
         domain = domain.replaceAll("^\\d+(?:gmail?\\.com)$", "gmail.com");
+
+        int idx = domain.lastIndexOf('.');
+        if (idx != -1) {
+            String tld = domain.substring(idx + 1);
+            if (typoTlds.containsKey(tld)) {
+                domain = domain.substring(0, idx) + "." + typoTlds.get(tld);
+            }
+        }
 
         if (typoDomains.containsKey(domain)) {
             domain = typoDomains.get(domain);
