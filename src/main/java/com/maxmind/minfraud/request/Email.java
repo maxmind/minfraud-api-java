@@ -28,6 +28,7 @@ public final class Email extends AbstractModel {
     private static final Map<String, Boolean> fastmailDomains;
     private static final Map<String, Boolean> yahooDomains;
     private static final Pattern DOT_PATTERN = Pattern.compile("\\.");
+    private static final Pattern TRAILING_DOT_PATTERN = Pattern.compile("\\.+$");
     private static final Pattern REPEAT_COM_PATTERN = Pattern.compile("(?:\\.com){2,}$");
     private static final Pattern GMAIL_NUMBER_PATTERN = Pattern.compile("^\\d+(?:gmail?\\.com)$");
 
@@ -462,9 +463,7 @@ public final class Email extends AbstractModel {
 
         domain = domain.trim();
 
-        if (domain.endsWith(".")) {
-            domain = domain.substring(0, domain.length() - 1);
-        }
+        domain = TRAILING_DOT_PATTERN.matcher(domain).replaceAll("");
 
         domain = IDN.toASCII(domain);
 
