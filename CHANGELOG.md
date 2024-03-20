@@ -27,6 +27,8 @@ CHANGELOG
   become `gmail.com`.
 * Additional `gmail.com` typos are now normalized when `hashAddress` is
   used. For example, `gmali.com` will become `gmail.com`.
+* When `hashAddress` is used, all trailing periods are now removed from an
+  email address domain. Previously only a single period was removed.
 
 3.3.0 (2023-12-05)
 ------------------

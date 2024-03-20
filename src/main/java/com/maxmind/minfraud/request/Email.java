@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 import org.apache.commons.validator.routines.DomainValidator;
 import org.apache.commons.validator.routines.EmailValidator;
 
@@ -26,6 +27,10 @@ public final class Email extends AbstractModel {
     private static final Map<String, String> equivalentDomains;
     private static final Map<String, Boolean> fastmailDomains;
     private static final Map<String, Boolean> yahooDomains;
+    private static final Pattern DOT_PATTERN = Pattern.compile("\\.");
+    private static final Pattern TRAILING_DOT_PATTERN = Pattern.compile("\\.+$");
+    private static final Pattern REPEAT_COM_PATTERN = Pattern.compile("(?:\\.com){2,}$");
+    private static final Pattern GMAIL_NUMBER_PATTERN = Pattern.compile("^\\d+(?:gmail?\\.com)$");
 
     static {
         HashMap<String, String> typoDomainsMap = new HashMap<>() {{
@@ -434,7 +439,7 @@ public final class Email extends AbstractModel {
             localPart = localPart.replace(".", "");
         }
 
-        String[] domainParts = domain.split("\\.");
+        String[] domainParts = DOT_PATTERN.split(domain);
         if (domainParts.length > 2) {
             String possibleDomain = String.join(
                 ".",
@@ -458,14 +463,12 @@ public final class Email extends AbstractModel {
 
         domain = domain.trim();
 
-        if (domain.endsWith(".")) {
-            domain = domain.substring(0, domain.length() - 1);
-        }
+        domain = TRAILING_DOT_PATTERN.matcher(domain).replaceAll("");
 
         domain = IDN.toASCII(domain);
 
-        domain = domain.replaceAll("(?:\\.com){2,}$", ".com");
-        domain = domain.replaceAll("^\\d+(?:gmail?\\.com)$", "gmail.com");
+        domain = REPEAT_COM_PATTERN.matcher(domain).replaceAll(".com");
+        domain = GMAIL_NUMBER_PATTERN.matcher(domain).replaceAll("gmail.com");
 
         int idx = domain.lastIndexOf('.');
         if (idx != -1) {
