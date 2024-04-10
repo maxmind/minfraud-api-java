@@ -223,6 +223,11 @@ public class EmailTest {
         e = new Builder(false).address("foo@example.com...").hashAddress().build();
         assertEquals(toMD5("foo@example.com"), e.getAddress(), "MD5");
         assertEquals("example.com...", e.getDomain(), "domain");
+
+        e = new Builder().address("example@bu\u0308cher.com").hashAddress().build();
+        assertEquals("2b21bc76dab3c8b1622837c1d698936c", e.getAddress(), "MD5");
+        e = new Builder().address("example@b\u00FCcher.com").hashAddress().build();
+        assertEquals("2b21bc76dab3c8b1622837c1d698936c", e.getAddress(), "MD5");
     }
 
     private String toMD5(String s) throws NoSuchAlgorithmException {
