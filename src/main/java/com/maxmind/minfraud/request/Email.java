@@ -7,6 +7,7 @@ import java.net.IDN;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -422,6 +423,7 @@ public final class Email extends AbstractModel {
         String localPart = address.substring(0, domainIndex);
         String domain = address.substring(domainIndex + 1);
 
+        localPart = Normalizer.normalize(localPart, Normalizer.Form.NFC);
         domain = cleanDomain(domain);
 
         int stopChar;
