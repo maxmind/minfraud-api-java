@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-3.4.0
+3.4.0 (2024-04-16)
 ------------------
 
 * Added `PXP_FINANCIAL` and `TRUSTPAY` to the `Payment.Processor` enum.
