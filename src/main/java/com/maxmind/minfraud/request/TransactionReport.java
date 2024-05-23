@@ -49,9 +49,6 @@ public final class TransactionReport extends AbstractModel {
          *                  fraudulent.
          */
         public Builder(InetAddress ipAddress, Tag tag) {
-            if (ipAddress == null) {
-                throw new IllegalArgumentException("ipAddress must not be null");
-            }
             if (tag == null) {
                 throw new IllegalArgumentException("tag must not be null");
             }
@@ -73,8 +70,9 @@ public final class TransactionReport extends AbstractModel {
         /**
          * @param maxmindId A unique eight character string identifying a minFraud Standard or
          *                  Premium request. These IDs are returned in the maxmindID field of a
-         *                  response for a successful minFraud request. This field is not required,
-         *                  but you are encouraged to provide it, if possible.
+         *                  response for a successful minFraud request. This field is not required
+         *                  if you provide at least one of the transaction's ipAddress, minfraudId,
+         *                  or transactionId. You are encouraged to provide it, if possible.
          * @return The builder object.
          */
         public TransactionReport.Builder maxmindId(String maxmindId) {
@@ -87,11 +85,12 @@ public final class TransactionReport extends AbstractModel {
         }
 
         /**
-         * @param minfraudId A UUID that identifies a minFraud Score, minFraud Insights, or minFraud
-         *                   Factors request. This ID is returned via getId() in the Score, Insights
-         *                   or Factors response object. This field is not required, but you are
-         *                   encouraged to provide it if the request was made to one of these
-         *                   services.
+         * @param minfraudId A UUID that identifies a minFraud Score, minFraud Insights, or
+         *                   minFraud Factors request. This ID is returned via getId() in the
+         *                   Score, Insights or Factors response object. This field is not
+         *                   required if you provide at least one of the transaction's ipAddress,
+         *                   maxmindId, or minfraudId. You are encouraged to provide it if the
+         *                   request was made to one of these services.
          * @return The builder object.
          */
         public TransactionReport.Builder minfraudId(UUID minfraudId) {
@@ -109,7 +108,9 @@ public final class TransactionReport extends AbstractModel {
         }
 
         /**
-         * @param transactionId The transaction ID you originally passed to minFraud.
+         * @param transactionId The transaction ID you originally passed to minFraud. This field is
+         *                      not required if you provide at least one of the transaction's
+         *                      ipAddress, maxmindId, or minfraudId.
          * @return The builder object.
          */
         public TransactionReport.Builder transactionId(String transactionId) {
@@ -122,6 +123,17 @@ public final class TransactionReport extends AbstractModel {
          *     builder.
          */
         public TransactionReport build() {
+            if (this.ipAddress == null
+                && this.minfraudId == null
+                && (this.maxmindId == null || this.maxmindId.isEmpty())
+                && (this.transactionId == null || this.transactionId.isEmpty())
+            ) {
+                throw new IllegalArgumentException(
+                    "The user must pass at least one of the following: "
+                    + "ipAddress, minfraudId, maxmindId, transactionId."
+                );
+            }
+
             return new TransactionReport(this);
         }
     }

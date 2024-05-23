@@ -1,5 +1,6 @@
 package com.maxmind.minfraud.request;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -22,19 +23,36 @@ public class TransactionReportTest {
     }
 
     @Test
-    public void testInvalidIPAddress() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> new Builder(null, tag).maxmindId("123456789").build()
-        );
-    }
-
-    @Test
     public void testInvalidTag() {
         assertThrows(
             IllegalArgumentException.class,
             () -> new Builder(ip, null).maxmindId("123456789").build()
         );
+    }
+
+    @Test
+    public void testBuildInvalidIdentifier() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> new Builder(null, tag).build()
+        );
+    }
+
+    @Test
+    public void testBuildValidIdentifier() {
+        final String maxmindId = "12345678";
+        final UUID minfraudId = UUID.fromString(
+            "58fa38d8-4b87-458b-a22b-f00eda1aa20d");
+        final String transactionId = "abc123";
+
+        assertEquals(ip, new TransactionReport.Builder(ip, tag)
+            .build().getIpAddress());
+        assertEquals(maxmindId, new TransactionReport.Builder(null, tag)
+            .maxmindId(maxmindId).build().getMaxmindId());
+        assertEquals(minfraudId, new TransactionReport.Builder(null, tag)
+            .minfraudId(minfraudId).build().getMinfraudId());
+        assertEquals(transactionId, new TransactionReport.Builder(null, tag)
+            .transactionId(transactionId).build().getTransactionId());
     }
 
     @Test
