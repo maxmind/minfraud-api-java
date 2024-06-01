@@ -8,6 +8,8 @@ CHANGELOG
 * Updated `TransactionReport` to make the `ipAddress` parameter optional. Now
   the `tag` and at least one of the following paramters must be supplied:
   `ipAddress`, `maxmindId`, `minfraudId`, `transactionId`.
+* The `TransactionReport.Builder(INetAddress, Tag)` constructor has been
+  deprecated in favor of the new `TransactionReport.Builder(Tag)` constructor.
 
 3.4.0 (2024-04-16)
 ------------------

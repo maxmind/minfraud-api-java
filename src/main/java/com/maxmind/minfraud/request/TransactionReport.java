@@ -41,20 +41,42 @@ public final class TransactionReport extends AbstractModel {
         String transactionId;
 
         /**
-         * The constructor for the {@code TransactionReport.Builder} class
+         * The constructor for the {@code TransactionReport.Builder} class with IP address.
          *
          * @param ipAddress The IP address associated with the device used by the customer in the
          *                  transaction.
          * @param tag       A string indicating the likelihood that a transaction may be
          *                  fraudulent.
+         * @deprecated      Use {@link #Builder(Tag)} instead and set the IP address using
+         *                  {@link #ipAddress(InetAddress)}.
          */
+        @Deprecated
         public Builder(InetAddress ipAddress, Tag tag) {
+            this(tag);
+            this.ipAddress = ipAddress;
+        }
+
+        /**
+         * The constructor for the {@code TransactionReport.Builder} class.
+         *
+         * @param tag A string indicating the likelihood that a transaction may be fraudulent.
+         */
+        public Builder(Tag tag) {
             if (tag == null) {
                 throw new IllegalArgumentException("tag must not be null");
             }
 
-            this.ipAddress = ipAddress;
             this.tag = tag;
+        }
+
+        /**
+         * @param ipAddress The IP address associated with the device used by the customer in the
+         *                  transaction.
+         * @return The builder object.
+         */
+        public TransactionReport.Builder ipAddress(InetAddress ipAddress) {
+            this.ipAddress = ipAddress;
+            return this;
         }
 
         /**
@@ -121,6 +143,7 @@ public final class TransactionReport extends AbstractModel {
         /**
          * @return An instance of {@code TransactionReport} created from the fields set on this
          *     builder.
+         * @throws IllegalStateException if none of the required fields are set.
          */
         public TransactionReport build() {
             if (this.ipAddress == null

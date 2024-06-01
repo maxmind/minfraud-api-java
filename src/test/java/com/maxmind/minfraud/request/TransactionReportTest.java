@@ -47,11 +47,11 @@ public class TransactionReportTest {
 
         assertEquals(ip, new TransactionReport.Builder(ip, tag)
             .build().getIpAddress());
-        assertEquals(maxmindId, new TransactionReport.Builder(null, tag)
+        assertEquals(maxmindId, new TransactionReport.Builder(tag)
             .maxmindId(maxmindId).build().getMaxmindId());
-        assertEquals(minfraudId, new TransactionReport.Builder(null, tag)
+        assertEquals(minfraudId, new TransactionReport.Builder(tag)
             .minfraudId(minfraudId).build().getMinfraudId());
-        assertEquals(transactionId, new TransactionReport.Builder(null, tag)
+        assertEquals(transactionId, new TransactionReport.Builder(tag)
             .transactionId(transactionId).build().getTransactionId());
     }
 
