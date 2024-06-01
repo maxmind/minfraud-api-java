@@ -25,7 +25,7 @@ public class TransactionReportTest {
     public void testInvalidTag() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> new Builder(ip, null).maxmindId("123456789").build()
+            () -> new Builder(null).maxmindId("123456789").build()
         );
     }
 
@@ -33,7 +33,7 @@ public class TransactionReportTest {
     public void testBuildInvalidIdentifier() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> new Builder(null, tag).build()
+            () -> new Builder(tag).build()
         );
     }
 
@@ -44,8 +44,12 @@ public class TransactionReportTest {
             "58fa38d8-4b87-458b-a22b-f00eda1aa20d");
         final String transactionId = "abc123";
 
+        // Test the deprecated constructor
         assertEquals(ip, new TransactionReport.Builder(ip, tag)
             .build().getIpAddress());
+
+        assertEquals(ip, new TransactionReport.Builder(tag)
+            .ipAddress(ip).build().getIpAddress());
         assertEquals(maxmindId, new TransactionReport.Builder(tag)
             .maxmindId(maxmindId).build().getMaxmindId());
         assertEquals(minfraudId, new TransactionReport.Builder(tag)
@@ -56,20 +60,20 @@ public class TransactionReportTest {
 
     @Test
     public void testIpAddress() {
-        final TransactionReport report = new Builder(ip, tag).build();
+        final TransactionReport report = new Builder(tag).ipAddress(ip).build();
         assertEquals(ip, report.getIpAddress());
     }
 
     @Test
     public void testTag() {
-        final TransactionReport report = new Builder(ip, tag).build();
+        final TransactionReport report = new Builder(tag).ipAddress(ip).build();
         assertEquals(Tag.NOT_FRAUD, report.getTag());
     }
 
     @Test
     public void testChargebackCode() {
         final String code = "foo";
-        final TransactionReport report = new Builder(ip, tag).chargebackCode(code).build();
+        final TransactionReport report = new Builder(tag).ipAddress(ip).chargebackCode(code).build();
         assertEquals(code, report.getChargebackCode());
     }
 
@@ -77,7 +81,7 @@ public class TransactionReportTest {
     public void testTooLongMaxmindId() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> new Builder(ip, tag).maxmindId("123456789").build()
+            () -> new Builder(tag).maxmindId("123456789").build()
         );
     }
 
@@ -85,45 +89,44 @@ public class TransactionReportTest {
     public void testTooShortMaxmindId() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> new Builder(ip, tag).maxmindId("1234567").build()
+            () -> new Builder(tag).maxmindId("1234567").build()
         );
     }
 
     @Test
     public void testValidMaxmindId() {
         final String id = "12345678";
-        final TransactionReport report = new Builder(ip, tag).maxmindId(id).build();
+        final TransactionReport report = new Builder(tag).maxmindId(id).build();
         assertEquals(id, report.getMaxmindId());
     }
 
     @Test
     public void testMinfraudId() {
         final UUID id = UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d");
-        final TransactionReport report = new Builder(ip, tag).minfraudId(id).build();
+        final TransactionReport report = new Builder(tag).minfraudId(id).build();
         assertEquals(id, report.getMinfraudId());
     }
 
     @Test
     public void testNotes() {
         final String notes = "foo";
-        final TransactionReport report = new Builder(ip, tag).notes(notes).build();
+        final TransactionReport report = new Builder(tag).ipAddress(ip).notes(notes).build();
         assertEquals(notes, report.getNotes());
     }
 
     @Test
     public void testTransactionID() {
         final String id = "foo";
-        final TransactionReport report = new Builder(ip, tag).transactionId(id).build();
+        final TransactionReport report = new Builder(tag).transactionId(id).build();
         assertEquals(id, report.getTransactionId());
     }
 
     // Test the example in the README
     @Test
     public void testAllFields() throws Exception {
-        final TransactionReport report = new TransactionReport.Builder(
-            InetAddress.getByName("1.1.1.1"), Tag.NOT_FRAUD
-        )
+        final TransactionReport report = new TransactionReport.Builder(Tag.NOT_FRAUD)
             .chargebackCode("mycode")
+            .ipAddress(InetAddress.getByName("1.1.1.1"))
             .maxmindId("12345678")
             .minfraudId(UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d"))
             .notes("notes go here")
