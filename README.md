@@ -248,8 +248,8 @@ is continually used to improve the accuracy of our fraud detection algorithms.
 
 To use the Report Transactions API, create a new `TransactionReport` object. A
 valid tag at least one of the following are required arguments: IP address,
-maxmind ID, minfraud ID, transaction ID. Additional parameters may also be set,
-as documented below.
+MaxMind ID, minFraud ID, or transaction ID. Additional parameters may also be
+set, as documented below.
 
 If the report is successful, nothing is returned. If the report fails, an
 exception with be thrown.
