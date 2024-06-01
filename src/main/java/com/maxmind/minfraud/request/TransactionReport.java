@@ -129,7 +129,7 @@ public final class TransactionReport extends AbstractModel {
                 && (this.transactionId == null || this.transactionId.isEmpty())
             ) {
                 throw new IllegalArgumentException(
-                    "The user must pass at least one of the following: "
+                    "You must pass at least one of the following: "
                     + "ipAddress, minfraudId, maxmindId, transactionId."
                 );
             }
