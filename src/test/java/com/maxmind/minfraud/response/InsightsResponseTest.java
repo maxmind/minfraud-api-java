@@ -1,6 +1,7 @@
 package com.maxmind.minfraud.response;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.jr.ob.JSON;
@@ -42,8 +43,14 @@ public class InsightsResponseTest extends AbstractOutputTest {
                 .startObjectField("shipping_address")
                 .put("is_in_ip_country", true)
                 .end()
+                .startObjectField("shipping_phone")
+                .put("is_voip", true)
+                .end()
                 .startObjectField("billing_address")
                 .put("is_in_ip_country", true)
+                .end()
+                .startObjectField("billing_phone")
+                .put("is_voip", false)
                 .end()
                 .put("funds_remaining", 1.20)
                 .put("queries_remaining", 123)
@@ -75,10 +82,12 @@ public class InsightsResponseTest extends AbstractOutputTest {
             insights.getShippingAddress().isInIpCountry(),
             "correct shipping address is in IP country"
         );
+        assertTrue(insights.getShippingPhone().isVoip(), "correct shipping phone isVoip");
         assertTrue(
             insights.getBillingAddress().isInIpCountry(),
             "correct billing address is in IP country"
         );
+        assertFalse(insights.getBillingPhone().isVoip(), "correct billing phone isVoip");
         assertEquals(
             Double.valueOf(1.20),
             insights.getFundsRemaining(),

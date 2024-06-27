@@ -10,6 +10,11 @@ CHANGELOG
   `ipAddress`, `maxmindId`, `minfraudId`, `transactionId`.
 * The `TransactionReport.Builder(INetAddress, Tag)` constructor has been
   deprecated in favor of the new `TransactionReport.Builder(Tag)` constructor.
+* Added `getBillingPhone` and `getShippingPhone` methods to the minFraud
+  Insights and Factors response models. These contain objects with information
+  about the respective phone numbers. Please see [our developer
+  site](https://dev.maxmind.com/minfraud/api-documentation/responses/) for
+  more information.
 
 3.4.0 (2024-04-16)
 ------------------
