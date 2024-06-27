@@ -25,7 +25,7 @@ public abstract class AbstractAddress extends AbstractModel {
     /**
      * @return This returns true if the address is in the IP country. It is false when the address
      *     is not in the IP country. If the address could not be parsed or was not provided or the
-     *     IP address could not be geo-located, then null will be returned.
+     *     IP address could not be geolocated, then null will be returned.
      */
     @JsonProperty("is_in_ip_country")
     public final Boolean isInIpCountry() {

@@ -36,7 +36,7 @@ public final class Subscores {
      * @param country                             The country risk factor score.
      * @param countryMismatch                     The country mismatch risk factor score.
      * @param cvvResult                           The CVV result risk factor score.
-     * @param device                              The device risk factor score..
+     * @param device                              The device risk factor score.
      * @param emailAddress                        The email address risk factor score.
      * @param emailDomain                         The email domain risk factor score.
      * @param emailLocalPart                      The risk factor score for the local part of the

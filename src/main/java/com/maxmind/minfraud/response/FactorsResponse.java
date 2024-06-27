@@ -27,7 +27,7 @@ public final class FactorsResponse extends InsightsResponse {
      * @param riskScore        The risk score.
      * @param shippingAddress  The {@code ShippingAddress} model object.
      * @param subscores        The {@code Subscores} model object.
-     * @param warnings         An list containing warning objects.
+     * @param warnings         A list containing warning objects.
      */
     public FactorsResponse(
         @JsonProperty("billing_address") BillingAddress billingAddress,
