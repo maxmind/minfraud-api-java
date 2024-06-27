@@ -73,7 +73,8 @@ public class TransactionReportTest {
     @Test
     public void testChargebackCode() {
         final String code = "foo";
-        final TransactionReport report = new Builder(tag).ipAddress(ip).chargebackCode(code).build();
+        final TransactionReport report =
+            new Builder(tag).ipAddress(ip).chargebackCode(code).build();
         assertEquals(code, report.getChargebackCode());
     }
 
