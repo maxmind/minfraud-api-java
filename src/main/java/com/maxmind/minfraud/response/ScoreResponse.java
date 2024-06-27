@@ -28,7 +28,7 @@ public class ScoreResponse extends AbstractModel {
      * @param ipAddress        The {@code IpAddress} model object.
      * @param queriesRemaining The number of queries remaining.
      * @param riskScore        The risk score.
-     * @param warnings         An list containing warning objects.
+     * @param warnings         A list containing warning objects.
      */
     public ScoreResponse(
         @JsonProperty("disposition") Disposition disposition,

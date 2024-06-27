@@ -1,6 +1,8 @@
 package com.maxmind.minfraud.response;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.jr.ob.JSON;
 import java.util.UUID;
@@ -16,6 +18,12 @@ public class FactorsResponseTest extends AbstractOutputTest {
             JSON.std
                 .composeString()
                 .startObject()
+                .startObjectField("billing_phone")
+                .put("is_voip", false)
+                .end()
+                .startObjectField("shipping_phone")
+                .put("is_voip", true)
+                .end()
                 .startObjectField("subscores")
                 .put("avs_result", 0.01)
                 .put("billing_address", 0.02)
@@ -45,6 +53,9 @@ public class FactorsResponseTest extends AbstractOutputTest {
                 .end()
                 .finish()
         );
+
+        assertTrue(factors.getShippingPhone().isVoip(), "correct shipping phone isVoip");
+        assertFalse(factors.getBillingPhone().isVoip(), "correct billing phone isVoip");
 
         assertEquals(
             Double.valueOf(0.01),

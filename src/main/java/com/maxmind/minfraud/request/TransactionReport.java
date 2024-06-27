@@ -47,8 +47,8 @@ public final class TransactionReport extends AbstractModel {
          *                  transaction.
          * @param tag       A string indicating the likelihood that a transaction may be
          *                  fraudulent.
-         * @deprecated      Use {@link #Builder(Tag)} instead and set the IP address using
-         *                  {@link #ipAddress(InetAddress)}.
+         * @deprecated Use {@link #Builder(Tag)} instead and set the IP address using
+         *     {@link #ipAddress(InetAddress)}.
          */
         @Deprecated
         public Builder(InetAddress ipAddress, Tag tag) {
@@ -107,12 +107,12 @@ public final class TransactionReport extends AbstractModel {
         }
 
         /**
-         * @param minfraudId A UUID that identifies a minFraud Score, minFraud Insights, or
-         *                   minFraud Factors request. This ID is returned via getId() in the
-         *                   Score, Insights or Factors response object. This field is not
-         *                   required if you provide at least one of the transaction's ipAddress,
-         *                   maxmindId, or minfraudId. You are encouraged to provide it if the
-         *                   request was made to one of these services.
+         * @param minfraudId A UUID that identifies a minFraud Score, minFraud Insights, or minFraud
+         *                   Factors request. This ID is returned via getId() in the Score, Insights
+         *                   or Factors response object. This field is not required if you provide
+         *                   at least one of the transaction's ipAddress, maxmindId, or minfraudId.
+         *                   You are encouraged to provide it if the request was made to one of
+         *                   these services.
          * @return The builder object.
          */
         public TransactionReport.Builder minfraudId(UUID minfraudId) {
@@ -153,7 +153,7 @@ public final class TransactionReport extends AbstractModel {
             ) {
                 throw new IllegalArgumentException(
                     "You must pass at least one of the following: "
-                    + "ipAddress, minfraudId, maxmindId, transactionId."
+                        + "ipAddress, minfraudId, maxmindId, transactionId."
                 );
             }
 

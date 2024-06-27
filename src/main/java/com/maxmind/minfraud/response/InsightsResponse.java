@@ -12,13 +12,16 @@ public class InsightsResponse extends ScoreResponse {
     private final CreditCard creditCard;
     private final Device device;
     private final Email email;
-    private final ShippingAddress shippingAddress;
     private final BillingAddress billingAddress;
+    private final Phone billingPhone;
+    private final ShippingAddress shippingAddress;
+    private final Phone shippingPhone;
 
     /**
      * Constructor for {@code InsightsResponse}.
      *
      * @param billingAddress   billing address
+     * @param billingPhone     billing phone
      * @param creditCard       credit card
      * @param device           device
      * @param disposition      disposition
@@ -29,10 +32,12 @@ public class InsightsResponse extends ScoreResponse {
      * @param queriesRemaining queries remaining
      * @param riskScore        risk score
      * @param shippingAddress  shipping address
+     * @param shippingPhone    shipping phone
      * @param warnings         warnings
      */
     public InsightsResponse(
         @JsonProperty("billing_address") BillingAddress billingAddress,
+        @JsonProperty("billing_phone") Phone billingPhone,
         @JsonProperty("credit_card") CreditCard creditCard,
         @JsonProperty("device") Device device,
         @JsonProperty("disposition") Disposition disposition,
@@ -43,15 +48,42 @@ public class InsightsResponse extends ScoreResponse {
         @JsonProperty("queries_remaining") Integer queriesRemaining,
         @JsonProperty("risk_score") Double riskScore,
         @JsonProperty("shipping_address") ShippingAddress shippingAddress,
+        @JsonProperty("shipping_phone") Phone shippingPhone,
         @JsonProperty("warnings") List<Warning> warnings
     ) {
         super(disposition, fundsRemaining, id, null, queriesRemaining, riskScore, warnings);
         this.billingAddress = billingAddress == null ? new BillingAddress() : billingAddress;
+        this.billingPhone = billingPhone == null ? new Phone() : billingPhone;
         this.creditCard = creditCard == null ? new CreditCard() : creditCard;
         this.device = device == null ? new Device() : device;
         this.email = email == null ? new Email() : email;
         this.ipAddress = ipAddress == null ? new IpAddress() : ipAddress;
         this.shippingAddress = shippingAddress == null ? new ShippingAddress() : shippingAddress;
+        this.shippingPhone = shippingPhone == null ? new Phone() : shippingPhone;
+    }
+
+    /**
+     * Constructor for backwards compatibility. This will be removed in the next major release.
+     *
+     * @deprecated use other constructor.
+     */
+    @Deprecated
+    public InsightsResponse(
+        BillingAddress billingAddress,
+        CreditCard creditCard,
+        Device device,
+        Disposition disposition,
+        Email email,
+        Double fundsRemaining,
+        UUID id,
+        IpAddress ipAddress,
+        Integer queriesRemaining,
+        Double riskScore,
+        ShippingAddress shippingAddress,
+        List<Warning> warnings
+    ) {
+        this(billingAddress, null, creditCard, device, disposition, email, fundsRemaining, id,
+            ipAddress, queriesRemaining, riskScore, shippingAddress, null, warnings);
     }
 
     /**
@@ -93,10 +125,26 @@ public class InsightsResponse extends ScoreResponse {
     }
 
     /**
+     * @return The {@code Phone} model object for the shipping phone number.
+     */
+    @JsonProperty("shipping_phone")
+    public Phone getShippingPhone() {
+        return shippingPhone;
+    }
+
+    /**
      * @return The {@code BillingAddress} model object.
      */
     @JsonProperty("billing_address")
     public BillingAddress getBillingAddress() {
         return billingAddress;
+    }
+
+    /**
+     * @return The {@code Phone} model object for the billing phone number.
+     */
+    @JsonProperty("billing_phone")
+    public Phone getBillingPhone() {
+        return billingPhone;
     }
 }

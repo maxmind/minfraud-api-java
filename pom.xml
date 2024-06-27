@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.maxmind.minfraud</groupId>
@@ -23,8 +24,8 @@
         <url>https://github.com/maxmind/minfraud-api-java</url>
         <connection>scm:git:git://github.com:maxmind/minfraud-api-java.git</connection>
         <developerConnection>scm:git:git@github.com:maxmind/minfraud-api-java.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
     <issueManagement>
         <url>https://github.com/maxmind/minfraud-api-java/issues</url>
         <system>GitHub</system>
@@ -105,19 +106,19 @@
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>3.5.0</version>
                 <executions>
-                  <execution>
-                    <id>enforce-maven</id>
-                    <goals>
-                      <goal>enforce</goal>
-                    </goals>
-                    <configuration>
-                      <rules>
-                        <requireMavenVersion>
-                          <version>3.6.3</version>
-                        </requireMavenVersion>
-                      </rules>
-                    </configuration>
-                  </execution>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.6.3</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -176,7 +177,7 @@
                 <configuration>
                     <show>public</show>
                     <source>11</source>
-                    <doclint>-missing</doclint> 
+                    <doclint>-missing</doclint>
                 </configuration>
             </plugin>
             <plugin>

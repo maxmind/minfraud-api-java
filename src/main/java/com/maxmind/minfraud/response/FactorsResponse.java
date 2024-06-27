@@ -27,10 +27,11 @@ public final class FactorsResponse extends InsightsResponse {
      * @param riskScore        The risk score.
      * @param shippingAddress  The {@code ShippingAddress} model object.
      * @param subscores        The {@code Subscores} model object.
-     * @param warnings         An list containing warning objects.
+     * @param warnings         A list containing warning objects.
      */
     public FactorsResponse(
         @JsonProperty("billing_address") BillingAddress billingAddress,
+        @JsonProperty("billing_phone") Phone billingPhone,
         @JsonProperty("credit_card") CreditCard creditCard,
         @JsonProperty("device") Device device,
         @JsonProperty("disposition") Disposition disposition,
@@ -41,13 +42,39 @@ public final class FactorsResponse extends InsightsResponse {
         @JsonProperty("queries_remaining") Integer queriesRemaining,
         @JsonProperty("risk_score") Double riskScore,
         @JsonProperty("shipping_address") ShippingAddress shippingAddress,
+        @JsonProperty("shipping_phone") Phone shippingPhone,
         @JsonProperty("subscores") Subscores subscores,
         @JsonProperty("warnings") List<Warning> warnings
     ) {
-        super(billingAddress, creditCard, device, disposition, email,
+        super(billingAddress, billingPhone, creditCard, device, disposition, email,
             fundsRemaining, id, ipAddress, queriesRemaining, riskScore,
-            shippingAddress, warnings);
+            shippingAddress, shippingPhone, warnings);
         this.subscores = subscores;
+    }
+
+    /**
+     * Constructor for backwards compatibility. This will be removed in the next major release.
+     *
+     * @deprecated use other constructor.
+     */
+    @Deprecated
+    public FactorsResponse(
+        BillingAddress billingAddress,
+        CreditCard creditCard,
+        Device device,
+        Disposition disposition,
+        Email email,
+        Double fundsRemaining,
+        UUID id,
+        IpAddress ipAddress,
+        Integer queriesRemaining,
+        Double riskScore,
+        ShippingAddress shippingAddress,
+        Subscores subscores,
+        List<Warning> warnings
+    ) {
+        this(billingAddress, null, creditCard, device, disposition, email, fundsRemaining, id,
+            ipAddress, queriesRemaining, riskScore, shippingAddress, null, subscores, warnings);
     }
 
     /**
