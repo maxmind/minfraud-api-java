@@ -15,6 +15,7 @@ CHANGELOG
   about the respective phone numbers. Please see [our developer
   site](https://dev.maxmind.com/minfraud/api-documentation/responses/) for
   more information.
+* Added `PAYCONEX` to the `Payment.Processor` enum.
 
 3.4.0 (2024-04-16)
 ------------------
