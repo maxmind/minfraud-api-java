@@ -186,6 +186,7 @@ public final class Payment extends AbstractModel {
         ORANGEPAY,
         OTHER,
         PACNET_SERVICES,
+        PAYCONEX,
         PAYEEZY,
         PAYFAST,
         PAYGATE,
