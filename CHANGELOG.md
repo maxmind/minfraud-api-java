@@ -2,7 +2,7 @@ CHANGELOG
 =========
 
 
-3.5.0
+3.5.0 (2024-07-08)
 ------------------
 
 * Updated `TransactionReport` to make the `ipAddress` parameter optional. Now
