@@ -9,6 +9,7 @@ import java.util.UUID;
  */
 public final class FactorsResponse extends InsightsResponse {
 
+    private final List<RiskScoreReason> riskScoreReasons;
     private final Subscores subscores;
 
 
@@ -26,6 +27,11 @@ public final class FactorsResponse extends InsightsResponse {
      * @param queriesRemaining The number of queries remaining.
      * @param riskScore        The risk score.
      * @param shippingAddress  The {@code ShippingAddress} model object.
+     * @param riskScoreReasons A list containing {@code RiskScoreReason} model objects that
+     *     describe risk score reasons for a given transaction that change the risk score
+     *     significantly. Risk score reasons are usually only returned for medium to high risk
+     *     transactions. If there were no significant changes to the risk score due to these
+     *     reasons, then this list will be empty.
      * @param subscores        The {@code Subscores} model object.
      * @param warnings         A list containing warning objects.
      */
@@ -43,12 +49,14 @@ public final class FactorsResponse extends InsightsResponse {
         @JsonProperty("risk_score") Double riskScore,
         @JsonProperty("shipping_address") ShippingAddress shippingAddress,
         @JsonProperty("shipping_phone") Phone shippingPhone,
+        @JsonProperty("risk_score_reasons") List<RiskScoreReason> riskScoreReasons,
         @JsonProperty("subscores") Subscores subscores,
         @JsonProperty("warnings") List<Warning> warnings
     ) {
         super(billingAddress, billingPhone, creditCard, device, disposition, email,
             fundsRemaining, id, ipAddress, queriesRemaining, riskScore,
             shippingAddress, shippingPhone, warnings);
+        this.riskScoreReasons = riskScoreReasons;
         this.subscores = subscores;
     }
 
@@ -74,7 +82,46 @@ public final class FactorsResponse extends InsightsResponse {
         List<Warning> warnings
     ) {
         this(billingAddress, null, creditCard, device, disposition, email, fundsRemaining, id,
-            ipAddress, queriesRemaining, riskScore, shippingAddress, null, subscores, warnings);
+            ipAddress, queriesRemaining, riskScore, shippingAddress, null, null, subscores,
+            warnings);
+    }
+
+    /**
+     * Constructor for backwards compatibility. This will be removed in the next
+     * major release.
+     *
+     * @deprecated use other constructor.
+     */
+    @Deprecated
+    public FactorsResponse(
+        BillingAddress billingAddress,
+        Phone billingPhone,
+        CreditCard creditCard,
+        Device device,
+        Disposition disposition,
+        Email email,
+        Double fundsRemaining,
+        UUID id,
+        IpAddress ipAddress,
+        Integer queriesRemaining,
+        Double riskScore,
+        ShippingAddress shippingAddress,
+        Phone shippingPhone,
+        Subscores subscores,
+        List<Warning> warnings
+    ) {
+        this(billingAddress, billingPhone, creditCard, device, disposition, email, fundsRemaining,
+            id, ipAddress, queriesRemaining, riskScore, shippingAddress, shippingPhone, null,
+            subscores, warnings);
+    }
+
+    /**
+     * @return A list containing objects that describe risk score reasons
+     *     for a given transaction that change the risk score significantly.
+     */
+    @JsonProperty("risk_score_reasons")
+    public List<RiskScoreReason> getRiskScoreReasons() {
+        return riskScoreReasons;
     }
 
     /**
