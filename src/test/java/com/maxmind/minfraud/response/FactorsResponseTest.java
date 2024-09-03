@@ -50,6 +50,17 @@ public class FactorsResponseTest extends AbstractOutputTest {
                 .put("queries_remaining", 123)
                 .put("id", id)
                 .put("risk_score", 0.01)
+                .startArrayField("risk_score_reasons")
+                .startObject()
+                .put("multiplier", 45)
+                .startArrayField("reasons")
+                .startObject()
+                .put("code", "ANONYMOUS_IP")
+                .put("reason", "Risk due to IP being an Anonymous IP")
+                .end()
+                .end()
+                .end()
+                .end()
                 .end()
                 .finish()
         );
@@ -146,6 +157,23 @@ public class FactorsResponseTest extends AbstractOutputTest {
             Double.valueOf(0.01),
             factors.getRiskScore(),
             "correct risk score"
+        );
+        assertEquals(1, factors.getRiskScoreReasons().size());
+        assertEquals(
+            Double.valueOf(45),
+            factors.getRiskScoreReasons().get(0).getMultiplier(),
+            "risk multiplier"
+        );
+        assertEquals(1, factors.getRiskScoreReasons().get(0).getReasons().size());
+        assertEquals(
+            "ANONYMOUS_IP",
+            factors.getRiskScoreReasons().get(0).getReasons().get(0).getCode(),
+            "risk reason code"
+        );
+        assertEquals(
+            "Risk due to IP being an Anonymous IP",
+            factors.getRiskScoreReasons().get(0).getReasons().get(0).getReason(),
+            "risk reason"
         );
     }
 }
