@@ -5,7 +5,7 @@ set -eu -o pipefail
 changelog=$(cat CHANGELOG.md)
 
 regex='
-([0-9]+\.[0-9]+\.[0-9]+) \(([0-9]{4}-[0-9]{2}-[0-9]{2})\)
+([0-9]+\.[0-9]+\.[0-9]+(-[^ ]+)?) \(([0-9]{4}-[0-9]{2}-[0-9]{2})\)
 -*
 
 ((.|
@@ -18,8 +18,8 @@ if [[ ! $changelog =~ $regex ]]; then
 fi
 
 version="${BASH_REMATCH[1]}"
-date="${BASH_REMATCH[2]}"
-notes="$(echo "${BASH_REMATCH[3]}" | sed -n -E '/^[0-9]+\.[0-9]+\.[0-9]+/,$!p')"
+date="${BASH_REMATCH[3]}"
+notes="$(echo "${BASH_REMATCH[4]}" | sed -n -E '/^[0-9]+\.[0-9]+\.[0-9]+/,$!p')"
 
 if [[ "$date" != $(date +"%Y-%m-%d") ]]; then
     echo "$date is not today!"
@@ -93,7 +93,7 @@ mvn release:clean
 mvn release:prepare -DreleaseVersion="$version" -Dtag="$tag"
 mvn release:perform
 rm -fr ".gh-pages/doc/$tag"
-cp -r target/checkout/target/apidocs ".gh-pages/doc/$tag"
+cp -r target/checkout/target/reports/apidocs ".gh-pages/doc/$tag"
 
 pushd .gh-pages
 
