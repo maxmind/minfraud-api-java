@@ -5,7 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * This class contains scores for many of the risk factors that are used to calculate the overall
  * risk score.
+ *
+ * @deprecated replaced by {@link RiskScoreReason}.
  */
+@Deprecated
 public final class Subscores {
     private final Double avsResult;
     private final Double billingAddress;
