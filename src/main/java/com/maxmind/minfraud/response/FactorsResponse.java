@@ -126,7 +126,10 @@ public final class FactorsResponse extends InsightsResponse {
 
     /**
      * @return The {@code Subscores} model object containing the risk factor scores.
+     *
+     * @deprecated replaced by {@link getRiskScoreReasons}.
      */
+    @Deprecated
     @JsonProperty("subscores")
     public Subscores getSubscores() {
         return subscores;
