@@ -146,6 +146,7 @@ public final class Payment extends AbstractModel {
         ELAVON,
         EMERCHANTPAY,
         EPAY,
+        EPAYCO,
         EPROCESSING_NETWORK,
         EPX,
         EWAY,
