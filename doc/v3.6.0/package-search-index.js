@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"com.maxmind.minfraud","l":"com.maxmind.minfraud"},{"m":"com.maxmind.minfraud","l":"com.maxmind.minfraud.exception"},{"m":"com.maxmind.minfraud","l":"com.maxmind.minfraud.request"},{"m":"com.maxmind.minfraud","l":"com.maxmind.minfraud.response"}];updateSearchResults();
