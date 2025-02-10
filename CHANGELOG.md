@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-3.6.0
+3.6.0 (2025-02-10)
 ------------------
 
 * The minFraud Factors subscores have been deprecated. They will be removed
