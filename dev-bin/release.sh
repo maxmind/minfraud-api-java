@@ -72,7 +72,7 @@ version: $tag
 EOF
 
 perl -pi -e "s/(?<=<version>)[^<]*/$version/" README.md
-perl -pi -e "s/(?<=com\.maxmind\.minfraud\:minfraud\:)\d+\.\d+\.\d+([\w\-]+)?/$version/" README.md
+perl -pi -e "s/(?<=com\.maxmind\.minfraud\:minfraud\:)\d+\.\d+\.\d+[^']*/$version/" README.md
 
 cat README.md >> $page
 
