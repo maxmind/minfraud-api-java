@@ -128,6 +128,7 @@ public final class Payment extends AbstractModel {
         COREGATEWAY,
         CREDITGUARD,
         CREDORAX,
+        CRYPTOMUS,
         CT_PAYMENTS,
         CUENTADIGITAL,
         CUROPAYMENTS,

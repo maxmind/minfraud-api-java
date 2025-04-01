@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+3.7.0
+------------------
+
+* Added `CRYPTOMUS` to the `Payment.Processor` enum.
+
 3.6.0 (2025-02-10)
 ------------------
 
