@@ -45,12 +45,14 @@ public class InsightsResponseTest extends AbstractOutputTest {
                 .end()
                 .startObjectField("shipping_phone")
                 .put("is_voip", true)
+                .put("matches_postal", false)
                 .end()
                 .startObjectField("billing_address")
                 .put("is_in_ip_country", true)
                 .end()
                 .startObjectField("billing_phone")
                 .put("is_voip", false)
+                .put("matches_postal", true)
                 .end()
                 .put("funds_remaining", 1.20)
                 .put("queries_remaining", 123)
@@ -78,16 +80,27 @@ public class InsightsResponseTest extends AbstractOutputTest {
         );
         assertTrue(insights.getCreditCard().isBusiness(), "correct credit card is business");
         assertTrue(insights.getCreditCard().isPrepaid(), "correct credit card prepaid");
+
         assertTrue(
             insights.getShippingAddress().isInIpCountry(),
             "correct shipping address is in IP country"
         );
         assertTrue(insights.getShippingPhone().isVoip(), "correct shipping phone isVoip");
+        assertFalse(
+            insights.getShippingPhone().matchesPostal(),
+            "correct shipping phone matchesPostal"
+        );
+
         assertTrue(
             insights.getBillingAddress().isInIpCountry(),
             "correct billing address is in IP country"
         );
         assertFalse(insights.getBillingPhone().isVoip(), "correct billing phone isVoip");
+        assertTrue(
+            insights.getBillingPhone().matchesPostal(),
+            "correct billing phone matchesPostal"
+        );
+
         assertEquals(
             Double.valueOf(1.20),
             insights.getFundsRemaining(),

@@ -1,6 +1,7 @@
 package com.maxmind.minfraud.response;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.jr.ob.JSON;
@@ -17,6 +18,7 @@ public class PhoneTest extends AbstractOutputTest {
                 .startObject()
                 .put("country", "US")
                 .put("is_voip", true)
+                .put("matches_postal", false)
                 .put("network_operator", "Operator")
                 .put("number_type", "fixed")
                 .end()
@@ -25,6 +27,7 @@ public class PhoneTest extends AbstractOutputTest {
 
         assertEquals("US", phone.getCountry());
         assertTrue(phone.isVoip());
+        assertFalse(phone.matchesPostal());
         assertEquals("Operator", phone.getNetworkOperator());
         assertEquals("fixed", phone.getNumberType());
     }
