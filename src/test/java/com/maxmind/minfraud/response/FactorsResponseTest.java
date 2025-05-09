@@ -20,9 +20,11 @@ public class FactorsResponseTest extends AbstractOutputTest {
                 .startObject()
                 .startObjectField("billing_phone")
                 .put("is_voip", false)
+                .put("matches_postal", true)
                 .end()
                 .startObjectField("shipping_phone")
                 .put("is_voip", true)
+                .put("matches_postal", false)
                 .end()
                 .startObjectField("subscores")
                 .put("avs_result", 0.01)
@@ -66,7 +68,9 @@ public class FactorsResponseTest extends AbstractOutputTest {
         );
 
         assertTrue(factors.getShippingPhone().isVoip(), "correct shipping phone isVoip");
+        assertFalse(factors.getShippingPhone().matchesPostal(), "correct shipping phone matchesPostal");
         assertFalse(factors.getBillingPhone().isVoip(), "correct billing phone isVoip");
+        assertTrue(factors.getBillingPhone().matchesPostal(), "correct billing phone matchesPostal");
 
         assertEquals(
             Double.valueOf(0.01),
