@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-3.7.0
+3.7.0 (2025-05-23)
 ------------------
 
 * Added support for the `/billing_phone/matches_postal` and
