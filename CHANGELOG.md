@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+3.7.1 (2025-05-23)
+------------------
+
+* Updated `pom.xml` to fix issue with javadoc generation during the release
+  process.
+
 3.7.0 (2025-05-23)
 ------------------
 
