@@ -5,7 +5,7 @@ set -eu -o pipefail
 changelog=$(cat CHANGELOG.md)
 
 regex='
-([0-9]+\.[0-9]+\.[0-9]+(-[^ ]+)?) \(([0-9]{4}-[0-9]{2}-[0-9]{2})\)
+([0-9]+\.[0-9]+\.[0-9]+[a-zA-Z0-9\-]*) \(([0-9]{4}-[0-9]{2}-[0-9]{2})\)
 -*
 
 ((.|
@@ -18,8 +18,8 @@ if [[ ! $changelog =~ $regex ]]; then
 fi
 
 version="${BASH_REMATCH[1]}"
-date="${BASH_REMATCH[3]}"
-notes="$(echo "${BASH_REMATCH[4]}" | sed -n -E '/^[0-9]+\.[0-9]+\.[0-9]+/,$!p')"
+date="${BASH_REMATCH[2]}"
+notes="$(echo "${BASH_REMATCH[3]}" | sed -n -e '/^[0-9]\+\.[0-9]\+\.[0-9]\+/,$!p')"
 
 if [[ "$date" != $(date +"%Y-%m-%d") ]]; then
     echo "$date is not today!"
@@ -53,7 +53,16 @@ popd
 mvn versions:display-plugin-updates
 mvn versions:display-dependency-updates
 
-read -e -p "Continue given above dependencies? (y/n) " should_continue
+read -r -n 1 -p "Continue given above dependencies? (y/n) " should_continue
+
+if [ "$should_continue" != "y" ]; then
+    echo "Aborting"
+    exit 1
+fi
+
+mvn test
+
+read -r -n 1 -p "Continue given above tests? (y/n) " should_continue
 
 if [ "$should_continue" != "y" ]; then
     echo "Aborting"
@@ -64,36 +73,36 @@ page=.gh-pages/index.md
 cat <<EOF > $page
 ---
 layout: default
-title: MaxMind minFraud Score and Insights Java API
+title: MaxMind minFraud Java API
 language: java
 version: $tag
 ---
 
 EOF
 
+mvn versions:set -DnewVersion="$version"
+
 perl -pi -e "s/(?<=<version>)[^<]*/$version/" README.md
-perl -pi -e "s/(?<=com\.maxmind\.minfraud\:minfraud\:)\d+\.\d+\.\d+[^']*/$version/" README.md
+perl -pi -e "s/(?<=com\.maxmind\.minfraud\:minfraud\:)\d+\.\d+\.\d+([\w\-]+)?/$version/" README.md
 
 cat README.md >> $page
 
-if [ -n "$(git status --porcelain)" ]; then
-    git diff
+git diff
 
-    read -e -p "Commit README.md changes? " should_commit
-    if [ "$should_commit" != "y" ]; then
-        echo "Aborting"
-        exit 1
-    fi
-    git add README.md
-    git commit -m 'update version number in README.md'
+read -r -n 1 -p "Commit changes? " should_commit
+if [ "$should_commit" != "y" ]; then
+    echo "Aborting"
+    exit 1
 fi
+git add README.md pom.xml
+git commit -m "Preparing for $version"
 
-# could be combined with the primary build
-mvn release:clean
-mvn release:prepare -DreleaseVersion="$version" -Dtag="$tag"
-mvn release:perform
+mvn clean deploy
+
 rm -fr ".gh-pages/doc/$tag"
-cp -r target/checkout/target/reports/apidocs ".gh-pages/doc/$tag"
+cp -r target/reports/apidocs ".gh-pages/doc/$tag"
+rm -f .gh-pages/doc/latest
+ln -fs "$tag" .gh-pages/doc/latest
 
 pushd .gh-pages
 
@@ -105,8 +114,7 @@ echo "Release notes for $version:
 $notes
 
 "
-
-read -e -p "Push to origin? " should_push
+read -r -n 1 -p "Push to origin? " should_push
 
 if [ "$should_push" != "y" ]; then
     echo "Aborting"
@@ -118,8 +126,7 @@ git push
 popd
 
 git push
-git push --tags
 
 gh release create --target "$(git branch --show-current)" -t "$version" -n "$notes" "$tag" \
-    "target/checkout/target/minfraud-$version-with-dependencies.zip" \
-    "target/checkout/target/minfraud-$version-with-dependencies.zip.asc"
+    "target/minfraud-$version-with-dependencies.zip" \
+    "target/minfraud-$version-with-dependencies.zip.asc"
