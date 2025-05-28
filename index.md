@@ -1,8 +1,8 @@
 ---
 layout: default
-title: MaxMind minFraud Score and Insights Java API
+title: MaxMind minFraud Java API
 language: java
-version: v3.7.1
+version: v3.7.2
 ---
 
 # MaxMind minFraud Score, Insights, and Factors Java API
@@ -23,7 +23,7 @@ To do this, add the dependency to your pom.xml:
     <dependency>
         <groupId>com.maxmind.minfraud</groupId>
         <artifactId>minfraud</artifactId>
-        <version>3.7.1</version>
+        <version>3.7.2</version>
     </dependency>
 ```
 
@@ -36,7 +36,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'com.maxmind.minfraud:minfraud:3.7.1'
+    compile 'com.maxmind.minfraud:minfraud:3.7.2'
 }
 ```
 
