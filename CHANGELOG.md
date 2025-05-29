@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+3.7.2 (2025-05-28)
+------------------
+
+* First release using Central Portal instead of Legacy OSSRH.
+* Update `geoip2` dependency.
+
 3.7.1 (2025-05-23)
 ------------------
 

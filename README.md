@@ -16,7 +16,7 @@ To do this, add the dependency to your pom.xml:
     <dependency>
         <groupId>com.maxmind.minfraud</groupId>
         <artifactId>minfraud</artifactId>
-        <version>3.7.1</version>
+        <version>3.7.2</version>
     </dependency>
 ```
 
@@ -29,7 +29,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'com.maxmind.minfraud:minfraud:3.7.1'
+    compile 'com.maxmind.minfraud:minfraud:3.7.2'
 }
 ```
 

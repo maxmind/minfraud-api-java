@@ -1,8 +1,8 @@
 # Preparing your environment for a release
 
 - Ensure you have access to publish to the repository on
-  [Sonatype](https://oss.sonatype.org).
-  - See the section about Sonatype access.
+  [Central Portal](https://central.sonatype.org/).
+  - See the section about Central Portal access.
 - You need a GPG secret key. You need to publish it as well.
   - See the section about setting up GPG.
 - Ensure the SSH key you use on GitHub.com is available.
@@ -10,68 +10,29 @@
 - Ensure an appropriate `~/.gitconfig` is set up.
   - The release process generates commits.
 - Ensure you have the necessary dependencies available:
-  - e.g., `apt-get install maven openjdk-8-jdk git-core gpg`
+  - e.g., `apt-get install maven default-jdk git-core`
 - Ensure [gh](https://github.com/cli/cli) is set up and in your
   `PATH`.
   - An easy way to do this is get a release tarball and run `./install`.
 
-## Setting up Sonatype access
+## Setting up Central Portal access
 
-To get this access, make an account on the [Sonatype JIRA issue
-tracker](https://issues.sonatype.org/) and make an issue asking for access
-[like so](https://issues.sonatype.org/browse/OSSRH-34414).
+To get this access, first create a Central Portal account. You will then need
+access to our namespace, but we have not added anyone since switching to
+Central Portal. Previously you would need to make an account on the [Sonatype
+JIRA issue tracker](https://issues.sonatype.org/) and make an issue asking for
+access [like so](https://issues.sonatype.org/browse/OSSRH-34414).
 
 Ensure you inform MaxMind operations about your new access.
 
-Put this information into `~/.m2/settings.xml` (Maven settings). Your
-`settings.xml` should look something like (replace USERNAME and SECRET):
+Configure your `~/.m2/settings.xml` file for releasing to Central Portal. See
+[these instructions](https://central.sonatype.org/publish/publish-portal-maven/#credentials).
 
-    <settings>
-      <servers>
-        <server>
-          <id>ossrh</id>
-          <username>USERNAME</username>
-          <password>SECRET</password>
-        </server>
-        <server>
-          <id>sonatype-nexus-snapshots</id>
-          <username>USERNAME</username>
-          <password>SECRET</password>
-        </server>
-        <server>
-          <id>sonatype-nexus-staging</id>
-          <username>USERNAME</username>
-          <password>SECRET</password>
-        </server>
-        <server>
-          <id>github-project-site</id>
-          <username>git</username>
-        </server>
-      </servers>
-      <profiles>
-        <profile>
-          <id>my_profile_id</id>
-          <activation>
-            <activeByDefault>true</activeByDefault>
-          </activation>
-          <properties>
-            <gpg.keyname><!-- The GPG ID of your publishing key --></gpg.keyname>
-          </properties>
-        </profile>
-      </profiles>
-    </settings>
+Some links about Central Portal:
 
-Some links about Sonatype:
-
-* http://central.sonatype.org/pages/ossrh-guide.html
-* http://central.sonatype.org/pages/releasing-the-deployment.html
-* http://central.sonatype.org/pages/apache-maven.html
-
-See the following documentation for details on specifying which gpg to use for
-publishing in your local settings.xml:
-
-* https://central.sonatype.org/publish/requirements/gpg/
-* https://maven.apache.org/plugins/maven-gpg-plugin/usage.html
+* [Maven Central Repository homepage](https://central.sonatype.com/). You can
+  sign-in from here.
+* [Publishing guide](https://central.sonatype.org/publish/publish-portal-maven/)
 
 ## Setting up GPG
 
@@ -130,29 +91,20 @@ Add this to ~/.gnupg/gpg-agent.conf:
     version to the next development release, upload the release to GitHub
     and tag it, and upload to Sonatype.
 - This will prompt you several times. Generally you need to say `y` or `n`.
-- You'll be prompted for your ssh key password, GPG key password, and
-  GitHub.com username and password several times depending on your
-  workspace.
-- You may be prompted about "what is the next development version?". Hit
-  enter to use the default which should be fine.
+- You may be prompted for your GitHub.com username and password several
+  times depending on your workspace.
 - You may be prompted about "The following dependencies in Dependencies
   have newer versions". See the section about updating dependencies if so.
-- If you get HTTP 401 errors from Sonatype, you probably don't have a
-  correct `settings.xml`. Refer to the Sonatype section.
-  - If this happened, there are most likely pushed commits on GitHub.com.
-    You can potentially rebase and drop the commits and force push and
-    start over (you might want to talk about this before doing it). Note
-    you'll need to delete the release tag too:
-    `git push origin :refs/tags/vx.y.z && git tag -d vx.y.z`.
-- If you get to this point, then a release is on GitHub.com and in the
-  staging repository on [Sonatype](https://oss.sonatype.org). The
-  nexus-staging-maven-plugin plugin should automatically close the staging
-  release as well as actually release it after.
+- If you get HTTP 401 errors from Central Portal, you probably don't have a
+  correct `settings.xml`. Refer to the Central Portal section.
+- If you get to this point, then a release is on GitHub.com and Maven
+  Central.
 - You're done!
 - If you want to check things over, look at the commits on GitHub.com,
   including to the `gh-pages` branch and release tags, and do an artifact
-  search on [Sonatype](https://oss.sonatype.org) to see the version is as
-  you expect.
+  search on [Maven Central](https://central.sonatype.com/) to see the version
+  is as you expect. It may take a few minutes for new releases to show up
+  on Maven Central.
 
 ## Updating dependencies
 
