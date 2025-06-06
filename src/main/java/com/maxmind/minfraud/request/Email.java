@@ -13,7 +13,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
-import org.apache.commons.validator.routines.DomainValidator;
 import org.apache.commons.validator.routines.EmailValidator;
 
 /**
@@ -28,6 +27,9 @@ public final class Email extends AbstractModel {
     private static final Map<String, String> equivalentDomains;
     private static final Map<String, Boolean> fastmailDomains;
     private static final Map<String, Boolean> yahooDomains;
+    private static final Pattern DOMAIN_LABEL_PATTERN = Pattern.compile(
+        "^[a-zA-Z0-9]$|^[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9]$"
+    );
     private static final Pattern DOT_PATTERN = Pattern.compile("\\.");
     private static final Pattern TRAILING_DOT_PATTERN = Pattern.compile("\\.+$");
     private static final Pattern REPEAT_COM_PATTERN = Pattern.compile("(?:\\.com){2,}$");
@@ -373,7 +375,7 @@ public final class Email extends AbstractModel {
          * @throws IllegalArgumentException when domain is not a valid domain.
          */
         public Email.Builder domain(String domain) {
-            if (enableValidation && !DomainValidator.getInstance().isValid(domain)) {
+            if (enableValidation && !isValidDomain(domain)) {
                 throw new IllegalArgumentException("The email domain " + domain + " is not valid.");
             }
             this.domain = domain;
@@ -489,6 +491,49 @@ public final class Email extends AbstractModel {
         }
 
         return domain;
+    }
+
+    private static boolean isValidDomain(String domain) {
+        if (domain == null || domain.isEmpty()) {
+            return false;
+        }
+
+        String asciiDomain;
+        try {
+            asciiDomain = IDN.toASCII(domain);
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+
+        if (domain.endsWith(".")) {
+            domain = domain.substring(0, domain.length() - 1);
+        }
+
+        if (asciiDomain.length() > 255) {
+            return false;
+        }
+
+        String[] labels = asciiDomain.split("\\.");
+
+        if (labels.length < 2) {
+            return false;
+        }
+
+        for (String label : labels) {
+            if (!isValidDomainLabel(label)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static boolean isValidDomainLabel(String label) {
+        if (label == null || label.isEmpty() || label.length() > 63) {
+            return false;
+        }
+
+        return DOMAIN_LABEL_PATTERN.matcher(label).matches();
     }
 
     /**
