@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+
 import com.maxmind.minfraud.request.Email.Builder;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -244,11 +245,26 @@ public class EmailTest {
         return String.format("%032x", i);
     }
 
-    @Test
-    public void testInvalidAddress() {
+    @ParameterizedTest(name = "Run #{index}: email = \"{0}\"")
+    @ValueSource(strings = {
+            "test.com",
+            "test@",
+            "@test.com",
+            "",
+            "  ",
+            "test@test com.com",
+            "test@test_domain.com",
+            "test@-test.com",
+            "test@test-.com",
+            "test@.test.com",
+            "test@test..com",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@test.com",
+            "test@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com"
+    })
+    void testInvalidAddresses(String invalidAddress) {
         assertThrows(
             IllegalArgumentException.class,
-            () -> new Builder().address("a@test@test.org").build()
+            () -> new Builder().address(invalidAddress).build()
         );
     }
 

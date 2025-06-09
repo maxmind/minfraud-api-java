@@ -13,7 +13,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
-import org.apache.commons.validator.routines.EmailValidator;
 
 /**
  * The email information for the transaction.
@@ -340,7 +339,7 @@ public final class Email extends AbstractModel {
          * @throws IllegalArgumentException when address is not a valid email address.
          */
         public Email.Builder address(String address) {
-            if (enableValidation && !EmailValidator.getInstance().isValid(address)) {
+            if (enableValidation && !isValidEmail(address)) {
                 throw new IllegalArgumentException(
                     "The email address " + address + " is not valid.");
             }
@@ -459,6 +458,34 @@ public final class Email extends AbstractModel {
 
         return localPart + "@" + domain;
     }
+
+    private static boolean isValidEmail(String email) {
+        if (email == null || email.isEmpty()) {
+            return false;
+        }
+
+        // RFC 5321 the forward path limits the mailbox to 254 characters
+        // even though a domain can be 255 and the local part 64
+        if (email.length() > 254) {
+            return false;
+        }
+
+        int atIndex = email.lastIndexOf('@');
+        if (atIndex <= 0) {
+            return false;
+        }
+
+        String localPart = email.substring(0, atIndex);
+        String domainPart = email.substring(atIndex + 1);
+
+        // The local-part has a maximum length of 64 characters.
+        if (localPart.length() > 64) {
+            return false;
+        }
+
+        return isValidDomain(domainPart);
+    }
+
 
     private String cleanDomain(String domain) {
         if (domain == null) {
