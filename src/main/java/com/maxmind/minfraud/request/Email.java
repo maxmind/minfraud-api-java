@@ -525,9 +525,8 @@ public final class Email extends AbstractModel {
             return false;
         }
 
-        String asciiDomain;
         try {
-            asciiDomain = IDN.toASCII(domain);
+            domain = IDN.toASCII(domain);
         } catch (IllegalArgumentException e) {
             return false;
         }
@@ -536,11 +535,11 @@ public final class Email extends AbstractModel {
             domain = domain.substring(0, domain.length() - 1);
         }
 
-        if (asciiDomain.length() > 255) {
+        if (domain.length() > 255) {
             return false;
         }
 
-        String[] labels = asciiDomain.split("\\.");
+        String[] labels = domain.split("\\.");
 
         if (labels.length < 2) {
             return false;
