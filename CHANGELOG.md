@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-3.8.0
+3.8.0 (2025-06-09)
 ------------------
 
 * `commons-validator` has been removed as a dependency. This module now does
