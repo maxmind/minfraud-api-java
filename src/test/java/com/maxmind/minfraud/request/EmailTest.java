@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+
 import com.maxmind.minfraud.request.Email.Builder;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -12,6 +13,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class EmailTest {
 
@@ -242,11 +245,26 @@ public class EmailTest {
         return String.format("%032x", i);
     }
 
-    @Test
-    public void testInvalidAddress() {
+    @ParameterizedTest(name = "Run #{index}: email = \"{0}\"")
+    @ValueSource(strings = {
+            "test.com",
+            "test@",
+            "@test.com",
+            "",
+            "  ",
+            "test@test com.com",
+            "test@test_domain.com",
+            "test@-test.com",
+            "test@test-.com",
+            "test@.test.com",
+            "test@test..com",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@test.com",
+            "test@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com"
+    })
+    void testInvalidAddresses(String invalidAddress) {
         assertThrows(
             IllegalArgumentException.class,
-            () -> new Builder().address("a@test@test.org").build()
+            () -> new Builder().address(invalidAddress).build()
         );
     }
 
@@ -264,11 +282,32 @@ public class EmailTest {
         assertEquals(domain, email.getDomain());
     }
 
-    @Test
-    public void testInvalidDomain() {
+    @ParameterizedTest(name = "Run #{index}: domain = \"{0}\"")
+    @ValueSource(strings = {
+            "example",
+            "",
+            "   ",
+            " domain.com",
+            "domain.com ",
+            "domain com.com",
+            "domain_name.com",
+            "domain$.com",
+            "-domain.com",
+            "domain-.com",
+            "domain..com",
+            ".domain.com",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com",
+            "a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a" +
+            ".a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a" +
+            ".a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a" +
+            ".a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a.a" +
+            ".com",
+            "xn--.com"
+    })
+    void testInvalidDomains(String invalidDomain) {
         assertThrows(
             IllegalArgumentException.class,
-            () -> new Builder().domain(" domain.com").build()
+            () -> new Builder().domain(invalidDomain).build()
         );
     }
 }

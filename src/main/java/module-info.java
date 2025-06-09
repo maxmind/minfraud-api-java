@@ -7,7 +7,6 @@ module com.maxmind.minfraud {
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.datatype.jsr310;
     requires transitive com.maxmind.geoip2;
-    requires org.apache.commons.validator;
     requires java.net.http;
 
     exports com.maxmind.minfraud;
