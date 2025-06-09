@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+3.8.0
+------------------
+
+* `commons-validator` has been removed as a dependency. This module now does
+  its own email and domain name validation. This was done to reduce the number
+  of dependencies and any security vulnerabilities in them. The new email
+  validation of the local part is somewhat more lax than the previous
+  validation.
+
 3.7.2 (2025-05-28)
 ------------------
 
