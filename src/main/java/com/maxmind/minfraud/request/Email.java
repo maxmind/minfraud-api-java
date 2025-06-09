@@ -464,7 +464,7 @@ public final class Email extends AbstractModel {
             return false;
         }
 
-        // RFC 5321 the forward path limits the mailbox to 254 characters
+        // In RFC 5321, the forward path limits the mailbox to 254 characters
         // even though a domain can be 255 and the local part 64
         if (email.length() > 254) {
             return false;
