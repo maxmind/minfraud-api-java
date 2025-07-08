@@ -225,6 +225,7 @@ public final class Payment extends AbstractModel {
         REWARDSPAY,
         SAFECHARGE,
         SAGEPAY,
+        SECUREPAY,
         SECURETRADING,
         SHOPIFY_PAYMENTS,
         SIMPLIFY_COMMERCE,
