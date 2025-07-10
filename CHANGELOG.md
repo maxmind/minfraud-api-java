@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+3.9.0
+------------------
+
+* Added `SECUREPAY` to the `Payment.Processor` enum.
+
 3.8.0 (2025-06-09)
 ------------------
 
