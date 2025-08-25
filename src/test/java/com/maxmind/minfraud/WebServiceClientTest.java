@@ -38,6 +38,9 @@ import com.maxmind.minfraud.response.InsightsResponse;
 import com.maxmind.minfraud.response.IpRiskReason;
 import com.maxmind.minfraud.response.ScoreResponse;
 import java.net.InetAddress;
+import java.net.ProxySelector;
+import java.net.http.HttpClient;
+import java.time.Duration;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -356,5 +359,47 @@ public class WebServiceClientTest {
             .port(wireMock.getPort())
             .disableHttps()
             .build();
+    }
+
+    @Test
+    public void testHttpClientWorks() {
+        HttpClient customClient = HttpClient.newBuilder().build();
+
+        WebServiceClient client = new WebServiceClient.Builder(6, "0123456789")
+            .httpClient(customClient)
+            .build();
+
+        // Verify the client was created successfully
+        assertEquals("WebServiceClient{host='minfraud.maxmind.com', port=443, useHttps=true, locales=[en], httpClient=" + customClient + "}", client.toString());
+    }
+
+    @Test
+    public void testHttpClientWithConnectTimeoutThrowsException() {
+        HttpClient customClient = HttpClient.newBuilder().build();
+
+        Exception ex = assertThrows(IllegalArgumentException.class, () ->
+            new WebServiceClient.Builder(6, "0123456789")
+                .httpClient(customClient)
+                .connectTimeout(Duration.ofSeconds(5))
+                .build()
+        );
+
+        assertEquals("Cannot set both httpClient and connectTimeout. " +
+            "Configure timeouts on the provided HttpClient instead.", ex.getMessage());
+    }
+
+    @Test
+    public void testHttpClientWithProxyThrowsException() {
+        HttpClient customClient = HttpClient.newBuilder().build();
+
+        Exception ex = assertThrows(IllegalArgumentException.class, () ->
+            new WebServiceClient.Builder(6, "0123456789")
+                .httpClient(customClient)
+                .proxy(java.net.ProxySelector.of(null))
+                .build()
+        );
+
+        assertEquals("Cannot set both httpClient and proxy. " +
+            "Configure proxy on the provided HttpClient instead.", ex.getMessage());
     }
 }
