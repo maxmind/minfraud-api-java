@@ -5,6 +5,8 @@ CHANGELOG
 ------------------
 
 * Added `SECUREPAY` to the `Payment.Processor` enum.
+* `WebServiceClient.Builder` now has an `httpClient()` method to allow
+  passing in a custom `HttpClient`.
 
 3.8.0 (2025-06-09)
 ------------------
