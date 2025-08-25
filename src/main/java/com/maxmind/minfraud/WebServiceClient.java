@@ -64,13 +64,16 @@ public final class WebServiceClient {
                 .getBytes(StandardCharsets.UTF_8));
 
         requestTimeout = builder.requestTimeout;
-        HttpClient.Builder httpClientBuilder = HttpClient.newBuilder()
-            .proxy(builder.proxy);
-        if (builder.connectTimeout != null) {
-            httpClientBuilder.connectTimeout(builder.connectTimeout);
+        if (builder.httpClient != null) {
+            httpClient = builder.httpClient;
+        } else {
+            HttpClient.Builder httpClientBuilder = HttpClient.newBuilder()
+                .proxy(builder.proxy);
+            if (builder.connectTimeout != null) {
+                httpClientBuilder.connectTimeout(builder.connectTimeout);
+            }
+            httpClient = httpClientBuilder.build();
         }
-        httpClient = httpClientBuilder.build();
-
     }
 
     /**
@@ -102,7 +105,8 @@ public final class WebServiceClient {
         Duration requestTimeout;
 
         List<String> locales = Collections.singletonList("en");
-        private ProxySelector proxy = ProxySelector.getDefault();
+        private ProxySelector proxy;
+        private HttpClient httpClient;
 
         /**
          * @param accountId  Your MaxMind account ID.
@@ -188,12 +192,38 @@ public final class WebServiceClient {
             return this;
         }
 
+        /**
+         * @param val the HttpClient to use when making requests. When provided,
+         *            connectTimeout and proxy settings will be ignored as the
+         *            custom client should handle these configurations.
+         * @return Builder object
+         */
+        public Builder httpClient(HttpClient val) {
+            httpClient = val;
+            return this;
+        }
 
         /**
          * @return an instance of {@code WebServiceClient} created from the fields set on this
          *     builder.
          */
         public WebServiceClient build() {
+            if (httpClient != null) {
+                if (connectTimeout != null) {
+                    throw new IllegalArgumentException(
+                        "Cannot set both httpClient and connectTimeout. "
+                        + "Configure timeouts on the provided HttpClient instead.");
+                }
+                if (proxy != null) {
+                    throw new IllegalArgumentException(
+                        "Cannot set both httpClient and proxy. "
+                        + "Configure proxy on the provided HttpClient instead.");
+                }
+            } else {
+                if (proxy == null) {
+                    proxy = ProxySelector.getDefault();
+                }
+            }
             return new WebServiceClient(this);
         }
     }
