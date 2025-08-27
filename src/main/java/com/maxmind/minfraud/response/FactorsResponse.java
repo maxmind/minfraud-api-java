@@ -10,7 +10,6 @@ import java.util.UUID;
 public final class FactorsResponse extends InsightsResponse {
 
     private final List<RiskScoreReason> riskScoreReasons;
-    private final Subscores subscores;
 
 
     /**
@@ -32,7 +31,6 @@ public final class FactorsResponse extends InsightsResponse {
      *     significantly. Risk score reasons are usually only returned for medium to high risk
      *     transactions. If there were no significant changes to the risk score due to these
      *     reasons, then this list will be empty.
-     * @param subscores        The {@code Subscores} model object.
      * @param warnings         A list containing warning objects.
      */
     public FactorsResponse(
@@ -50,14 +48,12 @@ public final class FactorsResponse extends InsightsResponse {
         @JsonProperty("shipping_address") ShippingAddress shippingAddress,
         @JsonProperty("shipping_phone") Phone shippingPhone,
         @JsonProperty("risk_score_reasons") List<RiskScoreReason> riskScoreReasons,
-        @JsonProperty("subscores") Subscores subscores,
         @JsonProperty("warnings") List<Warning> warnings
     ) {
         super(billingAddress, billingPhone, creditCard, device, disposition, email,
             fundsRemaining, id, ipAddress, queriesRemaining, riskScore,
             shippingAddress, shippingPhone, warnings);
         this.riskScoreReasons = riskScoreReasons;
-        this.subscores = subscores;
     }
 
 
@@ -70,14 +66,4 @@ public final class FactorsResponse extends InsightsResponse {
         return riskScoreReasons;
     }
 
-    /**
-     * @return The {@code Subscores} model object containing the risk factor scores.
-     *
-     * @deprecated replaced by {@link getRiskScoreReasons}.
-     */
-    @Deprecated
-    @JsonProperty("subscores")
-    public Subscores getSubscores() {
-        return subscores;
-    }
 }

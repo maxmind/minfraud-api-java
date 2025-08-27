@@ -10,6 +10,9 @@ CHANGELOG
   `InvalidRequestException`. Use `getUri()` instead.
 * BREAKING: Removed deprecated constructors from `FactorsResponse`,
   `InsightsResponse`, and `Phone` classes.
+* BREAKING: Removed deprecated `Subscores` class and
+  `FactorsResponse.getSubscores()` method. Use `getRiskScoreReasons()`
+  instead.
 
 3.9.0
 ------------------
