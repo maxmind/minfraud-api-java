@@ -7,7 +7,7 @@ import java.net.URI;
  * occurs when the web service is up and responding to requests, but the request sent was invalid in
  * some way.
  */
-public class InvalidRequestException extends MinFraudException {
+public final class InvalidRequestException extends MinFraudException {
     private final String code;
     private final int httpStatus;
     private final URI uri;
