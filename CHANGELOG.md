@@ -4,7 +4,10 @@ CHANGELOG
 4.0.0
 ------------------
 
-* BREAKING: Removed deprecated `TransactionReport.Builder(InetAddress, Tag)` constructor. Use `Builder(Tag)` and `ipAddress(InetAddress)` instead.
+* BREAKING: Removed deprecated `TransactionReport.Builder(InetAddress, Tag)`
+  constructor. Use `Builder(Tag)` and `ipAddress(InetAddress)` instead.
+* BREAKING: Removed deprecated `getUrl()` methods from `HttpException` and
+  `InvalidRequestException`. Use `getUri()` instead.
 
 3.9.0
 ------------------
