@@ -8,6 +8,8 @@ CHANGELOG
   constructor. Use `Builder(Tag)` and `ipAddress(InetAddress)` instead.
 * BREAKING: Removed deprecated `getUrl()` methods from `HttpException` and
   `InvalidRequestException`. Use `getUri()` instead.
+* BREAKING: Removed deprecated constructors from `FactorsResponse`,
+  `InsightsResponse`, and `Phone` classes.
 
 3.9.0
 ------------------

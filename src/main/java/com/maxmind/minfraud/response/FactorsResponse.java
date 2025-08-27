@@ -60,60 +60,6 @@ public final class FactorsResponse extends InsightsResponse {
         this.subscores = subscores;
     }
 
-    /**
-     * Constructor for backwards compatibility. This will be removed in the next major release.
-     *
-     * @deprecated use other constructor.
-     */
-    @Deprecated
-    public FactorsResponse(
-        BillingAddress billingAddress,
-        CreditCard creditCard,
-        Device device,
-        Disposition disposition,
-        Email email,
-        Double fundsRemaining,
-        UUID id,
-        IpAddress ipAddress,
-        Integer queriesRemaining,
-        Double riskScore,
-        ShippingAddress shippingAddress,
-        Subscores subscores,
-        List<Warning> warnings
-    ) {
-        this(billingAddress, null, creditCard, device, disposition, email, fundsRemaining, id,
-            ipAddress, queriesRemaining, riskScore, shippingAddress, null, null, subscores,
-            warnings);
-    }
-
-    /**
-     * Constructor for backwards compatibility. This will be removed in the next
-     * major release.
-     *
-     * @deprecated use other constructor.
-     */
-    @Deprecated
-    public FactorsResponse(
-        BillingAddress billingAddress,
-        Phone billingPhone,
-        CreditCard creditCard,
-        Device device,
-        Disposition disposition,
-        Email email,
-        Double fundsRemaining,
-        UUID id,
-        IpAddress ipAddress,
-        Integer queriesRemaining,
-        Double riskScore,
-        ShippingAddress shippingAddress,
-        Phone shippingPhone,
-        Subscores subscores,
-        List<Warning> warnings
-    ) {
-        this(billingAddress, billingPhone, creditCard, device, disposition, email, fundsRemaining,
-            id, ipAddress, queriesRemaining, riskScore, shippingAddress, shippingPhone, null,
-            subscores, warnings);
-    }
 
     /**
      * @return A list containing objects that describe risk score reasons
