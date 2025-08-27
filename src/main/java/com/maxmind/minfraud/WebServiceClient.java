@@ -436,17 +436,11 @@ public final class WebServiceClient {
         }
 
         switch (code) {
-            case "ACCOUNT_ID_REQUIRED":
-            case "AUTHORIZATION_INVALID":
-            case "LICENSE_KEY_REQUIRED":
-            case "USER_ID_REQUIRED":
-                throw new AuthenticationException(error);
-            case "INSUFFICIENT_FUNDS":
-                throw new InsufficientFundsException(error);
-            case "PERMISSION_REQUIRED":
-                throw new PermissionRequiredException(error);
-            default:
-                throw new InvalidRequestException(error, code, status, uri, null);
+            case "ACCOUNT_ID_REQUIRED", "AUTHORIZATION_INVALID", "LICENSE_KEY_REQUIRED",
+                    "USER_ID_REQUIRED" -> throw new AuthenticationException(error);
+            case "INSUFFICIENT_FUNDS" -> throw new InsufficientFundsException(error);
+            case "PERMISSION_REQUIRED" -> throw new PermissionRequiredException(error);
+            default -> throw new InvalidRequestException(error, code, status, uri, null);
         }
     }
 
