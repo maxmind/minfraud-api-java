@@ -13,6 +13,7 @@ CHANGELOG
 * BREAKING: Removed deprecated `Subscores` class and
   `FactorsResponse.getSubscores()` method. Use `getRiskScoreReasons()`
   instead.
+* BREAKING: Java 17 is now required (previously Java 11).
 
 3.9.0
 ------------------

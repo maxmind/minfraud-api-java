@@ -16,7 +16,7 @@ To do this, add the dependency to your pom.xml:
     <dependency>
         <groupId>com.maxmind.minfraud</groupId>
         <artifactId>minfraud</artifactId>
-        <version>3.8.0</version>
+        <version>4.0.0</version>
     </dependency>
 ```
 
@@ -29,7 +29,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'com.maxmind.minfraud:minfraud:3.8.0'
+    compile 'com.maxmind.minfraud:minfraud:4.0.0'
 }
 ```
 
@@ -281,7 +281,7 @@ to the client API, please see
 
 ## Requirements ##
 
-This code requires Java 11+.
+This code requires Java 17+.
 
 ## Contributing ##
 
