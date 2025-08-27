@@ -2,7 +2,6 @@ package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -46,7 +45,7 @@ public class ScoreResponse extends AbstractModel {
         this.queriesRemaining = queriesRemaining;
         this.riskScore = riskScore;
         this.warnings =
-            Collections.unmodifiableList(warnings == null ? new ArrayList<>() : warnings);
+            Collections.unmodifiableList(warnings == null ? List.of() : warnings);
     }
 
     /**

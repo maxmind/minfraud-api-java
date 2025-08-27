@@ -10,7 +10,6 @@ import com.maxmind.geoip2.record.Postal;
 import com.maxmind.geoip2.record.RepresentedCountry;
 import com.maxmind.geoip2.record.Subdivision;
 import com.maxmind.geoip2.record.Traits;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -58,7 +57,7 @@ public final class IpAddress extends InsightsResponse implements IpAddressInterf
         this.location = location == null ? new GeoIp2Location() : location;
         this.risk = risk;
         this.riskReasons =
-            Collections.unmodifiableList(riskReasons == null ? new ArrayList<>() : riskReasons);
+            Collections.unmodifiableList(riskReasons == null ? List.of() : riskReasons);
     }
 
     /**

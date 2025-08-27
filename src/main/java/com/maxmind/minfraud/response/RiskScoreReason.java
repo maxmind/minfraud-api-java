@@ -2,7 +2,6 @@ package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,7 +24,7 @@ public final class RiskScoreReason extends AbstractModel {
     ) {
         this.multiplier = multiplier;
         this.reasons =
-            Collections.unmodifiableList(reasons == null ? new ArrayList<>() : reasons);
+            Collections.unmodifiableList(reasons == null ? List.of() : reasons);
     }
 
     /**

@@ -24,7 +24,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.HashMap;
@@ -168,7 +167,7 @@ public final class WebServiceClient {
             if (locales == null) {
                 throw new IllegalArgumentException("locales must not be null");
             }
-            locales = new ArrayList<>(val);
+            locales = List.copyOf(val);
             return this;
         }
 
