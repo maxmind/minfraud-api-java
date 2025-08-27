@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+4.0.0
+------------------
+
+* BREAKING: Removed deprecated `TransactionReport.Builder(InetAddress, Tag)` constructor. Use `Builder(Tag)` and `ipAddress(InetAddress)` instead.
+
 3.9.0
 ------------------
 
