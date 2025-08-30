@@ -261,6 +261,6 @@ public final class Transaction extends AbstractModel {
      */
     @JsonProperty("shopping_cart")
     public List<ShoppingCartItem> getShoppingCart() {
-        return new ArrayList<>(shoppingCart);
+        return List.copyOf(shoppingCart);
     }
 }

@@ -1,15 +1,13 @@
 package com.maxmind.minfraud.exception;
 
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URL;
 
 /**
  * This class represents a non-specific error returned by MaxMind's minFraud web service. This
  * occurs when the web service is up and responding to requests, but the request sent was invalid in
  * some way.
  */
-public class InvalidRequestException extends MinFraudException {
+public final class InvalidRequestException extends MinFraudException {
     private final String code;
     private final int httpStatus;
     private final URI uri;
@@ -63,16 +61,4 @@ public class InvalidRequestException extends MinFraudException {
         return this.uri;
     }
 
-    /**
-     * @return the URL queried.
-     * @deprecated Use getUri() instead
-     */
-    @Deprecated
-    public URL getUrl() {
-        try {
-            return this.uri.toURL();
-        } catch (MalformedURLException e) {
-            return null;
-        }
-    }
 }

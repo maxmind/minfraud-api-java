@@ -1,6 +1,20 @@
 CHANGELOG
 =========
 
+4.0.0
+------------------
+
+* BREAKING: Removed deprecated `TransactionReport.Builder(InetAddress, Tag)`
+  constructor. Use `Builder(Tag)` and `ipAddress(InetAddress)` instead.
+* BREAKING: Removed deprecated `getUrl()` methods from `HttpException` and
+  `InvalidRequestException`. Use `getUri()` instead.
+* BREAKING: Removed deprecated constructors from `FactorsResponse`,
+  `InsightsResponse`, and `Phone` classes.
+* BREAKING: Removed deprecated `Subscores` class and
+  `FactorsResponse.getSubscores()` method. Use `getRiskScoreReasons()`
+  instead.
+* BREAKING: Java 17 is now required (previously Java 11).
+
 3.9.0
 ------------------
 

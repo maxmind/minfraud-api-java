@@ -450,7 +450,7 @@ public final class Email extends AbstractModel {
             );
             if (fastmailDomains.containsKey(possibleDomain)) {
                 domain = possibleDomain;
-                if (!localPart.equals("")) {
+                if (!localPart.isEmpty()) {
                     localPart = domainParts[0];
                 }
             }

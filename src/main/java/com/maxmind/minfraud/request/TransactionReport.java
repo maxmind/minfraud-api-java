@@ -40,21 +40,6 @@ public final class TransactionReport extends AbstractModel {
         String notes;
         String transactionId;
 
-        /**
-         * The constructor for the {@code TransactionReport.Builder} class with IP address.
-         *
-         * @param ipAddress The IP address associated with the device used by the customer in the
-         *                  transaction.
-         * @param tag       A string indicating the likelihood that a transaction may be
-         *                  fraudulent.
-         * @deprecated Use {@link #Builder(Tag)} instead and set the IP address using
-         *     {@link #ipAddress(InetAddress)}.
-         */
-        @Deprecated
-        public Builder(InetAddress ipAddress, Tag tag) {
-            this(tag);
-            this.ipAddress = ipAddress;
-        }
 
         /**
          * The constructor for the {@code TransactionReport.Builder} class.

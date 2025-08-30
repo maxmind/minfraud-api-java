@@ -1,9 +1,7 @@
 package com.maxmind.minfraud.exception;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URL;
 
 /**
  * This class represents an HTTP transport error. This is not an error returned by the web service
@@ -51,16 +49,4 @@ public final class HttpException extends IOException {
         return this.uri;
     }
 
-    /**
-     * @return the URL queried.
-     * @deprecated Use getUri() instead
-     */
-    @Deprecated
-    public URL getUrl() {
-        try {
-            return this.uri.toURL();
-        } catch (MalformedURLException e) {
-            return null;
-        }
-    }
 }

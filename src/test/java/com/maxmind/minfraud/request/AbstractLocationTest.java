@@ -7,7 +7,7 @@ import com.maxmind.minfraud.request.AbstractLocation.Builder;
 import org.junit.jupiter.api.Test;
 
 public abstract class AbstractLocationTest {
-    abstract Builder builder();
+    abstract Builder<?> builder();
 
 
     @Test
