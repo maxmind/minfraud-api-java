@@ -4,7 +4,7 @@
 
     <groupId>com.maxmind.minfraud</groupId>
     <artifactId>minfraud</artifactId>
-    <version>3.8.0</version>
+    <version>4.0.0</version>
     <name>MaxMind minFraud API</name>
     <description>MaxMind minFraud Score, Insights, Factors and Report Transaction API</description>
     <url>http://dev.maxmind.com/minfraud</url>
@@ -170,7 +170,7 @@
                 <version>3.11.3</version>
                 <configuration>
                     <show>public</show>
-                    <source>11</source>
+                    <source>17</source>
                     <doclint>-missing</doclint>
                 </configuration>
                 <executions>
@@ -206,9 +206,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.14.0</version>
                 <configuration>
-                    <release>11</release>
-                    <source>1.11</source>
-                    <target>1.11</target>
+                    <release>17</release>
+                    <source>17</source>
+                    <target>17</target>
                 </configuration>
             </plugin>
             <plugin>

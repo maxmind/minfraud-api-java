@@ -7,7 +7,9 @@ package com.maxmind.minfraud.exception;
  * It also serves as the base class for {@code AuthenticationException},
  * {@code InsufficientFundsException}, and {@code InvalidRequestException}.
  */
-public class MinFraudException extends Exception {
+public sealed class MinFraudException extends Exception
+    permits AuthenticationException, InsufficientFundsException, InvalidRequestException,
+        PermissionRequiredException {
 
     /**
      * @param message A message explaining the cause of the error.

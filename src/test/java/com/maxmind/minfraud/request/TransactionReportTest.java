@@ -44,9 +44,6 @@ public class TransactionReportTest {
             "58fa38d8-4b87-458b-a22b-f00eda1aa20d");
         final String transactionId = "abc123";
 
-        // Test the deprecated constructor
-        assertEquals(ip, new TransactionReport.Builder(ip, tag)
-            .build().getIpAddress());
 
         assertEquals(ip, new TransactionReport.Builder(tag)
             .ipAddress(ip).build().getIpAddress());

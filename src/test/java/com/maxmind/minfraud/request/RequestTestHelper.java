@@ -22,7 +22,8 @@ import java.util.UUID;
  */
 public class RequestTestHelper {
     public static TransactionReport fullTransactionReport() throws Exception {
-        return new TransactionReport.Builder(InetAddress.getByName("1.1.1.1"), Tag.NOT_FRAUD)
+        return new TransactionReport.Builder(Tag.NOT_FRAUD)
+            .ipAddress(InetAddress.getByName("1.1.1.1"))
             .chargebackCode("foo")
             .maxmindId("12345678")
             .minfraudId(UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d"))

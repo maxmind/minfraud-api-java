@@ -41,7 +41,7 @@ public abstract class AbstractLocation extends AbstractModel {
      * @param <T> the builder class
      */
     @SuppressWarnings("unchecked")
-    abstract static class Builder<T extends AbstractLocation.Builder> {
+    abstract static class Builder<T extends AbstractLocation.Builder<T>> {
         private static final Pattern COUNTRY_CODE_PATTERN = Pattern.compile("^[A-Z]{2}$");
 
         String firstName;

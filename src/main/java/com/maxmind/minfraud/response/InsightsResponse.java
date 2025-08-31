@@ -62,29 +62,6 @@ public class InsightsResponse extends ScoreResponse {
         this.shippingPhone = shippingPhone == null ? new Phone() : shippingPhone;
     }
 
-    /**
-     * Constructor for backwards compatibility. This will be removed in the next major release.
-     *
-     * @deprecated use other constructor.
-     */
-    @Deprecated
-    public InsightsResponse(
-        BillingAddress billingAddress,
-        CreditCard creditCard,
-        Device device,
-        Disposition disposition,
-        Email email,
-        Double fundsRemaining,
-        UUID id,
-        IpAddress ipAddress,
-        Integer queriesRemaining,
-        Double riskScore,
-        ShippingAddress shippingAddress,
-        List<Warning> warnings
-    ) {
-        this(billingAddress, null, creditCard, device, disposition, email, fundsRemaining, id,
-            ipAddress, queriesRemaining, riskScore, shippingAddress, null, warnings);
-    }
 
     /**
      * @return The {@code IpAddress} model object.

@@ -35,28 +35,10 @@ public final class Phone extends AbstractModel {
     }
 
     /**
-     * @param country         The ISO 3166-2 country code for the phone number.
-     * @param isVoip          Whether the number is VoIP.
-     * @param networkOperator The network operator associated with the phone number.
-     * @param numberType      The type of the phone number.
-     *
-     * @deprecated use other constructor instead.
-     */
-    @Deprecated
-    public Phone(
-        String country,
-        Boolean isVoip,
-        String networkOperator,
-        String numberType
-    ) {
-        this(country, isVoip, null, networkOperator, numberType);
-    }
-
-    /**
      * Constructor for {@code Phone}.
      */
     public Phone() {
-        this(null, null, null, null);
+        this(null, null, null, null, null);
     }
 
     /**
