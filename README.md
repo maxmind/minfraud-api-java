@@ -197,6 +197,7 @@ Transaction request = new Transaction.Builder(
     ).payment(
         new Payment.Builder()
             .declineCode("invalid")
+            .method(Payment.Method.CARD)
             .processor(Payment.Processor.ADYEN)
             .wasAuthorized(false)
             .build()

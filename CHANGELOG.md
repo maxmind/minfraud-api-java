@@ -18,6 +18,9 @@ CHANGELOG
 * Added the input `/event/party`. This is the party submitting the
   transaction. You may provide this using the `party` method on
   `Event.Builder`.
+* Added the input `/payment/method`. This is the payment method associated
+  with the transaction. You may provide this using the `method` method on
+  `Payment.Builder`.
 
 3.9.0
 ------------------
