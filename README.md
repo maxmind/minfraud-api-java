@@ -179,6 +179,7 @@ Transaction request = new Transaction.Builder(
             .build()
     ).event(
         new Event.Builder()
+            .party(Event.Party.CUSTOMER)
             .shopId("2432")
             .time(new Date())
             .transactionId("tr1242")

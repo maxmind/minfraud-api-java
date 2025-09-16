@@ -3,12 +3,22 @@ package com.maxmind.minfraud.request;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.maxmind.minfraud.request.Event.Builder;
+import com.maxmind.minfraud.request.Event.Party;
 import com.maxmind.minfraud.request.Event.Type;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
 
 public class EventTest {
+
+    @Test
+    public void testParty() {
+        Event event = new Builder().party(Party.AGENT).build();
+        assertEquals(Party.AGENT, event.getParty());
+
+        event = new Builder().party(Party.CUSTOMER).build();
+        assertEquals(Party.CUSTOMER, event.getParty());
+    }
 
     @Test
     public void testTransactionId() {
