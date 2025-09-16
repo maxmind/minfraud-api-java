@@ -43,5 +43,11 @@ public class EventTest {
 
         event = new Builder().type(Type.PAYOUT_CHANGE).build();
         assertEquals(Type.PAYOUT_CHANGE, event.getType());
+
+        event = new Builder().type(Type.CREDIT_APPLICATION).build();
+        assertEquals(Type.CREDIT_APPLICATION, event.getType());
+
+        event = new Builder().type(Type.FUND_TRANSFER).build();
+        assertEquals(Type.FUND_TRANSFER, event.getType());
     }
 }

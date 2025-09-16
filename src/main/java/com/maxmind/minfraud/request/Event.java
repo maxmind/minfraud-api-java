@@ -143,9 +143,17 @@ public final class Event extends AbstractModel {
          */
         ACCOUNT_LOGIN,
         /**
+         * A credit application was submitted
+         */
+        CREDIT_APPLICATION,
+        /**
          * The account email was changed
          */
         EMAIL_CHANGE,
+        /**
+         * A fund transfer was initiated
+         */
+        FUND_TRANSFER,
         /**
          * The account password was reset
          */

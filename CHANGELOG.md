@@ -14,6 +14,7 @@ CHANGELOG
   `FactorsResponse.getSubscores()` method. Use `getRiskScoreReasons()`
   instead.
 * BREAKING: Java 17 is now required (previously Java 11).
+* Added `CREDIT_APPLICATION` and `FUND_TRANSFER` to the `Event.Type` enum.
 
 3.9.0
 ------------------
