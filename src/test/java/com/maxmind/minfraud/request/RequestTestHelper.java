@@ -58,6 +58,7 @@ public class RequestTestHelper {
             .event(
                 new Event
                     .Builder()
+                    .party(Event.Party.CUSTOMER)
                     .transactionId("txn3134133")
                     .shopId("s2123")
                     .time(ZonedDateTime.parse("2012-04-12T23:20:50.52Z"))
@@ -102,6 +103,7 @@ public class RequestTestHelper {
                     .build()
             ).payment(
                 new Payment.Builder()
+                    .method(Payment.Method.CARD)
                     .processor(Payment.Processor.STRIPE)
                     .wasAuthorized(false)
                     .declineCode("invalid number")
