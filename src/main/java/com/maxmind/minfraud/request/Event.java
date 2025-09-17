@@ -12,12 +12,14 @@ import java.util.Date;
  */
 public final class Event extends AbstractModel {
 
+    private final Party party;
     private final String transactionId;
     private final String shopId;
     private final ZonedDateTime time;
     private final Type type;
 
     private Event(Event.Builder builder) {
+        party = builder.party;
         transactionId = builder.transactionId;
         shopId = builder.shopId;
         time = builder.time;
@@ -28,10 +30,20 @@ public final class Event extends AbstractModel {
      * {@code Builder} creates instances of {@code Event} from values set by the builder's methods.
      */
     public static final class Builder {
+        Party party;
         String transactionId;
         String shopId;
         ZonedDateTime time;
         Type type;
+
+        /**
+         * @param party The party submitting the transaction.
+         * @return The builder object.
+         */
+        public Event.Builder party(Party party) {
+            this.party = party;
+            return this;
+        }
 
         /**
          * @param id Your internal ID for the transaction. We can use this to locate a specific
@@ -91,6 +103,14 @@ public final class Event extends AbstractModel {
     }
 
     /**
+     * @return The party submitting the transaction.
+     */
+    @JsonProperty("party")
+    public Party getParty() {
+        return party;
+    }
+
+    /**
      * @return The transaction ID.
      */
     @JsonProperty("transaction_id")
@@ -143,9 +163,17 @@ public final class Event extends AbstractModel {
          */
         ACCOUNT_LOGIN,
         /**
+         * A credit application was submitted
+         */
+        CREDIT_APPLICATION,
+        /**
          * The account email was changed
          */
         EMAIL_CHANGE,
+        /**
+         * A fund transfer was initiated
+         */
+        FUND_TRANSFER,
         /**
          * The account password was reset
          */
@@ -170,6 +198,27 @@ public final class Event extends AbstractModel {
          * A survey was completed
          */
         SURVEY;
+
+        /**
+         * @return a string representation of the object.
+         */
+        public String toString() {
+            return this.name().toLowerCase();
+        }
+    }
+
+    /**
+     * The enumerated event party types.
+     */
+    public enum Party {
+        /**
+         * An agent is submitting the transaction
+         */
+        AGENT,
+        /**
+         * A customer is submitting the transaction
+         */
+        CUSTOMER;
 
         /**
          * @return a string representation of the object.

@@ -7,11 +7,13 @@ import com.maxmind.minfraud.AbstractModel;
  * The payment information for the transaction.
  */
 public final class Payment extends AbstractModel {
+    private final Method method;
     private final Processor processor;
     private final Boolean wasAuthorized;
     private final String declineCode;
 
     private Payment(Payment.Builder builder) {
+        method = builder.method;
         processor = builder.processor;
         wasAuthorized = builder.wasAuthorized;
         declineCode = builder.declineCode;
@@ -22,9 +24,19 @@ public final class Payment extends AbstractModel {
      * methods.
      */
     public static final class Builder {
+        Method method;
         Processor processor;
         Boolean wasAuthorized;
         String declineCode;
+
+        /**
+         * @param method The payment method used for the transaction.
+         * @return The builder object.
+         */
+        public Payment.Builder method(Method method) {
+            this.method = method;
+            return this;
+        }
 
         /**
          * @param processor The payment processor used for the transaction.
@@ -62,6 +74,14 @@ public final class Payment extends AbstractModel {
         public Payment build() {
             return new Payment(this);
         }
+    }
+
+    /**
+     * @return The payment method.
+     */
+    @JsonProperty("method")
+    public Method getMethod() {
+        return method;
     }
 
     /**
@@ -254,6 +274,59 @@ public final class Payment extends AbstractModel {
         WINDCAVE,
         WIRECARD,
         WORLDPAY;
+
+        /**
+         * @return a string representation of the object.
+         */
+        public String toString() {
+            return this.name().toLowerCase();
+        }
+    }
+
+    /**
+     * Enumeration of payment methods
+     */
+    public enum Method {
+        /**
+         * Bank debit payment
+         */
+        BANK_DEBIT,
+        /**
+         * Bank redirect payment
+         */
+        BANK_REDIRECT,
+        /**
+         * Bank transfer payment
+         */
+        BANK_TRANSFER,
+        /**
+         * Buy now, pay later payment
+         */
+        BUY_NOW_PAY_LATER,
+        /**
+         * Card payment
+         */
+        CARD,
+        /**
+         * Cryptocurrency payment
+         */
+        CRYPTO,
+        /**
+         * Digital wallet payment
+         */
+        DIGITAL_WALLET,
+        /**
+         * Gift card payment
+         */
+        GIFT_CARD,
+        /**
+         * Real time payment
+         */
+        REAL_TIME_PAYMENT,
+        /**
+         * Rewards payment
+         */
+        REWARDS;
 
         /**
          * @return a string representation of the object.

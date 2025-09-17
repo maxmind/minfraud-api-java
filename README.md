@@ -179,6 +179,7 @@ Transaction request = new Transaction.Builder(
             .build()
     ).event(
         new Event.Builder()
+            .party(Event.Party.CUSTOMER)
             .shopId("2432")
             .time(new Date())
             .transactionId("tr1242")
@@ -196,6 +197,7 @@ Transaction request = new Transaction.Builder(
     ).payment(
         new Payment.Builder()
             .declineCode("invalid")
+            .method(Payment.Method.CARD)
             .processor(Payment.Processor.ADYEN)
             .wasAuthorized(false)
             .build()

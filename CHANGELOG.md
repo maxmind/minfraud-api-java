@@ -14,6 +14,13 @@ CHANGELOG
   `FactorsResponse.getSubscores()` method. Use `getRiskScoreReasons()`
   instead.
 * BREAKING: Java 17 is now required (previously Java 11).
+* Added `CREDIT_APPLICATION` and `FUND_TRANSFER` to the `Event.Type` enum.
+* Added the input `/event/party`. This is the party submitting the
+  transaction. You may provide this using the `party` method on
+  `Event.Builder`.
+* Added the input `/payment/method`. This is the payment method associated
+  with the transaction. You may provide this using the `method` method on
+  `Payment.Builder`.
 
 3.9.0
 ------------------
