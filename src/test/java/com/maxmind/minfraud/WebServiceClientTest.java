@@ -99,31 +99,31 @@ public class WebServiceClientTest {
         JSONAssert.assertEquals(responseContent, response.toJson(), false);
         verifyRequestFor(wireMock, "insights", "full-request");
         assertTrue(
-            response.getIpAddress().getCountry().isInEuropeanUnion(),
-            "response.getIpAddress().getCountry().isInEuropeanUnion() does not return true"
+            response.ipAddress().country().isInEuropeanUnion(),
+            "response.ipAddress().country().isInEuropeanUnion() does not return true"
         );
         assertFalse(
-            response.getIpAddress().getRegisteredCountry().isInEuropeanUnion(),
-            "response.getIpAddress().getRegisteredCountry().isInEuropeanUnion() does not return false"
+            response.ipAddress().registeredCountry().isInEuropeanUnion(),
+            "response.ipAddress().registeredCountry().isInEuropeanUnion() does not return false"
         );
         assertTrue(
-            response.getIpAddress().getRepresentedCountry().isInEuropeanUnion(),
-            "response.getIpAddress().getRepresentedCountry().isInEuropeanUnion() does not return true"
+            response.ipAddress().representedCountry().isInEuropeanUnion(),
+            "response.ipAddress().representedCountry().isInEuropeanUnion() does not return true"
         );
-        assertEquals("2018-04-05T15:34:40-07:00", response.getDevice().getLocalTime());
+        assertEquals("2018-04-05T15:34:40-07:00", response.device().localTime());
 
-        assertEquals("152.216.7.110", response.getIpAddress().getTraits().getIpAddress());
+        assertEquals("152.216.7.110", response.ipAddress().traits().ipAddress().getHostAddress());
         assertEquals("81.2.69.0/24",
-            response.getIpAddress().getTraits().getNetwork().toString());
+            response.ipAddress().traits().network().toString());
 
-        assertTrue(response.getCreditCard().isVirtual());
+        assertTrue(response.creditCard().isVirtual());
 
-        var reasons = response.getIpAddress().getRiskReasons();
+        var reasons = response.ipAddress().riskReasons();
 
         assertEquals(2, reasons.size(), "two IP risk reasons");
         assertEquals(
             "MINFRAUD_NETWORK_ACTIVITY",
-            reasons.get(1).getCode(),
+            reasons.get(1).code(),
             "second IP risk reason code"
         );
     }
@@ -141,22 +141,22 @@ public class WebServiceClientTest {
         JSONAssert.assertEquals(responseContent, response.toJson(), false);
         verifyRequestFor(wireMock, "factors", "full-request");
         assertTrue(
-            response.getIpAddress().getCountry().isInEuropeanUnion(),
-            "response.getIpAddress().getCountry().isInEuropeanUnion() does not return true"
+            response.ipAddress().country().isInEuropeanUnion(),
+            "response.ipAddress().country().isInEuropeanUnion() does not return true"
         );
         assertTrue(
-            response.getIpAddress().getRegisteredCountry().isInEuropeanUnion(),
-            "response.getIpAddress().getRegisteredCountry().isInEuropeanUnion() does not return true"
+            response.ipAddress().registeredCountry().isInEuropeanUnion(),
+            "response.ipAddress().registeredCountry().isInEuropeanUnion() does not return true"
         );
         assertFalse(
-            response.getIpAddress().getRepresentedCountry().isInEuropeanUnion(),
-            "response.getIpAddress().getRepresentedCountry().isInEuropeanUnion() does not return false"
+            response.ipAddress().representedCountry().isInEuropeanUnion(),
+            "response.ipAddress().representedCountry().isInEuropeanUnion() does not return false"
         );
 
 
-        assertEquals("152.216.7.110", response.getIpAddress().getTraits().getIpAddress());
+        assertEquals("152.216.7.110", response.ipAddress().traits().ipAddress().getHostAddress());
         assertEquals("81.2.69.0/24",
-            response.getIpAddress().getTraits().getNetwork().toString());
+            response.ipAddress().traits().network().toString());
     }
 
     @Test

@@ -20,6 +20,6 @@ public class EmailDomainTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals(LocalDate.parse("2014-02-03"), domain.getFirstSeen());
+        assertEquals(LocalDate.parse("2014-02-03"), domain.firstSeen());
     }
 }

@@ -20,7 +20,7 @@ public class GeoIp2LocationTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals(time, location.getLocalTime());
+        assertEquals(time, location.localTime());
         assertEquals(time, location.getLocalDateTime().toString());
     }
 }

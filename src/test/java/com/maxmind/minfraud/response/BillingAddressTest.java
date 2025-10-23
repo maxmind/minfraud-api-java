@@ -28,18 +28,18 @@ public class BillingAddressTest extends AbstractOutputTest {
         assertTrue(address.isPostalInCity(), "correct isPostalInCity");
         assertEquals(
             100,
-            address.getDistanceToIpLocation().longValue(),
-            "correct getDistanceToIpLocation"
+            address.distanceToIpLocation().longValue(),
+            "correct distanceToIpLocation"
         );
         assertEquals(
             32.1,
-            address.getLongitude(),
+            address.longitude(),
             DELTA,
             "correct longitude"
         );
         assertEquals(
             43.1,
-            address.getLatitude(),
+            address.latitude(),
             DELTA,
             "correct latitude"
         );

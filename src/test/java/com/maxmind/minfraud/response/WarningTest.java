@@ -25,9 +25,9 @@ public class WarningTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals(code, warning.getCode(), "code");
-        assertEquals(msg, warning.getWarning(), "warning message");
-        assertEquals(pointer, warning.getInputPointer(), "input_pointer");
+        assertEquals(code, warning.code(), "code");
+        assertEquals(msg, warning.warning(), "warning message");
+        assertEquals(pointer, warning.inputPointer(), "input_pointer");
     }
 
 }

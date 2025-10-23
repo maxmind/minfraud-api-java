@@ -25,10 +25,10 @@ public class PhoneTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals("US", phone.getCountry());
+        assertEquals("US", phone.country());
         assertTrue(phone.isVoip());
         assertFalse(phone.matchesPostal());
-        assertEquals("Operator", phone.getNetworkOperator());
-        assertEquals("fixed", phone.getNumberType());
+        assertEquals("Operator", phone.networkOperator());
+        assertEquals("fixed", phone.numberType());
     }
 }

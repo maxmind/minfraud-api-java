@@ -23,8 +23,8 @@ public class ReasonTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals(code, reason.getCode(), "code");
-        assertEquals(msg, reason.getReason(), "reason");
+        assertEquals(code, reason.code(), "code");
+        assertEquals(msg, reason.reason(), "reason");
     }
 
 }

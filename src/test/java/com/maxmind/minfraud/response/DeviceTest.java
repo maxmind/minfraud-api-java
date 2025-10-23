@@ -23,11 +23,11 @@ public class DeviceTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals(99.0, device.getConfidence(), 1e-15);
-        assertEquals(UUID.fromString("C8D3BE1A-BE26-11E5-8C50-1B575C37265F"), device.getId());
-        assertEquals("2016-06-08T14:16:38Z", device.getLastSeen());
+        assertEquals(99.0, device.confidence(), 1e-15);
+        assertEquals(UUID.fromString("C8D3BE1A-BE26-11E5-8C50-1B575C37265F"), device.id());
+        assertEquals("2016-06-08T14:16:38Z", device.lastSeen());
         assertEquals("2016-06-08T14:16:38Z", device.getLastSeenDateTime().toString());
-        assertEquals("2018-04-05T15:21:01-07:00", device.getLocalTime());
+        assertEquals("2018-04-05T15:21:01-07:00", device.localTime());
         assertEquals("2018-04-05T15:21:01-07:00", device.getLocalDateTime().toString());
 
     }

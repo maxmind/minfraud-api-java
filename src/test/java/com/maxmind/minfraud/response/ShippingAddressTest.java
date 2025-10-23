@@ -32,18 +32,18 @@ public class ShippingAddressTest extends AbstractOutputTest {
         assertTrue(address.isPostalInCity(), "correct isPostalInCity");
         assertEquals(
             100,
-            address.getDistanceToIpLocation().longValue(),
-            "correct getDistanceToIpLocation"
+            address.distanceToIpLocation().longValue(),
+            "correct distanceToIpLocation"
         );
         assertEquals(
             32.1,
-            address.getLongitude(),
+            address.longitude(),
             DELTA,
             "correct longitude"
         );
         assertEquals(
             43.1,
-            address.getLatitude(),
+            address.latitude(),
             DELTA,
             "correct latitude"
         );
@@ -51,7 +51,7 @@ public class ShippingAddressTest extends AbstractOutputTest {
         assertFalse(address.isHighRisk(), "is high risk");
         assertEquals(
             Integer.valueOf(200),
-            address.getDistanceToBillingAddress(),
+            address.distanceToBillingAddress(),
             "distance to billing address"
         );
     }

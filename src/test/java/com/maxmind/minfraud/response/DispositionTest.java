@@ -21,8 +21,8 @@ public class DispositionTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals("accept", disposition.getAction());
-        assertEquals("default", disposition.getReason());
-        assertEquals("the label", disposition.getRuleLabel());
+        assertEquals("accept", disposition.action());
+        assertEquals("default", disposition.reason());
+        assertEquals("the label", disposition.ruleLabel());
     }
 }
