@@ -157,14 +157,14 @@ public class RequestTestHelper {
 
 
     public static String readJsonFile(String name) throws IOException, URISyntaxException {
-        URL resource = RequestTestHelper.class
+        var resource = RequestTestHelper.class
             .getResource("/test-data/" + name + ".json");
         return Files.readString(Paths.get(resource.toURI()));
     }
 
     public static void verifyRequestFor(WireMockExtension wireMock, String service, String jsonFile)
         throws IOException, URISyntaxException {
-        String requestBody = readJsonFile(jsonFile);
+        var requestBody = readJsonFile(jsonFile);
 
         wireMock.verify(postRequestedFor(urlMatching("/minfraud/v2.0/" + service))
             .withRequestBody(equalToJson(requestBody))

@@ -20,21 +20,21 @@ public class EmailTest {
 
     @Test
     public void testAddress() {
-        Email email = new Builder().address("test@test.org").build();
+        var email = new Builder().address("test@test.org").build();
         assertEquals("test@test.org", email.address(), "raw email");
         assertEquals("test.org", email.domain(), "domain set from email");
     }
 
     @Test
     public void testMultipleAtAddress() {
-        Email email = new Builder().address("\"test@test\"@test.org").build();
+        var email = new Builder().address("\"test@test\"@test.org").build();
         assertEquals("\"test@test\"@test.org", email.address(), "raw email");
         assertEquals("test.org", email.domain(), "domain set from email");
     }
 
     @Test
     public void testAddressWithNoValidation() {
-        Map<String, String> addresses = new HashMap<>() {{
+        var addresses = new HashMap<String, String>() {{
             put("test", null);
             put("@test", "test");
             put("test@", null);
@@ -42,7 +42,7 @@ public class EmailTest {
         }};
 
         for (String address : addresses.keySet()) {
-            Email email = new Builder(false).address(address).build();
+            var email = new Builder(false).address(address).build();
             assertEquals(address, email.address(), "raw email");
             assertEquals(addresses.get(address), email.domain(), "domain set from email");
         }
@@ -50,7 +50,7 @@ public class EmailTest {
 
     @Test
     public void testAddressMd5() {
-        Email email = new Builder().address("test@test.org").hashAddress().build();
+        var email = new Builder().address("test@test.org").hashAddress().build();
         assertEquals(
             "476869598e748d958e819c180af31982",
             email.address(),
@@ -61,7 +61,7 @@ public class EmailTest {
 
     @Test
     public void testAddressMd5MultipleTimes() {
-        Email email = new Builder().address("test@test.org").hashAddress().hashAddress().build();
+        var email = new Builder().address("test@test.org").hashAddress().hashAddress().build();
         assertEquals(
             "476869598e748d958e819c180af31982",
             email.address(),
@@ -72,13 +72,13 @@ public class EmailTest {
 
     @Test
     public void testHashAddressWithoutAddress() {
-        Email email = new Builder().domain("test.org").hashAddress().build();
+        var email = new Builder().domain("test.org").hashAddress().build();
         assertEquals("test.org", email.domain(), "domain is set");
     }
 
     @Test
     public void testMd5GetsLowercased() {
-        Email email = new Builder().address("TEST@TEST.org").hashAddress().build();
+        var email = new Builder().address("TEST@TEST.org").hashAddress().build();
         assertEquals(
             "476869598e748d958e819c180af31982",
             email.address(),
@@ -88,10 +88,10 @@ public class EmailTest {
 
     @Test
     public void testGetAddressWithoutSettingIt() {
-        Email email = new Builder().domain("test.org").hashAddress().build();
+        var email = new Builder().domain("test.org").hashAddress().build();
         assertNull(email.address(), "null address if none set");
 
-        Email email2 = new Builder().domain("test.org").hashAddress().build();
+        var email2 = new Builder().domain("test.org").hashAddress().build();
         assertNull(email2.address(), "null address if none set");
     }
 
@@ -239,9 +239,9 @@ public class EmailTest {
     }
 
     private String toMD5(String s) throws NoSuchAlgorithmException {
-        MessageDigest d = MessageDigest.getInstance("MD5");
+        var d = MessageDigest.getInstance("MD5");
         d.update(s.getBytes(StandardCharsets.UTF_8));
-        BigInteger i = new BigInteger(1, d.digest());
+        var i = new BigInteger(1, d.digest());
         return String.format("%032x", i);
     }
 
@@ -270,15 +270,15 @@ public class EmailTest {
 
     @Test
     public void testDomain() {
-        String domain = "domain.com";
-        Email email = new Builder().domain(domain).build();
+        var domain = "domain.com";
+        var email = new Builder().domain(domain).build();
         assertEquals(domain, email.domain());
     }
 
     @Test
     public void testDomainWithoutValidation() {
-        String domain = "bad domain @!";
-        Email email = new Builder(false).domain(domain).build();
+        var domain = "bad domain @!";
+        var email = new Builder(false).domain(domain).build();
         assertEquals(domain, email.domain());
     }
 

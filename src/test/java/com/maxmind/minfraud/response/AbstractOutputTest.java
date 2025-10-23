@@ -16,7 +16,7 @@ import java.util.Collections;
 public abstract class AbstractOutputTest {
 
     <T> T deserialize(Class<T> cls, String json) throws IOException {
-        ObjectMapper mapper = JsonMapper.builder()
+        var mapper = JsonMapper.builder()
             .addModule(new JavaTimeModule())
             .defaultDateFormat(new StdDateFormat().withColonInTimeZone(true))
             .enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING)
@@ -26,7 +26,7 @@ public abstract class AbstractOutputTest {
             .serializationInclusion(JsonInclude.Include.NON_NULL)
             .serializationInclusion(JsonInclude.Include.NON_EMPTY)
             .build();
-        InjectableValues inject = new Std().addValue(
+        var inject = new Std().addValue(
             "locales", Collections.singletonList("en"));
         return mapper.readerFor(cls).with(inject).readValue(json);
     }

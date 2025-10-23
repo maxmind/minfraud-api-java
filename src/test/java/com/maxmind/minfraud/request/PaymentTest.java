@@ -12,7 +12,7 @@ public class PaymentTest {
 
     @Test
     public void testMethod() {
-        Payment payment = new Builder().method(Method.CARD).build();
+        var payment = new Builder().method(Method.CARD).build();
         assertEquals(Method.CARD, payment.method());
 
         payment = new Builder().method(Method.DIGITAL_WALLET).build();
@@ -24,19 +24,19 @@ public class PaymentTest {
 
     @Test
     public void testProcessor() {
-        Payment payment = new Builder().processor(Processor.ADYEN).build();
+        var payment = new Builder().processor(Processor.ADYEN).build();
         assertEquals(Processor.ADYEN, payment.processor());
     }
 
     @Test
     public void testWasAuthorized() {
-        Payment payment = new Builder().wasAuthorized(true).build();
+        var payment = new Builder().wasAuthorized(true).build();
         assertTrue(payment.wasAuthorized());
     }
 
     @Test
     public void testDeclineCode() {
-        Payment payment = new Builder().declineCode("declined").build();
+        var payment = new Builder().declineCode("declined").build();
         assertEquals("declined", payment.declineCode());
     }
 }

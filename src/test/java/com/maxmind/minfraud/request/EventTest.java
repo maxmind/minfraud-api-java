@@ -13,7 +13,7 @@ public class EventTest {
 
     @Test
     public void testParty() {
-        Event event = new Builder().party(Party.AGENT).build();
+        var event = new Builder().party(Party.AGENT).build();
         assertEquals(Party.AGENT, event.party());
 
         event = new Builder().party(Party.CUSTOMER).build();
@@ -22,33 +22,33 @@ public class EventTest {
 
     @Test
     public void testTransactionId() {
-        Event event = new Builder().transactionId("t12").build();
+        var event = new Builder().transactionId("t12").build();
         assertEquals("t12", event.transactionId());
     }
 
     @Test
     public void testShopId() {
-        Event event = new Builder().shopId("s12").build();
+        var event = new Builder().shopId("s12").build();
         assertEquals("s12", event.shopId());
     }
 
     @Test
     public void testTimeWithDate() {
-        Date date = new Date();
-        Event event = new Builder().time(date).build();
+        var date = new Date();
+        var event = new Builder().time(date).build();
         assertEquals(date, event.time());
     }
 
     @Test
     public void testTimeWithZonedDateTime() {
-        ZonedDateTime date = ZonedDateTime.now();
-        Event event = new Builder().time(date).build();
+        var date = ZonedDateTime.now();
+        var event = new Builder().time(date).build();
         assertEquals(date, event.dateTime());
     }
 
     @Test
     public void testType() {
-        Event event = new Builder().type(Type.ACCOUNT_CREATION).build();
+        var event = new Builder().type(Type.ACCOUNT_CREATION).build();
         assertEquals(Type.ACCOUNT_CREATION, event.type());
 
         event = new Builder().type(Type.PAYOUT_CHANGE).build();

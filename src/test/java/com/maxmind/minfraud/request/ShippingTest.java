@@ -14,7 +14,7 @@ public class ShippingTest extends AbstractLocationTest {
 
     @Test
     public void testDeliverySpeed() {
-        Shipping loc = this.builder().deliverySpeed(DeliverySpeed.EXPEDITED).build();
+        var loc = this.builder().deliverySpeed(DeliverySpeed.EXPEDITED).build();
         assertEquals(DeliverySpeed.EXPEDITED, loc.deliverySpeed());
     }
 }

@@ -13,7 +13,7 @@ public class CreditCardTest {
 
     @Test
     public void testIssuerIdNumber() {
-        CreditCard cc = new Builder().issuerIdNumber("123456").build();
+        var cc = new Builder().issuerIdNumber("123456").build();
         assertEquals("123456", cc.issuerIdNumber());
 
         cc = new Builder().issuerIdNumber("12345678").build();
@@ -46,7 +46,7 @@ public class CreditCardTest {
 
     @Test
     public void testLastDigits() {
-        CreditCard cc = new Builder().lastDigits("1234").build();
+        var cc = new Builder().lastDigits("1234").build();
         assertEquals("1234", cc.lastDigits());
 
         cc = new Builder().lastDigits("12").build();
@@ -80,27 +80,27 @@ public class CreditCardTest {
 
     @Test
     public void testBankName() {
-        CreditCard cc = new Builder().bankName("Bank").build();
+        var cc = new Builder().bankName("Bank").build();
         assertEquals("Bank", cc.bankName());
     }
 
     @Test
     public void testBankPhoneCountryCode() {
-        CreditCard cc = new Builder().bankPhoneCountryCode("1").build();
+        var cc = new Builder().bankPhoneCountryCode("1").build();
         assertEquals("1", cc.bankPhoneCountryCode());
     }
 
     @Test
     public void testBankPhoneNumber() {
-        String phone = "231-323-3123";
-        CreditCard cc = new Builder().bankPhoneNumber(phone).build();
+        var phone = "231-323-3123";
+        var cc = new Builder().bankPhoneNumber(phone).build();
         assertEquals(phone, cc.bankPhoneNumber());
     }
 
     @Test
     public void testCountry() {
-        String country = "CA";
-        CreditCard cc = new Builder().country(country).build();
+        var country = "CA";
+        var cc = new Builder().country(country).build();
         assertEquals(country, cc.country());
     }
 
@@ -115,13 +115,13 @@ public class CreditCardTest {
 
     @Test
     public void testAvsResult() {
-        CreditCard cc = new Builder().avsResult('Y').build();
+        var cc = new Builder().avsResult('Y').build();
         assertEquals(Character.valueOf('Y'), cc.avsResult());
     }
 
     @Test
     public void testCvvResult() {
-        CreditCard cc = new Builder().cvvResult('N').build();
+        var cc = new Builder().cvvResult('N').build();
         assertEquals(Character.valueOf('N'), cc.cvvResult());
     }
 
@@ -145,13 +145,13 @@ public class CreditCardTest {
         "valid_token"
     })
     public void testValidToken(String token) {
-        CreditCard cc = new Builder().token(token).build();
+        var cc = new Builder().token(token).build();
         assertEquals(token, cc.token());
     }
 
     @Test
     public void testWas3dSecureSuccessful() {
-        CreditCard cc = new Builder().was3dSecureSuccessful(true).build();
+        var cc = new Builder().was3dSecureSuccessful(true).build();
         assertTrue(cc.was3dSecureSuccessful());
     }
 }

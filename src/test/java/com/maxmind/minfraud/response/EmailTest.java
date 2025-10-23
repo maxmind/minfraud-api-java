@@ -14,7 +14,7 @@ public class EmailTest extends AbstractOutputTest {
 
     @Test
     public void testEmail() throws Exception {
-        Email email = this.deserialize(
+        var email = this.deserialize(
             Email.class,
             JSON.std
                 .composeString()
@@ -40,7 +40,7 @@ public class EmailTest extends AbstractOutputTest {
 
     @Test
     public void testEmailWithoutFirstSeen() throws Exception {
-        Email email = this.deserialize(
+        var email = this.deserialize(
             Email.class,
             JSON.std
                 .composeString()
