@@ -103,7 +103,7 @@ public final class WebServiceClient {
         Duration connectTimeout;
         Duration requestTimeout;
 
-        List<String> locales = Collections.singletonList("en");
+        List<String> locales = List.of("en");
         private ProxySelector proxy;
         private HttpClient httpClient;
 

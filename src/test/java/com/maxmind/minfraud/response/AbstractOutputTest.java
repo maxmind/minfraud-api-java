@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.IOException;
-import java.util.Collections;
+import java.util.List;
 
 public abstract class AbstractOutputTest {
 
@@ -27,7 +27,7 @@ public abstract class AbstractOutputTest {
             .serializationInclusion(JsonInclude.Include.NON_EMPTY)
             .build();
         var inject = new Std().addValue(
-            "locales", Collections.singletonList("en"));
+            "locales", List.of("en"));
         return mapper.readerFor(cls).with(inject).readValue(json);
     }
 }
