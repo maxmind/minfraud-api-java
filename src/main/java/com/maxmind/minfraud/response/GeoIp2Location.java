@@ -2,60 +2,59 @@ package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maxmind.geoip2.record.Location;
+import com.maxmind.minfraud.JsonSerializable;
 import java.time.ZonedDateTime;
 
 /**
  * This class contains minFraud response data related to the GeoIP2 Insights location.
+ *
+ * @param accuracyRadius    The approximate accuracy radius in kilometers around the latitude and
+ *                          longitude for the geographical entity (country, subdivision, city or
+ *                          postal code) associated with the IP address.
+ * @param averageIncome     The average income in US dollars associated with the requested IP
+ *                          address.
+ * @param latitude          The approximate latitude of the location associated with the IP
+ *                          address.
+ * @param localTime         The date and time of the transaction in the time zone associated with
+ *                          the IP address. The value is formatted according to RFC 3339. For
+ *                          instance, the local time in Boston might be returned as
+ *                          "2015-04-27T19:17:24-04:00".
+ * @param longitude         The approximate longitude of the location associated with the IP
+ *                          address.
+ * @param metroCode         The metro code of the location if the location is in the US.
+ * @param populationDensity The estimated population per square kilometer associated with the IP
+ *                          address.
+ * @param timeZone          The time zone associated with location, as specified by the IANA Time
+ *                          Zone Database.
  */
-public final class GeoIp2Location {
-    private final Integer accuracyRadius;
-    private final Integer averageIncome;
-    private final Double latitude;
-    private final Double longitude;
-    private final Integer metroCode;
-    private final Integer populationDensity;
-    private final String timeZone;
-    private final String localTime;
+public record GeoIp2Location(
+    @JsonProperty("accuracy_radius")
+    Integer accuracyRadius,
+
+    @JsonProperty("average_income")
+    Integer averageIncome,
+
+    @JsonProperty("latitude")
+    Double latitude,
+
+    @JsonProperty("local_time")
+    String localTime,
+
+    @JsonProperty("longitude")
+    Double longitude,
+
+    @JsonProperty("metro_code")
+    Integer metroCode,
+
+    @JsonProperty("population_density")
+    Integer populationDensity,
+
+    @JsonProperty("time_zone")
+    String timeZone
+) implements JsonSerializable {
 
     /**
-     * Constructor for {@code EmailDomain}.
-     *
-     * @param accuracyRadius    The approximate accuracy radius in kilometers.
-     * @param averageIncome     The average income in US dollars associated with the IP address.
-     * @param latitude          The approximate latitude of the location associated with the IP
-     *                          address.
-     * @param localTime         The date and time of the transaction in the time zone associated
-     *                          with the IP address.
-     * @param longitude         The approximate longitude of the location associated with the IP
-     *                          address.
-     * @param metroCode         The metro code of the location if the location is in the US.
-     * @param populationDensity The estimated population per square kilometer associated with the IP
-     *                          address.
-     * @param timeZone          The time zone associated with the location.
-     */
-    public GeoIp2Location(
-        @JsonProperty("accuracy_radius") Integer accuracyRadius,
-        @JsonProperty("average_income") Integer averageIncome,
-        @JsonProperty("latitude") Double latitude,
-        @JsonProperty("local_time") String localTime,
-        @JsonProperty("longitude") Double longitude,
-        @JsonProperty("metro_code") Integer metroCode,
-        @JsonProperty("population_density") Integer populationDensity,
-        @JsonProperty("time_zone") String timeZone
-    ) {
-        this.accuracyRadius = accuracyRadius;
-        this.averageIncome = averageIncome;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.metroCode = metroCode;
-        this.populationDensity = populationDensity;
-        this.timeZone = timeZone;
-        this.localTime = localTime;
-    }
-
-    /**
-     * Constructor for {@code GeoIp2Location}
+     * Constructs an instance of {@code GeoIp2Location} with no data.
      */
     public GeoIp2Location() {
         this(null, null, null, null, null, null, null, null);
@@ -65,68 +64,84 @@ public final class GeoIp2Location {
      * @return The approximate accuracy radius in kilometers around the latitude and longitude
      *     for the geographical entity (country, subdivision, city or postal code) associated
      *     with the IP address.
+     * @deprecated Use {@link #accuracyRadius()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("accuracy_radius")
     public Integer getAccuracyRadius() {
-        return this.accuracyRadius;
+        return accuracyRadius();
     }
 
     /**
      * @return The average income in US dollars associated with the requested IP address.
+     * @deprecated Use {@link #averageIncome()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("average_income")
     public Integer getAverageIncome() {
-        return this.averageIncome;
+        return averageIncome();
     }
 
     /**
      * @return The approximate latitude of the location associated with the IP address.
+     * @deprecated Use {@link #latitude()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("latitude")
     public Double getLatitude() {
-        return this.latitude;
+        return latitude();
     }
 
     /**
      * @return The approximate longitude of the location associated with the IP address.
+     * @deprecated Use {@link #longitude()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("longitude")
     public Double getLongitude() {
-        return this.longitude;
+        return longitude();
     }
 
     /**
      * @return The metro code of the location if the location is in the US.
+     * @deprecated Use {@link #metroCode()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("metro_code")
     public Integer getMetroCode() {
-        return this.metroCode;
+        return metroCode();
     }
 
     /**
      * @return The estimated population per square kilometer associated with the IP address.
+     * @deprecated Use {@link #populationDensity()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("population_density")
     public Integer getPopulationDensity() {
-        return this.populationDensity;
+        return populationDensity();
     }
 
     /**
      * @return The time zone associated with location, as specified by the IANA Time Zone Database.
+     * @deprecated Use {@link #timeZone()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("time_zone")
     public String getTimeZone() {
-        return this.timeZone;
+        return timeZone();
     }
 
     /**
      * @return The date and time of the transaction in the time zone associated with the IP address.
      *     The value is formatted according to RFC 3339. For instance, the local time in Boston
      *     might be returned as "2015-04-27T19:17:24-04:00".
+     * @deprecated Use {@link #localTime()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("local_time")
     public String getLocalTime() {
-        return this.localTime;
+        return localTime();
     }
 
     /**

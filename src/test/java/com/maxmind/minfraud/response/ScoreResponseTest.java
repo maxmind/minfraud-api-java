@@ -12,7 +12,7 @@ public class ScoreResponseTest extends AbstractOutputTest {
     public void testScore() throws Exception {
         String id = "b643d445-18b2-4b9d-bad4-c9c4366e402a";
         ScoreResponse score = this.deserialize(
-            InsightsResponse.class,
+            ScoreResponse.class,
             JSON.std
                 .composeString()
                 .startObject()

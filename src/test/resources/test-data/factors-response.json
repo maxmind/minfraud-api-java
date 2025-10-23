@@ -80,6 +80,22 @@
         "zh-CN": "\u82f1\u56fd"
       }
     },
+    "represented_country": {
+      "geoname_id": 6252001,
+      "is_in_european_union": false,
+      "iso_code": "US",
+      "names": {
+        "de": "Vereinigte Staaten",
+        "en": "United States",
+        "es": "Estados Unidos",
+        "fr": "\u00c9tats-Unis",
+        "ja": "\u30a2\u30e1\u30ea\u30ab\u5408\u8846\u56fd",
+        "pt-BR": "Estados Unidos",
+        "ru": "\u0421\u0428\u0410",
+        "zh-CN": "\u7f8e\u56fd"
+      },
+      "type": "military"
+    },
     "subdivisions": [
       {
         "confidence": 42,

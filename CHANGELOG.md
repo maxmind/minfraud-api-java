@@ -26,6 +26,18 @@ CHANGELOG
     updated.
   * Removed the `getMaxMind()` method from the `IpAddress` class as this data
     is not populated in minFraud responses.
+* BREAKING: Converted all response classes to Java records. This change makes
+  these classes more concise and provides better immutability guarantees.
+  * All `get*()` accessor methods in response classes are now deprecated and
+    will be removed in 5.0.0. Use the automatically generated record accessor
+    methods instead (e.g., use `riskScore()` instead of `getRiskScore()`).
+  * The response class hierarchy has been flattened. `InsightsResponse` no
+    longer extends `ScoreResponse`, and `FactorsResponse` no longer extends
+    `InsightsResponse`. Instead, `InsightsResponse` and `FactorsResponse` now
+    include all fields from their former parent classes directly.
+  * All response classes now implement `JsonSerializable` instead of extending
+    `AbstractModel`. The `toJson()` method remains available for serialization.
+  * Removed the `AbstractAddress` interface.
 * Added `CREDIT_APPLICATION` and `FUND_TRANSFER` to the `Event.Type` enum.
 * Added the input `/event/party`. This is the party submitting the
   transaction. You may provide this using the `party` method on

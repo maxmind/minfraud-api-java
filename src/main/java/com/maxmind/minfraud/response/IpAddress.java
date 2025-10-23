@@ -1,7 +1,6 @@
 package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maxmind.geoip2.model.InsightsResponse;
 import com.maxmind.geoip2.record.City;
 import com.maxmind.geoip2.record.Continent;
 import com.maxmind.geoip2.record.Country;
@@ -9,58 +8,72 @@ import com.maxmind.geoip2.record.Postal;
 import com.maxmind.geoip2.record.RepresentedCountry;
 import com.maxmind.geoip2.record.Subdivision;
 import com.maxmind.geoip2.record.Traits;
-import java.util.Collections;
+import com.maxmind.minfraud.JsonSerializable;
 import java.util.List;
 
 /**
- * This class contains minFraud response data related to the IP location
+ * This class contains minFraud response data related to the IP location.
+ *
+ * @param city               City record for the requested IP address.
+ * @param continent          Continent record for the requested IP address.
+ * @param country            Country record for the requested IP address.
+ * @param location           Location record for the requested IP address.
+ * @param postal             Postal record for the requested IP address.
+ * @param registeredCountry  Registered country record for the requested IP address.
+ * @param representedCountry Represented country record for the requested IP address.
+ * @param risk               The risk associated with the IP address.
+ * @param riskReasons        An unmodifiable list containing risk reason objects that identify the
+ *                           reasons why the IP address received the associated risk. This will be
+ *                           an empty list if there are no reasons.
+ * @param subdivisions       List of subdivision records for the requested IP address.
+ * @param traits             Traits record for the requested IP address.
  */
-public final class IpAddress implements IpAddressInterface {
-    private final InsightsResponse insightsResponse;
-    private final GeoIp2Location location;
-    private final Double risk;
-    private final List<IpRiskReason> riskReasons;
+public record IpAddress(
+    @JsonProperty("city")
+    City city,
+
+    @JsonProperty("continent")
+    Continent continent,
+
+    @JsonProperty("country")
+    Country country,
+
+    @JsonProperty("location")
+    GeoIp2Location location,
+
+    @JsonProperty("postal")
+    Postal postal,
+
+    @JsonProperty("registered_country")
+    Country registeredCountry,
+
+    @JsonProperty("represented_country")
+    RepresentedCountry representedCountry,
+
+    @JsonProperty("risk")
+    Double risk,
+
+    @JsonProperty("risk_reasons")
+    List<IpRiskReason> riskReasons,
+
+    @JsonProperty("subdivisions")
+    List<Subdivision> subdivisions,
+
+    @JsonProperty("traits")
+    Traits traits
+) implements IpAddressInterface, JsonSerializable {
 
     /**
-     * Constructor for {@code IpAddress}
-     *
-     * @param city               The city information.
-     * @param continent          The continent information.
-     * @param country            The country information.
-     * @param location           The location information.
-     * @param postal             The postal information.
-     * @param registeredCountry  The information about the country where the IP was registered.
-     * @param representedCountry The represented country, e.g., for military bases in other
-     *                           countries.
-     * @param risk               The IP risk.
-     * @param riskReasons        The reasons for the IP risk.
-     * @param subdivisions       The list of subdivisions.
-     * @param traits             Information about various other IP traits.
+     * Compact canonical constructor that sets defaults for null values.
      */
-    public IpAddress(
-        @JsonProperty("city") City city,
-        @JsonProperty("continent") Continent continent,
-        @JsonProperty("country") Country country,
-        @JsonProperty("location") GeoIp2Location location,
-        @JsonProperty("postal") Postal postal,
-        @JsonProperty("registered_country") Country registeredCountry,
-        @JsonProperty("represented_country") RepresentedCountry representedCountry,
-        @JsonProperty("risk") Double risk,
-        @JsonProperty("risk_reasons") List<IpRiskReason> riskReasons,
-        @JsonProperty("subdivisions") List<Subdivision> subdivisions,
-        @JsonProperty("traits") Traits traits
-    ) {
-        // Store all the GeoIP2 data directly without using InsightsResponse for storage
-        this.insightsResponse = new InsightsResponse(city, continent, country, null, null,
-            postal, registeredCountry, representedCountry, subdivisions, traits);
-        this.location = location == null ? new GeoIp2Location() : location;
-        this.risk = risk;
-        this.riskReasons =
-            Collections.unmodifiableList(riskReasons == null ? List.of() : riskReasons);
+    public IpAddress {
+        location = location != null ? location : new GeoIp2Location();
+        riskReasons = riskReasons != null ? List.copyOf(riskReasons) : List.of();
+        subdivisions = subdivisions != null ? List.copyOf(subdivisions) : List.of();
     }
 
     /**
-     * Constructor for {@code IpAddress}.
+     * Constructs an instance of {@code IpAddress} with no data.
      */
     public IpAddress() {
         this(null, null, null, null, null, null,
@@ -69,91 +82,113 @@ public final class IpAddress implements IpAddressInterface {
 
     /**
      * @return Location record for the requested IP address.
+     * @deprecated Use {@link #location()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("location")
     public GeoIp2Location getLocation() {
-        return location;
+        return location();
     }
 
     /**
      * @return City record for the requested IP address.
+     * @deprecated Use {@link #city()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("city")
     public City getCity() {
-        return insightsResponse.getCity();
+        return city();
     }
 
     /**
      * @return Continent record for the requested IP address.
+     * @deprecated Use {@link #continent()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("continent")
     public Continent getContinent() {
-        return insightsResponse.getContinent();
+        return continent();
     }
 
     /**
      * @return Country record for the requested IP address.
+     * @deprecated Use {@link #country()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("country")
     public Country getCountry() {
-        return insightsResponse.getCountry();
+        return country();
     }
 
     /**
      * @return Postal record for the requested IP address.
+     * @deprecated Use {@link #postal()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("postal")
     public Postal getPostal() {
-        return insightsResponse.getPostal();
+        return postal();
     }
 
     /**
      * @return Registered country record for the requested IP address.
+     * @deprecated Use {@link #registeredCountry()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("registered_country")
     public Country getRegisteredCountry() {
-        return insightsResponse.getRegisteredCountry();
+        return registeredCountry();
     }
 
     /**
      * @return Represented country record for the requested IP address.
+     * @deprecated Use {@link #representedCountry()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("represented_country")
     public RepresentedCountry getRepresentedCountry() {
-        return insightsResponse.getRepresentedCountry();
+        return representedCountry();
     }
 
     /**
      * @return List of subdivision records for the requested IP address.
+     * @deprecated Use {@link #subdivisions()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("subdivisions")
     public List<Subdivision> getSubdivisions() {
-        return insightsResponse.getSubdivisions();
+        return subdivisions();
     }
 
     /**
      * @return Traits record for the requested IP address.
+     * @deprecated Use {@link #traits()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("traits")
     public Traits getTraits() {
-        return insightsResponse.getTraits();
+        return traits();
     }
 
     /**
-     * @return The risk associated with the IP address. The value ranges from 0.01 to 99. A higher
-     *     score indicates a higher risk.
+     * @return The risk associated with the IP address.
+     * @deprecated Use {@link #risk()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
+    @JsonProperty("risk")
     public Double getRisk() {
-        return risk;
+        return risk();
     }
 
     /**
      * @return An unmodifiable list containing risk reason objects that identify the reasons why the
      *     IP address received the associated risk. This will be an empty list if there are no
      *     reasons.
+     * @deprecated Use {@link #riskReasons()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("risk_reasons")
     public List<IpRiskReason> getRiskReasons() {
-        return riskReasons;
+        return riskReasons();
     }
 }
