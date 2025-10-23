@@ -180,7 +180,7 @@ public final class Transaction extends AbstractModel {
      * @return The Account object.
      */
     @JsonProperty("account")
-    public Account getAccount() {
+    public Account account() {
         return account;
     }
 
@@ -188,7 +188,7 @@ public final class Transaction extends AbstractModel {
      * @return The Billing object.
      */
     @JsonProperty("billing")
-    public Billing getBilling() {
+    public Billing billing() {
         return billing;
     }
 
@@ -196,7 +196,7 @@ public final class Transaction extends AbstractModel {
      * @return The CreditCard object.
      */
     @JsonProperty("credit_card")
-    public CreditCard getCreditCard() {
+    public CreditCard creditCard() {
         return creditCard;
     }
 
@@ -204,7 +204,7 @@ public final class Transaction extends AbstractModel {
      * @return The CustomInputs object.
      */
     @JsonProperty("custom_inputs")
-    public CustomInputs getCustomInputs() {
+    public CustomInputs customInputs() {
         return customInputs;
     }
 
@@ -212,7 +212,7 @@ public final class Transaction extends AbstractModel {
      * @return The Device object.
      */
     @JsonProperty("device")
-    public Device getDevice() {
+    public Device device() {
         return device;
     }
 
@@ -220,7 +220,7 @@ public final class Transaction extends AbstractModel {
      * @return The Email object.
      */
     @JsonProperty("email")
-    public Email getEmail() {
+    public Email email() {
         return email;
     }
 
@@ -228,7 +228,7 @@ public final class Transaction extends AbstractModel {
      * @return The Event object.
      */
     @JsonProperty("event")
-    public Event getEvent() {
+    public Event event() {
         return event;
     }
 
@@ -236,7 +236,7 @@ public final class Transaction extends AbstractModel {
      * @return The Order object.
      */
     @JsonProperty("order")
-    public Order getOrder() {
+    public Order order() {
         return order;
     }
 
@@ -244,7 +244,7 @@ public final class Transaction extends AbstractModel {
      * @return The Payment object.
      */
     @JsonProperty("payment")
-    public Payment getPayment() {
+    public Payment payment() {
         return payment;
     }
 
@@ -252,7 +252,7 @@ public final class Transaction extends AbstractModel {
      * @return The Shipping object.
      */
     @JsonProperty("shipping")
-    public Shipping getShipping() {
+    public Shipping shipping() {
         return shipping;
     }
 
@@ -260,7 +260,7 @@ public final class Transaction extends AbstractModel {
      * @return A list of items in the shopping cart.
      */
     @JsonProperty("shopping_cart")
-    public List<ShoppingCartItem> getShoppingCart() {
+    public List<ShoppingCartItem> shoppingCart() {
         return List.copyOf(shoppingCart);
     }
 }

@@ -80,7 +80,7 @@ public final class Payment extends AbstractModel {
      * @return The payment method.
      */
     @JsonProperty("method")
-    public Method getMethod() {
+    public Method method() {
         return method;
     }
 
@@ -88,7 +88,7 @@ public final class Payment extends AbstractModel {
      * @return The payment processor.
      */
     @JsonProperty("processor")
-    public Processor getProcessor() {
+    public Processor processor() {
         return processor;
     }
 
@@ -104,7 +104,7 @@ public final class Payment extends AbstractModel {
      * @return The decline code.
      */
     @JsonProperty("decline_code")
-    public String getDeclineCode() {
+    public String declineCode() {
         return declineCode;
     }
 

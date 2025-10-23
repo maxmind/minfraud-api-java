@@ -168,7 +168,7 @@ public abstract class AbstractLocation extends AbstractModel {
      * @return The first name associated with the address
      */
     @JsonProperty("first_name")
-    public final String getFirstName() {
+    public final String firstName() {
         return firstName;
     }
 
@@ -176,7 +176,7 @@ public abstract class AbstractLocation extends AbstractModel {
      * @return The last name associated with the address
      */
     @JsonProperty("last_name")
-    public final String getLastName() {
+    public final String lastName() {
         return lastName;
     }
 
@@ -184,7 +184,7 @@ public abstract class AbstractLocation extends AbstractModel {
      * @return The company name associated with the address
      */
     @JsonProperty("company")
-    public final String getCompany() {
+    public final String company() {
         return company;
     }
 
@@ -193,7 +193,7 @@ public abstract class AbstractLocation extends AbstractModel {
      * @return The first line of the address
      */
     @JsonProperty("address")
-    public final String getAddress() {
+    public final String address() {
         return address;
     }
 
@@ -202,7 +202,7 @@ public abstract class AbstractLocation extends AbstractModel {
      * @return The second line of the address
      */
     @JsonProperty("address_2")
-    public final String getAddress2() {
+    public final String address2() {
         return address2;
     }
 
@@ -211,7 +211,7 @@ public abstract class AbstractLocation extends AbstractModel {
      * @return The city associated with the address
      */
     @JsonProperty("city")
-    public final String getCity() {
+    public final String city() {
         return city;
     }
 
@@ -220,7 +220,7 @@ public abstract class AbstractLocation extends AbstractModel {
      * @return The region code associated with the address
      */
     @JsonProperty("region")
-    public final String getRegion() {
+    public final String region() {
         return region;
     }
 
@@ -229,7 +229,7 @@ public abstract class AbstractLocation extends AbstractModel {
      * @return The country associated with the address
      */
     @JsonProperty("country")
-    public final String getCountry() {
+    public final String country() {
         return country;
     }
 
@@ -237,7 +237,7 @@ public abstract class AbstractLocation extends AbstractModel {
      * @return The postal code associated with the address
      */
     @JsonProperty("postal")
-    public final String getPostal() {
+    public final String postal() {
         return postal;
     }
 
@@ -245,7 +245,7 @@ public abstract class AbstractLocation extends AbstractModel {
      * @return The phone number associated with the address
      */
     @JsonProperty("phone_number")
-    public final String getPhoneNumber() {
+    public final String phoneNumber() {
         return phoneNumber;
     }
 
@@ -253,7 +253,7 @@ public abstract class AbstractLocation extends AbstractModel {
      * @return The phone number country code associated with the address
      */
     @JsonProperty("phone_country_code")
-    public final String getPhoneCountryCode() {
+    public final String phoneCountryCode() {
         return phoneCountryCode;
     }
 }

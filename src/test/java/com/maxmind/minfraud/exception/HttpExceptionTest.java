@@ -11,7 +11,7 @@ public class HttpExceptionTest {
     public void testHttpException() throws Exception {
         URI uri = new URI("https://www.maxmind.com/");
         HttpException e = new HttpException("message", 200, uri);
-        assertEquals(200, e.getHttpStatus(), "correct status");
-        assertEquals(uri, e.getUri(), "correct URL");
+        assertEquals(200, e.httpStatus(), "correct status");
+        assertEquals(uri, e.uri(), "correct URL");
     }
 }

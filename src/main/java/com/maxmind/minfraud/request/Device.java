@@ -112,7 +112,7 @@ public final class Device extends AbstractModel {
      * @return The "User-Agent" header.
      */
     @JsonProperty("user_agent")
-    public String getUserAgent() {
+    public String userAgent() {
         return userAgent;
     }
 
@@ -120,7 +120,7 @@ public final class Device extends AbstractModel {
      * @return The "Accept-Language" header.
      */
     @JsonProperty("accept_language")
-    public String getAcceptLanguage() {
+    public String acceptLanguage() {
         return acceptLanguage;
     }
 
@@ -128,7 +128,7 @@ public final class Device extends AbstractModel {
      * @return The session age.
      */
     @JsonProperty("session_age")
-    public Double getSessionAge() {
+    public Double sessionAge() {
         return sessionAge;
     }
 
@@ -136,7 +136,7 @@ public final class Device extends AbstractModel {
      * @return The session id.
      */
     @JsonProperty("session_id")
-    public String getSessionId() {
+    public String sessionId() {
         return sessionId;
     }
 
@@ -144,7 +144,7 @@ public final class Device extends AbstractModel {
      * @return The IP address used in the transaction.
      */
     @JsonProperty("ip_address")
-    public InetAddress getIpAddress() {
+    public InetAddress ipAddress() {
         return ipAddress;
     }
 }

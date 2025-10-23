@@ -16,7 +16,7 @@ public class CustomInputsTest {
             .put("float_input", 3.2f)
             .put("double_input", 32.123d)
             .put("bool_input", true)
-            .build().getInputs();
+            .build().inputs();
 
         assertEquals("test string", inputs.get("string_input_1"));
         assertEquals(19, inputs.get("int_input"));

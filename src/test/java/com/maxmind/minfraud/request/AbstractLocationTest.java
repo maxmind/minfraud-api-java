@@ -13,49 +13,49 @@ public abstract class AbstractLocationTest {
     @Test
     public void testFirstName() {
         AbstractLocation loc = this.builder().firstName("frst").build();
-        assertEquals("frst", loc.getFirstName());
+        assertEquals("frst", loc.firstName());
     }
 
     @Test
     public void testLastName() {
         AbstractLocation loc = this.builder().lastName("last").build();
-        assertEquals("last", loc.getLastName());
+        assertEquals("last", loc.lastName());
     }
 
     @Test
     public void testCompany() {
         AbstractLocation loc = this.builder().company("company").build();
-        assertEquals("company", loc.getCompany());
+        assertEquals("company", loc.company());
     }
 
     @Test
     public void testAddress() {
         AbstractLocation loc = this.builder().address("addr").build();
-        assertEquals("addr", loc.getAddress());
+        assertEquals("addr", loc.address());
     }
 
     @Test
     public void testAddress2() {
         AbstractLocation loc = this.builder().address2("addr2").build();
-        assertEquals("addr2", loc.getAddress2());
+        assertEquals("addr2", loc.address2());
     }
 
     @Test
     public void testCity() {
         AbstractLocation loc = this.builder().city("Pdx").build();
-        assertEquals("Pdx", loc.getCity());
+        assertEquals("Pdx", loc.city());
     }
 
     @Test
     public void testRegion() {
         AbstractLocation loc = this.builder().region("MN").build();
-        assertEquals("MN", loc.getRegion());
+        assertEquals("MN", loc.region());
     }
 
     @Test
     public void testCountry() {
         AbstractLocation loc = this.builder().country("US").build();
-        assertEquals("US", loc.getCountry());
+        assertEquals("US", loc.country());
     }
 
     @Test
@@ -85,19 +85,19 @@ public abstract class AbstractLocationTest {
     @Test
     public void testPostal() {
         AbstractLocation loc = this.builder().postal("03231").build();
-        assertEquals("03231", loc.getPostal());
+        assertEquals("03231", loc.postal());
     }
 
     @Test
     public void testPhoneNumber() {
         String phone = "321-321-3213";
         AbstractLocation loc = this.builder().phoneNumber(phone).build();
-        assertEquals(phone, loc.getPhoneNumber());
+        assertEquals(phone, loc.phoneNumber());
     }
 
     @Test
     public void testPhoneCountryCode() {
         AbstractLocation loc = this.builder().phoneCountryCode("1").build();
-        assertEquals("1", loc.getPhoneCountryCode());
+        assertEquals("1", loc.phoneCountryCode());
     }
 }

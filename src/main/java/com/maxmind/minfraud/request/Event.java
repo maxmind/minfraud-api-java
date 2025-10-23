@@ -106,7 +106,7 @@ public final class Event extends AbstractModel {
      * @return The party submitting the transaction.
      */
     @JsonProperty("party")
-    public Party getParty() {
+    public Party party() {
         return party;
     }
 
@@ -114,7 +114,7 @@ public final class Event extends AbstractModel {
      * @return The transaction ID.
      */
     @JsonProperty("transaction_id")
-    public String getTransactionId() {
+    public String transactionId() {
         return transactionId;
     }
 
@@ -122,7 +122,7 @@ public final class Event extends AbstractModel {
      * @return The shop ID.
      */
     @JsonProperty("shop_id")
-    public String getShopId() {
+    public String shopId() {
         return shopId;
     }
 
@@ -130,7 +130,7 @@ public final class Event extends AbstractModel {
      * @return The date and time of the event.
      */
     @JsonIgnore
-    public Date getTime() {
+    public Date time() {
         return Date.from(time.toInstant());
     }
 
@@ -138,7 +138,7 @@ public final class Event extends AbstractModel {
      * @return The date and time of the event.
      */
     @JsonProperty("time")
-    public ZonedDateTime getDateTime() {
+    public ZonedDateTime dateTime() {
         return time;
     }
 
@@ -146,7 +146,7 @@ public final class Event extends AbstractModel {
      * @return The type of the event.
      */
     @JsonProperty("type")
-    public Type getType() {
+    public Type type() {
         return type;
     }
 

@@ -7,7 +7,7 @@ CHANGELOG
 * BREAKING: Removed deprecated `TransactionReport.Builder(InetAddress, Tag)`
   constructor. Use `Builder(Tag)` and `ipAddress(InetAddress)` instead.
 * BREAKING: Removed deprecated `getUrl()` methods from `HttpException` and
-  `InvalidRequestException`. Use `getUri()` instead.
+  `InvalidRequestException`. Use `uri()` instead.
 * BREAKING: Removed deprecated constructors from `FactorsResponse`,
   `InsightsResponse`, and `Phone` classes.
 * BREAKING: Removed deprecated `Subscores` class and
@@ -38,6 +38,19 @@ CHANGELOG
   * All response classes now implement `JsonSerializable` instead of extending
     `AbstractModel`. The `toJson()` method remains available for serialization.
   * Removed the `AbstractAddress` interface.
+* BREAKING: Updated all request classes to use record-style method naming. The
+  `get` prefix has been removed from all accessor methods (e.g., use `userId()`
+  instead of `getUserId()`). This applies to all request classes including
+  `Account`, `Billing`, `CreditCard`, `CustomInputs`, `Device`, `Email`,
+  `Event`, `Order`, `Payment`, `Shipping`, `ShoppingCartItem`, `Transaction`,
+  and `TransactionReport`. Unlike response classes, no deprecated helper methods
+  were added as these methods are primarily used for serialization.
+* BREAKING: Updated exception classes to use record-style method naming. The
+  `get` prefix has been removed from all accessor methods. For `HttpException`,
+  use `httpStatus()` and `uri()` instead of `getHttpStatus()` and `getUri()`.
+  For `InvalidRequestException`, use `code()`, `httpStatus()`, and `uri()`
+  instead of `getCode()`, `getHttpStatus()`, and `getUri()`. No deprecated
+  helper methods were added.
 * Added `CREDIT_APPLICATION` and `FUND_TRANSFER` to the `Event.Type` enum.
 * Added the input `/event/party`. This is the party submitting the
   transaction. You may provide this using the `party` method on

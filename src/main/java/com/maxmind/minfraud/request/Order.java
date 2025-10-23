@@ -144,7 +144,7 @@ public final class Order extends AbstractModel {
      * @return The total order amount.
      */
     @JsonProperty("amount")
-    public BigDecimal getAmount() {
+    public BigDecimal amount() {
         return amount;
     }
 
@@ -152,7 +152,7 @@ public final class Order extends AbstractModel {
      * @return The currency code.
      */
     @JsonProperty("currency")
-    public String getCurrency() {
+    public String currency() {
         return currency;
     }
 
@@ -160,7 +160,7 @@ public final class Order extends AbstractModel {
      * @return The discount codes.
      */
     @JsonProperty("discount_code")
-    public String getDiscountCode() {
+    public String discountCode() {
         return discountCode;
     }
 
@@ -168,7 +168,7 @@ public final class Order extends AbstractModel {
      * @return The affiliate ID.
      */
     @JsonProperty("affiliate_id")
-    public String getAffiliateId() {
+    public String affiliateId() {
         return affiliateId;
     }
 
@@ -176,7 +176,7 @@ public final class Order extends AbstractModel {
      * @return The sub-affiliate ID.
      */
     @JsonProperty("subaffiliate_id")
-    public String getSubaffiliateId() {
+    public String subaffiliateId() {
         return subaffiliateId;
     }
 
@@ -184,7 +184,7 @@ public final class Order extends AbstractModel {
      * @return The referrer URI.
      */
     @JsonProperty("referrer_uri")
-    public URI getReferrerUri() {
+    public URI referrerUri() {
         return referrerUri;
     }
 

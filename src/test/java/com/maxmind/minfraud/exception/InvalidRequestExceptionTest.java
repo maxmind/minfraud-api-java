@@ -13,8 +13,8 @@ public class InvalidRequestExceptionTest {
         String code = "INVALID_INPUT";
         int status = 400;
         InvalidRequestException e = new InvalidRequestException("message", code, status, uri, null);
-        assertEquals(code, e.getCode(), "correct code");
-        assertEquals(status, e.getHttpStatus(), "correct status");
-        assertEquals(uri, e.getUri(), "correct URL");
+        assertEquals(code, e.code(), "correct code");
+        assertEquals(status, e.httpStatus(), "correct status");
+        assertEquals(uri, e.uri(), "correct URL");
     }
 }

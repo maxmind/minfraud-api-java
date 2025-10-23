@@ -13,19 +13,19 @@ public class PaymentTest {
     @Test
     public void testMethod() {
         Payment payment = new Builder().method(Method.CARD).build();
-        assertEquals(Method.CARD, payment.getMethod());
+        assertEquals(Method.CARD, payment.method());
 
         payment = new Builder().method(Method.DIGITAL_WALLET).build();
-        assertEquals(Method.DIGITAL_WALLET, payment.getMethod());
+        assertEquals(Method.DIGITAL_WALLET, payment.method());
 
         payment = new Builder().method(Method.BUY_NOW_PAY_LATER).build();
-        assertEquals(Method.BUY_NOW_PAY_LATER, payment.getMethod());
+        assertEquals(Method.BUY_NOW_PAY_LATER, payment.method());
     }
 
     @Test
     public void testProcessor() {
         Payment payment = new Builder().processor(Processor.ADYEN).build();
-        assertEquals(Processor.ADYEN, payment.getProcessor());
+        assertEquals(Processor.ADYEN, payment.processor());
     }
 
     @Test
@@ -37,6 +37,6 @@ public class PaymentTest {
     @Test
     public void testDeclineCode() {
         Payment payment = new Builder().declineCode("declined").build();
-        assertEquals("declined", payment.getDeclineCode());
+        assertEquals("declined", payment.declineCode());
     }
 }

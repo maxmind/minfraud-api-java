@@ -70,7 +70,7 @@ public final class Account extends AbstractModel {
      * @return The user ID.
      */
     @JsonProperty("user_id")
-    public String getUserId() {
+    public String userId() {
         return userId;
     }
 
@@ -78,7 +78,7 @@ public final class Account extends AbstractModel {
      * @return The MD5 of the username passed to the builder.
      */
     @JsonProperty("username_md5")
-    public String getUsernameMd5() {
+    public String usernameMd5() {
         return usernameMd5;
     }
 }

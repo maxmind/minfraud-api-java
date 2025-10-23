@@ -46,25 +46,25 @@ public class TransactionReportTest {
 
 
         assertEquals(ip, new TransactionReport.Builder(tag)
-            .ipAddress(ip).build().getIpAddress());
+            .ipAddress(ip).build().ipAddress());
         assertEquals(maxmindId, new TransactionReport.Builder(tag)
-            .maxmindId(maxmindId).build().getMaxmindId());
+            .maxmindId(maxmindId).build().maxmindId());
         assertEquals(minfraudId, new TransactionReport.Builder(tag)
-            .minfraudId(minfraudId).build().getMinfraudId());
+            .minfraudId(minfraudId).build().minfraudId());
         assertEquals(transactionId, new TransactionReport.Builder(tag)
-            .transactionId(transactionId).build().getTransactionId());
+            .transactionId(transactionId).build().transactionId());
     }
 
     @Test
     public void testIpAddress() {
         final TransactionReport report = new Builder(tag).ipAddress(ip).build();
-        assertEquals(ip, report.getIpAddress());
+        assertEquals(ip, report.ipAddress());
     }
 
     @Test
     public void testTag() {
         final TransactionReport report = new Builder(tag).ipAddress(ip).build();
-        assertEquals(Tag.NOT_FRAUD, report.getTag());
+        assertEquals(Tag.NOT_FRAUD, report.tag());
     }
 
     @Test
@@ -72,7 +72,7 @@ public class TransactionReportTest {
         final String code = "foo";
         final TransactionReport report =
             new Builder(tag).ipAddress(ip).chargebackCode(code).build();
-        assertEquals(code, report.getChargebackCode());
+        assertEquals(code, report.chargebackCode());
     }
 
     @Test
@@ -95,28 +95,28 @@ public class TransactionReportTest {
     public void testValidMaxmindId() {
         final String id = "12345678";
         final TransactionReport report = new Builder(tag).maxmindId(id).build();
-        assertEquals(id, report.getMaxmindId());
+        assertEquals(id, report.maxmindId());
     }
 
     @Test
     public void testMinfraudId() {
         final UUID id = UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d");
         final TransactionReport report = new Builder(tag).minfraudId(id).build();
-        assertEquals(id, report.getMinfraudId());
+        assertEquals(id, report.minfraudId());
     }
 
     @Test
     public void testNotes() {
         final String notes = "foo";
         final TransactionReport report = new Builder(tag).ipAddress(ip).notes(notes).build();
-        assertEquals(notes, report.getNotes());
+        assertEquals(notes, report.notes());
     }
 
     @Test
     public void testTransactionID() {
         final String id = "foo";
         final TransactionReport report = new Builder(tag).transactionId(id).build();
-        assertEquals(id, report.getTransactionId());
+        assertEquals(id, report.transactionId());
     }
 
     // Test the example in the README
