@@ -7,7 +7,8 @@ import java.util.regex.Pattern;
 /**
  * This class represents the shared location behavior between Billing and Shipping.
  */
-public abstract class AbstractLocation extends AbstractModel {
+public abstract sealed class AbstractLocation extends AbstractModel
+    permits Billing, Shipping {
     private final String firstName;
     private final String lastName;
     private final String company;
