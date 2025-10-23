@@ -8,7 +8,14 @@ import java.time.ZonedDateTime;
 /**
  * This class contains minFraud response data related to the GeoIP2 Insights location.
  */
-public final class GeoIp2Location extends Location {
+public final class GeoIp2Location {
+    private final Integer accuracyRadius;
+    private final Integer averageIncome;
+    private final Double latitude;
+    private final Double longitude;
+    private final Integer metroCode;
+    private final Integer populationDensity;
+    private final String timeZone;
     private final String localTime;
 
     /**
@@ -37,8 +44,13 @@ public final class GeoIp2Location extends Location {
         @JsonProperty("population_density") Integer populationDensity,
         @JsonProperty("time_zone") String timeZone
     ) {
-        super(accuracyRadius, averageIncome, latitude, longitude, metroCode, populationDensity,
-            timeZone);
+        this.accuracyRadius = accuracyRadius;
+        this.averageIncome = averageIncome;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.metroCode = metroCode;
+        this.populationDensity = populationDensity;
+        this.timeZone = timeZone;
         this.localTime = localTime;
     }
 
@@ -47,6 +59,64 @@ public final class GeoIp2Location extends Location {
      */
     public GeoIp2Location() {
         this(null, null, null, null, null, null, null, null);
+    }
+
+    /**
+     * @return The approximate accuracy radius in kilometers around the latitude and longitude
+     *     for the geographical entity (country, subdivision, city or postal code) associated
+     *     with the IP address.
+     */
+    @JsonProperty("accuracy_radius")
+    public Integer getAccuracyRadius() {
+        return this.accuracyRadius;
+    }
+
+    /**
+     * @return The average income in US dollars associated with the requested IP address.
+     */
+    @JsonProperty("average_income")
+    public Integer getAverageIncome() {
+        return this.averageIncome;
+    }
+
+    /**
+     * @return The approximate latitude of the location associated with the IP address.
+     */
+    @JsonProperty("latitude")
+    public Double getLatitude() {
+        return this.latitude;
+    }
+
+    /**
+     * @return The approximate longitude of the location associated with the IP address.
+     */
+    @JsonProperty("longitude")
+    public Double getLongitude() {
+        return this.longitude;
+    }
+
+    /**
+     * @return The metro code of the location if the location is in the US.
+     */
+    @JsonProperty("metro_code")
+    public Integer getMetroCode() {
+        return this.metroCode;
+    }
+
+    /**
+     * @return The estimated population per square kilometer associated with the IP address.
+     */
+    @JsonProperty("population_density")
+    public Integer getPopulationDensity() {
+        return this.populationDensity;
+    }
+
+    /**
+     * @return The time zone associated with location, as specified by the IANA Time Zone Database.
+     */
+    @JsonProperty("time_zone")
+    public String getTimeZone() {
+        return this.timeZone;
     }
 
     /**

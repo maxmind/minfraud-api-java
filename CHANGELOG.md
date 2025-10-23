@@ -14,6 +14,18 @@ CHANGELOG
   `FactorsResponse.getSubscores()` method. Use `getRiskScoreReasons()`
   instead.
 * BREAKING: Java 17 is now required (previously Java 11).
+* BREAKING: Updated `geoip2` dependency to 5.0.0-SNAPSHOT. This introduces
+  several breaking changes due to changes in the geoip2 library:
+  * The `IpAddress` class no longer extends `InsightsResponse` from geoip2.
+    It now uses composition instead. All public methods remain the same, but
+    code relying on `IpAddress` being an `InsightsResponse` will need to be
+    updated.
+  * The `GeoIp2Location` class no longer extends `Location` from geoip2. It
+    now stores location data directly. All public methods remain the same, but
+    code relying on `GeoIp2Location` being a `Location` will need to be
+    updated.
+  * Removed the `getMaxMind()` method from the `IpAddress` class as this data
+    is not populated in minFraud responses.
 * Added `CREDIT_APPLICATION` and `FUND_TRANSFER` to the `Event.Type` enum.
 * Added the input `/event/party`. This is the party submitting the
   transaction. You may provide this using the `party` method on
