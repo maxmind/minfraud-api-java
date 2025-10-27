@@ -1,28 +1,21 @@
 package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maxmind.minfraud.AbstractModel;
+import com.maxmind.minfraud.JsonSerializable;
 import java.time.LocalDate;
 
 /**
  * This class contains minFraud response data related to the email domain.
+ *
+ * @param firstSeen A date to identify the date an email domain was first seen by MaxMind.
  */
-public final class EmailDomain extends AbstractModel {
-    private final LocalDate firstSeen;
+public record EmailDomain(
+    @JsonProperty("first_seen")
+    LocalDate firstSeen
+) implements JsonSerializable {
 
     /**
-     * Constructor for {@code EmailDomain}.
-     *
-     * @param firstSeen A date to identify the date an email domain was first seen by MaxMind.
-     */
-    public EmailDomain(
-        @JsonProperty("first_seen") LocalDate firstSeen
-    ) {
-        this.firstSeen = firstSeen;
-    }
-
-    /**
-     * Constructor for {@code EmailDomain}.
+     * Constructs an instance of {@code EmailDomain} with no data.
      */
     public EmailDomain() {
         this(null);
@@ -30,9 +23,11 @@ public final class EmailDomain extends AbstractModel {
 
     /**
      * @return A date to identify the date an email domain was first seen by MaxMind.
+     * @deprecated Use {@link #firstSeen()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("first_seen")
     public LocalDate getFirstSeen() {
-        return firstSeen;
+        return firstSeen();
     }
 }

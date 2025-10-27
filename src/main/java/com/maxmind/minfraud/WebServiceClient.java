@@ -103,7 +103,7 @@ public final class WebServiceClient {
         Duration connectTimeout;
         Duration requestTimeout;
 
-        List<String> locales = Collections.singletonList("en");
+        List<String> locales = List.of("en");
         private ProxySelector proxy;
         private HttpClient httpClient;
 
@@ -306,8 +306,8 @@ public final class WebServiceClient {
         if (transaction == null) {
             throw new IllegalArgumentException("transaction report must not be null");
         }
-        URI uri = createUri(WebServiceClient.pathBase + "transactions/report");
-        HttpRequest request = requestFor(transaction, uri);
+        var uri = createUri(WebServiceClient.pathBase + "transactions/report");
+        var request = requestFor(transaction, uri);
 
         HttpResponse<InputStream> response = null;
         try {
@@ -328,8 +328,8 @@ public final class WebServiceClient {
         if (transaction == null) {
             throw new IllegalArgumentException("transaction must not be null");
         }
-        URI uri = createUri(WebServiceClient.pathBase + service);
-        HttpRequest request = requestFor(transaction, uri);
+        var uri = createUri(WebServiceClient.pathBase + service);
+        var request = requestFor(transaction, uri);
 
         HttpResponse<InputStream> response = null;
         try {
@@ -346,7 +346,7 @@ public final class WebServiceClient {
 
     private HttpRequest requestFor(AbstractModel transaction, URI uri)
         throws MinFraudException, IOException {
-        HttpRequest.Builder builder = HttpRequest.newBuilder()
+        var builder = HttpRequest.newBuilder()
             .uri(uri)
             .header("Accept", "application/json")
             .header("Authorization", authHeader)
@@ -365,7 +365,7 @@ public final class WebServiceClient {
 
     private void maybeThrowException(HttpResponse<InputStream> response, URI uri)
         throws IOException, MinFraudException {
-        int status = response.statusCode();
+        var status = response.statusCode();
         if (status >= 400 && status < 500) {
             this.handle4xxStatus(response, uri);
         } else if (status >= 500 && status < 600) {
@@ -383,7 +383,7 @@ public final class WebServiceClient {
         throws MinFraudException, IOException {
         maybeThrowException(response, uri);
 
-        InjectableValues inject = new Std().addValue(
+        var inject = new Std().addValue(
             "locales", locales);
 
         try (InputStream stream = response.body()) {
@@ -398,7 +398,7 @@ public final class WebServiceClient {
         throws IOException, InsufficientFundsException,
         InvalidRequestException, AuthenticationException,
         PermissionRequiredException {
-        int status = response.statusCode();
+        var status = response.statusCode();
 
         String body;
         try (InputStream stream = response.body()) {
@@ -425,8 +425,8 @@ public final class WebServiceClient {
         throws HttpException, InsufficientFundsException,
         InvalidRequestException, AuthenticationException,
         PermissionRequiredException {
-        String error = content.get("error");
-        String code = content.get("code");
+        var error = content.get("error");
+        var code = content.get("code");
 
         if (error == null || code == null) {
             throw new HttpException(

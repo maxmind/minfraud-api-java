@@ -1,9 +1,13 @@
 package com.maxmind.minfraud.response;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.fasterxml.jackson.jr.ob.JSON;
 import org.junit.jupiter.api.Test;
 
-public class BillingAddressTest extends AbstractAddressTest {
+public class BillingAddressTest extends AbstractOutputTest {
+    private static final double DELTA = 1e-15;
 
     @Test
     public void testBillingAddress() throws Exception {
@@ -20,6 +24,24 @@ public class BillingAddressTest extends AbstractAddressTest {
                 .finish()
         );
 
-        this.testAddress(address);
+        assertTrue(address.isInIpCountry(), "correct isInIpCountry");
+        assertTrue(address.isPostalInCity(), "correct isPostalInCity");
+        assertEquals(
+            100,
+            address.distanceToIpLocation().longValue(),
+            "correct distanceToIpLocation"
+        );
+        assertEquals(
+            32.1,
+            address.longitude(),
+            DELTA,
+            "correct longitude"
+        );
+        assertEquals(
+            43.1,
+            address.latitude(),
+            DELTA,
+            "correct latitude"
+        );
     }
 }

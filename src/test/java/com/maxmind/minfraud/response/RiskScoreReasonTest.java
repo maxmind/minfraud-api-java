@@ -26,16 +26,16 @@ public class RiskScoreReasonTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals(Double.valueOf(45), reason.getMultiplier(), "multiplier");
-        assertEquals(1, reason.getReasons().size());
+        assertEquals(Double.valueOf(45), reason.multiplier(), "multiplier");
+        assertEquals(1, reason.reasons().size());
         assertEquals(
             "ANONYMOUS_IP",
-            reason.getReasons().get(0).getCode(),
+            reason.reasons().get(0).code(),
             "risk reason code"
         );
         assertEquals(
             "Risk due to IP being an Anonymous IP",
-            reason.getReasons().get(0).getReason(),
+            reason.reasons().get(0).reason(),
             "risk reason"
         );
     }
@@ -47,6 +47,6 @@ public class RiskScoreReasonTest extends AbstractOutputTest {
             "{}"
         );
 
-        assertNotNull(reason.getReasons());
+        assertNotNull(reason.reasons());
     }
 }

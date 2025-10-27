@@ -38,14 +38,14 @@ public final class HttpException extends IOException {
     /**
      * @return the HTTP status of the query that caused the exception.
      */
-    public int getHttpStatus() {
+    public int httpStatus() {
         return httpStatus;
     }
 
     /**
      * @return the URI queried.
      */
-    public URI getUri() {
+    public URI uri() {
         return this.uri;
     }
 

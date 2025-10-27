@@ -42,7 +42,7 @@ public final class Shipping extends AbstractLocation {
      * @return The shipping delivery speed for the order.
      */
     @JsonProperty("delivery_speed")
-    public DeliverySpeed getDeliverySpeed() {
+    public DeliverySpeed deliverySpeed() {
         return deliverySpeed;
     }
 

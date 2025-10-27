@@ -12,7 +12,7 @@ public class ScoreResponseTest extends AbstractOutputTest {
     public void testScore() throws Exception {
         String id = "b643d445-18b2-4b9d-bad4-c9c4366e402a";
         ScoreResponse score = this.deserialize(
-            InsightsResponse.class,
+            ScoreResponse.class,
             JSON.std
                 .composeString()
                 .startObject()
@@ -35,12 +35,12 @@ public class ScoreResponseTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals(UUID.fromString(id), score.getId(), "correct ID");
-        assertEquals(Double.valueOf(1.20), score.getFundsRemaining(), "correct funds remaining");
-        assertEquals(Integer.valueOf(123), score.getQueriesRemaining(), "queries remaining");
-        assertEquals(Double.valueOf(0.01), score.getRiskScore(), "risk score");
-        assertEquals("manual_review", score.getDisposition().getAction(), "disposition");
-        assertEquals(Double.valueOf(0.02), score.getIpAddress().getRisk(), "IP risk");
-        assertEquals("INVALID_INPUT", score.getWarnings().get(0).getCode(), "warning code");
+        assertEquals(UUID.fromString(id), score.id(), "correct ID");
+        assertEquals(Double.valueOf(1.20), score.fundsRemaining(), "correct funds remaining");
+        assertEquals(Integer.valueOf(123), score.queriesRemaining(), "queries remaining");
+        assertEquals(Double.valueOf(0.01), score.riskScore(), "risk score");
+        assertEquals("manual_review", score.disposition().action(), "disposition");
+        assertEquals(Double.valueOf(0.02), score.ipAddress().risk(), "IP risk");
+        assertEquals("INVALID_INPUT", score.warnings().get(0).code(), "warning code");
     }
 }

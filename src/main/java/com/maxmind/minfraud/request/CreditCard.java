@@ -195,7 +195,7 @@ public final class CreditCard extends AbstractModel {
      * @return The issuer ID number.
      */
     @JsonProperty("issuer_id_number")
-    public String getIssuerIdNumber() {
+    public String issuerIdNumber() {
         return issuerIdNumber;
     }
 
@@ -203,7 +203,7 @@ public final class CreditCard extends AbstractModel {
      * @return The last two or four digits of the credit card number.
      */
     @JsonProperty("last_digits")
-    public String getLastDigits() {
+    public String lastDigits() {
         return lastDigits;
     }
 
@@ -211,7 +211,7 @@ public final class CreditCard extends AbstractModel {
      * @return The name of the issuing bank as provided by the end user.
      */
     @JsonProperty("bank_name")
-    public String getBankName() {
+    public String bankName() {
         return bankName;
     }
 
@@ -219,7 +219,7 @@ public final class CreditCard extends AbstractModel {
      * @return The phone country code for the issuing bank as provided by the end user.
      */
     @JsonProperty("bank_phone_country_code")
-    public String getBankPhoneCountryCode() {
+    public String bankPhoneCountryCode() {
         return bankPhoneCountryCode;
     }
 
@@ -228,7 +228,7 @@ public final class CreditCard extends AbstractModel {
      *     end user.
      */
     @JsonProperty("bank_phone_number")
-    public String getBankPhoneNumber() {
+    public String bankPhoneNumber() {
         return bankPhoneNumber;
     }
 
@@ -237,7 +237,7 @@ public final class CreditCard extends AbstractModel {
      *     located.
      */
     @JsonProperty("country")
-    public String getCountry() {
+    public String country() {
         return country;
     }
 
@@ -246,7 +246,7 @@ public final class CreditCard extends AbstractModel {
      *     card processor. The minFraud service supports the standard AVS codes.
      */
     @JsonProperty("avs_result")
-    public Character getAvsResult() {
+    public Character avsResult() {
         return avsResult;
     }
 
@@ -254,7 +254,7 @@ public final class CreditCard extends AbstractModel {
      * @return The card verification value (CVV) code as provided by the payment processor.
      */
     @JsonProperty("cvv_result")
-    public Character getCvvResult() {
+    public Character cvvResult() {
         return cvvResult;
     }
 
@@ -262,7 +262,7 @@ public final class CreditCard extends AbstractModel {
      * @return A credit card token uniquely identifying the card.
      */
     @JsonProperty("token")
-    public String getToken() {
+    public String token() {
         return token;
     }
 
@@ -274,7 +274,7 @@ public final class CreditCard extends AbstractModel {
      *     resulted in another outcome other than success or failure.
      */
     @JsonProperty("was_3d_secure_successful")
-    public Boolean getWas3dSecureSuccessful() {
+    public Boolean was3dSecureSuccessful() {
         return was3dSecureSuccessful;
     }
 }

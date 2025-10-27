@@ -1,39 +1,33 @@
 package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.maxmind.minfraud.AbstractModel;
+import com.maxmind.minfraud.JsonSerializable;
 
 /**
  * This class contains minFraud response data related to the credit card issuer.
+ *
+ * @param matchesProvidedName        This is true if the name matches the name provided.
+ * @param matchesProvidedPhoneNumber This is true if the phone number matches the one provided.
+ * @param name                       The name of the bank which issued the credit card.
+ * @param phoneNumber                The phone number of the bank which issued the credit card. In
+ *                                   some cases the phone number we return may be out of date.
  */
-public final class Issuer extends AbstractModel {
-    private final String name;
-    private final Boolean matchesProvidedName;
-    private final String phoneNumber;
-    private final Boolean matchesProvidedPhoneNumber;
+public record Issuer(
+    @JsonProperty("matches_provided_name")
+    Boolean matchesProvidedName,
+
+    @JsonProperty("matches_provided_phone_number")
+    Boolean matchesProvidedPhoneNumber,
+
+    @JsonProperty("name")
+    String name,
+
+    @JsonProperty("phone_number")
+    String phoneNumber
+) implements JsonSerializable {
 
     /**
-     * Constructor for {@code Issuer}.
-     *
-     * @param matchesProvidedName        This is true if the name matches the name provided.
-     * @param matchesProvidedPhoneNumber This is true if the phone number matches the one provided.
-     * @param name                       The name of the bank which issued the credit card.
-     * @param phoneNumber                The phone number of the bank which issued the credit card.
-     */
-    public Issuer(
-        @JsonProperty("matches_provided_name") Boolean matchesProvidedName,
-        @JsonProperty("matches_provided_phone_number") Boolean matchesProvidedPhoneNumber,
-        @JsonProperty("name") String name,
-        @JsonProperty("phone_number") String phoneNumber
-    ) {
-        this.matchesProvidedName = matchesProvidedName;
-        this.matchesProvidedPhoneNumber = matchesProvidedPhoneNumber;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-    }
-
-    /**
-     * Constructor for {@code Issuer}.
+     * Constructs an instance of {@code Issuer} with no data.
      */
     public Issuer() {
         this(null, null, null, null);
@@ -41,39 +35,22 @@ public final class Issuer extends AbstractModel {
 
     /**
      * @return The name of the bank which issued the credit card.
+     * @deprecated Use {@link #name()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
+    @JsonProperty("name")
     public String getName() {
-        return name;
-    }
-
-    /**
-     * @return This returns true if the name matches the name provided in the request for the card
-     *     issuer. It returns false if the name does not match. It returns null if either no name or
-     *     issuer ID number (IIN) was provided in the request or if MaxMind does not have a name
-     *     associated with the IIN.
-     */
-    @JsonProperty("matches_provided_name")
-    public Boolean matchesProvidedName() {
-        return matchesProvidedName;
+        return name();
     }
 
     /**
      * @return The phone number of the bank which issued the credit card. In some cases the phone
      *     number we return may be out of date.
+     * @deprecated Use {@link #phoneNumber()} instead. This method will be removed in 5.0.0.
      */
+    @Deprecated(since = "4.0.0", forRemoval = true)
     @JsonProperty("phone_number")
     public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    /**
-     * @return This returns true if the phone number matches the number provided in the request for
-     *     the card issuer. It returns false if the number does not match. It returns null if either
-     *     no phone number or issuer ID number (IIN) was provided in the request or if MaxMind does
-     *     not have a phone number associated with the IIN.
-     */
-    @JsonProperty("matches_provided_phone_number")
-    public Boolean matchesProvidedPhoneNumber() {
-        return matchesProvidedPhoneNumber;
+        return phoneNumber();
     }
 }

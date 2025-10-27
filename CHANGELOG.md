@@ -7,13 +7,50 @@ CHANGELOG
 * BREAKING: Removed deprecated `TransactionReport.Builder(InetAddress, Tag)`
   constructor. Use `Builder(Tag)` and `ipAddress(InetAddress)` instead.
 * BREAKING: Removed deprecated `getUrl()` methods from `HttpException` and
-  `InvalidRequestException`. Use `getUri()` instead.
+  `InvalidRequestException`. Use `uri()` instead.
 * BREAKING: Removed deprecated constructors from `FactorsResponse`,
   `InsightsResponse`, and `Phone` classes.
 * BREAKING: Removed deprecated `Subscores` class and
   `FactorsResponse.getSubscores()` method. Use `getRiskScoreReasons()`
   instead.
 * BREAKING: Java 17 is now required (previously Java 11).
+* BREAKING: Updated `geoip2` dependency to 5.0.0-SNAPSHOT. This introduces
+  several breaking changes due to changes in the geoip2 library:
+  * The `IpAddress` class no longer extends `InsightsResponse` from geoip2.
+    It now uses composition instead. All public methods remain the same, but
+    code relying on `IpAddress` being an `InsightsResponse` will need to be
+    updated.
+  * The `GeoIp2Location` class no longer extends `Location` from geoip2. It
+    now stores location data directly. All public methods remain the same, but
+    code relying on `GeoIp2Location` being a `Location` will need to be
+    updated.
+  * Removed the `getMaxMind()` method from the `IpAddress` class as this data
+    is not populated in minFraud responses.
+* BREAKING: Converted all response classes to Java records. This change makes
+  these classes more concise and provides better immutability guarantees.
+  * All `get*()` accessor methods in response classes are now deprecated and
+    will be removed in 5.0.0. Use the automatically generated record accessor
+    methods instead (e.g., use `riskScore()` instead of `getRiskScore()`).
+  * The response class hierarchy has been flattened. `InsightsResponse` no
+    longer extends `ScoreResponse`, and `FactorsResponse` no longer extends
+    `InsightsResponse`. Instead, `InsightsResponse` and `FactorsResponse` now
+    include all fields from their former parent classes directly.
+  * All response classes now implement `JsonSerializable` instead of extending
+    `AbstractModel`. The `toJson()` method remains available for serialization.
+  * Removed the `AbstractAddress` interface.
+* BREAKING: Updated all request classes to use record-style method naming. The
+  `get` prefix has been removed from all accessor methods (e.g., use `userId()`
+  instead of `getUserId()`). This applies to all request classes including
+  `Account`, `Billing`, `CreditCard`, `CustomInputs`, `Device`, `Email`,
+  `Event`, `Order`, `Payment`, `Shipping`, `ShoppingCartItem`, `Transaction`,
+  and `TransactionReport`. Unlike response classes, no deprecated helper methods
+  were added as these methods are primarily used for serialization.
+* BREAKING: Updated exception classes to use record-style method naming. The
+  `get` prefix has been removed from all accessor methods. For `HttpException`,
+  use `httpStatus()` and `uri()` instead of `getHttpStatus()` and `getUri()`.
+  For `InvalidRequestException`, use `code()`, `httpStatus()`, and `uri()`
+  instead of `getCode()`, `getHttpStatus()`, and `getUri()`. No deprecated
+  helper methods were added.
 * Added `CREDIT_APPLICATION` and `FUND_TRANSFER` to the `Event.Type` enum.
 * Added the input `/event/party`. This is the party submitting the
   transaction. You may provide this using the `party` method on

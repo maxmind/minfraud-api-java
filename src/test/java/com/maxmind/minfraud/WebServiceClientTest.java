@@ -57,19 +57,19 @@ public class WebServiceClientTest {
 
     @Test
     public void testReportTransaction() throws Exception {
-        String responseContent = "";
-        WebServiceClient client = createSuccessClient("transactions/report", 204,
+        var responseContent = "";
+        var client = createSuccessClient("transactions/report", 204,
             responseContent);
-        TransactionReport request = fullTransactionReport();
+        var request = fullTransactionReport();
         client.reportTransaction(request);
     }
 
     @Test
     public void testFullScoreTransaction() throws Exception {
-        String responseContent = readJsonFile("score-response");
-        WebServiceClient client = createSuccessClient("score", 200, responseContent);
-        Transaction request = fullTransaction();
-        ScoreResponse response = client.score(request);
+        var responseContent = readJsonFile("score-response");
+        var client = createSuccessClient("score", 200, responseContent);
+        var request = fullTransaction();
+        var response = client.score(request);
 
         JSONAssert.assertEquals(responseContent, response.toJson(), true);
         verifyRequestFor(wireMock, "score", "full-request");
@@ -77,10 +77,10 @@ public class WebServiceClientTest {
 
     @Test
     public void testFullScoreTransactionWithEmailMd5() throws Exception {
-        String responseContent = readJsonFile("score-response");
-        WebServiceClient client = createSuccessClient("score", 200, responseContent);
-        Transaction request = fullTransactionEmailMd5();
-        ScoreResponse response = client.score(request);
+        var responseContent = readJsonFile("score-response");
+        var client = createSuccessClient("score", 200, responseContent);
+        var request = fullTransactionEmailMd5();
+        var response = client.score(request);
 
         JSONAssert.assertEquals(responseContent, response.toJson(), true);
         verifyRequestFor(wireMock, "score", "full-request-email-md5");
@@ -88,10 +88,10 @@ public class WebServiceClientTest {
 
     @Test
     public void testFullInsightsTransaction() throws Exception {
-        String responseContent = readJsonFile("insights-response");
-        WebServiceClient client = createSuccessClient("insights", 200, responseContent);
-        Transaction request = fullTransaction();
-        InsightsResponse response = client.insights(request);
+        var responseContent = readJsonFile("insights-response");
+        var client = createSuccessClient("insights", 200, responseContent);
+        var request = fullTransaction();
+        var response = client.insights(request);
 
         // We use non-strict checking as there is some extra stuff in the serialized
         // object, most notably the "name" field in the GeoIP2 InsightsResponse subobjects.
@@ -99,41 +99,41 @@ public class WebServiceClientTest {
         JSONAssert.assertEquals(responseContent, response.toJson(), false);
         verifyRequestFor(wireMock, "insights", "full-request");
         assertTrue(
-            response.getIpAddress().getCountry().isInEuropeanUnion(),
-            "response.getIpAddress().getCountry().isInEuropeanUnion() does not return true"
+            response.ipAddress().country().isInEuropeanUnion(),
+            "response.ipAddress().country().isInEuropeanUnion() does not return true"
         );
         assertFalse(
-            response.getIpAddress().getRegisteredCountry().isInEuropeanUnion(),
-            "response.getIpAddress().getRegisteredCountry().isInEuropeanUnion() does not return false"
+            response.ipAddress().registeredCountry().isInEuropeanUnion(),
+            "response.ipAddress().registeredCountry().isInEuropeanUnion() does not return false"
         );
         assertTrue(
-            response.getIpAddress().getRepresentedCountry().isInEuropeanUnion(),
-            "response.getIpAddress().getRepresentedCountry().isInEuropeanUnion() does not return true"
+            response.ipAddress().representedCountry().isInEuropeanUnion(),
+            "response.ipAddress().representedCountry().isInEuropeanUnion() does not return true"
         );
-        assertEquals("2018-04-05T15:34:40-07:00", response.getDevice().getLocalTime());
+        assertEquals("2018-04-05T15:34:40-07:00", response.device().localTime());
 
-        assertEquals("152.216.7.110", response.getIpAddress().getTraits().getIpAddress());
+        assertEquals("152.216.7.110", response.ipAddress().traits().ipAddress().getHostAddress());
         assertEquals("81.2.69.0/24",
-            response.getIpAddress().getTraits().getNetwork().toString());
+            response.ipAddress().traits().network().toString());
 
-        assertTrue(response.getCreditCard().isVirtual());
+        assertTrue(response.creditCard().isVirtual());
 
-        List<IpRiskReason> reasons = response.getIpAddress().getRiskReasons();
+        var reasons = response.ipAddress().riskReasons();
 
         assertEquals(2, reasons.size(), "two IP risk reasons");
         assertEquals(
             "MINFRAUD_NETWORK_ACTIVITY",
-            reasons.get(1).getCode(),
+            reasons.get(1).code(),
             "second IP risk reason code"
         );
     }
 
     @Test
     public void testFullFactorsTransaction() throws Exception {
-        String responseContent = readJsonFile("factors-response");
-        WebServiceClient client = createSuccessClient("factors", 200, responseContent);
-        Transaction request = fullTransaction();
-        FactorsResponse response = client.factors(request);
+        var responseContent = readJsonFile("factors-response");
+        var client = createSuccessClient("factors", 200, responseContent);
+        var request = fullTransaction();
+        var response = client.factors(request);
 
         // We use non-strict checking as there is some extra stuff in the serialized
         // object, most notably the "name" field in the GeoIP2 InsightsResponse subobjects.
@@ -141,28 +141,28 @@ public class WebServiceClientTest {
         JSONAssert.assertEquals(responseContent, response.toJson(), false);
         verifyRequestFor(wireMock, "factors", "full-request");
         assertTrue(
-            response.getIpAddress().getCountry().isInEuropeanUnion(),
-            "response.getIpAddress().getCountry().isInEuropeanUnion() does not return true"
+            response.ipAddress().country().isInEuropeanUnion(),
+            "response.ipAddress().country().isInEuropeanUnion() does not return true"
         );
         assertTrue(
-            response.getIpAddress().getRegisteredCountry().isInEuropeanUnion(),
-            "response.getIpAddress().getRegisteredCountry().isInEuropeanUnion() does not return true"
+            response.ipAddress().registeredCountry().isInEuropeanUnion(),
+            "response.ipAddress().registeredCountry().isInEuropeanUnion() does not return true"
         );
         assertFalse(
-            response.getIpAddress().getRepresentedCountry().isInEuropeanUnion(),
-            "response.getIpAddress().getRepresentedCountry().isInEuropeanUnion() does not return false"
+            response.ipAddress().representedCountry().isInEuropeanUnion(),
+            "response.ipAddress().representedCountry().isInEuropeanUnion() does not return false"
         );
 
 
-        assertEquals("152.216.7.110", response.getIpAddress().getTraits().getIpAddress());
+        assertEquals("152.216.7.110", response.ipAddress().traits().ipAddress().getHostAddress());
         assertEquals("81.2.69.0/24",
-            response.getIpAddress().getTraits().getNetwork().toString());
+            response.ipAddress().traits().network().toString());
     }
 
     @Test
     public void testRequestEncoding() throws Exception {
-        WebServiceClient client = createSuccessClient("insights", 200, "{}");
-        Transaction request = new Transaction.Builder(
+        var client = createSuccessClient("insights", 200, "{}");
+        var request = new Transaction.Builder(
             new Device.Builder(InetAddress.getByName("1.1.1.1")).build()
         ).shipping(
             new Shipping.Builder()
@@ -178,9 +178,9 @@ public class WebServiceClientTest {
 
     @Test
     public void test200WithNoBody() throws Exception {
-        WebServiceClient client = createSuccessClient("insights", 200, "");
-        Transaction request = fullTransaction();
-        Exception ex = assertThrows(MinFraudException.class, () -> client.insights(request));
+        var client = createSuccessClient("insights", 200, "");
+        var request = fullTransaction();
+        var ex = assertThrows(MinFraudException.class, () -> client.insights(request));
 
         assertThat(ex.getMessage(),
             matchesPattern("Received a 200 response but could not decode it as JSON"));
@@ -188,10 +188,10 @@ public class WebServiceClientTest {
 
     @Test
     public void test200WithInvalidJson() throws Exception {
-        WebServiceClient client = createSuccessClient("insights", 200, "{");
-        Transaction request = fullTransaction();
+        var client = createSuccessClient("insights", 200, "{");
+        var request = fullTransaction();
 
-        Exception ex = assertThrows(MinFraudException.class, () -> client.insights(request));
+        var ex = assertThrows(MinFraudException.class, () -> client.insights(request));
 
         assertEquals("Received a 200 response but could not decode it as JSON",
             ex.getMessage());
@@ -199,7 +199,7 @@ public class WebServiceClientTest {
 
     @Test
     public void testInsufficientCredit() {
-        Exception ex = assertThrows(InsufficientFundsException.class, () -> createInsightsError(
+        var ex = assertThrows(InsufficientFundsException.class, () -> createInsightsError(
             402,
             "application/json",
             "{\"code\":\"INSUFFICIENT_FUNDS\",\"error\":\"out of credit\"}"
@@ -214,7 +214,7 @@ public class WebServiceClientTest {
         "LICENSE_KEY_REQUIRED",
         "USER_ID_REQUIRED"})
     public void testInvalidAuth(String code) {
-        Exception ex = assertThrows(AuthenticationException.class, () ->
+        var ex = assertThrows(AuthenticationException.class, () ->
             createInsightsError(
                 401,
                 "application/json",
@@ -226,7 +226,7 @@ public class WebServiceClientTest {
 
     @Test
     public void testPermissionRequired() {
-        Exception ex = assertThrows(PermissionRequiredException.class, () -> createInsightsError(
+        var ex = assertThrows(PermissionRequiredException.class, () -> createInsightsError(
             403,
             "application/json",
             "{\"code\":\"PERMISSION_REQUIRED\",\"error\":\"Permission required\"}"
@@ -236,7 +236,7 @@ public class WebServiceClientTest {
 
     @Test
     public void testInvalidRequest() {
-        Exception ex = assertThrows(InvalidRequestException.class, () ->
+        var ex = assertThrows(InvalidRequestException.class, () ->
             createInsightsError(
                 400,
                 "application/json",
@@ -248,7 +248,7 @@ public class WebServiceClientTest {
 
     @Test
     public void test400WithInvalidJson() {
-        Exception ex = assertThrows(HttpException.class, () ->
+        var ex = assertThrows(HttpException.class, () ->
             createInsightsError(
                 400,
                 "application/json",
@@ -261,7 +261,7 @@ public class WebServiceClientTest {
 
     @Test
     public void test400WithNoBody() {
-        Exception ex = assertThrows(HttpException.class, () ->
+        var ex = assertThrows(HttpException.class, () ->
             createInsightsError(
                 400,
                 "application/json",
@@ -274,7 +274,7 @@ public class WebServiceClientTest {
 
     @Test
     public void test400WithUnexpectedContentType() {
-        Exception ex = assertThrows(HttpException.class, () ->
+        var ex = assertThrows(HttpException.class, () ->
             createInsightsError(
                 400,
                 "text/plain",
@@ -288,7 +288,7 @@ public class WebServiceClientTest {
 
     @Test
     public void test400WithUnexpectedJson() {
-        Exception ex = assertThrows(HttpException.class, () ->
+        var ex = assertThrows(HttpException.class, () ->
             createInsightsError(
                 400,
                 "application/json",
@@ -302,7 +302,7 @@ public class WebServiceClientTest {
 
     @Test
     public void test300() {
-        Exception ex = assertThrows(HttpException.class, () ->
+        var ex = assertThrows(HttpException.class, () ->
             createInsightsError(
                 300,
                 "application/json",
@@ -315,7 +315,7 @@ public class WebServiceClientTest {
 
     @Test
     public void test500() {
-        Exception ex = assertThrows(HttpException.class, () ->
+        var ex = assertThrows(HttpException.class, () ->
             createInsightsError(
                 500,
                 "application/json",
@@ -363,9 +363,9 @@ public class WebServiceClientTest {
 
     @Test
     public void testHttpClientWorks() {
-        HttpClient customClient = HttpClient.newBuilder().build();
+        var customClient = HttpClient.newBuilder().build();
 
-        WebServiceClient client = new WebServiceClient.Builder(6, "0123456789")
+        var client = new WebServiceClient.Builder(6, "0123456789")
             .httpClient(customClient)
             .build();
 
@@ -375,9 +375,9 @@ public class WebServiceClientTest {
 
     @Test
     public void testHttpClientWithConnectTimeoutThrowsException() {
-        HttpClient customClient = HttpClient.newBuilder().build();
+        var customClient = HttpClient.newBuilder().build();
 
-        Exception ex = assertThrows(IllegalArgumentException.class, () ->
+        var ex = assertThrows(IllegalArgumentException.class, () ->
             new WebServiceClient.Builder(6, "0123456789")
                 .httpClient(customClient)
                 .connectTimeout(Duration.ofSeconds(5))
@@ -390,9 +390,9 @@ public class WebServiceClientTest {
 
     @Test
     public void testHttpClientWithProxyThrowsException() {
-        HttpClient customClient = HttpClient.newBuilder().build();
+        var customClient = HttpClient.newBuilder().build();
 
-        Exception ex = assertThrows(IllegalArgumentException.class, () ->
+        var ex = assertThrows(IllegalArgumentException.class, () ->
             new WebServiceClient.Builder(6, "0123456789")
                 .httpClient(customClient)
                 .proxy(java.net.ProxySelector.of(null))

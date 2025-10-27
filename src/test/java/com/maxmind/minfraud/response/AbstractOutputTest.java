@@ -11,12 +11,12 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.IOException;
-import java.util.Collections;
+import java.util.List;
 
 public abstract class AbstractOutputTest {
 
     <T> T deserialize(Class<T> cls, String json) throws IOException {
-        ObjectMapper mapper = JsonMapper.builder()
+        var mapper = JsonMapper.builder()
             .addModule(new JavaTimeModule())
             .defaultDateFormat(new StdDateFormat().withColonInTimeZone(true))
             .enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING)
@@ -26,8 +26,8 @@ public abstract class AbstractOutputTest {
             .serializationInclusion(JsonInclude.Include.NON_NULL)
             .serializationInclusion(JsonInclude.Include.NON_EMPTY)
             .build();
-        InjectableValues inject = new Std().addValue(
-            "locales", Collections.singletonList("en"));
+        var inject = new Std().addValue(
+            "locales", List.of("en"));
         return mapper.readerFor(cls).with(inject).readValue(json);
     }
 }

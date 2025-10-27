@@ -13,51 +13,51 @@ public class EventTest {
 
     @Test
     public void testParty() {
-        Event event = new Builder().party(Party.AGENT).build();
-        assertEquals(Party.AGENT, event.getParty());
+        var event = new Builder().party(Party.AGENT).build();
+        assertEquals(Party.AGENT, event.party());
 
         event = new Builder().party(Party.CUSTOMER).build();
-        assertEquals(Party.CUSTOMER, event.getParty());
+        assertEquals(Party.CUSTOMER, event.party());
     }
 
     @Test
     public void testTransactionId() {
-        Event event = new Builder().transactionId("t12").build();
-        assertEquals("t12", event.getTransactionId());
+        var event = new Builder().transactionId("t12").build();
+        assertEquals("t12", event.transactionId());
     }
 
     @Test
     public void testShopId() {
-        Event event = new Builder().shopId("s12").build();
-        assertEquals("s12", event.getShopId());
+        var event = new Builder().shopId("s12").build();
+        assertEquals("s12", event.shopId());
     }
 
     @Test
     public void testTimeWithDate() {
-        Date date = new Date();
-        Event event = new Builder().time(date).build();
-        assertEquals(date, event.getTime());
+        var date = new Date();
+        var event = new Builder().time(date).build();
+        assertEquals(date, event.time());
     }
 
     @Test
     public void testTimeWithZonedDateTime() {
-        ZonedDateTime date = ZonedDateTime.now();
-        Event event = new Builder().time(date).build();
-        assertEquals(date, event.getDateTime());
+        var date = ZonedDateTime.now();
+        var event = new Builder().time(date).build();
+        assertEquals(date, event.dateTime());
     }
 
     @Test
     public void testType() {
-        Event event = new Builder().type(Type.ACCOUNT_CREATION).build();
-        assertEquals(Type.ACCOUNT_CREATION, event.getType());
+        var event = new Builder().type(Type.ACCOUNT_CREATION).build();
+        assertEquals(Type.ACCOUNT_CREATION, event.type());
 
         event = new Builder().type(Type.PAYOUT_CHANGE).build();
-        assertEquals(Type.PAYOUT_CHANGE, event.getType());
+        assertEquals(Type.PAYOUT_CHANGE, event.type());
 
         event = new Builder().type(Type.CREDIT_APPLICATION).build();
-        assertEquals(Type.CREDIT_APPLICATION, event.getType());
+        assertEquals(Type.CREDIT_APPLICATION, event.type());
 
         event = new Builder().type(Type.FUND_TRANSFER).build();
-        assertEquals(Type.FUND_TRANSFER, event.getType());
+        assertEquals(Type.FUND_TRANSFER, event.type());
     }
 }

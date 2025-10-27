@@ -29,10 +29,10 @@ public class CreditCardTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals("Bank", cc.getIssuer().getName());
-        assertEquals("US", cc.getCountry());
-        assertEquals("Visa", cc.getBrand());
-        assertEquals("credit", cc.getType());
+        assertEquals("Bank", cc.issuer().name());
+        assertEquals("US", cc.country());
+        assertEquals("Visa", cc.brand());
+        assertEquals("credit", cc.type());
         assertTrue(cc.isBusiness());
         assertTrue(cc.isPrepaid());
         assertTrue(cc.isVirtual());

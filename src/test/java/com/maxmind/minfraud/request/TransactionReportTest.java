@@ -39,40 +39,40 @@ public class TransactionReportTest {
 
     @Test
     public void testBuildValidIdentifier() {
-        final String maxmindId = "12345678";
-        final UUID minfraudId = UUID.fromString(
+        final var maxmindId = "12345678";
+        final var minfraudId = UUID.fromString(
             "58fa38d8-4b87-458b-a22b-f00eda1aa20d");
-        final String transactionId = "abc123";
+        final var transactionId = "abc123";
 
 
         assertEquals(ip, new TransactionReport.Builder(tag)
-            .ipAddress(ip).build().getIpAddress());
+            .ipAddress(ip).build().ipAddress());
         assertEquals(maxmindId, new TransactionReport.Builder(tag)
-            .maxmindId(maxmindId).build().getMaxmindId());
+            .maxmindId(maxmindId).build().maxmindId());
         assertEquals(minfraudId, new TransactionReport.Builder(tag)
-            .minfraudId(minfraudId).build().getMinfraudId());
+            .minfraudId(minfraudId).build().minfraudId());
         assertEquals(transactionId, new TransactionReport.Builder(tag)
-            .transactionId(transactionId).build().getTransactionId());
+            .transactionId(transactionId).build().transactionId());
     }
 
     @Test
     public void testIpAddress() {
-        final TransactionReport report = new Builder(tag).ipAddress(ip).build();
-        assertEquals(ip, report.getIpAddress());
+        final var report = new Builder(tag).ipAddress(ip).build();
+        assertEquals(ip, report.ipAddress());
     }
 
     @Test
     public void testTag() {
-        final TransactionReport report = new Builder(tag).ipAddress(ip).build();
-        assertEquals(Tag.NOT_FRAUD, report.getTag());
+        final var report = new Builder(tag).ipAddress(ip).build();
+        assertEquals(Tag.NOT_FRAUD, report.tag());
     }
 
     @Test
     public void testChargebackCode() {
-        final String code = "foo";
-        final TransactionReport report =
+        final var code = "foo";
+        final var report =
             new Builder(tag).ipAddress(ip).chargebackCode(code).build();
-        assertEquals(code, report.getChargebackCode());
+        assertEquals(code, report.chargebackCode());
     }
 
     @Test
@@ -93,36 +93,36 @@ public class TransactionReportTest {
 
     @Test
     public void testValidMaxmindId() {
-        final String id = "12345678";
-        final TransactionReport report = new Builder(tag).maxmindId(id).build();
-        assertEquals(id, report.getMaxmindId());
+        final var id = "12345678";
+        final var report = new Builder(tag).maxmindId(id).build();
+        assertEquals(id, report.maxmindId());
     }
 
     @Test
     public void testMinfraudId() {
-        final UUID id = UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d");
-        final TransactionReport report = new Builder(tag).minfraudId(id).build();
-        assertEquals(id, report.getMinfraudId());
+        final var id = UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d");
+        final var report = new Builder(tag).minfraudId(id).build();
+        assertEquals(id, report.minfraudId());
     }
 
     @Test
     public void testNotes() {
-        final String notes = "foo";
-        final TransactionReport report = new Builder(tag).ipAddress(ip).notes(notes).build();
-        assertEquals(notes, report.getNotes());
+        final var notes = "foo";
+        final var report = new Builder(tag).ipAddress(ip).notes(notes).build();
+        assertEquals(notes, report.notes());
     }
 
     @Test
     public void testTransactionID() {
-        final String id = "foo";
-        final TransactionReport report = new Builder(tag).transactionId(id).build();
-        assertEquals(id, report.getTransactionId());
+        final var id = "foo";
+        final var report = new Builder(tag).transactionId(id).build();
+        assertEquals(id, report.transactionId());
     }
 
     // Test the example in the README
     @Test
     public void testAllFields() throws Exception {
-        final TransactionReport report = new TransactionReport.Builder(Tag.NOT_FRAUD)
+        final var report = new TransactionReport.Builder(Tag.NOT_FRAUD)
             .chargebackCode("mycode")
             .ipAddress(InetAddress.getByName("1.1.1.1"))
             .maxmindId("12345678")
@@ -131,7 +131,7 @@ public class TransactionReportTest {
             .transactionId("foo")
             .build();
 
-        final String expectedJSON = "{" +
+        final var expectedJSON = "{" +
             "ip_address:'1.1.1.1'," +
             "tag:'not_fraud'," +
             "chargeback_code:'mycode'," +

@@ -150,7 +150,7 @@ public final class TransactionReport extends AbstractModel {
      * @return The IP address used in the transaction.
      */
     @JsonProperty("ip_address")
-    public InetAddress getIpAddress() {
+    public InetAddress ipAddress() {
         return ipAddress;
     }
 
@@ -158,7 +158,7 @@ public final class TransactionReport extends AbstractModel {
      * @return The tag.
      */
     @JsonProperty("tag")
-    public Tag getTag() {
+    public Tag tag() {
         return tag;
     }
 
@@ -166,7 +166,7 @@ public final class TransactionReport extends AbstractModel {
      * @return The chargeback code.
      */
     @JsonProperty("chargeback_code")
-    public String getChargebackCode() {
+    public String chargebackCode() {
         return chargebackCode;
     }
 
@@ -174,7 +174,7 @@ public final class TransactionReport extends AbstractModel {
      * @return The maxmind_id.
      */
     @JsonProperty("maxmind_id")
-    public String getMaxmindId() {
+    public String maxmindId() {
         return maxmindId;
     }
 
@@ -182,7 +182,7 @@ public final class TransactionReport extends AbstractModel {
      * @return The minfraud_id.
      */
     @JsonProperty("minfraud_id")
-    public UUID getMinfraudId() {
+    public UUID minfraudId() {
         return minfraudId;
     }
 
@@ -190,7 +190,7 @@ public final class TransactionReport extends AbstractModel {
      * @return The notes.
      */
     @JsonProperty("notes")
-    public String getNotes() {
+    public String notes() {
         return notes;
     }
 
@@ -198,7 +198,7 @@ public final class TransactionReport extends AbstractModel {
      * @return The transaction_id.
      */
     @JsonProperty("transaction_id")
-    public String getTransactionId() {
+    public String transactionId() {
         return transactionId;
     }
 

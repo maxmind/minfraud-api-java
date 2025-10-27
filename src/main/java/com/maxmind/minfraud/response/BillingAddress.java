@@ -1,36 +1,75 @@
 package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.minfraud.JsonSerializable;
 
 /**
  * This class contains minFraud response data related to the billing address.
+ *
+ * @param distanceToIpLocation The distance in kilometers from the address to the IP location.
+ *                             This will be null if there is no value in the response.
+ * @param isInIpCountry        This returns true if the address is in the IP country. It is false
+ *                             when the address is not in the IP country. If the address could not
+ *                             be parsed or was not provided or the IP address could not be
+ *                             geolocated, then null will be returned.
+ * @param isPostalInCity       This will return true if the postal code provided with the address
+ *                             is in the city for the address. It will return false when the postal
+ *                             code is not in the city. If the address was not provided or could not
+ *                             be parsed, null will be returned.
+ * @param latitude             The latitude associated with the address. This will be null if there
+ *                             is no value in the response.
+ * @param longitude            The longitude associated with the address. This will be null if there
+ *                             is no value in the response.
  */
-public final class BillingAddress extends AbstractAddress {
-    /**
-     * Constructor for {@code BillingAddress}.
-     *
-     * @param distanceToIpLocation The distance in kilometers from the billing address to the IP
-     *                             location.
-     * @param isInIpCountry        This is true if the billing address is in the IP country.
-     * @param isPostalInCity       This is true if the billing postal code is in the city for the IP
-     *                             location.
-     * @param latitude             The latitude associated with the IP address.
-     * @param longitude            The longitude associated with the IP address.
-     */
-    public BillingAddress(
-        @JsonProperty("distance_to_ip_location") Integer distanceToIpLocation,
-        @JsonProperty("is_in_ip_country") Boolean isInIpCountry,
-        @JsonProperty("is_postal_in_city") Boolean isPostalInCity,
-        @JsonProperty("latitude") Double latitude,
-        @JsonProperty("longitude") Double longitude
-    ) {
-        super(distanceToIpLocation, isInIpCountry, isPostalInCity, latitude, longitude);
-    }
+public record BillingAddress(
+    @JsonProperty("distance_to_ip_location")
+    Integer distanceToIpLocation,
+
+    @JsonProperty("is_in_ip_country")
+    Boolean isInIpCountry,
+
+    @JsonProperty("is_postal_in_city")
+    Boolean isPostalInCity,
+
+    @JsonProperty("latitude")
+    Double latitude,
+
+    @JsonProperty("longitude")
+    Double longitude
+) implements JsonSerializable {
 
     /**
-     * Constructor for {@code BillingAddress}.
+     * Constructs an instance of {@code BillingAddress} with no data.
      */
     public BillingAddress() {
         this(null, null, null, null, null);
+    }
+
+    /**
+     * @return The latitude associated with the address.
+     * @deprecated Use {@link #latitude()} instead. This method will be removed in 5.0.0.
+     */
+    @Deprecated(since = "4.0.0", forRemoval = true)
+    public Double getLatitude() {
+        return latitude();
+    }
+
+    /**
+     * @return The longitude associated with the address.
+     * @deprecated Use {@link #longitude()} instead. This method will be removed in 5.0.0.
+     */
+    @Deprecated(since = "4.0.0", forRemoval = true)
+    public Double getLongitude() {
+        return longitude();
+    }
+
+    /**
+     * @return The distance in kilometers from the address to the IP location.
+     * @deprecated Use {@link #distanceToIpLocation()} instead. This method will be removed in
+     *     5.0.0.
+     */
+    @Deprecated(since = "4.0.0", forRemoval = true)
+    public Integer getDistanceToIpLocation() {
+        return distanceToIpLocation();
     }
 }

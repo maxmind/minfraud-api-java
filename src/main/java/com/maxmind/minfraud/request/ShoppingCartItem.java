@@ -95,7 +95,7 @@ public final class ShoppingCartItem extends AbstractModel {
      * @return The category of the item.
      */
     @JsonProperty("category")
-    public String getCategory() {
+    public String category() {
         return category;
     }
 
@@ -103,7 +103,7 @@ public final class ShoppingCartItem extends AbstractModel {
      * @return The ID of the item.
      */
     @JsonProperty("item_id")
-    public String getItemId() {
+    public String itemId() {
         return itemId;
     }
 
@@ -111,7 +111,7 @@ public final class ShoppingCartItem extends AbstractModel {
      * @return The quantity of the item.
      */
     @JsonProperty("quantity")
-    public Integer getQuantity() {
+    public Integer quantity() {
         return quantity;
     }
 
@@ -119,7 +119,7 @@ public final class ShoppingCartItem extends AbstractModel {
      * @return The price of the item.
      */
     @JsonProperty("price")
-    public BigDecimal getPrice() {
+    public BigDecimal price() {
         return price;
     }
 }

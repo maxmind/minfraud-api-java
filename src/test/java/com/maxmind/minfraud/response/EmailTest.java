@@ -14,7 +14,7 @@ public class EmailTest extends AbstractOutputTest {
 
     @Test
     public void testEmail() throws Exception {
-        Email email = this.deserialize(
+        var email = this.deserialize(
             Email.class,
             JSON.std
                 .composeString()
@@ -30,17 +30,17 @@ public class EmailTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals(LocalDate.parse("2014-02-03"), email.getDomain().getFirstSeen());
+        assertEquals(LocalDate.parse("2014-02-03"), email.domain().firstSeen());
         assertFalse(email.isDisposable());
         assertFalse(email.isFree());
         assertTrue(email.isHighRisk());
-        assertEquals("2017-01-02", email.getFirstSeen());
+        assertEquals("2017-01-02", email.firstSeen());
         assertEquals(LocalDate.parse("2017-01-02"), email.getFirstSeenDate());
     }
 
     @Test
     public void testEmailWithoutFirstSeen() throws Exception {
-        Email email = this.deserialize(
+        var email = this.deserialize(
             Email.class,
             JSON.std
                 .composeString()
@@ -51,11 +51,11 @@ public class EmailTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertNotNull(email.getDomain());
+        assertNotNull(email.domain());
         assertNull(email.isDisposable());
         assertFalse(email.isFree());
         assertTrue(email.isHighRisk());
-        assertNull(email.getFirstSeen());
+        assertNull(email.firstSeen());
         assertNull(email.getFirstSeenDate());
     }
 }

@@ -13,11 +13,11 @@ public class CreditCardTest {
 
     @Test
     public void testIssuerIdNumber() {
-        CreditCard cc = new Builder().issuerIdNumber("123456").build();
-        assertEquals("123456", cc.getIssuerIdNumber());
+        var cc = new Builder().issuerIdNumber("123456").build();
+        assertEquals("123456", cc.issuerIdNumber());
 
         cc = new Builder().issuerIdNumber("12345678").build();
-        assertEquals("12345678", cc.getIssuerIdNumber());
+        assertEquals("12345678", cc.issuerIdNumber());
     }
 
     @Test
@@ -46,11 +46,11 @@ public class CreditCardTest {
 
     @Test
     public void testLastDigits() {
-        CreditCard cc = new Builder().lastDigits("1234").build();
-        assertEquals("1234", cc.getLastDigits());
+        var cc = new Builder().lastDigits("1234").build();
+        assertEquals("1234", cc.lastDigits());
 
         cc = new Builder().lastDigits("12").build();
-        assertEquals("12", cc.getLastDigits());
+        assertEquals("12", cc.lastDigits());
     }
 
     @Test
@@ -80,28 +80,28 @@ public class CreditCardTest {
 
     @Test
     public void testBankName() {
-        CreditCard cc = new Builder().bankName("Bank").build();
-        assertEquals("Bank", cc.getBankName());
+        var cc = new Builder().bankName("Bank").build();
+        assertEquals("Bank", cc.bankName());
     }
 
     @Test
     public void testBankPhoneCountryCode() {
-        CreditCard cc = new Builder().bankPhoneCountryCode("1").build();
-        assertEquals("1", cc.getBankPhoneCountryCode());
+        var cc = new Builder().bankPhoneCountryCode("1").build();
+        assertEquals("1", cc.bankPhoneCountryCode());
     }
 
     @Test
     public void testBankPhoneNumber() {
-        String phone = "231-323-3123";
-        CreditCard cc = new Builder().bankPhoneNumber(phone).build();
-        assertEquals(phone, cc.getBankPhoneNumber());
+        var phone = "231-323-3123";
+        var cc = new Builder().bankPhoneNumber(phone).build();
+        assertEquals(phone, cc.bankPhoneNumber());
     }
 
     @Test
     public void testCountry() {
-        String country = "CA";
-        CreditCard cc = new Builder().country(country).build();
-        assertEquals(country, cc.getCountry());
+        var country = "CA";
+        var cc = new Builder().country(country).build();
+        assertEquals(country, cc.country());
     }
 
     @ParameterizedTest
@@ -115,14 +115,14 @@ public class CreditCardTest {
 
     @Test
     public void testAvsResult() {
-        CreditCard cc = new Builder().avsResult('Y').build();
-        assertEquals(Character.valueOf('Y'), cc.getAvsResult());
+        var cc = new Builder().avsResult('Y').build();
+        assertEquals(Character.valueOf('Y'), cc.avsResult());
     }
 
     @Test
     public void testCvvResult() {
-        CreditCard cc = new Builder().cvvResult('N').build();
-        assertEquals(Character.valueOf('N'), cc.getCvvResult());
+        var cc = new Builder().cvvResult('N').build();
+        assertEquals(Character.valueOf('N'), cc.cvvResult());
     }
 
     @ParameterizedTest
@@ -145,13 +145,13 @@ public class CreditCardTest {
         "valid_token"
     })
     public void testValidToken(String token) {
-        CreditCard cc = new Builder().token(token).build();
-        assertEquals(token, cc.getToken());
+        var cc = new Builder().token(token).build();
+        assertEquals(token, cc.token());
     }
 
     @Test
     public void testWas3dSecureSuccessful() {
-        CreditCard cc = new Builder().was3dSecureSuccessful(true).build();
-        assertTrue(cc.getWas3dSecureSuccessful());
+        var cc = new Builder().was3dSecureSuccessful(true).build();
+        assertTrue(cc.was3dSecureSuccessful());
     }
 }

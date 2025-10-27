@@ -25,9 +25,9 @@ public class IssuerTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals("Bank", issuer.getName(), "bank name");
+        assertEquals("Bank", issuer.name(), "bank name");
         assertTrue(issuer.matchesProvidedName(), "provided name matches");
-        assertEquals(phone, issuer.getPhoneNumber(), "phone");
+        assertEquals(phone, issuer.phoneNumber(), "phone");
         assertTrue(issuer.matchesProvidedPhoneNumber(), "provided phone matches");
     }
 }

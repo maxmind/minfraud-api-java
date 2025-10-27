@@ -46,32 +46,32 @@ public class IpAddressTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals(Double.valueOf(99), address.getRisk(), "IP risk");
-        assertEquals(time, address.getLocation().getLocalTime(), "correct local time");
-        assertEquals("1.2.0.0/16", address.getTraits().getNetwork().toString());
-        assertTrue(address.getTraits().isAnonymous(), "isAnonymous");
-        assertTrue(address.getTraits().isAnonymousVpn(), "isAnonymousVpn");
-        assertTrue(address.getTraits().isHostingProvider(), "isHostingProvider");
-        assertTrue(address.getTraits().isPublicProxy(), "isPublicProxy");
-        assertTrue(address.getTraits().isTorExitNode(), "isTorExitNode");
+        assertEquals(Double.valueOf(99), address.risk(), "IP risk");
+        assertEquals(time, address.location().localTime(), "correct local time");
+        assertEquals("1.2.0.0/16", address.traits().network().toString());
+        assertTrue(address.traits().isAnonymous(), "isAnonymous");
+        assertTrue(address.traits().isAnonymousVpn(), "isAnonymousVpn");
+        assertTrue(address.traits().isHostingProvider(), "isHostingProvider");
+        assertTrue(address.traits().isPublicProxy(), "isPublicProxy");
+        assertTrue(address.traits().isTorExitNode(), "isTorExitNode");
         assertEquals(
             "310",
-            address.getTraits().getMobileCountryCode(),
+            address.traits().mobileCountryCode(),
             "mobile country code"
         );
         assertEquals(
             "004",
-            address.getTraits().getMobileNetworkCode(),
+            address.traits().mobileNetworkCode(),
             "mobile network code"
         );
         assertEquals(
             "ANONYMOUS_IP",
-            address.getRiskReasons().get(0).getCode(),
+            address.riskReasons().get(0).code(),
             "IP risk reason code"
         );
         assertEquals(
             "some reason",
-            address.getRiskReasons().get(0).getReason(),
+            address.riskReasons().get(0).reason(),
             "IP risk reason"
         );
     }
@@ -83,6 +83,6 @@ public class IpAddressTest extends AbstractOutputTest {
             "{}"
         );
 
-        assertNotNull(address.getRiskReasons());
+        assertNotNull(address.riskReasons());
     }
 }

@@ -395,7 +395,7 @@ public final class Email extends AbstractModel {
      *     {@link Builder#hashAddress()} as well, or null if you did not set an email address.
      */
     @JsonProperty("address")
-    public String getAddress() {
+    public String address() {
         if (address == null) {
             return null;
         }
@@ -566,7 +566,7 @@ public final class Email extends AbstractModel {
      * @return The domain of the email address used in the transaction.
      */
     @JsonProperty("domain")
-    public String getDomain() {
+    public String domain() {
         return domain;
     }
 }

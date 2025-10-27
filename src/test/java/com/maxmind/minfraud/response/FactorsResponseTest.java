@@ -45,42 +45,42 @@ public class FactorsResponseTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertTrue(factors.getShippingPhone().isVoip(), "correct shipping phone isVoip");
-        assertFalse(factors.getShippingPhone().matchesPostal(), "correct shipping phone matchesPostal");
-        assertFalse(factors.getBillingPhone().isVoip(), "correct billing phone isVoip");
-        assertTrue(factors.getBillingPhone().matchesPostal(), "correct billing phone matchesPostal");
+        assertTrue(factors.shippingPhone().isVoip(), "correct shipping phone isVoip");
+        assertFalse(factors.shippingPhone().matchesPostal(), "correct shipping phone matchesPostal");
+        assertFalse(factors.billingPhone().isVoip(), "correct billing phone isVoip");
+        assertTrue(factors.billingPhone().matchesPostal(), "correct billing phone matchesPostal");
 
         assertEquals(
             Double.valueOf(1.20),
-            factors.getFundsRemaining(),
+            factors.fundsRemaining(),
             "correct funnds remaining"
         );
-        assertEquals(UUID.fromString(id), factors.getId(), "correct ID");
+        assertEquals(UUID.fromString(id), factors.id(), "correct ID");
         assertEquals(
             Integer.valueOf(123),
-            factors.getQueriesRemaining(),
+            factors.queriesRemaining(),
             "correct queries remaining"
         );
         assertEquals(
             Double.valueOf(0.01),
-            factors.getRiskScore(),
+            factors.riskScore(),
             "correct risk score"
         );
-        assertEquals(1, factors.getRiskScoreReasons().size());
+        assertEquals(1, factors.riskScoreReasons().size());
         assertEquals(
             Double.valueOf(45),
-            factors.getRiskScoreReasons().get(0).getMultiplier(),
+            factors.riskScoreReasons().get(0).multiplier(),
             "risk multiplier"
         );
-        assertEquals(1, factors.getRiskScoreReasons().get(0).getReasons().size());
+        assertEquals(1, factors.riskScoreReasons().get(0).reasons().size());
         assertEquals(
             "ANONYMOUS_IP",
-            factors.getRiskScoreReasons().get(0).getReasons().get(0).getCode(),
+            factors.riskScoreReasons().get(0).reasons().get(0).code(),
             "risk reason code"
         );
         assertEquals(
             "Risk due to IP being an Anonymous IP",
-            factors.getRiskScoreReasons().get(0).getReasons().get(0).getReason(),
+            factors.riskScoreReasons().get(0).reasons().get(0).reason(),
             "risk reason"
         );
     }

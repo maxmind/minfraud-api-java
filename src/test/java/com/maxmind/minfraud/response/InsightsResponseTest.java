@@ -67,58 +67,58 @@ public class InsightsResponseTest extends AbstractOutputTest {
                 .finish()
         );
 
-        assertEquals("accept", insights.getDisposition().getAction(), "disposition");
+        assertEquals("accept", insights.disposition().action(), "disposition");
         assertEquals(
             LocalDate.parse("2014-02-03"),
-            insights.getEmail().getDomain().getFirstSeen(),
+            insights.email().domain().firstSeen(),
             "email domain first seen"
         );
         assertEquals(
             "US",
-            insights.getIpAddress().getCountry().getIsoCode(),
+            insights.ipAddress().country().isoCode(),
             "correct country ISO"
         );
-        assertTrue(insights.getCreditCard().isBusiness(), "correct credit card is business");
-        assertTrue(insights.getCreditCard().isPrepaid(), "correct credit card prepaid");
+        assertTrue(insights.creditCard().isBusiness(), "correct credit card is business");
+        assertTrue(insights.creditCard().isPrepaid(), "correct credit card prepaid");
 
         assertTrue(
-            insights.getShippingAddress().isInIpCountry(),
+            insights.shippingAddress().isInIpCountry(),
             "correct shipping address is in IP country"
         );
-        assertTrue(insights.getShippingPhone().isVoip(), "correct shipping phone isVoip");
+        assertTrue(insights.shippingPhone().isVoip(), "correct shipping phone isVoip");
         assertFalse(
-            insights.getShippingPhone().matchesPostal(),
+            insights.shippingPhone().matchesPostal(),
             "correct shipping phone matchesPostal"
         );
 
         assertTrue(
-            insights.getBillingAddress().isInIpCountry(),
+            insights.billingAddress().isInIpCountry(),
             "correct billing address is in IP country"
         );
-        assertFalse(insights.getBillingPhone().isVoip(), "correct billing phone isVoip");
+        assertFalse(insights.billingPhone().isVoip(), "correct billing phone isVoip");
         assertTrue(
-            insights.getBillingPhone().matchesPostal(),
+            insights.billingPhone().matchesPostal(),
             "correct billing phone matchesPostal"
         );
 
         assertEquals(
             Double.valueOf(1.20),
-            insights.getFundsRemaining(),
+            insights.fundsRemaining(),
             "correct funds remaining"
         );
-        assertEquals(UUID.fromString(id), insights.getId(), "correct ID");
+        assertEquals(UUID.fromString(id), insights.id(), "correct ID");
         assertEquals(
             Integer.valueOf(123),
-            insights.getQueriesRemaining(),
+            insights.queriesRemaining(),
             "correct queries remaining"
         );
-        assertEquals(Double.valueOf(0.01), insights.getRiskScore(), "correct risk score");
+        assertEquals(Double.valueOf(0.01), insights.riskScore(), "correct risk score");
         assertEquals(
             "INVALID_INPUT",
-            insights.getWarnings().get(0).getCode(),
+            insights.warnings().get(0).code(),
             "correct warning code"
         );
-        assertEquals("152.216.7.110", insights.getIpAddress().getTraits().getIpAddress());
-        assertEquals("81.2.69.0/24", insights.getIpAddress().getTraits().getNetwork().toString());
+        assertEquals("152.216.7.110", insights.ipAddress().traits().ipAddress().getHostAddress());
+        assertEquals("81.2.69.0/24", insights.ipAddress().traits().network().toString());
     }
 }

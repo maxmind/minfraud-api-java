@@ -9,13 +9,13 @@ public class AccountTest {
 
     @Test
     public void testUserId() {
-        Account account = new Builder().userId("usr").build();
-        assertEquals("usr", account.getUserId());
+        var account = new Builder().userId("usr").build();
+        assertEquals("usr", account.userId());
     }
 
     @Test
     public void testUsername() {
-        Account account = new Builder().username("username").build();
-        assertEquals("14c4b06b824ec593239362517f538b29", account.getUsernameMd5());
+        var account = new Builder().username("username").build();
+        assertEquals("14c4b06b824ec593239362517f538b29", account.usernameMd5());
     }
 }

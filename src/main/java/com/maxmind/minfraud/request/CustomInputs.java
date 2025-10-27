@@ -103,7 +103,7 @@ public final class CustomInputs extends AbstractModel {
      * @return an unmodifiable map containing the custom inputs.
      */
     @JsonAnyGetter
-    public Map<String, Object> getInputs() {
+    public Map<String, Object> inputs() {
         return inputs;
     }
 }
