@@ -195,6 +195,10 @@ public final class Event extends AbstractModel {
          */
         REFERRAL,
         /**
+         * A SIM card was swapped
+         */
+        SIM_SWAP,
+        /**
          * A survey was completed
          */
         SURVEY;
