@@ -51,7 +51,8 @@ CHANGELOG
   For `InvalidRequestException`, use `code()`, `httpStatus()`, and `uri()`
   instead of `getCode()`, `getHttpStatus()`, and `getUri()`. No deprecated
   helper methods were added.
-* Added `CREDIT_APPLICATION` and `FUND_TRANSFER` to the `Event.Type` enum.
+* Added `CREDIT_APPLICATION`, `FUND_TRANSFER`, and `SIM_SWAP` to the
+  `Event.Type` enum.
 * Added the input `/event/party`. This is the party submitting the
   transaction. You may provide this using the `party` method on
   `Event.Builder`.
