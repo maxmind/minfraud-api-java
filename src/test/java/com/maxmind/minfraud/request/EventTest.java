@@ -59,5 +59,8 @@ public class EventTest {
 
         event = new Builder().type(Type.FUND_TRANSFER).build();
         assertEquals(Type.FUND_TRANSFER, event.type());
+
+        event = new Builder().type(Type.SIM_SWAP).build();
+        assertEquals(Type.SIM_SWAP, event.type());
     }
 }
