@@ -59,6 +59,27 @@ CHANGELOG
 * Added the input `/payment/method`. This is the payment method associated
   with the transaction. You may provide this using the `method` method on
   `Payment.Builder`.
+* Added new email domain fields to the `EmailDomain` response model:
+  * `classification` - A classification of the email domain. Possible values
+    are `BUSINESS`, `EDUCATION`, `GOVERNMENT`, and `ISP_EMAIL`.
+  * `risk` - A risk score associated with the email domain, ranging from 0.01
+    to 99. Higher scores indicate higher risk.
+  * `volume` - The activity on the email domain across the minFraud network,
+    expressed in sightings per million. This value ranges from 0.001 to
+    1,000,000.
+  * `visit` - An `EmailDomainVisit` object containing information about an
+    automated visit to the email domain, including:
+    * `status` - The status of the domain based on the automated visit.
+      Possible values are `LIVE`, `DNS_ERROR`, `NETWORK_ERROR`, `HTTP_ERROR`,
+      `PARKED`, and `PRE_DEVELOPMENT`.
+    * `lastVisitedOn` - The date when the automated visit was last completed.
+    * `hasRedirect` - Whether the domain redirects to another URL.
+* Added support for forward-compatible enum deserialization. Enums in response
+  models will now return `null` for unknown values instead of throwing an
+  exception. This allows the client to handle new enum values added by the
+  server without requiring an immediate client update. This required adding
+  `READ_ENUMS_USING_TO_STRING` and `READ_UNKNOWN_ENUM_VALUES_AS_NULL` to the
+  Jackson `ObjectMapper` configuration.
 
 3.9.0
 ------------------

@@ -166,7 +166,15 @@
   },
   "email": {
     "domain": {
-      "first_seen": "2014-02-23"
+      "classification": "education",
+      "first_seen": "2014-02-23",
+      "risk": 15.5,
+      "visit": {
+        "has_redirect": true,
+        "last_visited_on": "2024-11-15",
+        "status": "live"
+      },
+      "volume": 630000.0
     },
     "first_seen": "2017-01-02",
     "is_disposable": true,

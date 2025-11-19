@@ -157,6 +157,46 @@ public record ScoreResponse(...) {
 
 This ensures users can safely call methods without null checks: `response.disposition().action()`.
 
+#### Enum Pattern for Response Models
+
+Response model enums use a simple, forward-compatible pattern that gracefully handles unknown values from the server.
+
+**Pattern:**
+```java
+public enum Status {
+    LIVE,
+    PARKED,
+    DNS_ERROR;
+
+    @Override
+    public String toString() {
+        return name().toLowerCase();
+    }
+}
+```
+
+**How it works:**
+- Enum constants use `UPPER_SNAKE_CASE` (e.g., `DNS_ERROR`, `ISP_EMAIL`)
+- Override `toString()` to return `name().toLowerCase()` for JSON serialization
+- The `Mapper` class configures Jackson with:
+  - `READ_ENUMS_USING_TO_STRING` - Deserializes using `toString()`
+  - `READ_UNKNOWN_ENUM_VALUES_AS_NULL` - Unknown values become `null` instead of throwing exceptions
+
+**Example:**
+```java
+// Serialization: DNS_ERROR → "dns_error"
+Status status = Status.DNS_ERROR;
+System.out.println(status);  // "dns_error"
+
+// Deserialization: "dns_error" → DNS_ERROR
+// Unknown: "future_value" → null (no exception!)
+```
+
+**When to use:**
+- Use enums for response fields with fixed/enumerated values
+- Use String for open-ended text fields
+- Request enums use the same pattern but don't need forward compatibility concerns
+
 ### Deprecation Strategy
 
 **Do NOT add deprecated getter methods for new fields.** Deprecated getters only exist for backward compatibility with fields that had JavaBeans-style getters before the record migration in version 4.0.0.

@@ -14,6 +14,8 @@ class Mapper {
         .addModule(new JavaTimeModule())
         .defaultDateFormat(new StdDateFormat().withColonInTimeZone(true))
         .enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING)
+        .enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING)
+        .enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL)
         .disable(MapperFeature.CAN_OVERRIDE_ACCESS_MODIFIERS)
         .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
         .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
