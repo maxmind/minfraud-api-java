@@ -159,7 +159,15 @@
   },
   "email": {
     "domain": {
-      "first_seen": "2014-02-23"
+      "classification": "isp_email",
+      "first_seen": "2014-02-23",
+      "risk": 25.0,
+      "visit": {
+        "has_redirect": false,
+        "last_visited_on": "2024-10-20",
+        "status": "parked"
+      },
+      "volume": 500000.5
     },
     "first_seen": "2017-01-02",
     "is_disposable": true,

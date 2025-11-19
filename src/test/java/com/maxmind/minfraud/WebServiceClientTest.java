@@ -18,6 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringStartsWith.startsWith;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -28,6 +29,9 @@ import com.maxmind.minfraud.exception.HttpException;
 import com.maxmind.minfraud.exception.InsufficientFundsException;
 import com.maxmind.minfraud.exception.InvalidRequestException;
 import com.maxmind.minfraud.exception.MinFraudException;
+import com.maxmind.minfraud.response.EmailDomain;
+import com.maxmind.minfraud.response.EmailDomainVisit;
+import java.time.LocalDate;
 import com.maxmind.minfraud.exception.PermissionRequiredException;
 import com.maxmind.minfraud.request.Device;
 import com.maxmind.minfraud.request.Shipping;
@@ -118,6 +122,15 @@ public class WebServiceClientTest {
 
         assertTrue(response.creditCard().isVirtual());
 
+        // Test email domain fields
+        assertEquals(EmailDomain.Classification.EDUCATION, response.email().domain().classification());
+        assertEquals(15.5, response.email().domain().risk());
+        assertEquals(630000.0, response.email().domain().volume());
+        assertNotNull(response.email().domain().visit());
+        assertEquals(EmailDomainVisit.Status.LIVE, response.email().domain().visit().status());
+        assertTrue(response.email().domain().visit().hasRedirect());
+        assertEquals(LocalDate.parse("2024-11-15"), response.email().domain().visit().lastVisitedOn());
+
         var reasons = response.ipAddress().riskReasons();
 
         assertEquals(2, reasons.size(), "two IP risk reasons");
@@ -153,6 +166,14 @@ public class WebServiceClientTest {
             "response.ipAddress().representedCountry().isInEuropeanUnion() does not return false"
         );
 
+        // Test email domain fields
+        assertEquals(EmailDomain.Classification.ISP_EMAIL, response.email().domain().classification());
+        assertEquals(25.0, response.email().domain().risk());
+        assertEquals(500000.5, response.email().domain().volume());
+        assertNotNull(response.email().domain().visit());
+        assertEquals(EmailDomainVisit.Status.PARKED, response.email().domain().visit().status());
+        assertFalse(response.email().domain().visit().hasRedirect());
+        assertEquals(LocalDate.parse("2024-10-20"), response.email().domain().visit().lastVisitedOn());
 
         assertEquals("152.216.7.110", response.ipAddress().traits().ipAddress().getHostAddress());
         assertEquals("81.2.69.0/24",
