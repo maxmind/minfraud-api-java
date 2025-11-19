@@ -80,10 +80,6 @@ CHANGELOG
   server without requiring an immediate client update. This required adding
   `READ_ENUMS_USING_TO_STRING` and `READ_UNKNOWN_ENUM_VALUES_AS_NULL` to the
   Jackson `ObjectMapper` configuration.
-
-3.9.0
-------------------
-
 * Added `SECUREPAY` to the `Payment.Processor` enum.
 * `WebServiceClient.Builder` now has an `httpClient()` method to allow
   passing in a custom `HttpClient`.
