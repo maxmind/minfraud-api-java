@@ -2,7 +2,7 @@
 layout: default
 title: MaxMind minFraud Java API
 language: java
-version: v3.8.0
+version: v4.0.0
 ---
 
 # MaxMind minFraud Score, Insights, and Factors Java API
@@ -23,7 +23,7 @@ To do this, add the dependency to your pom.xml:
     <dependency>
         <groupId>com.maxmind.minfraud</groupId>
         <artifactId>minfraud</artifactId>
-        <version>3.8.0</version>
+        <version>4.0.0</version>
     </dependency>
 ```
 
@@ -36,7 +36,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'com.maxmind.minfraud:minfraud:3.8.0'
+    compile 'com.maxmind.minfraud:minfraud:4.0.0'
 }
 ```
 
@@ -186,6 +186,7 @@ Transaction request = new Transaction.Builder(
             .build()
     ).event(
         new Event.Builder()
+            .party(Event.Party.CUSTOMER)
             .shopId("2432")
             .time(new Date())
             .transactionId("tr1242")
@@ -203,6 +204,7 @@ Transaction request = new Transaction.Builder(
     ).payment(
         new Payment.Builder()
             .declineCode("invalid")
+            .method(Payment.Method.CARD)
             .processor(Payment.Processor.ADYEN)
             .wasAuthorized(false)
             .build()
@@ -288,7 +290,7 @@ to the client API, please see
 
 ## Requirements ##
 
-This code requires Java 11+.
+This code requires Java 17+.
 
 ## Contributing ##
 
