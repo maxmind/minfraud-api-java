@@ -21,7 +21,8 @@ import java.time.ZonedDateTime;
  *                          "2015-04-27T19:17:24-04:00".
  * @param longitude         The approximate longitude of the location associated with the IP
  *                          address.
- * @param metroCode         The metro code of the location if the location is in the US.
+ * @param metroCode         Deprecated. The no-longer-maintained code for targeting advertisements
+ *                          in Google, if the location is in the US.
  * @param populationDensity The estimated population per square kilometer associated with the IP
  *                          address.
  * @param timeZone          The time zone associated with location, as specified by the IANA Time
@@ -103,7 +104,7 @@ public record GeoIp2Location(
     }
 
     /**
-     * @return The metro code of the location if the location is in the US.
+     * @return The no-longer-maintained code for targeting advertisements in Google.
      * @deprecated Use {@link #metroCode()} instead. This method will be removed in 5.0.0.
      */
     @Deprecated(since = "4.0.0", forRemoval = true)
