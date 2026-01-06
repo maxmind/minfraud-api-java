@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+4.1.0
+------------------
+
+* Added `BANQUEST`, `SUMMIT_PAYMENTS`, and `YAADPAY` to the
+  `Payment.Processor` enum.
+
 4.0.0 (2025-11-20)
 ------------------
 

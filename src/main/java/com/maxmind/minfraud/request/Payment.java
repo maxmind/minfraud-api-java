@@ -124,6 +124,7 @@ public final class Payment extends AbstractModel {
         APS_PAYMENTS,
         AUTHORIZENET,
         BALANCED,
+        BANQUEST,
         BEANSTREAM,
         BLUEPAY,
         BLUESNAP,
@@ -255,6 +256,7 @@ public final class Payment extends AbstractModel {
         SOLIDTRUST_PAY,
         SPS_DECIDIR,
         STRIPE,
+        SUMMIT_PAYMENTS,
         SYNAPSEFI,
         SYSTEMPAY,
         TELERECARGAS,
@@ -273,7 +275,8 @@ public final class Payment extends AbstractModel {
         VPOS,
         WINDCAVE,
         WIRECARD,
-        WORLDPAY;
+        WORLDPAY,
+        YAADPAY;
 
         /**
          * @return a string representation of the object.
