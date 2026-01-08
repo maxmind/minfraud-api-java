@@ -24,7 +24,7 @@ To do this, add the dependency to your pom.xml:
 
 Add the following to your `build.gradle` file:
 
-```
+```groovy
 repositories {
     mavenCentral()
 }
@@ -47,8 +47,11 @@ takes your MaxMind account ID and license key as arguments. For example:
 WebServiceClient client = new WebServiceClient.Builder(6, "ABCD567890").build();
 ```
 
-If you would like to use the Sandbox environment, you can use the `host` method 
-that belongs to the Builder. For example,
+The `WebServiceClient` object is thread-safe and can be reused across requests.
+Reusing the object allows connection pooling and improves performance.
+
+If you would like to use the Sandbox environment, you can use the `host` method
+that belongs to the Builder. For example:
 
 ```java
 WebServiceClient client = new WebServiceClient.Builder(6, "ABCD567890")
@@ -78,13 +81,13 @@ After creating the transaction object, send a Score request by calling the
 ScoreResponse score = client.score(transaction);
 ```
 
-an Insights request by calling the `insights` method:
+Send an Insights request by calling the `insights` method:
 
 ```java
 InsightsResponse insights = client.insights(transaction);
 ```
 
-a Factors request by calling the `factors` method:
+Send a Factors request by calling the `factors` method:
 
 ```java
 FactorsResponse factors = client.factors(transaction);
