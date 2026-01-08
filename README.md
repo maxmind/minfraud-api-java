@@ -78,13 +78,13 @@ After creating the transaction object, send a Score request by calling the
 ScoreResponse score = client.score(transaction);
 ```
 
-an Insights request by calling `insights` method:
+an Insights request by calling the `insights` method:
 
 ```java
 InsightsResponse insights = client.insights(transaction);
 ```
 
-a Factors request by calling `factors` method:
+a Factors request by calling the `factors` method:
 
 ```java
 FactorsResponse factors = client.factors(transaction);
@@ -128,12 +128,12 @@ Checked exceptions:
 * `MinFraudException` - This will be thrown when the server returns an
   unexpected response. This also serves as the base class for the above
   checked exceptions.
-* `HttpException` -This will be thrown when an unexpected HTTP error
+* `HttpException` - This will be thrown when an unexpected HTTP error
   occurs such as an internal server error or other unexpected status code.
 
-## Examples
+## Examples ##
 
-### Insights
+### Insights ###
 
 ```java
 Transaction request = new Transaction.Builder(
@@ -164,7 +164,7 @@ Transaction request = new Transaction.Builder(
     ).creditCard(
         new CreditCard.Builder()
             .avsResult('N')
-            .bankName("BanK of New Haven")
+            .bankName("Bank of New Haven")
             .bankPhoneCountryCode("1")
             .bankPhoneNumber("313-231-3213")
             .cvvResult('Y')
@@ -243,18 +243,18 @@ WebServiceClient client = new WebServiceClient.Builder(6, "ABCD567890").build();
 System.out.println(client.insights(request));
 ```
 
-### Report Transactions API
+### Report Transactions API ###
 
 MaxMind encourages the use of this API, as data received through this channel
 is continually used to improve the accuracy of our fraud detection algorithms.
 
 To use the Report Transactions API, create a new `TransactionReport` object. A
-valid tag at least one of the following are required arguments: IP address,
-MaxMind ID, minFraud ID, or transaction ID. Additional parameters may also be
-set, as documented below.
+valid tag and at least one of the following are required: IP address, MaxMind
+ID, minFraud ID, or transaction ID. Additional parameters may also be set, as
+documented below.
 
 If the report is successful, nothing is returned. If the report fails, an
-exception with be thrown.
+exception will be thrown.
 
 See the API documentation for more details.
 
