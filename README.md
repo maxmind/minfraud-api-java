@@ -96,9 +96,9 @@ If the request fails, an exception will be thrown.
 To report a transaction:
 
 ```java
-TransactionReport transaction = new TransactionReport.Builder(
-         InetAddress.getByName("1.1.1.1"), Tag.NOT_FRAUD
-     ).build();
+TransactionReport transaction = new TransactionReport.Builder(Tag.NOT_FRAUD)
+    .ipAddress(InetAddress.getByName("1.1.1.1"))
+    .build();
 client.reportTransaction(transaction);
 ```
 
@@ -259,7 +259,8 @@ exception will be thrown.
 See the API documentation for more details.
 
 ```java
-TransactionReport transaction = new TransactionReport.Builder(InetAddress.getByName("1.1.1.1"), Tag.NOT_FRAUD)
+TransactionReport transaction = new TransactionReport.Builder(Tag.NOT_FRAUD)
+    .ipAddress(InetAddress.getByName("1.1.1.1"))
     .chargebackCode("mycode")
     .maxmindId("12345678")
     .minfraudId(UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d"))
