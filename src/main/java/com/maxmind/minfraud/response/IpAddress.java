@@ -1,6 +1,7 @@
 package com.maxmind.minfraud.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.maxmind.geoip2.record.Anonymizer;
 import com.maxmind.geoip2.record.City;
 import com.maxmind.geoip2.record.Continent;
 import com.maxmind.geoip2.record.Country;
@@ -14,6 +15,8 @@ import java.util.List;
 /**
  * This class contains minFraud response data related to the IP location.
  *
+ * @param anonymizer         Anonymizer record for the requested IP address. This contains
+ *                           information about whether the IP address is an anonymous network.
  * @param city               City record for the requested IP address.
  * @param continent          Continent record for the requested IP address.
  * @param country            Country record for the requested IP address.
@@ -29,6 +32,8 @@ import java.util.List;
  * @param traits             Traits record for the requested IP address.
  */
 public record IpAddress(
+    @JsonProperty("anonymizer")
+    Anonymizer anonymizer,
     @JsonProperty("city")
     City city,
 
@@ -67,6 +72,7 @@ public record IpAddress(
      * Compact canonical constructor that sets defaults for null values.
      */
     public IpAddress {
+        anonymizer = anonymizer != null ? anonymizer : new Anonymizer();
         location = location != null ? location : new GeoIp2Location();
         riskReasons = riskReasons != null ? List.copyOf(riskReasons) : List.of();
         subdivisions = subdivisions != null ? List.copyOf(subdivisions) : List.of();
@@ -77,7 +83,42 @@ public record IpAddress(
      */
     public IpAddress() {
         this(null, null, null, null, null, null,
-            null, null, null, null, null);
+            null, null, null, null, null, null);
+    }
+
+    /**
+     * Constructs an instance of {@code IpAddress}.
+     *
+     * @param city               City record for the requested IP address.
+     * @param continent          Continent record for the requested IP address.
+     * @param country            Country record for the requested IP address.
+     * @param location           Location record for the requested IP address.
+     * @param postal             Postal record for the requested IP address.
+     * @param registeredCountry  Registered country record for the requested IP address.
+     * @param representedCountry Represented country record for the requested IP address.
+     * @param risk               The risk associated with the IP address.
+     * @param riskReasons        List of risk reason objects.
+     * @param subdivisions       List of subdivision records for the requested IP address.
+     * @param traits             Traits record for the requested IP address.
+     * @deprecated Use the canonical constructor instead. This constructor will be removed in 5.0.0.
+     */
+    @Deprecated(since = "4.1.0", forRemoval = true)
+    public IpAddress(
+        City city,
+        Continent continent,
+        Country country,
+        GeoIp2Location location,
+        Postal postal,
+        Country registeredCountry,
+        RepresentedCountry representedCountry,
+        Double risk,
+        List<IpRiskReason> riskReasons,
+        List<Subdivision> subdivisions,
+        Traits traits
+    ) {
+        this(null, city, continent, country, location, postal,
+            registeredCountry, representedCountry, risk, riskReasons,
+            subdivisions, traits);
     }
 
     /**

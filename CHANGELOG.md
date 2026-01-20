@@ -4,6 +4,9 @@ CHANGELOG
 4.1.0
 ------------------
 
+* Added `anonymizer` property to `IpAddress` response model. This contains
+  information about whether the IP address is an anonymous network, including
+  confidence score, VPN provider name, and various anonymizer flags.
 * Added `BANQUEST`, `SUMMIT_PAYMENTS`, and `YAADPAY` to the
   `Payment.Processor` enum.
 
