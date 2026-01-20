@@ -2,6 +2,7 @@ package com.maxmind.minfraud.response;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.jr.ob.JSON;
@@ -28,6 +29,17 @@ public class InsightsResponseTest extends AbstractOutputTest {
                 .end()
                 .end()
                 .startObjectField("ip_address")
+                .startObjectField("anonymizer")
+                .put("confidence", 99)
+                .put("is_anonymous", true)
+                .put("is_anonymous_vpn", true)
+                .put("is_hosting_provider", true)
+                .put("is_public_proxy", true)
+                .put("is_residential_proxy", true)
+                .put("is_tor_exit_node", true)
+                .put("network_last_seen", "2025-01-15")
+                .put("provider_name", "TestVPN")
+                .end()
                 .startObjectField("country")
                 .put("iso_code", "US")
                 .end()
@@ -120,5 +132,25 @@ public class InsightsResponseTest extends AbstractOutputTest {
         );
         assertEquals("152.216.7.110", insights.ipAddress().traits().ipAddress().getHostAddress());
         assertEquals("81.2.69.0/24", insights.ipAddress().traits().network().toString());
+
+        // Test anonymizer
+        assertNotNull(insights.ipAddress().anonymizer(), "anonymizer should not be null");
+        assertEquals(
+            Integer.valueOf(99),
+            insights.ipAddress().anonymizer().confidence(),
+            "correct anonymizer confidence"
+        );
+        assertTrue(insights.ipAddress().anonymizer().isAnonymous(), "correct isAnonymous");
+        assertTrue(insights.ipAddress().anonymizer().isAnonymousVpn(), "correct isAnonymousVpn");
+        assertTrue(insights.ipAddress().anonymizer().isHostingProvider(), "correct isHostingProvider");
+        assertTrue(insights.ipAddress().anonymizer().isPublicProxy(), "correct isPublicProxy");
+        assertTrue(insights.ipAddress().anonymizer().isResidentialProxy(), "correct isResidentialProxy");
+        assertTrue(insights.ipAddress().anonymizer().isTorExitNode(), "correct isTorExitNode");
+        assertEquals(
+            LocalDate.parse("2025-01-15"),
+            insights.ipAddress().anonymizer().networkLastSeen(),
+            "correct networkLastSeen"
+        );
+        assertEquals("TestVPN", insights.ipAddress().anonymizer().providerName(), "correct providerName");
     }
 }

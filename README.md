@@ -16,7 +16,7 @@ To do this, add the dependency to your pom.xml:
     <dependency>
         <groupId>com.maxmind.minfraud</groupId>
         <artifactId>minfraud</artifactId>
-        <version>4.0.0</version>
+        <version>4.1.0</version>
     </dependency>
 ```
 
@@ -29,7 +29,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    implementation 'com.maxmind.minfraud:minfraud:4.0.0'
+    implementation 'com.maxmind.minfraud:minfraud:4.1.0'
 }
 ```
 
@@ -300,6 +300,6 @@ This API uses [Semantic Versioning](https://semver.org/).
 
 ## Copyright and License ##
 
-This software is Copyright (c) 2015-2025 by MaxMind, Inc.
+This software is Copyright (c) 2015-2026 by MaxMind, Inc.
 
 This is free software, licensed under the Apache License, Version 2.0.
