@@ -2,7 +2,7 @@
 layout: default
 title: MaxMind minFraud Java API
 language: java
-version: v4.0.0
+version: v4.1.0
 ---
 
 # MaxMind minFraud Score, Insights, and Factors Java API
@@ -23,7 +23,7 @@ To do this, add the dependency to your pom.xml:
     <dependency>
         <groupId>com.maxmind.minfraud</groupId>
         <artifactId>minfraud</artifactId>
-        <version>4.0.0</version>
+        <version>4.1.0</version>
     </dependency>
 ```
 
@@ -31,12 +31,12 @@ To do this, add the dependency to your pom.xml:
 
 Add the following to your `build.gradle` file:
 
-```
+```groovy
 repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'com.maxmind.minfraud:minfraud:4.0.0'
+    implementation 'com.maxmind.minfraud:minfraud:4.1.0'
 }
 ```
 
@@ -54,8 +54,11 @@ takes your MaxMind account ID and license key as arguments. For example:
 WebServiceClient client = new WebServiceClient.Builder(6, "ABCD567890").build();
 ```
 
-If you would like to use the Sandbox environment, you can use the `host` method 
-that belongs to the Builder. For example,
+The `WebServiceClient` object is thread-safe and can be reused across requests.
+Reusing the object allows connection pooling and improves performance.
+
+If you would like to use the Sandbox environment, you can use the `host` method
+that belongs to the Builder. For example:
 
 ```java
 WebServiceClient client = new WebServiceClient.Builder(6, "ABCD567890")
@@ -85,13 +88,13 @@ After creating the transaction object, send a Score request by calling the
 ScoreResponse score = client.score(transaction);
 ```
 
-an Insights request by calling `insights` method:
+Send an Insights request by calling the `insights` method:
 
 ```java
 InsightsResponse insights = client.insights(transaction);
 ```
 
-a Factors request by calling `factors` method:
+Send a Factors request by calling the `factors` method:
 
 ```java
 FactorsResponse factors = client.factors(transaction);
@@ -103,9 +106,9 @@ If the request fails, an exception will be thrown.
 To report a transaction:
 
 ```java
-TransactionReport transaction = new TransactionReport.Builder(
-         InetAddress.getByName("1.1.1.1"), Tag.NOT_FRAUD
-     ).build();
+TransactionReport transaction = new TransactionReport.Builder(Tag.NOT_FRAUD)
+    .ipAddress(InetAddress.getByName("1.1.1.1"))
+    .build();
 client.reportTransaction(transaction);
 ```
 
@@ -135,12 +138,12 @@ Checked exceptions:
 * `MinFraudException` - This will be thrown when the server returns an
   unexpected response. This also serves as the base class for the above
   checked exceptions.
-* `HttpException` -This will be thrown when an unexpected HTTP error
+* `HttpException` - This will be thrown when an unexpected HTTP error
   occurs such as an internal server error or other unexpected status code.
 
-## Examples
+## Examples ##
 
-### Insights
+### Insights ###
 
 ```java
 Transaction request = new Transaction.Builder(
@@ -171,7 +174,7 @@ Transaction request = new Transaction.Builder(
     ).creditCard(
         new CreditCard.Builder()
             .avsResult('N')
-            .bankName("BanK of New Haven")
+            .bankName("Bank of New Haven")
             .bankPhoneCountryCode("1")
             .bankPhoneNumber("313-231-3213")
             .cvvResult('Y')
@@ -250,23 +253,24 @@ WebServiceClient client = new WebServiceClient.Builder(6, "ABCD567890").build();
 System.out.println(client.insights(request));
 ```
 
-### Report Transactions API
+### Report Transactions API ###
 
 MaxMind encourages the use of this API, as data received through this channel
 is continually used to improve the accuracy of our fraud detection algorithms.
 
 To use the Report Transactions API, create a new `TransactionReport` object. A
-valid tag at least one of the following are required arguments: IP address,
-MaxMind ID, minFraud ID, or transaction ID. Additional parameters may also be
-set, as documented below.
+valid tag and at least one of the following are required: IP address, MaxMind
+ID, minFraud ID, or transaction ID. Additional parameters may also be set, as
+documented below.
 
 If the report is successful, nothing is returned. If the report fails, an
-exception with be thrown.
+exception will be thrown.
 
 See the API documentation for more details.
 
 ```java
-TransactionReport transaction = new TransactionReport.Builder(InetAddress.getByName("1.1.1.1"), Tag.NOT_FRAUD)
+TransactionReport transaction = new TransactionReport.Builder(Tag.NOT_FRAUD)
+    .ipAddress(InetAddress.getByName("1.1.1.1"))
     .chargebackCode("mycode")
     .maxmindId("12345678")
     .minfraudId(UUID.fromString("58fa38d8-4b87-458b-a22b-f00eda1aa20d"))
@@ -303,6 +307,6 @@ This API uses [Semantic Versioning](https://semver.org/).
 
 ## Copyright and License ##
 
-This software is Copyright (c) 2015-2025 by MaxMind, Inc.
+This software is Copyright (c) 2015-2026 by MaxMind, Inc.
 
 This is free software, licensed under the Apache License, Version 2.0.
