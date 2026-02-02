@@ -266,13 +266,6 @@
         <japicmp.baselineVersion>4.1.0</japicmp.baselineVersion>
     </properties>
 
-    <distributionManagement>
-        <repository>
-            <id>sonatype-nexus-staging</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-
     <profiles>
         <profile>
             <id>api-compat</id>
