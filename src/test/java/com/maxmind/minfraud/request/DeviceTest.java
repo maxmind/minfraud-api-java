@@ -61,4 +61,11 @@ public class DeviceTest {
         var device = new Builder(ip).sessionId(id).build();
         assertEquals(id, device.sessionId());
     }
+
+    @Test
+    public void testTrackingToken() {
+        var token = "abc123";
+        var device = new Builder(ip).trackingToken(token).build();
+        assertEquals(token, device.trackingToken());
+    }
 }

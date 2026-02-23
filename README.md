@@ -144,6 +144,7 @@ Transaction request = new Transaction.Builder(
             .acceptLanguage("en-US")
             .sessionAge(3600.6)
             .sessionId("foobar")
+            .trackingToken("abc123")
             .userAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36")
             .build()
     ).account(
