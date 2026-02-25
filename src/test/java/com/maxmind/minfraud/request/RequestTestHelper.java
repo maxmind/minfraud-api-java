@@ -53,6 +53,7 @@ public class RequestTestHelper {
                 .sessionAge(3600.5)
                 .sessionId("foobar")
                 .acceptLanguage("en-US,en;q=0.8")
+                .trackingToken("tst_abc123")
                 .build()
         )
             .event(
