@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-4.2.0
+4.2.0 (2026-02-26)
 ------------------
 
 * Added `trackingToken` to the `Device` request object. This is the token
