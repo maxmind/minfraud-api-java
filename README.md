@@ -198,6 +198,8 @@ Transaction request = new Transaction.Builder(
             .discountCode("10OFF")
             .referrerUri(new URI("https://www.google.com/"))
             .subaffiliateId("saf9")
+            .isGift(true)
+            .hasGiftMessage(true)
             .build()
     ).payment(
         new Payment.Builder()
