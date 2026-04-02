@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+4.3.0
+------------------
+
+* Added `FAT_ZEBRA` to the `Payment.Processor` enum.
+
 4.2.0 (2026-02-26)
 ------------------
 

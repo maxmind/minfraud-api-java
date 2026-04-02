@@ -173,6 +173,7 @@ public final class Payment extends AbstractModel {
         EPX,
         EWAY,
         EXACT,
+        FAT_ZEBRA,
         FIRST_ATLANTIC_COMMERCE,
         FIRST_DATA,
         FISERV,
