@@ -5,6 +5,8 @@ CHANGELOG
 ------------------
 
 * Added `FAT_ZEBRA` to the `Payment.Processor` enum.
+* Added `CLEAR` to the `TransactionReport.Tag` enum for use with the Report
+  Transaction API.
 
 4.2.0 (2026-02-26)
 ------------------

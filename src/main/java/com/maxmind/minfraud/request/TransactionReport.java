@@ -221,7 +221,11 @@ public final class TransactionReport extends AbstractModel {
         /**
          * Chargeback
          */
-        CHARGEBACK;
+        CHARGEBACK,
+        /**
+         * Clear a previous transaction report tag
+         */
+        CLEAR;
 
         /**
          * @return a string representation of the object.
