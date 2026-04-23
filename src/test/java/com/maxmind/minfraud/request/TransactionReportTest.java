@@ -119,6 +119,15 @@ public class TransactionReportTest {
         assertEquals(id, report.transactionId());
     }
 
+    @Test
+    public void testClearTag() throws Exception {
+        final var report = new Builder(Tag.CLEAR).ipAddress(ip).build();
+        assertEquals(Tag.CLEAR, report.tag());
+
+        final var expectedJSON = "{ip_address:'1.1.1.1',tag:'clear'}";
+        JSONAssert.assertEquals(expectedJSON, report.toJson(), true);
+    }
+
     // Test the example in the README
     @Test
     public void testAllFields() throws Exception {
