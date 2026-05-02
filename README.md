@@ -110,6 +110,50 @@ exception will be thrown.
 
 See the API documentation for more details.
 
+### Connection pooling and transport retries ###
+
+`WebServiceClient` is thread-safe and reuses a pooled `HttpClient` across
+requests. Idle connections in the pool can be silently closed by load
+balancers or other intermediaries. When the next request reuses one of these
+half-closed connections, the JDK reports the failure as a `Connection reset`,
+`Broken pipe`, or related transport `IOException`.
+
+To smooth over these intermittent transport failures, the SDK retries once
+by default. Any transport-level `IOException` raised by the underlying HTTP
+send is retried, with the following exclusions:
+
+* `HttpTimeoutException` — a request-phase timeout. Connect-phase timeouts
+  (`HttpConnectTimeoutException`) are also excluded because they extend
+  `HttpTimeoutException`. The SDK honors the timeouts you configure.
+* `InterruptedIOException` — the calling thread was interrupted; the SDK
+  honors the cancellation rather than override it.
+* Typically deterministic failures: `UnknownHostException`,
+  `ConnectException`, `SSLHandshakeException`, `SSLPeerUnverifiedException`.
+  Retrying these would just delay surfacing a config bug.
+* If the calling thread is already interrupted when the predicate runs, the
+  retry is short-circuited regardless of the exception type.
+
+HTTP 4xx and 5xx responses are not retried — they are returned as
+`HttpResponse` objects (not `IOException`s) and surfaced through the existing
+exception hierarchy. POST bodies are replayable, so retried requests are
+byte-identical to the original.
+
+You can change the retry budget via the builder:
+
+```java
+WebServiceClient client = new WebServiceClient.Builder(6, "ABCD567890")
+    .maxRetries(2) // up to two retries (three total attempts)
+    .build();
+```
+
+Set `.maxRetries(0)` to disable the retry entirely. Negative values throw
+`IllegalArgumentException`.
+
+If you frequently see `Connection reset` errors, you can also reduce the
+JDK's keep-alive timeout via the system property
+`jdk.httpclient.keepalive.timeout` (in seconds) to evict pooled connections
+before any intermediary does so.
+
 ### Exceptions ###
 
 Runtime exceptions:
