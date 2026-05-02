@@ -16,12 +16,16 @@ import com.maxmind.minfraud.response.InsightsResponse;
 import com.maxmind.minfraud.response.ScoreResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InterruptedIOException;
+import java.net.ConnectException;
 import java.net.ProxySelector;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.net.http.HttpTimeoutException;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Base64;
@@ -29,6 +33,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.net.ssl.SSLHandshakeException;
+import javax.net.ssl.SSLPeerUnverifiedException;
 
 /**
  * Client for MaxMind minFraud Score, Insights, and Factors
@@ -45,6 +51,7 @@ public final class WebServiceClient {
     private final boolean useHttps;
     private final List<String> locales;
     private final Duration requestTimeout;
+    private final int maxRetries;
 
     private final HttpClient httpClient;
 
@@ -63,6 +70,7 @@ public final class WebServiceClient {
                 .getBytes(StandardCharsets.UTF_8));
 
         requestTimeout = builder.requestTimeout;
+        maxRetries = builder.maxRetries;
         if (builder.httpClient != null) {
             httpClient = builder.httpClient;
         } else {
@@ -106,6 +114,7 @@ public final class WebServiceClient {
         List<String> locales = List.of("en");
         private ProxySelector proxy;
         private HttpClient httpClient;
+        private int maxRetries = 1;
 
         /**
          * @param accountId  Your MaxMind account ID.
@@ -120,6 +129,7 @@ public final class WebServiceClient {
          * @param val Timeout duration to establish a connection to the web service. There is no
          *            timeout by default.
          * @return Builder object
+         * @apiNote See {@link #maxRetries(int)} for how this timeout interacts with retries.
          */
         public WebServiceClient.Builder connectTimeout(Duration val) {
             connectTimeout = val;
@@ -173,8 +183,9 @@ public final class WebServiceClient {
 
 
         /**
-         * @param val Request timeout duration. here is no timeout by default.
+         * @param val Request timeout duration. There is no timeout by default.
          * @return Builder object
+         * @apiNote See {@link #maxRetries(int)} for how this timeout interacts with retries.
          */
         public Builder requestTimeout(Duration val) {
             requestTimeout = val;
@@ -195,10 +206,39 @@ public final class WebServiceClient {
          * @param val the HttpClient to use when making requests. When provided,
          *            connectTimeout and proxy settings will be ignored as the
          *            custom client should handle these configurations.
+         *            <p>
+         *            The SDK applies its own transport-failure retry on top of any supplied
+         *            client; customers can disable it via {@link #maxRetries(int)} with
+         *            {@code .maxRetries(0)}.
          * @return Builder object
          */
         public Builder httpClient(HttpClient val) {
             httpClient = val;
+            return this;
+        }
+
+        /**
+         * @param val Maximum number of retries on transport-level failures
+         *            (connection reset, broken pipe, EOF, ...).
+         *            Applies uniformly to all endpoints. Defaults to 1.
+         *            Set to 0 to disable.
+         * @return Builder.
+         * @throws IllegalArgumentException if {@code val} is negative.
+         * @apiNote Timeouts are not retried ({@link java.net.http.HttpTimeoutException},
+         *     including the connect-phase subclass
+         *     {@link java.net.http.HttpConnectTimeoutException}). When
+         *     {@code maxRetries > 0}, retries are triggered only by fast transport
+         *     failures, so each attempt is independently bounded by
+         *     {@link #connectTimeout(Duration)} and {@link #requestTimeout(Duration)}.
+         *     The multiplied worst-case wall clock a naive reading suggests is
+         *     unreachable in practice, since hitting the timeout aborts the call
+         *     rather than triggering a retry.
+         */
+        public Builder maxRetries(int val) {
+            if (val < 0) {
+                throw new IllegalArgumentException("maxRetries must not be negative");
+            }
+            maxRetries = val;
             return this;
         }
 
@@ -311,7 +351,7 @@ public final class WebServiceClient {
 
         HttpResponse<InputStream> response = null;
         try {
-            response = httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
+            response = sendWithRetry(request);
             maybeThrowException(response, uri);
             exhaustBody(response);
         } catch (InterruptedException e) {
@@ -333,7 +373,7 @@ public final class WebServiceClient {
 
         HttpResponse<InputStream> response = null;
         try {
-            response = httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
+            response = sendWithRetry(request);
             return handleResponse(response, uri, cls);
         } catch (InterruptedException e) {
             throw new MinFraudException("Interrupted sending request", e);
@@ -342,6 +382,62 @@ public final class WebServiceClient {
                 response.body().close();
             }
         }
+    }
+
+    private HttpResponse<InputStream> sendWithRetry(HttpRequest request)
+        throws IOException, InterruptedException {
+        int attempts = 0;
+        IOException prior = null;
+        while (true) {
+            try {
+                return httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
+            } catch (IOException e) {
+                if (prior != null) {
+                    e.addSuppressed(prior);
+                }
+                if (!isRetriableTransportFailure(e) || attempts >= maxRetries) {
+                    throw e;
+                }
+                prior = e;
+                attempts++;
+            }
+        }
+    }
+
+    private static boolean isRetriableTransportFailure(IOException e) {
+        if (Thread.currentThread().isInterrupted()) {
+            return false;
+        }
+        // Both connect-phase and request-phase timeouts are customer-set
+        // budgets that retrying would silently extend.
+        // HttpConnectTimeoutException extends HttpTimeoutException, so this
+        // single check covers both.
+        if (e instanceof HttpTimeoutException) {
+            return false;
+        }
+        // The thread was interrupted during I/O; honor the cancellation.
+        if (e instanceof InterruptedIOException) {
+            return false;
+        }
+        // Typically deterministic failures: retrying just delays surfacing the
+        // config bug without recovering the request.
+        if (e instanceof UnknownHostException) {
+            return false;
+        }
+        if (e instanceof ConnectException) {
+            return false;
+        }
+        if (e instanceof SSLHandshakeException) {
+            return false;
+        }
+        if (e instanceof SSLPeerUnverifiedException) {
+            return false;
+        }
+        // Everything else from httpClient.send() is a transport failure
+        // (connection reset, broken pipe, EOF, closed channel, ...).
+        // HTTP 4xx and 5xx responses do not reach this predicate -- they come
+        // back as HttpResponse objects rather than IOExceptions.
+        return true;
     }
 
     private HttpRequest requestFor(AbstractModel transaction, URI uri)
@@ -354,6 +450,7 @@ public final class WebServiceClient {
             .header("User-Agent", userAgent)
             // XXX - creating this JSON string is somewhat wasteful. We
             // could use an input stream instead.
+            // BodyPublishers.ofString() is replayable; safe for retry attempts
             .POST(HttpRequest.BodyPublishers.ofString(transaction.toJson()));
 
         if (requestTimeout != null) {
