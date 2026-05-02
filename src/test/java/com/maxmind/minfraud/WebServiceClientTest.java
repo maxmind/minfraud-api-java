@@ -22,8 +22,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.github.tomakehurst.wiremock.http.Fault;
 import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
+import com.github.tomakehurst.wiremock.stubbing.Scenario;
 import com.maxmind.minfraud.exception.AuthenticationException;
 import com.maxmind.minfraud.exception.HttpException;
 import com.maxmind.minfraud.exception.InsufficientFundsException;
@@ -41,9 +43,11 @@ import com.maxmind.minfraud.response.FactorsResponse;
 import com.maxmind.minfraud.response.InsightsResponse;
 import com.maxmind.minfraud.response.IpRiskReason;
 import com.maxmind.minfraud.response.ScoreResponse;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ProxySelector;
 import java.net.http.HttpClient;
+import java.net.http.HttpTimeoutException;
 import java.time.Duration;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -422,5 +426,250 @@ public class WebServiceClientTest {
 
         assertEquals("Cannot set both httpClient and proxy. " +
             "Configure proxy on the provided HttpClient instead.", ex.getMessage());
+    }
+
+    @Test
+    public void testRetriesOnConnectionReset_score() throws Exception {
+        var responseContent = readJsonFile("score-response");
+        var url = "/minfraud/v2.0/score";
+
+        wireMock.stubFor(post(urlEqualTo(url))
+            .inScenario("retry-score")
+            .whenScenarioStateIs(Scenario.STARTED)
+            .willReturn(aResponse().withFault(Fault.CONNECTION_RESET_BY_PEER))
+            .willSetStateTo("succeeded"));
+
+        wireMock.stubFor(post(urlEqualTo(url))
+            .inScenario("retry-score")
+            .whenScenarioStateIs("succeeded")
+            .willReturn(aResponse()
+                .withStatus(200)
+                .withHeader("Content-Type",
+                    "application/vnd.maxmind.com-minfraud-score+json; charset=UTF-8; version=2.0\n")
+                .withBody(responseContent)));
+
+        var client = new WebServiceClient.Builder(6, "0123456789")
+            .host("localhost")
+            .port(wireMock.getPort())
+            .disableHttps()
+            .build();
+
+        var response = client.score(fullTransaction());
+        JSONAssert.assertEquals(responseContent, response.toJson(), true);
+
+        wireMock.verify(2, postRequestedFor(urlEqualTo(url)));
+    }
+
+    @Test
+    public void testRetriesOnConnectionReset_reportTransaction() throws Exception {
+        var url = "/minfraud/v2.0/transactions/report";
+
+        wireMock.stubFor(post(urlEqualTo(url))
+            .inScenario("retry-report")
+            .whenScenarioStateIs(Scenario.STARTED)
+            .willReturn(aResponse().withFault(Fault.CONNECTION_RESET_BY_PEER))
+            .willSetStateTo("succeeded"));
+
+        wireMock.stubFor(post(urlEqualTo(url))
+            .inScenario("retry-report")
+            .whenScenarioStateIs("succeeded")
+            .willReturn(aResponse().withStatus(204)));
+
+        var client = new WebServiceClient.Builder(6, "0123456789")
+            .host("localhost")
+            .port(wireMock.getPort())
+            .disableHttps()
+            .build();
+
+        client.reportTransaction(fullTransactionReport());
+
+        wireMock.verify(2, postRequestedFor(urlEqualTo(url)));
+    }
+
+    @Test
+    public void testNoRetryOnHttpTimeoutException() {
+        var url = "/minfraud/v2.0/insights";
+        wireMock.stubFor(post(urlEqualTo(url))
+            .willReturn(aResponse()
+                .withStatus(200)
+                .withFixedDelay(2000)
+                .withBody("{}")));
+
+        var client = new WebServiceClient.Builder(6, "0123456789")
+            .host("localhost")
+            .port(wireMock.getPort())
+            .disableHttps()
+            .requestTimeout(Duration.ofMillis(100))
+            .build();
+
+        assertThrows(HttpTimeoutException.class, () -> client.insights(fullTransaction()));
+
+        wireMock.verify(1, postRequestedFor(urlEqualTo(url)));
+    }
+
+    @Test
+    public void testNoRetryOn5xx() {
+        var url = "/minfraud/v2.0/insights";
+        wireMock.stubFor(post(urlEqualTo(url))
+            .willReturn(aResponse()
+                .withStatus(500)
+                .withHeader("Content-Type", "application/json")
+                .withBody("")));
+
+        var client = new WebServiceClient.Builder(6, "0123456789")
+            .host("localhost")
+            .port(wireMock.getPort())
+            .disableHttps()
+            .build();
+
+        assertThrows(HttpException.class, () -> client.insights(fullTransaction()));
+
+        wireMock.verify(1, postRequestedFor(urlEqualTo(url)));
+    }
+
+    @Test
+    public void testNoRetryOn4xx() {
+        var url = "/minfraud/v2.0/insights";
+        wireMock.stubFor(post(urlEqualTo(url))
+            .willReturn(aResponse()
+                .withStatus(402)
+                .withHeader("Content-Type", "application/json")
+                .withBody("{\"code\":\"INSUFFICIENT_FUNDS\",\"error\":\"out of credit\"}")));
+
+        var client = new WebServiceClient.Builder(6, "0123456789")
+            .host("localhost")
+            .port(wireMock.getPort())
+            .disableHttps()
+            .build();
+
+        assertThrows(InsufficientFundsException.class,
+            () -> client.insights(fullTransaction()));
+
+        wireMock.verify(1, postRequestedFor(urlEqualTo(url)));
+    }
+
+    @Test
+    public void testMaxRetriesZeroDisablesRetry() {
+        var url = "/minfraud/v2.0/insights";
+        wireMock.stubFor(post(urlEqualTo(url))
+            .willReturn(aResponse().withFault(Fault.CONNECTION_RESET_BY_PEER)));
+
+        var client = new WebServiceClient.Builder(6, "0123456789")
+            .host("localhost")
+            .port(wireMock.getPort())
+            .disableHttps()
+            .maxRetries(0)
+            .build();
+
+        assertThrows(IOException.class, () -> client.insights(fullTransaction()));
+
+        wireMock.verify(1, postRequestedFor(urlEqualTo(url)));
+    }
+
+    @Test
+    public void testRetriesExhausted() {
+        var url = "/minfraud/v2.0/insights";
+        wireMock.stubFor(post(urlEqualTo(url))
+            .willReturn(aResponse().withFault(Fault.CONNECTION_RESET_BY_PEER)));
+
+        var client = new WebServiceClient.Builder(6, "0123456789")
+            .host("localhost")
+            .port(wireMock.getPort())
+            .disableHttps()
+            .maxRetries(2)
+            .build();
+
+        var ex = assertThrows(IOException.class, () -> client.insights(fullTransaction()));
+
+        // 1 initial attempt + 2 retries.
+        wireMock.verify(3, postRequestedFor(urlEqualTo(url)));
+        // The full retry history is reachable via the suppressed chain: each
+        // exception carries its immediate predecessor as a suppressed
+        // exception. Walk the chain and confirm we have 2 priors.
+        int priorCount = 0;
+        Throwable cur = ex;
+        while (cur.getSuppressed().length > 0) {
+            cur = cur.getSuppressed()[0];
+            priorCount++;
+        }
+        assertEquals(2, priorCount,
+            "expected the 2 prior IOExceptions in the suppressed chain");
+    }
+
+    @Test
+    public void testCustomHttpClientStillRetries() throws Exception {
+        // The Javadoc on Builder.httpClient(HttpClient) promises that the SDK's
+        // transport-failure retry wraps any supplied client. Verify it.
+        var responseContent = readJsonFile("score-response");
+        var url = "/minfraud/v2.0/score";
+
+        wireMock.stubFor(post(urlEqualTo(url))
+            .inScenario("retry-custom-client")
+            .whenScenarioStateIs(Scenario.STARTED)
+            .willReturn(aResponse().withFault(Fault.CONNECTION_RESET_BY_PEER))
+            .willSetStateTo("succeeded"));
+
+        wireMock.stubFor(post(urlEqualTo(url))
+            .inScenario("retry-custom-client")
+            .whenScenarioStateIs("succeeded")
+            .willReturn(aResponse()
+                .withStatus(200)
+                .withHeader("Content-Type",
+                    "application/vnd.maxmind.com-minfraud-score+json; charset=UTF-8; version=2.0\n")
+                .withBody(responseContent)));
+
+        var customClient = HttpClient.newBuilder().build();
+        var client = new WebServiceClient.Builder(6, "0123456789")
+            .host("localhost")
+            .port(wireMock.getPort())
+            .disableHttps()
+            .httpClient(customClient)
+            .build();
+
+        var response = client.score(fullTransaction());
+        assertNotNull(response);
+
+        wireMock.verify(2, postRequestedFor(urlEqualTo(url)));
+    }
+
+    @Test
+    public void testNegativeMaxRetriesThrows() {
+        var builder = new WebServiceClient.Builder(6, "0123456789");
+        assertThrows(IllegalArgumentException.class, () -> builder.maxRetries(-1));
+    }
+
+    @Test
+    public void testInterruptedThreadAbortsBeforeSend() {
+        // When the calling thread is already interrupted, HttpClient.send
+        // checks the interrupt status and throws InterruptedException before
+        // dispatching any wire request. The exception is caught and rewrapped
+        // as MinFraudException, with the interrupt flag restored on the
+        // calling thread. The wire-count assertion (zero) guards against a
+        // regression where a pre-interrupt would silently let the request
+        // proceed. NOTE: this test does not exercise the predicate's own
+        // Thread.currentThread().isInterrupted() short-circuit, since the JDK
+        // aborts before that branch can be reached; a true mid-flight
+        // interrupt is hard to test deterministically.
+        var url = "/minfraud/v2.0/insights";
+        wireMock.stubFor(post(urlEqualTo(url))
+            .willReturn(aResponse().withFault(Fault.CONNECTION_RESET_BY_PEER)));
+
+        var client = new WebServiceClient.Builder(6, "0123456789")
+            .host("localhost")
+            .port(wireMock.getPort())
+            .disableHttps()
+            .build();
+
+        Thread.currentThread().interrupt();
+        try {
+            assertThrows(MinFraudException.class, () -> client.insights(fullTransaction()));
+            assertTrue(Thread.currentThread().isInterrupted(),
+                "interrupt flag should remain set after the call");
+        } finally {
+            // Clear the interrupt flag so it does not leak to other tests
+            // (and so wireMock.verify below isn't affected by it).
+            Thread.interrupted();
+        }
+        wireMock.verify(0, postRequestedFor(urlEqualTo(url)));
     }
 }
