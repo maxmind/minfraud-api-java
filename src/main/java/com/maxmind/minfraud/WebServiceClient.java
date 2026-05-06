@@ -351,6 +351,7 @@ public final class WebServiceClient {
             maybeThrowException(response, uri);
             exhaustBody(response);
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new MinFraudException("Interrupted sending request", e);
         } finally {
             if (response != null) {
@@ -372,6 +373,7 @@ public final class WebServiceClient {
             response = sendWithRetry(request);
             return handleResponse(response, uri, cls);
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new MinFraudException("Interrupted sending request", e);
         } finally {
             if (response != null) {
