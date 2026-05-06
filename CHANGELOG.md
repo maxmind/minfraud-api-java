@@ -7,6 +7,8 @@ CHANGELOG
 * Added `FAT_ZEBRA` to the `Payment.Processor` enum.
 * Added `CLEAR` to the `TransactionReport.Tag` enum for use with the Report
   Transaction API.
+* Added `WebServiceClient.Builder.maxRetries(int)` to bound transport-failure
+  retries (default 1; set 0 to disable). See the README for retry semantics.
 
 4.2.0 (2026-02-26)
 ------------------
