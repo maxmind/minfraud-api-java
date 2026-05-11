@@ -208,8 +208,7 @@ public final class WebServiceClient {
          *            custom client should handle these configurations.
          *            <p>
          *            The SDK applies its own transport-failure retry on top of any supplied
-         *            client; customers can disable it via {@link #maxRetries(int)} with
-         *            {@code .maxRetries(0)}.
+         *            client; pass {@code 0} to {@link #maxRetries(int)} to disable.
          * @return Builder object
          */
         public Builder httpClient(HttpClient val) {
