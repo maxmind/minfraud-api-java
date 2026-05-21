@@ -36,7 +36,7 @@ dependencies {
 ## API Documentation ##
 
 API documentation is viewable on our [GitHub
-Page](https://maxmind.github.io/minfraud-api-java/) under the API tab.
+Page](https://maxmind.github.io/minfraud-api-java/) and follow the "API documentation" link.
 
 ## Usage ##
 
