@@ -427,7 +427,7 @@ String json = response.toJson();  // Pretty-printed JSON output
 
 The project depends on:
 - **Jackson** (core, databind, annotations, datatype-jsr310): JSON handling
-- **GeoIP2 Java API**: Sibling library providing GeoIP2 models used in responses
+- **GeoIP Java API**: Sibling library providing GeoIP models used in responses
 - **JUnit 5** (Jupiter): Testing framework
 - **WireMock**: HTTP mocking for tests
 - **jsonassert**: JSON comparison in tests

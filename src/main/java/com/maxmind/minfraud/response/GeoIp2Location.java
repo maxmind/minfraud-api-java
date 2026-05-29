@@ -6,7 +6,7 @@ import com.maxmind.minfraud.JsonSerializable;
 import java.time.ZonedDateTime;
 
 /**
- * This class contains minFraud response data related to the GeoIP2 Insights location.
+ * This class contains minFraud response data related to the GeoIP Insights location.
  *
  * @param accuracyRadius    The approximate accuracy radius in kilometers around the latitude and
  *                          longitude for the geographical entity (country, subdivision, city or
