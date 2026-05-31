@@ -102,8 +102,8 @@ public class WebServiceClientTest {
         var response = client.insights(request);
 
         // We use non-strict checking as there is some extra stuff in the serialized
-        // object, most notably the "name" field in the GeoIP2 InsightsResponse subobjects.
-        // We cannot change this as it would be a breaking change to the GeoIP2 API.
+        // object, most notably the "name" field in the GeoIP InsightsResponse subobjects.
+        // We cannot change this as it would be a breaking change to the GeoIP API.
         JSONAssert.assertEquals(responseContent, response.toJson(), false);
         verifyRequestFor(wireMock, "insights", "full-request");
         assertTrue(
@@ -153,8 +153,8 @@ public class WebServiceClientTest {
         var response = client.factors(request);
 
         // We use non-strict checking as there is some extra stuff in the serialized
-        // object, most notably the "name" field in the GeoIP2 InsightsResponse subobjects.
-        // We cannot change this as it would be a breaking change to the GeoIP2 API.
+        // object, most notably the "name" field in the GeoIP InsightsResponse subobjects.
+        // We cannot change this as it would be a breaking change to the GeoIP API.
         JSONAssert.assertEquals(responseContent, response.toJson(), false);
         verifyRequestFor(wireMock, "factors", "full-request");
         assertTrue(
