@@ -35,8 +35,8 @@ import com.maxmind.minfraud.JsonSerializable;
  * @param inputPointer This is a JSON Pointer to the input that the warning is associated with. For
  *                     instance, if the warning was about the billing city, the value would be
  *                     "/billing/city". See
- *                     <a href="https://tools.ietf.org/html/rfc6901">RFC 6901</a> for the JSON
- *                     Pointer spec.
+ *                     <a href="https://datatracker.ietf.org/doc/html/rfc6901">RFC 6901</a> for the
+ *                     JSON Pointer spec.
  */
 public record Warning(
     @JsonProperty("code")
@@ -99,7 +99,8 @@ public record Warning(
      * @return This is a JSON Pointer to the input that the warning is associated with. For
      *     instance, if the warning was about the billing city, the value would be "/billing/city".
      *     See
-     *     <a href="https://tools.ietf.org/html/rfc6901">RFC 6901</a> for the JSON Pointer spec.
+     *     <a href="https://datatracker.ietf.org/doc/html/rfc6901">RFC 6901</a> for the JSON Pointer
+     *     spec.
      * @deprecated Use {@link #inputPointer()} instead. This method will be removed in 5.0.0.
      */
     @Deprecated(since = "4.0.0", forRemoval = true)

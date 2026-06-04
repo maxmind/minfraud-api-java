@@ -7,17 +7,17 @@
     <version>4.3.0</version>
     <name>MaxMind minFraud API</name>
     <description>MaxMind minFraud Score, Insights, Factors and Report Transaction API</description>
-    <url>http://dev.maxmind.com/minfraud</url>
+    <url>https://dev.maxmind.com/minfraud/</url>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.html</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
     <organization>
         <name>MaxMind, Inc.</name>
-        <url>http://www.maxmind.com/</url>
+        <url>https://www.maxmind.com/en/home</url>
     </organization>
     <scm>
         <url>https://github.com/maxmind/minfraud-api-java</url>

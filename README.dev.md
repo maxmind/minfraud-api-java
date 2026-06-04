@@ -19,9 +19,9 @@
 
 To get this access, first create a Central Portal account. You will then need
 access to our namespace, but we have not added anyone since switching to
-Central Portal. Previously you would need to make an account on the [Sonatype
-JIRA issue tracker](https://issues.sonatype.org/) and make an issue asking for
-access [like so](https://issues.sonatype.org/browse/OSSRH-34414).
+Central Portal. Previously you would need to make an account on the Sonatype
+JIRA issue tracker and make an issue asking for access. That tracker has since
+been [retired](https://central.sonatype.org/faq/what-happened-to-issues-sonatype-org/).
 
 Ensure you inform MaxMind operations about your new access.
 
@@ -52,7 +52,7 @@ and enter `trust` and choose ultimate.
 Make sure the key shows up in `gpg --list-secret-keys`.
 
 Make sure you publish it to a keyserver. See
-[here](http://central.sonatype.org/pages/working-with-pgp-signatures.html)
+[here](https://central.sonatype.org/publish/requirements/gpg/)
 for more info about that and the process in general.
 
 ### gpg "inappropriate ioctl" errors

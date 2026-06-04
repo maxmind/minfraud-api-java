@@ -21,7 +21,7 @@ import java.util.UUID;
  *                   date-time.
  * @param localTime  The date and time of the transaction at the UTC offset associated with the
  *                   device. This is an RFC 3339 date-time.
- * @see <a href="https://dev.maxmind.com/minfraud/track-devices?lang=en">Device Tracking Add-on</a>
+ * @see <a href="https://dev.maxmind.com/minfraud/track-devices/?lang=en">Device Tracking Add-on</a>
  */
 public record Device(
     @JsonProperty("confidence")
