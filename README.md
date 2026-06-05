@@ -327,7 +327,7 @@ Please report all issues with this code using the
 
 If you are having an issue with the minFraud service that is not specific
 to the client API, please see
-[our support page](https://www.maxmind.com/en/support).
+[our support page](https://support.maxmind.com/knowledge-base).
 
 ## Requirements ##
 
