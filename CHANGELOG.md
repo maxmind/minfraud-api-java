@@ -1,6 +1,16 @@
 CHANGELOG
 =========
 
+4.4.0 (unreleased)
+------------------
+
+* Added `residential` field to the `Anonymizer` response record via an
+  updated `geoip2` dependency. This is an `AnonymizerFeed` record containing
+  `confidence`, `networkLastSeen`, and `providerName` fields with residential
+  proxy data for the network. `residential` may be populated even when none
+  of the other fields on `Anonymizer` are set. This requires `geoip2` 5.2.0
+  or greater.
+
 4.3.0 (2026-05-12)
 ------------------
 
