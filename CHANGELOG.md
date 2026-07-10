@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+4.4.0 (unreleased)
+------------------
+
+* Added `residential` field to the `Anonymizer` response record. This is
+  an `AnonymizerFeed` record containing `confidence`, `networkLastSeen`,
+  and `providerName` fields with residential proxy data for the network.
+  `residential` may be populated even when none of the other fields on
+  `Anonymizer` are set.
+
 4.3.0 (2026-05-12)
 ------------------
 
