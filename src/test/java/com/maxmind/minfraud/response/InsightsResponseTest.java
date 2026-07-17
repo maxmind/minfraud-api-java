@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.jr.ob.JSON;
+import com.maxmind.geoip2.record.AnonymizerFeed;
 import java.time.LocalDate;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
@@ -39,6 +40,11 @@ public class InsightsResponseTest extends AbstractOutputTest {
                 .put("is_tor_exit_node", true)
                 .put("network_last_seen", "2025-01-15")
                 .put("provider_name", "TestVPN")
+                .startObjectField("residential")
+                .put("confidence", 82)
+                .put("network_last_seen", "2026-05-11")
+                .put("provider_name", "quickshift")
+                .end()
                 .end()
                 .startObjectField("country")
                 .put("iso_code", "US")
@@ -152,5 +158,24 @@ public class InsightsResponseTest extends AbstractOutputTest {
             "correct networkLastSeen"
         );
         assertEquals("TestVPN", insights.ipAddress().anonymizer().providerName(), "correct providerName");
+
+        AnonymizerFeed residential = insights.ipAddress().anonymizer().residential();
+
+        assertNotNull(residential, "anonymizer.residential() returns null");
+        assertEquals(
+            Integer.valueOf(82),
+            residential.confidence(),
+            "correct anonymizer.residential().confidence()"
+        );
+        assertEquals(
+            LocalDate.parse("2026-05-11"),
+            residential.networkLastSeen(),
+            "correct anonymizer.residential().networkLastSeen()"
+        );
+        assertEquals(
+            "quickshift",
+            residential.providerName(),
+            "correct anonymizer.residential().providerName()"
+        );
     }
 }
