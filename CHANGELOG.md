@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-4.4.0 (unreleased)
+4.4.0 (2026-07-21)
 ------------------
 
 * Added `residential` field to the `Anonymizer` response record. This is
