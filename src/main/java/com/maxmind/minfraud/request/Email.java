@@ -141,6 +141,7 @@ public final class Email extends AbstractModel {
                 put("fastemailer.com", true);
                 put("fastest.cc", true);
                 put("fastimap.com", true);
+                put("fastmail.ca", true);
                 put("fastmail.cn", true);
                 put("fastmail.co.uk", true);
                 put("fastmail.com", true);
@@ -235,6 +236,7 @@ public final class Email extends AbstractModel {
         fastmailDomains = Collections.unmodifiableMap(fastmailDomainsMap);
 
         HashMap<String, Boolean> yahooDomainsMap = new HashMap<>() {{
+                put("myyahoo.com", true);
                 put("y7mail.com", true);
                 put("yahoo.at", true);
                 put("yahoo.be", true);

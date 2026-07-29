@@ -191,6 +191,10 @@ public class EmailTest {
         assertEquals(toMD5("user@fastmail.com"), e.address(), "MD5");
         assertEquals("user.fastmail.com", e.domain(), "domain");
 
+        e = new Builder(false).address("alias@user.fastmail.ca").hashAddress().build();
+        assertEquals(toMD5("user@fastmail.ca"), e.address(), "MD5");
+        assertEquals("user.fastmail.ca", e.domain(), "domain");
+
         e = new Builder(false).address("foo@bar.example.com").hashAddress().build();
         assertEquals(toMD5("foo@bar.example.com"), e.address(), "MD5");
         assertEquals("bar.example.com", e.domain(), "domain");
@@ -198,6 +202,10 @@ public class EmailTest {
         e = new Builder(false).address("foo-bar@ymail.com").hashAddress().build();
         assertEquals(toMD5("foo@ymail.com"), e.address(), "MD5");
         assertEquals("ymail.com", e.domain(), "domain");
+
+        e = new Builder(false).address("test-alias@myyahoo.com").hashAddress().build();
+        assertEquals(toMD5("test@myyahoo.com"), e.address(), "MD5");
+        assertEquals("myyahoo.com", e.domain(), "domain");
 
         e = new Builder(false).address("foo@example.com.com").hashAddress().build();
         assertEquals(toMD5("foo@example.com"), e.address(), "MD5");
