@@ -9,8 +9,8 @@ import java.util.List;
  *
  * @param multiplier The factor by which the risk score is increased (if the value is greater than
  *                   1) or decreased (if the value is less than 1) for given risk reason(s).
- *                   Multipliers greater than 1.5 and less than 0.66 are considered significant and
- *                   lead to risk reason(s) being present.
+ *                   Multipliers representing a significant percentage increase or decrease in the
+ *                   risk score lead to risk reason(s) being present.
  * @param reasons    An unmodifiable list containing objects that describe one of the reasons for
  *                   the multiplier. This will be an empty list if there are no reasons.
  */
@@ -30,10 +30,10 @@ public record RiskScoreReason(
     }
 
     /**
-     * @return The factor by which the risk score is increased (if the value is greater than 1)
-     *     or decreased (if the value is less than 1) for given risk reason(s).
-     *     Multipliers greater than 1.5 and less than 0.66 are considered significant
-     *     and lead to risk reason(s) being present.
+     * @return The factor by which the risk score is increased (if the value is greater than 1) or
+     *     decreased (if the value is less than 1) for given risk reason(s). Multipliers
+     *     representing a significant percentage increase or decrease in the risk score lead to risk
+     *     reason(s) being present.
      * @deprecated Use {@link #multiplier()} instead. This method will be removed in 5.0.0.
      */
     @Deprecated(since = "4.0.0", forRemoval = true)
