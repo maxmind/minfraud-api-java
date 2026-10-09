@@ -10,6 +10,10 @@ CHANGELOG
   `Billing.PhoneVerificationMethod` enum has the values `DELIVERED_CODE`,
   `NETWORK`, and `OTHER`. Do not set `phoneWasVerificationSuccessful` if no
   verification was attempted.
+* Added `wasVerificationSuccessful` and `verificationTime` to the `Email`
+  request object. These describe the most recent verification of the email
+  address. Do not set `wasVerificationSuccessful` if no verification was
+  attempted.
 
 4.4.0 (2026-07-21)
 ------------------

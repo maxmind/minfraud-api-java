@@ -34,6 +34,8 @@ public class RequestTestHelper {
         return makeTransaction(new Email.Builder()
             .address("test@maxmind.com")
             .domain("maxmind.com")
+            .wasVerificationSuccessful(true)
+            .verificationTime(ZonedDateTime.parse("2026-10-01T14:30:00Z"))
             .build());
     }
 
@@ -42,6 +44,8 @@ public class RequestTestHelper {
             .address("test@maxmind.com")
             .hashAddress()
             .domain("maxmind.com")
+            .wasVerificationSuccessful(true)
+            .verificationTime(ZonedDateTime.parse("2026-10-01T14:30:00Z"))
             .build());
     }
 
