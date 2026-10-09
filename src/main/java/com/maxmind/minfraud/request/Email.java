@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.Normalizer;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -21,6 +22,8 @@ public final class Email extends AbstractModel {
     private final String address;
     private final boolean hashAddress;
     private final String domain;
+    private final Boolean wasVerificationSuccessful;
+    private final ZonedDateTime verificationTime;
     private static final Map<String, String> typoDomains;
     private static final Map<String, String> typoTlds;
     private static final Map<String, String> equivalentDomains;
@@ -298,6 +301,8 @@ public final class Email extends AbstractModel {
         address = builder.address;
         hashAddress = builder.hashAddress;
         domain = builder.domain;
+        wasVerificationSuccessful = builder.wasVerificationSuccessful;
+        verificationTime = builder.verificationTime;
     }
 
     /**
@@ -308,6 +313,8 @@ public final class Email extends AbstractModel {
         private String address;
         private boolean hashAddress;
         private String domain;
+        private Boolean wasVerificationSuccessful;
+        private ZonedDateTime verificationTime;
 
         /**
          * The constructor for the builder.
@@ -380,6 +387,25 @@ public final class Email extends AbstractModel {
                 throw new IllegalArgumentException("The email domain " + domain + " is not valid.");
             }
             this.domain = domain;
+            return this;
+        }
+
+        /**
+         * @param wasSuccessful Whether the most recent verification of the email address
+         *                      succeeded. Do not set this if no verification was attempted.
+         * @return The builder object.
+         */
+        public Email.Builder wasVerificationSuccessful(Boolean wasSuccessful) {
+            wasVerificationSuccessful = wasSuccessful;
+            return this;
+        }
+
+        /**
+         * @param time The date and time of the most recent verification of the email address.
+         * @return The builder object.
+         */
+        public Email.Builder verificationTime(ZonedDateTime time) {
+            verificationTime = time;
             return this;
         }
 
@@ -570,5 +596,21 @@ public final class Email extends AbstractModel {
     @JsonProperty("domain")
     public String domain() {
         return domain;
+    }
+
+    /**
+     * @return Whether the most recent verification of the email address succeeded.
+     */
+    @JsonProperty("was_verification_successful")
+    public Boolean wasVerificationSuccessful() {
+        return wasVerificationSuccessful;
+    }
+
+    /**
+     * @return The date and time of the most recent verification of the email address.
+     */
+    @JsonProperty("verification_time")
+    public ZonedDateTime verificationTime() {
+        return verificationTime;
     }
 }

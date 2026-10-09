@@ -1,6 +1,7 @@
 package com.maxmind.minfraud.request;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -10,13 +11,40 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 public class EmailTest {
+
+    @Test
+    public void testWasVerificationSuccessful() {
+        var email = new Builder().wasVerificationSuccessful(false).build();
+        assertFalse(email.wasVerificationSuccessful());
+    }
+
+    @Test
+    public void testVerificationTime() {
+        var time = ZonedDateTime.now();
+        var email = new Builder().verificationTime(time).build();
+        assertEquals(time, email.verificationTime());
+    }
+
+    @Test
+    public void testVerificationSerialization() throws Exception {
+        var email = new Builder()
+            .wasVerificationSuccessful(false)
+            .verificationTime(ZonedDateTime.parse("2026-10-01T14:30:00Z"))
+            .build();
+
+        var expectedJSON = "{was_verification_successful:false,"
+            + "verification_time:'2026-10-01T14:30:00Z'}";
+        JSONAssert.assertEquals(expectedJSON, email.toJson(), true);
+    }
 
     @Test
     public void testAddress() {
