@@ -2,6 +2,7 @@ package com.maxmind.minfraud;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.maxmind.minfraud.request.AbstractLocation;
 import com.maxmind.minfraud.request.Email;
 import com.maxmind.minfraud.request.Event;
 import com.maxmind.minfraud.request.Payment;
@@ -43,6 +44,7 @@ public class LocaleTest {
     @Test
     public void testEnumToString() {
         var values = List.<Enum<?>[]>of(
+            AbstractLocation.PhoneVerificationMethod.values(),
             Shipping.DeliverySpeed.values(),
             Payment.Processor.values(),
             Payment.Method.values(),
