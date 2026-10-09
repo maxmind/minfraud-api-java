@@ -1,6 +1,16 @@
 CHANGELOG
 =========
 
+4.5.0
+------------------
+
+* Added `phoneVerificationMethod`, `phoneWasVerificationSuccessful`, and
+  `phoneVerificationTime` to the `Billing` request object. These describe
+  the most recent verification of the billing phone number. The
+  `Billing.PhoneVerificationMethod` enum has the values `DELIVERED_CODE`,
+  `NETWORK`, and `OTHER`. Do not set `phoneWasVerificationSuccessful` if no
+  verification was attempted.
+
 4.4.0 (2026-07-21)
 ------------------
 
