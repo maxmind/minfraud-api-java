@@ -86,6 +86,9 @@ public class RequestTestHelper {
                     .postal("06510")
                     .phoneNumber("123-456-7890")
                     .phoneCountryCode("1")
+                    .phoneVerificationMethod(Billing.PhoneVerificationMethod.DELIVERED_CODE)
+                    .phoneWasVerificationSuccessful(true)
+                    .phoneVerificationTime(ZonedDateTime.parse("2026-10-01T14:30:00Z"))
                     .build()
             ).shipping(
                 new Shipping.Builder()
