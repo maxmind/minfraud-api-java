@@ -170,14 +170,14 @@ public enum Status {
 
     @Override
     public String toString() {
-        return name().toLowerCase();
+        return name().toLowerCase(Locale.ROOT);
     }
 }
 ```
 
 **How it works:**
 - Enum constants use `UPPER_SNAKE_CASE` (e.g., `DNS_ERROR`, `ISP_EMAIL`)
-- Override `toString()` to return `name().toLowerCase()` for JSON serialization
+- Override `toString()` to return `name().toLowerCase(Locale.ROOT)` for JSON serialization
 - The `Mapper` class configures Jackson with:
   - `READ_ENUMS_USING_TO_STRING` - Deserializes using `toString()`
   - `READ_UNKNOWN_ENUM_VALUES_AS_NULL` - Unknown values become `null` instead of throwing exceptions

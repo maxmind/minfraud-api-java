@@ -6,6 +6,7 @@ import com.maxmind.minfraud.AbstractModel;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * This class contains general information related to the event being scored.
@@ -207,7 +208,7 @@ public final class Event extends AbstractModel {
          * @return a string representation of the object.
          */
         public String toString() {
-            return this.name().toLowerCase();
+            return this.name().toLowerCase(Locale.ROOT);
         }
     }
 
@@ -228,7 +229,7 @@ public final class Event extends AbstractModel {
          * @return a string representation of the object.
          */
         public String toString() {
-            return this.name().toLowerCase();
+            return this.name().toLowerCase(Locale.ROOT);
         }
     }
 }

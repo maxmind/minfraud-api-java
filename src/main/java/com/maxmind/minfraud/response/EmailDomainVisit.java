@@ -3,6 +3,7 @@ package com.maxmind.minfraud.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.JsonSerializable;
 import java.time.LocalDate;
+import java.util.Locale;
 
 /**
  * This class contains information about an automated visit to the email domain.
@@ -63,7 +64,7 @@ public record EmailDomainVisit(
          */
         @Override
         public String toString() {
-            return name().toLowerCase();
+            return name().toLowerCase(Locale.ROOT);
         }
     }
 

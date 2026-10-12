@@ -11,6 +11,7 @@ import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -416,7 +417,7 @@ public final class Email extends AbstractModel {
     }
 
     private String cleanAddress(String address) {
-        address = address.trim().toLowerCase();
+        address = address.trim().toLowerCase(Locale.ROOT);
 
         int domainIndex = address.lastIndexOf('@');
         if (domainIndex == -1 || domainIndex + 1 == address.length()) {
