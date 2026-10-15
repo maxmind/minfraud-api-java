@@ -1,6 +1,7 @@
 package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Locale;
 
 /**
  * The shipping information for the transaction.
@@ -71,7 +72,7 @@ public final class Shipping extends AbstractLocation {
          * @return a string representation of the object.
          */
         public String toString() {
-            return this.name().toLowerCase();
+            return this.name().toLowerCase(Locale.ROOT);
         }
     }
 }

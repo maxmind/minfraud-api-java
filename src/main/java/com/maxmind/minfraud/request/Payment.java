@@ -2,6 +2,7 @@ package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
+import java.util.Locale;
 
 /**
  * The payment information for the transaction.
@@ -283,7 +284,7 @@ public final class Payment extends AbstractModel {
          * @return a string representation of the object.
          */
         public String toString() {
-            return this.name().toLowerCase();
+            return this.name().toLowerCase(Locale.ROOT);
         }
     }
 
@@ -336,7 +337,7 @@ public final class Payment extends AbstractModel {
          * @return a string representation of the object.
          */
         public String toString() {
-            return this.name().toLowerCase();
+            return this.name().toLowerCase(Locale.ROOT);
         }
     }
 }
