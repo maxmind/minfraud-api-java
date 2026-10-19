@@ -11,11 +11,13 @@ CHANGELOG
   `DELIVERED_CODE`, `NETWORK`, and `OTHER`. Do not set
   `phoneVerificationMethod` or `phoneWasVerificationSuccessful` if no
   verification was attempted.
-* Fixed enum serialization and email address hashing in locales that
-  change case conversion, such as Turkish (`tr`) and Azerbaijani (`az`).
-  In those locales, some enum values serialized with a dotless `ı`, for
-  example `account_creatıon`, and the web service rejected them. The library
-  now uses `Locale.ROOT` for these case conversions.
+* Fixed enum serialization, enum deserialization, and email address
+  hashing in locales that change case conversion, such as Turkish (`tr`) and
+  Azerbaijani (`az`). In those locales, some enum values serialized with a
+  dotless `ı`, for example `account_creatıon`, and the web service rejected
+  them. Also, some `EmailDomain.Classification` and `EmailDomainVisit.Status`
+  response values, for example `business` and `live`, deserialized as
+  `null`. The library now uses `Locale.ROOT` for these case conversions.
 
 4.4.0 (2026-07-21)
 ------------------
