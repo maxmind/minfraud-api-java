@@ -175,7 +175,7 @@ public abstract sealed class AbstractLocation extends AbstractModel
 
         /**
          * @param method The most recent method used to verify the phone number associated with
-         *               the address
+         *               the address. Do not set this if no verification was attempted.
          * @return The builder object.
          */
         public final T phoneVerificationMethod(PhoneVerificationMethod method) {
@@ -197,7 +197,8 @@ public abstract sealed class AbstractLocation extends AbstractModel
         /**
          * @param time The date and time of the most recent verification of the phone number
          *             associated with the address. The time must not be before
-         *             1970-01-01T00:00:00Z or more than two days in the future.
+         *             1970-01-01T00:00:00Z or more than two days in the future. The web
+         *             service ignores a time outside this range and returns a warning.
          * @return The builder object.
          */
         public final T phoneVerificationTime(ZonedDateTime time) {

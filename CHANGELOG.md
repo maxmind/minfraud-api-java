@@ -9,7 +9,8 @@ CHANGELOG
   These describe the most recent verification of the phone number for the
   address. The `PhoneVerificationMethod` enum has the values
   `DELIVERED_CODE`, `NETWORK`, and `OTHER`. Do not set
-  `phoneWasVerificationSuccessful` if no verification was attempted.
+  `phoneVerificationMethod` or `phoneWasVerificationSuccessful` if no
+  verification was attempted.
 * Fixed enum serialization and email address hashing in locales that
   change case conversion, such as Turkish (`tr`) and Azerbaijani (`az`).
   In those locales, some enum values serialized with a dotless `ı`, for
