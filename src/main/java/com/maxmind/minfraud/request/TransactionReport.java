@@ -3,6 +3,7 @@ package com.maxmind.minfraud.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
 import java.net.InetAddress;
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -231,7 +232,7 @@ public final class TransactionReport extends AbstractModel {
          * @return a string representation of the object.
          */
         public String toString() {
-            return this.name().toLowerCase();
+            return this.name().toLowerCase(Locale.ROOT);
         }
     }
 

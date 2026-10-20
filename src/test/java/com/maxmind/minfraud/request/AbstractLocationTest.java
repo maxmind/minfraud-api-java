@@ -1,10 +1,15 @@
 package com.maxmind.minfraud.request;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.maxmind.minfraud.request.AbstractLocation.Builder;
+import com.maxmind.minfraud.request.AbstractLocation.PhoneVerificationMethod;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 public abstract class AbstractLocationTest {
     abstract Builder<?> builder();
@@ -99,5 +104,57 @@ public abstract class AbstractLocationTest {
     public void testPhoneCountryCode() {
         AbstractLocation loc = this.builder().phoneCountryCode("1").build();
         assertEquals("1", loc.phoneCountryCode());
+    }
+
+    @Test
+    public void testPhoneVerificationMethod() {
+        for (var method : PhoneVerificationMethod.values()) {
+            AbstractLocation loc = this.builder().phoneVerificationMethod(method).build();
+            assertEquals(method, loc.phoneVerificationMethod());
+        }
+    }
+
+    @Test
+    public void testPhoneWasVerificationSuccessful() {
+        AbstractLocation loc = this.builder().phoneWasVerificationSuccessful(false).build();
+        assertFalse(loc.phoneWasVerificationSuccessful());
+    }
+
+    @Test
+    public void testPhoneVerificationTime() {
+        var time = ZonedDateTime.now();
+        AbstractLocation loc = this.builder().phoneVerificationTime(time).build();
+        assertEquals(time, loc.phoneVerificationTime());
+    }
+
+    @Test
+    public void testPhoneVerificationSerialization() throws Exception {
+        AbstractLocation loc = this.builder()
+            .phoneVerificationMethod(PhoneVerificationMethod.NETWORK)
+            .phoneWasVerificationSuccessful(false)
+            .phoneVerificationTime(ZonedDateTime.parse("2026-10-01T14:30:00Z"))
+            .build();
+
+        var expectedJSON = "{phone_verification_method:'network',"
+            + "phone_was_verification_successful:false,"
+            + "phone_verification_time:'2026-10-01T14:30:00Z'}";
+        JSONAssert.assertEquals(expectedJSON, loc.toJson(), true);
+    }
+
+    @Test
+    public void testPhoneVerificationTimeSerializationWithRegionZone() throws Exception {
+        AbstractLocation loc = this.builder()
+            .phoneVerificationTime(
+                ZonedDateTime.of(2026, 10, 1, 10, 30, 0, 0, ZoneId.of("America/New_York")))
+            .build();
+
+        JSONAssert.assertEquals(
+            "{phone_verification_time:'2026-10-01T10:30:00-04:00'}", loc.toJson(), true);
+    }
+
+    @Test
+    public void testPhoneVerificationOmittedWhenUnset() throws Exception {
+        AbstractLocation loc = this.builder().build();
+        JSONAssert.assertEquals("{}", loc.toJson(), true);
     }
 }

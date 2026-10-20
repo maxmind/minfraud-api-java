@@ -2,6 +2,8 @@ package com.maxmind.minfraud.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.maxmind.minfraud.AbstractModel;
+import java.time.ZonedDateTime;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**
@@ -20,6 +22,9 @@ public abstract sealed class AbstractLocation extends AbstractModel
     private final String postal;
     private final String phoneNumber;
     private final String phoneCountryCode;
+    private final PhoneVerificationMethod phoneVerificationMethod;
+    private final Boolean phoneWasVerificationSuccessful;
+    private final ZonedDateTime phoneVerificationTime;
 
     protected AbstractLocation(AbstractLocation.Builder builder) {
         firstName = builder.firstName;
@@ -33,6 +38,9 @@ public abstract sealed class AbstractLocation extends AbstractModel
         postal = builder.postal;
         phoneNumber = builder.phoneNumber;
         phoneCountryCode = builder.phoneCountryCode;
+        phoneVerificationMethod = builder.phoneVerificationMethod;
+        phoneWasVerificationSuccessful = builder.phoneWasVerificationSuccessful;
+        phoneVerificationTime = builder.phoneVerificationTime;
     }
 
     /**
@@ -56,6 +64,9 @@ public abstract sealed class AbstractLocation extends AbstractModel
         String postal;
         String phoneNumber;
         String phoneCountryCode;
+        PhoneVerificationMethod phoneVerificationMethod;
+        Boolean phoneWasVerificationSuccessful;
+        ZonedDateTime phoneVerificationTime;
 
         /**
          * @param name The first name associated with the address
@@ -162,6 +173,39 @@ public abstract sealed class AbstractLocation extends AbstractModel
             return (T) this;
         }
 
+        /**
+         * @param method The most recent method used to verify the phone number associated with
+         *               the address. Do not set this if no verification was attempted.
+         * @return The builder object.
+         */
+        public final T phoneVerificationMethod(PhoneVerificationMethod method) {
+            phoneVerificationMethod = method;
+            return (T) this;
+        }
+
+        /**
+         * @param wasSuccessful Whether the most recent verification of the phone number
+         *                      associated with the address succeeded. Do not set this if no
+         *                      verification was attempted.
+         * @return The builder object.
+         */
+        public final T phoneWasVerificationSuccessful(Boolean wasSuccessful) {
+            phoneWasVerificationSuccessful = wasSuccessful;
+            return (T) this;
+        }
+
+        /**
+         * @param time The date and time of the most recent verification of the phone number
+         *             associated with the address. The time must not be before
+         *             1970-01-01T00:00:00Z or more than two days in the future. The web
+         *             service ignores a time outside this range and returns a warning.
+         * @return The builder object.
+         */
+        public final T phoneVerificationTime(ZonedDateTime time) {
+            phoneVerificationTime = time;
+            return (T) this;
+        }
+
         abstract AbstractLocation build();
     }
 
@@ -256,5 +300,57 @@ public abstract sealed class AbstractLocation extends AbstractModel
     @JsonProperty("phone_country_code")
     public final String phoneCountryCode() {
         return phoneCountryCode;
+    }
+
+    /**
+     * @return The most recent method used to verify the phone number associated with the address
+     */
+    @JsonProperty("phone_verification_method")
+    public final PhoneVerificationMethod phoneVerificationMethod() {
+        return phoneVerificationMethod;
+    }
+
+    /**
+     * @return Whether the most recent verification of the phone number associated with the
+     *     address succeeded
+     */
+    @JsonProperty("phone_was_verification_successful")
+    public final Boolean phoneWasVerificationSuccessful() {
+        return phoneWasVerificationSuccessful;
+    }
+
+    /**
+     * @return The date and time of the most recent verification of the phone number associated
+     *     with the address
+     */
+    @JsonProperty("phone_verification_time")
+    public final ZonedDateTime phoneVerificationTime() {
+        return phoneVerificationTime;
+    }
+
+    /**
+     * Enumerated phone verification methods.
+     */
+    public enum PhoneVerificationMethod {
+        /**
+         * A code delivered to the phone, such as by SMS, voice call, or messaging app
+         */
+        DELIVERED_CODE,
+        /**
+         * Verification through the mobile network operator, such as silent network
+         * authentication
+         */
+        NETWORK,
+        /**
+         * Another verification method
+         */
+        OTHER;
+
+        /**
+         * @return a string representation of the object.
+         */
+        public String toString() {
+            return this.name().toLowerCase(Locale.ROOT);
+        }
     }
 }
