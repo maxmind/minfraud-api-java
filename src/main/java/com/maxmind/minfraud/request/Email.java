@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.Normalizer;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -22,6 +23,8 @@ public final class Email extends AbstractModel {
     private final String address;
     private final boolean hashAddress;
     private final String domain;
+    private final ZonedDateTime verificationTime;
+    private final Boolean wasVerificationSuccessful;
     private static final Map<String, String> typoDomains;
     private static final Map<String, String> typoTlds;
     private static final Map<String, String> equivalentDomains;
@@ -299,6 +302,8 @@ public final class Email extends AbstractModel {
         address = builder.address;
         hashAddress = builder.hashAddress;
         domain = builder.domain;
+        verificationTime = builder.verificationTime;
+        wasVerificationSuccessful = builder.wasVerificationSuccessful;
     }
 
     /**
@@ -309,6 +314,8 @@ public final class Email extends AbstractModel {
         private String address;
         private boolean hashAddress;
         private String domain;
+        private ZonedDateTime verificationTime;
+        private Boolean wasVerificationSuccessful;
 
         /**
          * The constructor for the builder.
@@ -381,6 +388,30 @@ public final class Email extends AbstractModel {
                 throw new IllegalArgumentException("The email domain " + domain + " is not valid.");
             }
             this.domain = domain;
+            return this;
+        }
+
+        /**
+         * @param time The date and time of the most recent attempt to verify the email address,
+         *             if known. The time must not be before 1970-01-01T00:00:00Z or more than
+         *             two days in the future. The web service ignores a time outside this range
+         *             and returns a warning.
+         * @return The builder object.
+         */
+        public Email.Builder verificationTime(ZonedDateTime time) {
+            verificationTime = time;
+            return this;
+        }
+
+        /**
+         * @param wasSuccessful Whether the most recent verification that the end user controls
+         *                      the email address succeeded, for example by confirming a link
+         *                      sent to the address. Do not set this if no verification was
+         *                      attempted.
+         * @return The builder object.
+         */
+        public Email.Builder wasVerificationSuccessful(Boolean wasSuccessful) {
+            wasVerificationSuccessful = wasSuccessful;
             return this;
         }
 
@@ -571,5 +602,22 @@ public final class Email extends AbstractModel {
     @JsonProperty("domain")
     public String domain() {
         return domain;
+    }
+
+    /**
+     * @return The date and time of the most recent attempt to verify the email address.
+     */
+    @JsonProperty("verification_time")
+    public ZonedDateTime verificationTime() {
+        return verificationTime;
+    }
+
+    /**
+     * @return Whether the most recent verification that the end user controls the email
+     *     address succeeded.
+     */
+    @JsonProperty("was_verification_successful")
+    public Boolean wasVerificationSuccessful() {
+        return wasVerificationSuccessful;
     }
 }

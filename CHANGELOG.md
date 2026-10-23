@@ -11,6 +11,10 @@ CHANGELOG
   `DELIVERED_CODE`, `NETWORK`, and `OTHER`. Do not set
   `phoneVerificationMethod` or `phoneWasVerificationSuccessful` if no
   verification was attempted.
+* Added `verificationTime` and `wasVerificationSuccessful` to the `Email`
+  request object. These describe the most recent verification of the email
+  address. Do not set `wasVerificationSuccessful` if no verification was
+  attempted.
 * Fixed enum serialization, enum deserialization, and email address
   hashing in locales that change case conversion, such as Turkish (`tr`) and
   Azerbaijani (`az`). In those locales, some enum values serialized with a

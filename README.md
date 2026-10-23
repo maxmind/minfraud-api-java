@@ -224,6 +224,8 @@ Transaction request = new Transaction.Builder(
         new Email.Builder()
             .address("fraud@ster.com")
             .domain("ster.com")
+            .verificationTime(ZonedDateTime.parse("2026-10-01T14:30:00Z"))
+            .wasVerificationSuccessful(true)
             .build()
     ).event(
         new Event.Builder()
