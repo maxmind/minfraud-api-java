@@ -1,6 +1,7 @@
 package com.maxmind.minfraud.request;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -10,11 +11,14 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 public class EmailTest {
 
@@ -317,5 +321,47 @@ public class EmailTest {
             IllegalArgumentException.class,
             () -> new Builder().domain(invalidDomain).build()
         );
+    }
+
+    @Test
+    public void testVerificationTime() {
+        var time = ZonedDateTime.now();
+        var email = new Builder().verificationTime(time).build();
+        assertEquals(time, email.verificationTime());
+    }
+
+    @Test
+    public void testWasVerificationSuccessful() {
+        var email = new Builder().wasVerificationSuccessful(false).build();
+        assertFalse(email.wasVerificationSuccessful());
+    }
+
+    @Test
+    public void testVerificationSerialization() throws Exception {
+        var email = new Builder()
+            .verificationTime(ZonedDateTime.parse("2026-10-01T14:30:00Z"))
+            .wasVerificationSuccessful(false)
+            .build();
+
+        var expectedJSON = "{verification_time:'2026-10-01T14:30:00Z',"
+            + "was_verification_successful:false}";
+        JSONAssert.assertEquals(expectedJSON, email.toJson(), true);
+    }
+
+    @Test
+    public void testVerificationTimeSerializationWithRegionZone() throws Exception {
+        var email = new Builder()
+            .verificationTime(
+                ZonedDateTime.of(2026, 10, 1, 10, 30, 0, 0, ZoneId.of("America/New_York")))
+            .build();
+
+        JSONAssert.assertEquals(
+            "{verification_time:'2026-10-01T10:30:00-04:00'}", email.toJson(), true);
+    }
+
+    @Test
+    public void testVerificationOmittedWhenUnset() throws Exception {
+        var email = new Builder().build();
+        JSONAssert.assertEquals("{}", email.toJson(), true);
     }
 }

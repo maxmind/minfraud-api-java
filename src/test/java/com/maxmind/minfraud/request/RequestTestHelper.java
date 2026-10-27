@@ -34,6 +34,8 @@ public class RequestTestHelper {
         return makeTransaction(new Email.Builder()
             .address("test@maxmind.com")
             .domain("maxmind.com")
+            .verificationTime(ZonedDateTime.parse("2026-10-01T14:30:00Z"))
+            .wasVerificationSuccessful(true)
             .build());
     }
 
@@ -42,6 +44,8 @@ public class RequestTestHelper {
             .address("test@maxmind.com")
             .hashAddress()
             .domain("maxmind.com")
+            .verificationTime(ZonedDateTime.parse("2026-10-01T14:30:00Z"))
+            .wasVerificationSuccessful(true)
             .build());
     }
 
@@ -62,7 +66,7 @@ public class RequestTestHelper {
                     .party(Event.Party.CUSTOMER)
                     .transactionId("txn3134133")
                     .shopId("s2123")
-                    .time(ZonedDateTime.parse("2012-04-12T23:20:50.52Z"))
+                    .time(ZonedDateTime.parse("2026-10-05T23:20:50.52Z"))
                     .type(Event.Type.PURCHASE)
                     .build()
             )
