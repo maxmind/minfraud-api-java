@@ -22,6 +22,7 @@ CHANGELOG
   them. Also, some `EmailDomain.Classification` and `EmailDomainVisit.Status`
   response values, for example `business` and `live`, deserialized as
   `null`. The library now uses `Locale.ROOT` for these case conversions.
+* Added `RYFT` to the `Payment.Processor` enum.
 
 4.4.0 (2026-07-21)
 ------------------
