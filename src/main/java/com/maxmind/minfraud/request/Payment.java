@@ -246,6 +246,7 @@ public final class Payment extends AbstractModel {
         REDE,
         REDPAGOS,
         REWARDSPAY,
+        RYFT,
         SAFECHARGE,
         SAGEPAY,
         SECUREPAY,
