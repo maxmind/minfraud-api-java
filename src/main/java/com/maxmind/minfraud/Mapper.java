@@ -40,8 +40,8 @@ class Mapper {
 
     /**
      * Writes a {@code ZonedDateTime} with {@code ISO_OFFSET_DATE_TIME}. RFC 3339 offsets have no
-     * seconds, so an offset with seconds is truncated to whole minutes. The instant does not
-     * change.
+     * seconds, so an offset with seconds is rounded to the nearest minute, as in the last
+     * example in RFC 3339 section 5.8. The instant does not change.
      */
     private static final class WholeMinuteOffsetSerializer
         extends StdSerializer<ZonedDateTime> {
@@ -54,7 +54,8 @@ class Mapper {
             throws IOException {
             int offsetSeconds = value.getOffset().getTotalSeconds();
             if (offsetSeconds % 60 != 0) {
-                var offset = ZoneOffset.ofTotalSeconds(offsetSeconds / 60 * 60);
+                var minutes = (int) Math.round(offsetSeconds / 60.0);
+                var offset = ZoneOffset.ofTotalSeconds(minutes * 60);
                 value = value.withZoneSameInstant(offset);
             }
             gen.writeString(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(value));

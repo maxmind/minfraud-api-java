@@ -24,7 +24,7 @@ CHANGELOG
   `null`. The library now uses `Locale.ROOT` for these case conversions.
 * Added `RYFT` to the `Payment.Processor` enum.
 * A `ZonedDateTime` request value whose UTC offset has non-zero seconds is
-  now sent with the offset truncated to whole minutes. The instant does not
+  now sent with the offset rounded to the nearest minute. The instant does not
   change. Previously, the web service ignored these values and returned a
   warning. This affects `Event.time`, `phoneVerificationTime` on `Billing`
   and `Shipping`, and `Email.verificationTime`.

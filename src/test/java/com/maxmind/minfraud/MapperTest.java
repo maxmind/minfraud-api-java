@@ -14,7 +14,8 @@ public class MapperTest {
 
     static Stream<Arguments> zonedDateTimes() {
         return Stream.of(
-            // Offsets with seconds are truncated to whole minutes.
+            // Offsets with seconds are rounded to the nearest minute. Math.round rounds
+            // -44.5 minutes to -44.
             Arguments.of(
                 ZonedDateTime.of(1971, 6, 1, 10, 0, 0, 0, ZoneId.of("Africa/Monrovia")),
                 "1971-06-01T10:00:30-00:44"),
@@ -27,8 +28,16 @@ public class MapperTest {
                     ZoneOffset.ofHoursMinutesSeconds(-5, -30, -15)),
                 "2026-10-01T10:00:15-05:30"),
             Arguments.of(
-                ZonedDateTime.of(2026, 1, 1, 0, 0, 0, 0, ZoneOffset.ofTotalSeconds(-59)),
-                "2026-01-01T00:00:59Z"),
+                ZonedDateTime.of(2026, 10, 1, 10, 0, 0, 0,
+                    ZoneOffset.ofHoursMinutesSeconds(5, 30, 45)),
+                "2026-10-01T10:00:15+05:31"),
+            Arguments.of(
+                ZonedDateTime.of(2026, 10, 1, 10, 0, 0, 0,
+                    ZoneOffset.ofHoursMinutesSeconds(-5, -30, -45)),
+                "2026-10-01T09:59:45-05:31"),
+            Arguments.of(
+                ZonedDateTime.of(2026, 1, 1, 0, 0, 0, 0, ZoneOffset.ofTotalSeconds(-29)),
+                "2026-01-01T00:00:29Z"),
             // Other values are unchanged.
             Arguments.of(
                 ZonedDateTime.of(2026, 10, 1, 10, 30, 0, 0, ZoneId.of("America/New_York")),
