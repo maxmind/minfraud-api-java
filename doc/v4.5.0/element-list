@@ -1,0 +1,5 @@
+module:com.maxmind.minfraud
+com.maxmind.minfraud
+com.maxmind.minfraud.exception
+com.maxmind.minfraud.request
+com.maxmind.minfraud.response
