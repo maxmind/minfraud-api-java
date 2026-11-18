@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-4.5.0
+4.5.0 (2026-11-18)
 ------------------
 
 * Added `phoneVerificationMethod`, `phoneWasVerificationSuccessful`, and
@@ -28,6 +28,13 @@ CHANGELOG
   change. Previously, the web service ignored these values and returned a
   warning. This affects `Event.time`, `phoneVerificationTime` on `Billing`
   and `Shipping`, and `Email.verificationTime`.
+* Updated the `geoip2` dependency to 5.3.0. It updates the `maxmind-db`
+  dependency to 4.2.0, which limits the work and memory of each database
+  decode (GHSA-hj94-g986-h9r7). If you use the `geoip2` dependency from this
+  library to read a custom database, see the
+  [GeoIP2-java 5.3.0 release notes](https://github.com/maxmind/GeoIP2-java/releases/tag/v5.3.0).
+* Updated Jackson to 2.23.0. Jackson 2.22.1, which 4.4.0 uses, has known
+  security advisories.
 
 4.4.0 (2026-07-21)
 ------------------
