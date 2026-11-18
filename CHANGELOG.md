@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-4.5.0
+4.5.0 (2026-11-18)
 ------------------
 
 * Added `phoneVerificationMethod`, `phoneWasVerificationSuccessful`, and
