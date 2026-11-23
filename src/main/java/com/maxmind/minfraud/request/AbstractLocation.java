@@ -174,8 +174,10 @@ public abstract sealed class AbstractLocation extends AbstractModel
         }
 
         /**
-         * @param method The most recent method used to verify the phone number associated with
-         *               the address. Do not set this if no verification was attempted.
+         * @param method The method used for the most recent verification of the phone number
+         *               associated with the address. Set this if you tried to verify the phone
+         *               number, even if the user did not complete the verification. Do not
+         *               set this if you did not try to verify the phone number.
          * @return The builder object.
          */
         public final T phoneVerificationMethod(PhoneVerificationMethod method) {
@@ -184,9 +186,13 @@ public abstract sealed class AbstractLocation extends AbstractModel
         }
 
         /**
-         * @param wasSuccessful Whether the most recent verification of the phone number
-         *                      associated with the address succeeded. Do not set this if no
-         *                      verification was attempted.
+         * @param wasSuccessful Whether the end user has verified that they control the phone
+         *                      number associated with the address, as of the time of the event.
+         *                      Set this to {@code true} if the user completed a verification.
+         *                      Set it to {@code false} if the phone number is not verified.
+         *                      This includes a verification that is pending, abandoned,
+         *                      expired, or failed, and a phone number that you did not try to
+         *                      verify. Leaving this unset is not equivalent to {@code false}.
          * @return The builder object.
          */
         public final T phoneWasVerificationSuccessful(Boolean wasSuccessful) {
@@ -195,10 +201,12 @@ public abstract sealed class AbstractLocation extends AbstractModel
         }
 
         /**
-         * @param time The date and time of the most recent verification of the phone number
-         *             associated with the address. The time must not be before
-         *             1970-01-01T00:00:00Z or more than two days in the future. The web
-         *             service ignores a time outside this range and returns a warning.
+         * @param time The date and time that the end user completed the most recent
+         *             verification of the phone number associated with the address, if
+         *             known. Set this only if {@code phoneWasVerificationSuccessful} is
+         *             {@code true}. The time must not be before 1970-01-01T00:00:00Z or
+         *             more than two days in the future. The web service ignores a time
+         *             outside this range and returns a warning.
          * @return The builder object.
          */
         public final T phoneVerificationTime(ZonedDateTime time) {
@@ -303,7 +311,8 @@ public abstract sealed class AbstractLocation extends AbstractModel
     }
 
     /**
-     * @return The most recent method used to verify the phone number associated with the address
+     * @return The method used for the most recent verification of the phone number associated
+     *     with the address
      */
     @JsonProperty("phone_verification_method")
     public final PhoneVerificationMethod phoneVerificationMethod() {
@@ -311,8 +320,8 @@ public abstract sealed class AbstractLocation extends AbstractModel
     }
 
     /**
-     * @return Whether the most recent verification of the phone number associated with the
-     *     address succeeded
+     * @return Whether the end user has verified that they control the phone number associated
+     *     with the address, as of the time of the event
      */
     @JsonProperty("phone_was_verification_successful")
     public final Boolean phoneWasVerificationSuccessful() {
@@ -320,8 +329,8 @@ public abstract sealed class AbstractLocation extends AbstractModel
     }
 
     /**
-     * @return The date and time of the most recent verification of the phone number associated
-     *     with the address
+     * @return The date and time that the end user completed the most recent verification of
+     *     the phone number associated with the address
      */
     @JsonProperty("phone_verification_time")
     public final ZonedDateTime phoneVerificationTime() {
