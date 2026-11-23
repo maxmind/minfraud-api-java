@@ -260,7 +260,6 @@ Transaction request = new Transaction.Builder(
             .phoneNumber("313-545-3113")
             .phoneCountryCode("1")
             .phoneVerificationMethod(Shipping.PhoneVerificationMethod.NETWORK)
-            .phoneVerificationTime(ZonedDateTime.parse("2026-10-02T09:15:00Z"))
             .phoneWasVerificationSuccessful(false)
             .deliverySpeed(Shipping.DeliverySpeed.EXPEDITED)
             .address("32 Washington Ave.")
