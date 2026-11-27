@@ -392,10 +392,11 @@ public final class Email extends AbstractModel {
         }
 
         /**
-         * @param time The date and time of the most recent attempt to verify the email address,
-         *             if known. The time must not be before 1970-01-01T00:00:00Z or more than
-         *             two days in the future. The web service ignores a time outside this range
-         *             and returns a warning.
+         * @param time The date and time that the end user completed the most recent
+         *             verification of the email address, if known. Set this only if
+         *             {@code wasVerificationSuccessful} is {@code true}. The time must not be
+         *             before 1970-01-01T00:00:00Z or more than two days in the future. The web
+         *             service ignores a time outside this range and returns a warning.
          * @return The builder object.
          */
         public Email.Builder verificationTime(ZonedDateTime time) {
@@ -404,10 +405,14 @@ public final class Email extends AbstractModel {
         }
 
         /**
-         * @param wasSuccessful Whether the most recent verification that the end user controls
-         *                      the email address succeeded, for example by confirming a link
-         *                      sent to the address. Do not set this if no verification was
-         *                      attempted.
+         * @param wasSuccessful Whether the end user has verified that they control the email
+         *                      address, as of the time of the event. Set this to {@code true}
+         *                      if the user completed a verification, for example by confirming
+         *                      a link sent to the address. Set it to {@code false} if the
+         *                      address is not verified. This includes a verification that is
+         *                      pending, abandoned, expired, or failed, and an address that you
+         *                      did not try to verify. Leaving this unset is not equivalent to
+         *                      {@code false}.
          * @return The builder object.
          */
         public Email.Builder wasVerificationSuccessful(Boolean wasSuccessful) {
@@ -605,7 +610,8 @@ public final class Email extends AbstractModel {
     }
 
     /**
-     * @return The date and time of the most recent attempt to verify the email address.
+     * @return The date and time that the end user completed the most recent verification of
+     *     the email address.
      */
     @JsonProperty("verification_time")
     public ZonedDateTime verificationTime() {
@@ -613,8 +619,8 @@ public final class Email extends AbstractModel {
     }
 
     /**
-     * @return Whether the most recent verification that the end user controls the email
-     *     address succeeded.
+     * @return Whether the end user has verified that they control the email address, as of
+     *     the time of the event.
      */
     @JsonProperty("was_verification_successful")
     public Boolean wasVerificationSuccessful() {
